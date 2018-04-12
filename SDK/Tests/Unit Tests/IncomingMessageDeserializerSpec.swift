@@ -16,19 +16,6 @@ class IncomingMessageDeserializerSpec: QuickSpec {
     override func spec() {
         describe("IncomingMessageDeserializer") {
             describe(".deserialize(_:)") {
-                context("with a non-String argument") {
-                    it("creates an IncomingMessage with a debugError") {
-                        let message = ["foo": "bar"]
-                        let result = IncomingMessageDeserializer().deserialize(message)
-                        expect(result.debugError).to(contain("expected string"))
-                        expect(result.requestId).to(beNil())
-                        expect(result.bodyString).to(beNil())
-                        expect(result.body).to(beNil())
-                        expect(result.type).to(beNil())
-                        expect(result.fullMessage as? [String: String]).to(equal(message))
-                    }
-                }
-                
                 context("with a string argument of an unknown format") {
                     it("creates an IncomingMessage with a nil type") {
                         let message = "Strange Format"
@@ -128,7 +115,7 @@ class IncomingMessageDeserializerSpec: QuickSpec {
                 context("with a response message with 2 valid events out of 5") {
                     it("creates a ParsedEvents object with 2 events") {
                         let message = TestUtil.stringForFile(named: "event-list")
-                        let incomingMessage = IncomingMessageDeserializer().deserialize(message)
+                        let incomingMessage = IncomingMessageDeserializer().deserialize(message!)
                         let result = incomingMessage.parseEvents()
                         expect(result.errorMessage).to(beNil())
                         expect(result.events?.count).to(equal(2))

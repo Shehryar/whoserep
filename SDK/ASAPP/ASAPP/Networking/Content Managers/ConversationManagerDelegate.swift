@@ -10,13 +10,15 @@ import UIKit
 
 protocol ConversationManagerDelegate: class {
     
-    func conversationManager(_ manager: ConversationManager, didReceive message: ChatMessage)
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceive message: ChatMessage)
     
-    func conversationManager(_ manager: ConversationManager, didUpdate message: ChatMessage)
+    func conversationManager(_ manager: ConversationManagerProtocol, didUpdate message: ChatMessage)
     
-    func conversationManager(_ manager: ConversationManager, didChangeLiveChatStatus isLiveChat: Bool, with event: Event)
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event)
     
-    func conversationManager(_ manager: ConversationManager, didChangeTypingStatus isTyping: Bool)
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool)
     
-    func conversationManager(_ manager: ConversationManager, didChangeConnectionStatus isConnected: Bool)
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool)
+    
+    func conversationManager(_ manager: ConversationManagerProtocol, didReturnAfterInactivityWith: Event)
 }

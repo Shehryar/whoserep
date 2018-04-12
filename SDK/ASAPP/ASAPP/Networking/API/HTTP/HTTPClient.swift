@@ -14,59 +14,147 @@ protocol URLSessionProtocol {
 
 extension URLSession: URLSessionProtocol {}
 
-class HTTPClient: NSObject {
+protocol HTTPClientProtocol: class {
+    var session: Session? { get set }
     
-    typealias CompletionHandler = ([String: Any]?, URLResponse?, Error?) -> Void
+    func config(_ config: ASAPPConfig)
+    // swiftlint:disable:next function_parameter_count
+    func sendRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any]?, data: Data?, completion: @escaping HTTPClient.DataCompletionHandler)
+    func sendRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any]?, completion: @escaping HTTPClient.DictCompletionHandler)
+}
+
+extension HTTPClientProtocol {
+    func sendRequest(
+        method: HTTPMethod = .POST,
+        path: String,
+        headers: [String: String]? = nil,
+        params: [String: Any]? = nil,
+        data: Data? = nil,
+        completion: @escaping HTTPClient.DataCompletionHandler) {
+        return sendRequest(method: method, path: path, headers: headers, params: params, data: data, completion: completion)
+    }
+    
+    func sendRequest(
+        method: HTTPMethod = .GET,
+        path: String,
+        headers: [String: String]? = nil,
+        params: [String: Any]? = nil,
+        completion: @escaping HTTPClient.DictCompletionHandler) {
+        return sendRequest(method: method, path: path, headers: headers, params: params, completion: completion)
+    }
+}
+
+class HTTPClient: NSObject, HTTPClientProtocol {
+    typealias DictCompletionHandler = ([String: Any]?, URLResponse?, Error?) -> Void
+    typealias DataCompletionHandler = (Data?, URLResponse?, Error?) -> Void
     
     static let shared = HTTPClient()
     
-    var defaultHeaders: [String: String]?
+    var defaultHeaders: [String: String] = [:]
+    
+    var session: Session?
     
     private let urlSession: URLSessionProtocol
+    
+    private var baseUrl = URL(string: "")
     
     required init(urlSession: URLSessionProtocol = URLSession.shared) {
         self.urlSession = urlSession
     }
     
-    static let defaultParams: [String: Any] = [
+    static let defaultParams: [String: String] = [
         ASAPP.clientTypeKey: ASAPP.clientType,
         ASAPP.clientVersionKey: ASAPP.clientVersion
     ]
     
+    func config(_ config: ASAPPConfig) {
+        baseUrl = URL(string: "https://\(config.apiHostName)/api/http/v1/")
+        defaultHeaders[ASAPP.clientTypeKey] = ASAPP.clientType
+        defaultHeaders[ASAPP.clientVersionKey] = ASAPP.clientVersion
+        defaultHeaders[ASAPP.clientSecretKey] = config.clientSecret
+    }
+    
+    func getHeaders(for session: Session) -> [String: String]? {
+        let passwordPayloadString = session.sessionTokenForHTTP
+        
+        let authPayloadString = ":\(passwordPayloadString)"
+        guard let authPayloadData = authPayloadString.data(using: .utf8) else {
+            DebugLog.e(caller: self, "Could not serialize the authentication payload.")
+            return nil
+        }
+        
+        let headers = [
+            "Content-Type": "application/json",
+            "Authorization": "Basic \(authPayloadData.base64EncodedString())"
+        ]
+        
+        return headers
+    }
+    
+    func getContext(for session: Session?) -> [String: Any] {
+        return ["CompanyId": session?.company.id ?? 0]
+    }
+    
     // MARK: Sending Requests
     
-    func sendRequest(method: HTTPMethod = .GET,
-                     url: URL,
-                     headers: [String: String]? = nil,
-                     params: [String: Any]? = nil,
-                     completion: @escaping CompletionHandler) {
+    private func createRequest(method: HTTPMethod, url: URL, headers: [String: String]?, params: [String: Any]?, context: [String: Any]? = nil, data: Data? = nil) -> URLRequest? {
         var urlParams = HTTPClient.defaultParams
         if method == .GET {
-            urlParams.add(params)
+            if let stringyParams = params as? [String: String] {
+                urlParams.add(stringyParams)
+            } else {
+                DebugLog.w(caller: self, "GET params must be String values: \(String(describing: params))")
+            }
         }
         
         guard let requestURL = makeRequestURL(url: url, params: urlParams) else {
             DebugLog.w(caller: self, "Failed to construct requestURL.")
-            return
+            return nil
         }
         
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.rawValue
         
         request.injectHeaders(defaultHeaders)
+        if let session = session {
+            request.injectHeaders(getHeaders(for: session))
+        }
         request.injectHeaders(headers)
         
-        if method != .GET, let params = params {
-            request.httpBody = JSONUtil.getDataFrom(params)
+        if method != .GET,
+           let params = params {
+            var dict = [
+                "params": params,
+                "ctxParams": context ?? getContext(for: session)
+            ] as [String: Any]
+            if let data = data {
+                dict["binaryBase64"] = data.base64EncodedString()
+            }
+            request.httpBody = JSONUtil.getDataFrom(dict)
         }
-       
+        
         if ASAPP.debugLogLevel.rawValue >= ASAPPLogLevel.debug.rawValue {
             let headersString = JSONUtil.stringify(request.allHTTPHeaderFields) ?? ""
             let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? ""
-            DebugLog.d(caller: HTTPClient.self,
-                       "Sending HTTP Request \(method): \(requestURL)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
+            DebugLog.d(caller: HTTPClient.self, "Sending HTTP Request \(method): \(requestURL)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
         }
         
+        return request
+    }
+    
+    private func createRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any]?, data: Data? = nil) -> URLRequest? {
+        
+        guard let url = baseUrl?.appendingPathComponent(path) else {
+                DebugLog.w(caller: self, "Failed to construct requestURL.")
+            return nil
+        }
+        
+        let request = createRequest(method: method, url: url, headers: headers, params: params, data: data)
+        
+        return request
+    }
+    
+    private func resumeDataTask(with request: URLRequest, completion: @escaping DictCompletionHandler) {
         urlSession.dataTask(with: request) { (data, response, error) in
             var jsonMap: [String: Any]?
             let jsonObject = JSONUtil.getObjectFrom(data)
@@ -75,11 +163,33 @@ class HTTPClient: NSObject {
                 jsonMap = jsonObject
             }
             
-            if jsonMap == nil {
-                DebugLog.w(caller: HTTPClient.self, "Response data has unexpected type: \(jsonObject ?? "nil")")
-            }
-            
             completion(jsonMap, response, error)
+        }.resume()
+    }
+    
+    func sendRequest(method: HTTPMethod = .POST, url: URL, headers: [String: String]? = nil, params: [String: Any]? = nil, completion: @escaping DictCompletionHandler) {
+        guard let request = createRequest(method: method, url: url, headers: headers, params: params) else {
+            return
+        }
+        
+        resumeDataTask(with: request, completion: completion)
+    }
+    
+    func sendRequest(method: HTTPMethod = .POST, path: String, headers: [String: String]? = nil, params: [String: Any]? = nil, completion: @escaping DictCompletionHandler) {
+        guard let request = createRequest(method: method, path: path, headers: headers, params: params) else {
+            return
+        }
+        
+        resumeDataTask(with: request, completion: completion)
+    }
+    
+    func sendRequest(method: HTTPMethod = .POST, path: String, headers: [String: String]? = nil, params: [String: Any]? = nil, data: Data? = nil, completion: @escaping DataCompletionHandler) {
+        guard let request = createRequest(method: method, path: path, headers: headers, params: params, data: data) else {
+            return
+        }
+        
+        urlSession.dataTask(with: request) { (data, response, error) in
+            completion(data, response, error)
         }.resume()
     }
 }
@@ -88,17 +198,12 @@ class HTTPClient: NSObject {
 
 extension HTTPClient {
     
-    private func makeRequestURL(url: URL, params: [String: Any]?) -> URL? {
+    private func makeRequestURL(url: URL, params: [String: String]?) -> URL? {
         var urlComponents = URLComponents(string: url.absoluteString)
         if let params = params {
             var queryItems = urlComponents?.queryItems ?? [URLQueryItem]()
             for (name, value) in params {
-                guard let valueString = value as? String else {
-                    DebugLog.w(caller: self, "Unable to set parameter (\(name) : \(value)). All values on a GET request must be of type String.")
-                    continue
-                }
-                
-                let queryItem = URLQueryItem(name: name, value: valueString)
+                let queryItem = URLQueryItem(name: name, value: value)
                 queryItems.append(queryItem)
             }
             urlComponents?.queryItems = queryItems
@@ -108,7 +213,7 @@ extension HTTPClient {
     }
 }
 
-// MARK: - HEADERS
+// MARK: - Headers
 
 extension URLRequest {
     

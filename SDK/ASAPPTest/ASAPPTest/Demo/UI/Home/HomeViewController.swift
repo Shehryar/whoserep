@@ -10,7 +10,6 @@ import UIKit
 import ASAPP
 
 class HomeViewController: BaseViewController {
-    
     // MARK: Private Properties
     
     fileprivate var callbackHandler: ASAPPAppCallbackHandler!
@@ -20,6 +19,8 @@ class HomeViewController: BaseViewController {
     fileprivate let homeTableView = HomeTableView()
     
     fileprivate var chatButton: ASAPPButton?
+    
+    fileprivate var chatBadge = ChatBadge(frame: .zero)
     
     // MARK: - Initialization
 
@@ -191,6 +192,7 @@ extension HomeViewController {
 
     func refreshChatButton() {
         chatButton?.removeFromSuperview()
+        chatBadge.removeFromSuperview()
 
         ASAPP.styles = AppSettings.shared.branding.styles
         ASAPP.strings = AppSettings.shared.branding.strings
@@ -203,17 +205,33 @@ extension HomeViewController {
             chatButton.frame = CGRect(x: 0, y: 0, width: 72, height: 34)
             let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 72, height: 34))
             buttonContainerView.addSubview(chatButton)
+            let badgeSize: CGFloat = 18
+            let chatBadge = ChatBadge(frame: CGRect(x: buttonContainerView.bounds.width - badgeSize * 0.75, y: -4, width: badgeSize, height: badgeSize))
+            self.chatBadge = chatBadge
+            buttonContainerView.addSubview(chatBadge)
+            refreshChatBadge()
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
         }
         
         demoLog("Chat Button Updated")
+    }
+    
+    func refreshChatBadge() {
+        ASAPP.getChatStatus { [weak self] (unread, isLive) in
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.chatBadge.update(unread: unread, isLiveChat: isLive)
+                let badgeSize = strongSelf.chatBadge.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: strongSelf.chatBadge.bounds.height))
+                let x = (strongSelf.chatBadge.superview?.bounds.width ?? 0) - badgeSize.width / 2
+                strongSelf.chatBadge.frame = CGRect(x: x, y: strongSelf.chatBadge.frame.minY, width: badgeSize.width, height: strongSelf.chatBadge.frame.height)
+            }
+        }
     }
 }
 
 // MARK: - HomeTableViewDelegate
 
 extension HomeViewController: HomeTableViewDelegate {
-    
     func homeTableViewDidTapUserName(_ homeTableView: HomeTableView) {
         let viewController = AccountViewController()
         navigationController?.pushViewController(viewController, animated: true)
@@ -302,16 +320,8 @@ extension HomeViewController: HomeTableViewDelegate {
         showChat()
     }
     
-    func homeTableViewDidTapSwitchAccount(homeTableView: HomeTableView) {
-        showAccountsPage()
-    }
-    
     func homeTableViewDidUpdateDemoSettings(homeTableView: HomeTableView) {
         refreshChatButton()
-    }
-    
-    func homeTableViewDidTapEnvironmentSettings(homeTableView: HomeTableView) {
-        showEnvironmentSettings()
     }
     
     func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView) {
@@ -379,37 +389,9 @@ extension HomeViewController {
 // MARK: - Navigation to View Controllers
 
 extension HomeViewController {
-    
-    func showSpeechToTextViewController() {
-        
-        if #available(iOS 10.0, *) {
-            let vc = SpeechToTextViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            let alert = UIAlertController(title: "Only Available on iOS 10",
-                                          message: "You must update your operating system to use this feature.",
-                                          preferredStyle: .alert)
-            present(alert, animated: true, completion: nil)
-        }
-        
-    }
-    
     func showBillDetails() {
         let billDetailsVC = BillDetailsViewController()
         navigationController?.pushViewController(billDetailsVC, animated: true)
-    }
-    
-    func showAccountsPage() {
-//        let accountsVC = AccountsViewController(appSettings: appSettings)
-//        accountsVC.currentAccount = currentAccount
-//        accountsVC.delegate = self
-//        navigationController?.pushViewController(accountsVC, animated: true)
-    }
-    
-    func showEnvironmentSettings() {
-//        let environmentVC = DemoEnvironmentViewController(appSettings: appSettings)
-//        environmentVC.delegate = self
-//        navigationController?.pushViewController(environmentVC, animated: true)
     }
     
     func showUseCasePreview() {

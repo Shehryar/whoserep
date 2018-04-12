@@ -109,13 +109,13 @@ public class ASAPPButton: UIView {
         let currentAlpha = contentView.alpha
         let currentTransform = contentView.transform
         
-        contentView.alpha = 0.0
-        contentView.transform = CGAffineTransform.identity
+        contentView.alpha = 0
+        contentView.transform = .identity
         contentView.frame = bounds
         updateCornerRadius()
         
         let labelInset = floor(0.15 * bounds.height)
-        label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: labelInset, bottom: labelInset, right: labelInset))
+        label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: 0, bottom: labelInset, right: 0))
         
         contentView.alpha = currentAlpha
         contentView.transform = currentTransform
@@ -218,7 +218,8 @@ extension ASAPPButton {
 
 extension ASAPPButton {
     func didTap() {
-        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, appCallbackHandler: appCallbackHandler)
+        let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
+        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, conversationManager: conversationManager, appCallbackHandler: appCallbackHandler)
         
         switch ASAPP.styles.segue {
         case .present:

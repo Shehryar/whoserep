@@ -13,7 +13,7 @@ class GlowingBallsLoadingView: UIView {
     override var tintColor: UIColor! {
         didSet {
             for ballView in ballViews {
-                ballView.backgroundColor = tintColor ?? UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1)
+                ballView.backgroundColor = tintColor ?? defaultTintColor
             }
         }
     }
@@ -30,23 +30,25 @@ class GlowingBallsLoadingView: UIView {
     
     private let ballViews = [UIView(), UIView(), UIView()]
     
-    private let ballSize: CGFloat = 8
+    private let ballSize: CGFloat = 6
     
-    private let ballMargin: CGFloat = 6
+    private let ballMargin: CGFloat = 4
     
     // MARK: Animation Settings
     
-    private let alphaDefault: CGFloat = 0.5
+    private let alphaDefault: CGFloat = 0.3
     
     private let alphaAnimating: CGFloat = 1.0
     
-    private let transformAnimating = CGAffineTransform(scaleX: 1.1, y: 1.1)
+    private let transformAnimating = CGAffineTransform(translationX: 0, y: -6)
     
     private let animationDelayIncrement: TimeInterval = 0.2
     
-    private let animationDurationGrow: TimeInterval = 0.2
+    private let animationDurationIn: TimeInterval = 0.2
 
-    private let animationDurationShrink: TimeInterval = 0.2
+    private let animationDurationOut: TimeInterval = 0.2
+    
+    private let defaultTintColor = UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1)
     
     // MARK: Init
     
@@ -54,7 +56,7 @@ class GlowingBallsLoadingView: UIView {
         for ballView in ballViews {
             ballView.frame = CGRect(x: 0, y: 0, width: ballSize, height: ballSize)
             ballView.layer.cornerRadius = ballSize / 2.0
-            ballView.backgroundColor = tintColor ?? UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1)
+            ballView.backgroundColor = tintColor ?? defaultTintColor
             addSubview(ballView)
         }
     }
@@ -137,7 +139,7 @@ class GlowingBallsLoadingView: UIView {
             return
         }
         
-        UIView.animate(withDuration: animationDurationGrow, delay: delay, options: .curveLinear, animations: { [weak self] in
+        UIView.animate(withDuration: animationDurationIn, delay: delay, options: .curveLinear, animations: { [weak self] in
             guard let strongSelf = self else {
                 return
             }
@@ -150,7 +152,7 @@ class GlowingBallsLoadingView: UIView {
                 return
             }
             
-            UIView.animate(withDuration: strongSelf.animationDurationShrink, delay: 0, options: .curveLinear, animations: { [weak self] in
+            UIView.animate(withDuration: strongSelf.animationDurationOut, delay: 0, options: .curveLinear, animations: { [weak self] in
                 guard let strongSelf = self,
                     strongSelf.isAnimating && referenceTime == strongSelf.animationStartTime else {
                         return

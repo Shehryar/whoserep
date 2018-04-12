@@ -29,49 +29,63 @@ class TableViewSpec: QuickSpec {
             context("on its own") {
                 var style: ComponentStyle!
                 var content: [String: Any]!
+                let oneSection: [String: Any] = [
+                    "sections": [
+                        [
+                            "header": [
+                                "type": "label",
+                                "content": [
+                                    "text": "Section 1"
+                                ]
+                            ],
+                            "rows": [
+                                [
+                                    "type": "label",
+                                    "content": [
+                                        "text": "Label A"
+                                    ]
+                                ],
+                                [
+                                    "type": "label",
+                                    "content": [
+                                        "text": "Label B"
+                                    ]
+                                ],
+                                [
+                                    "type": "label",
+                                    "content": [
+                                        "text": "Label C"
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
                 
                 beforeEach {
                     style = TestUtil.createStyle()
                 }
                 
                 context("with one section") {
-                    it("has a valid snapshot") {
-                        content = [
-                            "sections": [
-                                [
-                                    "header": [
-                                        "type": "label",
-                                        "content": [
-                                            "text": "Label A"
-                                        ]
-                                    ],
-                                    "rows": [
-                                        [
-                                            "type": "label",
-                                            "content": [
-                                                "text": "Label B"
-                                            ]
-                                        ],
-                                        [
-                                            "type": "label",
-                                            "content": [
-                                                "text": "Label C"
-                                            ]
-                                        ],
-                                        [
-                                            "type": "label",
-                                            "content": [
-                                                "text": "Label D"
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                        let tableViewItem = TableViewItem(style: style, content: content)
-                        let tableView = TableView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
-                        tableView.component = tableViewItem
-                        expect(tableView).to(haveValidSnapshot())
+                    context("with default styles") {
+                        it("has a valid snapshot") {
+                            content = oneSection
+                            let tableViewItem = TableViewItem(style: style, content: content)
+                            let tableView = TableView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+                            tableView.component = tableViewItem
+                            expect(tableView).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("with separatorStyle = none") {
+                        it("has a valid snapshot") {
+                            content = oneSection
+                            content["separatorStyle"] = "none"
+                            let tableViewItem = TableViewItem(style: style, content: content)
+                            let tableView = TableView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+                            tableView.component = tableViewItem
+                            expect(tableView).to(haveValidSnapshot())
+                        }
                     }
                 }
                 

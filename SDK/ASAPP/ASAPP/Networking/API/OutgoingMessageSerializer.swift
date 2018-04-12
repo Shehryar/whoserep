@@ -12,10 +12,9 @@ protocol OutgoingMessageSerializerProtocol {
     var session: Session? { get set }
     var userLoginAction: UserLoginAction? { get set }
     var issueId: Int { get set }
-    func createRequest(withPath: String, params: [String: Any]?, context: [String: Any]?) -> SocketRequest
-    func createRequestWithData(_: Data) -> SocketRequest
-    func createRequestString(withRequest: SocketRequest) -> String
-    func createAuthRequest() -> OutgoingMessageSerializer.AuthRequest
+    func createRequest(withPath path: String, params: [String: Any]?, context: [String: Any]?) -> SocketRequest
+    func createRequestString(withRequest request: SocketRequest) -> String
+    func createAuthRequest(completion: @escaping (_ authRequest: OutgoingMessageSerializer.AuthRequest) -> Void)
 }
 
 class OutgoingMessageSerializer: OutgoingMessageSerializerProtocol {
@@ -24,46 +23,38 @@ class OutgoingMessageSerializer: OutgoingMessageSerializerProtocol {
     
     var issueId: Int = 0
     var userLoginAction: UserLoginAction?
-    var session: Session? {
-        didSet {
-            if oldValue != session {
-                pushNotificationsManager.session = session
-            }
-        }
-    }
+    var session: Session?
     
     // MARK: Private Properties
     
     private let config: ASAPPConfig
     private let user: ASAPPUser
     private var currentRequestId = 1
-    private var pushNotificationsManager: PushNotificationsManagerProtocol
 
     // MARK: Init 
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil, pushNotificationsManager: PushNotificationsManagerProtocol = PushNotificationsManager.shared) {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil) {
         self.config = config
         self.user = user
         self.userLoginAction = userLoginAction
-        self.pushNotificationsManager = pushNotificationsManager
+    }
+    
+    private func getNextRequestId() -> Int {
+        currentRequestId += 1
+        return currentRequestId
     }
 }
 
 // MARK: - Public Instance Methods
 
 extension OutgoingMessageSerializer {
-    
     func createRequest(withPath path: String, params: [String: Any]?, context: [String: Any]?) -> SocketRequest {
         return SocketRequest(requestId: getNextRequestId(), path: path, params: params, context: context, requestData: nil)
     }
     
-    func createRequestWithData(_ data: Data) -> SocketRequest {
-        return SocketRequest(requestId: getNextRequestId(), path: "", params: nil, context: nil, requestData: data)
-    }
-    
     func createRequestString(withRequest request: SocketRequest) -> String {
         let paramsJSONString = JSONUtil.stringify(request.params)
-        let contextJSONString = JSONUtil.stringify(request.context ?? contextForRequest(withPath: request.path))
+        let contextJSONString = JSONUtil.stringify(request.context ?? HTTPClient.shared.getContext(for: session))
 
         return "\(request.path)|\(request.requestId)|\(contextJSONString ?? "")|\(paramsJSONString ?? "")"
     }
@@ -74,14 +65,13 @@ extension OutgoingMessageSerializer {
         let isSessionAuthRequest: Bool
     }
     
-    func createAuthRequest() -> AuthRequest {
+    func createAuthRequest(completion: @escaping (_ authRequest: AuthRequest) -> Void) {
         var path: String
         var params: [String: Any] = [
             "App": "ios-sdk",
             "CompanyMarker": config.appId,
             "RegionCode": config.regionCode
         ]
-        var isSessionAuthRequest = false
         
         var sessionInfoJson: [String: Any]?
         if let session = session {
@@ -96,7 +86,8 @@ extension OutgoingMessageSerializer {
             
             path = "auth/AuthenticateWithSession"
             params["SessionInfo"] = sessionInfoJson
-            isSessionAuthRequest = true
+            
+            completion(AuthRequest(path: path, params: params, isSessionAuthRequest: true))
         }
         
         //
@@ -113,9 +104,17 @@ extension OutgoingMessageSerializer {
                 params["IdentifierType"] = config.identifierType
                 params["CustomerIdentifier"] = user.userIdentifier
                 
-                if let userLoginAction = userLoginAction {
-                    params["MergeCustomerId"] = userLoginAction.mergeCustomerId
-                    params["MergeCustomerGUID"] = userLoginAction.mergeCustomerGUID
+                if let customer = userLoginAction?.customer {
+                    params["MergeCustomerId"] = customer.id
+                    params["MergeCustomerGUID"] = customer.guid
+                }
+                
+                user.getContext { (_, authToken) in
+                    if let authToken = authToken {
+                        params["Auth"] = authToken
+                    }
+                    
+                    completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
                 }
             }
             
@@ -126,27 +125,9 @@ extension OutgoingMessageSerializer {
                 DebugLog.d(caller: self, "Authenticating with Anonymous User")
                 
                 path = "auth/CreateAnonCustomerAccount"
+                
+                completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
             }
         }
-        
-        return AuthRequest(path: path, params: params, isSessionAuthRequest: isSessionAuthRequest)
-    }
-}
-
-// MARK: - Private Utility Methods
-
-extension OutgoingMessageSerializer {
-    
-    private func getNextRequestId() -> Int {
-        currentRequestId += 1
-        return currentRequestId
-    }
-    
-    private func requestWithPathIsCustomerEndpoint(_ path: String) -> Bool {
-        return path.hasPrefix("customer/")
-    }
-    
-    private func contextForRequest(withPath path: String) -> [String: Any] {
-        return ["CompanyId": session?.company.id ?? 0]
     }
 }

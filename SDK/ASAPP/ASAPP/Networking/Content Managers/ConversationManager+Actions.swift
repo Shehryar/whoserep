@@ -36,7 +36,7 @@ extension ConversationManager {
             }
         }
  
-        let responseHandler: IncomingMessageHandler = { (message, _, _) in
+        let responseHandler: RequestResponseHandler = { message in
             let response = APIActionResponse.fromJSON(message.body)
             completion(response)
         }
@@ -47,7 +47,7 @@ extension ConversationManager {
     
     func sendRequestForHTTPAction(_ action: Action,
                                   formData: [String: Any]?,
-                                  completion: @escaping HTTPClient.CompletionHandler) {
+                                  completion: @escaping HTTPClient.DictCompletionHandler) {
         
         guard let action = action as? HTTPAction else {
             DebugLog.w(caller: self, "sendRequestForHTTPAction called without HTTPAction")
@@ -61,10 +61,7 @@ extension ConversationManager {
         }
         
         getRequestParameters(with: params, contextKey: "context") { (fullParams) in
-            HTTPClient.shared.sendRequest(method: action.method,
-                                          url: action.url,
-                                          params: fullParams,
-                                          completion: completion)
+            HTTPClient.shared.sendRequest(method: action.method, url: action.url, params: fullParams, completion: completion)
         }
     }
     
@@ -82,7 +79,7 @@ extension ConversationManager {
             params["Data"] = data
         }
         
-        let responseHandler: IncomingMessageHandler = { (message, _, _) in
+        let responseHandler: RequestResponseHandler = { message in
             let componentViewContainer = ComponentViewContainer.from(message.body)
             completion(componentViewContainer)
         }
@@ -103,11 +100,9 @@ extension ConversationManager {
     // MARK: Deep Link
     
     func sendRequestForDeepLinkAction(_ action: Action?,
-                                      with buttonTitle: String,
-                                      completion: IncomingMessageHandler? = nil) {
+                                      with buttonTitle: String) {
         guard let action = action as? DeepLinkAction else {
             DebugLog.w(caller: self, "sendRequestForDeepLinkAction called without DeepLinkAction")
-            completion?(IncomingMessage.errorMessage("Missing DeepLinkAction"), nil, 0)
             return
         }
         
@@ -121,7 +116,7 @@ extension ConversationManager {
             params["Data"] = deepLinkDataJson
         }
         
-        sendRequest(path: path, params: params, completion: completion)
+        sendRequest(path: path, params: params)
     }
     
     // MARK: Treewalk
@@ -147,9 +142,8 @@ extension ConversationManager {
             params["Data"] = data
         }
         
-        let responseHandler: IncomingMessageHandler = { [weak self] (message, request, _) in
+        let responseHandler: RequestResponseHandler = { message in
             completion?(message.type == .response)
-            self?.trackTreewalk(message: text, classification: action.classification)
         }
         sendRequest(path: path, params: params, completion: responseHandler)
     }

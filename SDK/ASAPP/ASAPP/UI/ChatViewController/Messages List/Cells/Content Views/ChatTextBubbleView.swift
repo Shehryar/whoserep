@@ -8,12 +8,90 @@
 
 import UIKit
 
-class ChatTextBubbleView: UIView {
+protocol MessageButtonsViewContainerDelegate: class {
+    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTapButtonWith action: Action)
+}
+
+protocol MessageButtonsViewContainer: class {
+    weak var delegate: MessageButtonsViewContainerDelegate? { get set }
+    var messageButtonsView: MessageButtonsView? { get set }
+}
+
+extension MessageButtonsViewContainer {
+    func getMessageButtonsViewSizeThatFits(_ width: CGFloat) -> CGSize {
+        return messageButtonsView?.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)) ?? .zero
+    }
+}
+
+protocol MessageBubbleCornerRadiusUpdating: class {
+    var message: ChatMessage? { get set }
+    var messagePosition: MessageListPosition { get set }
+    var messageButtonsView: MessageButtonsView? { get set }
+    func getBubbleCorners(for message: ChatMessage, isAttachment: Bool) -> UIRectCorner
+}
+
+extension MessageBubbleCornerRadiusUpdating {
+    func getBubbleCorners(for message: ChatMessage, isAttachment: Bool = false) -> UIRectCorner {
+        let notTopLeft: UIRectCorner = [.bottomLeft, .topRight, .bottomRight]
+        let notBottomLeft: UIRectCorner = [.topLeft, .topRight, .bottomRight]
+        let notLeft: UIRectCorner = [.topRight, .bottomRight]
+        let hasText = !(message.text?.isEmpty ?? true)
+        
+        var roundedCorners: UIRectCorner
+        if message.metadata.isReply {
+            switch messagePosition {
+            case .none, .firstOfMany:
+                if isAttachment && hasText {
+                    if messagePosition == .none {
+                        roundedCorners = notTopLeft
+                    } else {
+                        roundedCorners = notLeft
+                    }
+                } else {
+                    roundedCorners = notBottomLeft
+                }
+                
+            case .middleOfMany:
+                roundedCorners = notLeft
+                
+            case .lastOfMany:
+                if !isAttachment && message.attachment != nil {
+                    roundedCorners = notLeft
+                } else {
+                    roundedCorners = notTopLeft
+                }
+            }
+        } else {
+            switch messagePosition {
+            case .none, .firstOfMany:
+                roundedCorners = [.topLeft, .topRight, .bottomLeft]
+                
+            case .middleOfMany:
+                roundedCorners = [.topLeft, .bottomLeft]
+                
+            case .lastOfMany:
+                roundedCorners = [.topLeft, .bottomRight, .bottomLeft]
+            }
+        }
+        
+        if messageButtonsView != nil {
+            roundedCorners = roundedCorners.union([.bottomLeft, .bottomRight])
+        }
+        
+        return roundedCorners
+    }
+}
+
+class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCornerRadiusUpdating {
+    weak var delegate: MessageButtonsViewContainerDelegate?
 
     // MARK: Properties: Content
     
     var message: ChatMessage? {
         didSet {
+            bubbleView.borderLayer?.removeAllAnimations()
+            bubbleView.borderLayer?.removeFromSuperlayer()
+            
             guard let message = message else {
                 label.text = nil
                 setNeedsLayout()
@@ -35,31 +113,32 @@ class ChatTextBubbleView: UIView {
             //
             // Update Bubble
             //
+            let fillColor: UIColor
+            
+            label.updateFont(for: .body)
+            
             if message.metadata.isReply {
-                let fillColor = ASAPP.styles.colors.replyMessageBackground
+                fillColor = ASAPP.styles.colors.replyMessageBackground
                 label.textColor = ASAPP.styles.colors.replyMessageText
                 label.linkTextAttributes = [
                     NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.replyMessageText,
                     NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
-                bubbleView.strokeLineWidth = 0.5
-                bubbleView.fillColor = fillColor
             } else {
-                let fillColor = ASAPP.styles.colors.messageBackground
+                fillColor = ASAPP.styles.colors.messageBackground
                 label.textColor = ASAPP.styles.colors.messageText
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [
                     NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.messageText,
                     NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
                 ]
-                
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
-                bubbleView.strokeLineWidth = 0.5
-                bubbleView.fillColor = fillColor
             }
-            bubbleView.strokeLineWidth = ASAPP.styles.separatorStrokeWidth
-            updateBubbleCorners()
+            
+            bubbleView.fillColor = fillColor
+            bubbleView.strokeLineWidth = 1
+            bubbleView.roundedCorners = getBubbleCorners(for: message)
             
             setNeedsLayout()
         }
@@ -67,7 +146,9 @@ class ChatTextBubbleView: UIView {
     
     var messagePosition: MessageListPosition = .none {
         didSet {
-            updateBubbleCorners()
+            if let message = message {
+                bubbleView.roundedCorners = getBubbleCorners(for: message)
+            }
         }
     }
     
@@ -79,7 +160,7 @@ class ChatTextBubbleView: UIView {
     
     var isLongPressing: Bool = false
     
-    let maxBubbleWidthPercentage: CGFloat = 0.8
+    let maxBubbleWidth: CGFloat = 260
     
     let contentInset = UIEdgeInsets.zero
     
@@ -98,14 +179,28 @@ class ChatTextBubbleView: UIView {
     
     let label = UITextView()
     
+    var messageButtonsView: MessageButtonsView? {
+        didSet {
+            if let view = messageButtonsView, oldValue == nil {
+                view.contentInsets = textInset
+                view.delegate = self
+                bubbleView.addSubview(view)
+            }
+            
+            if let message = message {
+                bubbleView.roundedCorners = getBubbleCorners(for: message)
+            }
+        }
+    }
+    
     // MARK: Initialization
     
     func commonInit() {
-        backgroundColor = ASAPP.styles.colors.messagesListBackground
+        backgroundColor = .clear
         
-        bubbleView.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        bubbleView.fillColor = ASAPP.styles.colors.messageBackground
         bubbleView.clipsToBounds = false
-        bubbleView.cornerRadius = 14
+        bubbleView.cornerRadius = 20
         addSubview(bubbleView)
         
         label.isEditable = false
@@ -144,79 +239,50 @@ extension ChatTextBubbleView {
         label.updateFont(for: .body)
         setNeedsLayout()
     }
-    
-    func updateBubbleCorners() {
-        guard let message = message else {
-            return
-        }
-        
-        var roundedCorners: UIRectCorner
-        if message.metadata.isReply {
-            switch messagePosition {
-            case .none:
-                roundedCorners = [.topLeft, .topRight, .bottomRight]
-                
-            case .firstOfMany:
-                roundedCorners =  .allCorners
-                
-            case .middleOfMany:
-                roundedCorners =  .allCorners
-                
-            case .lastOfMany:
-                roundedCorners = [.topLeft, .topRight, .bottomRight]
-            }
-        } else {
-            switch messagePosition {
-            case .none:
-                roundedCorners = [.topRight, .topLeft, .bottomLeft]
-                
-            case .firstOfMany:
-                roundedCorners = .allCorners
-                
-            case .middleOfMany:
-                roundedCorners = .allCorners
-                
-            case .lastOfMany:
-                roundedCorners =  [.topRight, .topLeft, .bottomLeft]
-            }
-        }
-        bubbleView.roundedCorners = roundedCorners
-    }
 }
 
 // MARK: - Layout + Sizing
 
 extension ChatTextBubbleView {
+    private struct CalculatedLayout {
+        let bubbleFrame: CGRect
+        let labelFrame: CGRect
+        let messageButtonsFrame: CGRect
+    }
     
-    func getFramesThatFit(_ size: CGSize) -> (CGRect, CGRect) {
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         guard !isEmpty else {
-            return (.zero, .zero)
+            return CalculatedLayout(bubbleFrame: .zero, labelFrame: .zero, messageButtonsFrame: .zero)
         }
         
-        let maxBubbleWidth = floor((size.width - contentInset.left - contentInset.right) * maxBubbleWidthPercentage)
-        let maxTextWidth = maxBubbleWidth
-        let textSize = label.sizeThatFits(CGSize(width: maxTextWidth, height: 0))
+        let maxWidth = min(size.width - contentInset.left - contentInset.right, maxBubbleWidth)
+        let textSize = label.sizeThatFits(CGSize(width: maxWidth, height: 0))
         guard textSize.height > 0 else {
-            return (.zero, .zero)
+            return CalculatedLayout(bubbleFrame: .zero, labelFrame: .zero, messageButtonsFrame: .zero)
         }
         
-        let bubbleSize = CGSize(width: ceil(textSize.width),
-                                height: ceil(textSize.height))
+        let bubbleWidth = ceil(textSize.width)
+        let messageButtonsSize = getMessageButtonsViewSizeThatFits(bubbleWidth)
+        let bubbleHeight = ceil(textSize.height + contentInset.bottom + messageButtonsSize.height)
+        let bubbleSize = CGSize(width: bubbleWidth, height: bubbleHeight)
         
         var bubbleLeft = contentInset.left
         if let message = message, !message.metadata.isReply {
             bubbleLeft = size.width - bubbleSize.width - contentInset.right
         }
+        
         let bubbleFrame = CGRect(x: bubbleLeft, y: contentInset.top, width: bubbleSize.width, height: bubbleSize.height)
         let labelFrame = CGRect(x: 0, y: 0, width: ceil(textSize.width), height: ceil(textSize.height))
+        let messageButtonsFrame = CGRect(x: 0, y: labelFrame.maxY + contentInset.bottom, width: messageButtonsSize.width, height: messageButtonsSize.height)
         
-        return (bubbleFrame, labelFrame)
+        return CalculatedLayout(bubbleFrame: bubbleFrame, labelFrame: labelFrame, messageButtonsFrame: messageButtonsFrame)
     }
     
     func updateFrames() {
-        let (bubbleFrame, labelFrame) = getFramesThatFit(bounds.size)
-        bubbleView.frame = bubbleFrame
-        label.frame = labelFrame
+        let layout = getFramesThatFit(bounds.size)
+        bubbleView.frame = layout.bubbleFrame
+        label.frame = layout.labelFrame
+        messageButtonsView?.frame = layout.messageButtonsFrame
     }
     
     override func layoutSubviews() {
@@ -225,10 +291,10 @@ extension ChatTextBubbleView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let (bubbleFrame, _) = getFramesThatFit(size)
-        var height: CGFloat = 0.0
-        if bubbleFrame.height > 0 {
-            height = bubbleFrame.maxY + contentInset.bottom
+        let layout = getFramesThatFit(size)
+        var height: CGFloat = 0
+        if layout.bubbleFrame.height > 0 {
+            height = layout.bubbleFrame.maxY + contentInset.bottom
         }
         return CGSize(width: size.width, height: height)
     }
@@ -289,5 +355,11 @@ extension ChatTextBubbleView {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return action == #selector(ChatMessagesView.copy(_:))
+    }
+}
+
+extension ChatTextBubbleView: MessageButtonsViewDelegate {
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTapButtonWith action: Action) {
+        delegate?.messageButtonsViewContainer(self, didTapButtonWith: action)
     }
 }

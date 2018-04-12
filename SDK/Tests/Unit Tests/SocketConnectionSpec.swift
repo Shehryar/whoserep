@@ -173,8 +173,8 @@ class SocketConnectionSpec: QuickSpec {
                         expect(mockSavedSessionManager.calledSave).to(equal(false))
                         expect(mockSavedSessionManager.calledGetSession).to(equal(true))
                         expect(mockOutgoingMessageSerializer.userLoginAction).toNot(beNil())
-                        expect(mockOutgoingMessageSerializer.userLoginAction?.mergeCustomerId).to(equal(session.customer.id))
-                        expect(mockOutgoingMessageSerializer.userLoginAction?.mergeCustomerGUID).to(equal(session.customer.guid))
+                        expect(mockOutgoingMessageSerializer.userLoginAction?.customer?.id).to(equal(session.customer.id))
+                        expect(mockOutgoingMessageSerializer.userLoginAction?.customer?.guid).to(equal(session.customer.guid))
                     }
                 }
             }
@@ -240,7 +240,7 @@ class SocketConnectionSpec: QuickSpec {
                     it("opens a socket and tries to authenticate") {
                         connection.connectIfNeeded(afterDelay: 1)
                         
-                        expect(MockSRWebSocket.calledOpen).toEventually(equal(true))
+                        expect(MockSRWebSocket.calledOpen).toEventually(equal(true), timeout: 3)
                         expect(MockSRWebSocket.calledClose).to(equal(false))
                         expect(MockSRWebSocket.calledSend).to(equal(true))
                         expect(mockOutgoingMessageSerializer.calledCreateAuthRequest).to(equal(true))
@@ -279,127 +279,6 @@ class SocketConnectionSpec: QuickSpec {
                     expect(MockSRWebSocket.calledOpen).to(equal(false))
                     expect(MockSRWebSocket.calledClose).to(equal(true))
                     expect(MockSRWebSocket.calledSend).to(equal(false))
-                }
-            }
-            
-            context(".sendRequest(...)") {
-                var connection: SocketConnection!
-                var mockOutgoingMessageSerializer: MockOutgoingMessageSerializer!
-                
-                beforeEach {
-                    MockSRWebSocket.clean()
-                    
-                    let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
-                    let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
-                        return [:]
-                    })
-                    mockOutgoingMessageSerializer = MockOutgoingMessageSerializer()
-                    let mockSavedSessionManager = MockSavedSessionManager()
-                    connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: mockOutgoingMessageSerializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
-                }
-                
-                context("without an existing connection") {
-                    it("opens a socket and tries to authenticate") {
-                        MockSRWebSocket.nextReceivedMessage = """
-                        Response|0|{"SessionInfo":{"Customer":{"CustomerId":3830001,"PrimaryIdentifier":"test_customer_1"},"Company":{"CompanyId":40001},"SessionAuth":{"SessionTime":1515112274532741,"SessionSecret":"deadbeef"}}}
-                        """
-                        connection.sendRequest(withPath: "foo", params: nil)
-                        
-                        expect(mockOutgoingMessageSerializer.calledCreateRequest).to(equal(true))
-                        expect(mockOutgoingMessageSerializer.calledCreateRequestString).to(equal(true))
-                        expect(mockOutgoingMessageSerializer.calledCreateRequestWithData).to(equal(false))
-                        expect(mockOutgoingMessageSerializer.calledCreateAuthRequest).to(equal(true))
-                        expect(MockSRWebSocket.calledOpen).to(equal(true))
-                        expect(MockSRWebSocket.calledClose).to(equal(false))
-                    }
-                }
-                
-                context("with an existing connection") {
-                    it("sends a request") {
-                        var calledRequestHandler = false
-                        
-                        connection.connect()
-                        MockSRWebSocket.clean()
-                        
-                        MockSRWebSocket.nextReceivedMessage = """
-                        Response|0|{"SessionInfo":{"Customer":{"CustomerId":3830001,"PrimaryIdentifier":"test_customer_1"},"Company":{"CompanyId":40001},"SessionAuth":{"SessionTime":1515112274532741,"SessionSecret":"deadbeef"}}}
-                        """
-                        MockSRWebSocket.nextReadyState = .OPEN
-                        connection.authenticate { (_, _) in
-                            MockSRWebSocket.clean()
-                            MockSRWebSocket.nextReadyState = .OPEN
-                            MockSRWebSocket.nextReceivedMessage = """
-                            Response|0|{}
-                            """
-                            mockOutgoingMessageSerializer.clean()
-                            connection.sendRequest(withPath: "foo", params: nil) { (_, _, _) in
-                                calledRequestHandler = true
-                                expect(mockOutgoingMessageSerializer.calledCreateRequestString).to(equal(true))
-                                expect(mockOutgoingMessageSerializer.calledCreateRequest).to(equal(true))
-                                expect(mockOutgoingMessageSerializer.calledCreateRequestWithData).to(equal(false))
-                                expect(mockOutgoingMessageSerializer.calledCreateAuthRequest).to(equal(false))
-                                expect(MockSRWebSocket.calledSend).to(equal(true))
-                                expect(MockSRWebSocket.calledOpen).to(equal(false))
-                                expect(MockSRWebSocket.calledClose).to(equal(false))
-                                expect(MockSRWebSocket.lastSentData as? String).to(equal(""))
-                            }
-                        }
-                        
-                        expect(calledRequestHandler).toEventually(equal(true))
-                    }
-                }
-            }
-            
-            context(".sendRequestWithData(...)") {
-                var connection: SocketConnection!
-                var mockOutgoingMessageSerializer: MockOutgoingMessageSerializer!
-                
-                beforeEach {
-                    MockSRWebSocket.clean()
-                    
-                    let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "secret", regionCode: "US")
-                    let user = ASAPPUser(userIdentifier: "test-user", requestContextProvider: {
-                        return [:]
-                    })
-                    mockOutgoingMessageSerializer = MockOutgoingMessageSerializer()
-                    let mockSavedSessionManager = MockSavedSessionManager()
-                    connection = SocketConnection(config: config, user: user, outgoingMessageSerializer: mockOutgoingMessageSerializer, savedSessionManager: mockSavedSessionManager, webSocketClass: MockSRWebSocket.self)
-                }
-                
-                context("with an existing connection") {
-                    it("sends a request") {
-                        var calledRequestHandler = false
-                        
-                        connection.connect()
-                        MockSRWebSocket.clean()
-                        
-                        MockSRWebSocket.nextReceivedMessage = """
-                        Response|0|{"SessionInfo":{"Customer":{"CustomerId":3830001,"PrimaryIdentifier":"test_customer_1"},"Company":{"CompanyId":40001},"SessionAuth":{"SessionTime":1515112274532741,"SessionSecret":"deadbeef"}}}
-                        """
-                        MockSRWebSocket.nextReadyState = .OPEN
-                        connection.authenticate { (_, _) in
-                            MockSRWebSocket.clean()
-                            MockSRWebSocket.nextReadyState = .OPEN
-                            MockSRWebSocket.nextReceivedMessage = """
-                            Response|0|{}
-                            """
-                            mockOutgoingMessageSerializer.clean()
-                            let data = "foo".data(using: .utf8)!
-                            connection.sendRequestWithData(data) { (_, _, _) in
-                                calledRequestHandler = true
-                                expect(mockOutgoingMessageSerializer.calledCreateRequestString).to(equal(false))
-                                expect(mockOutgoingMessageSerializer.calledCreateRequest).to(equal(false))
-                                expect(mockOutgoingMessageSerializer.calledCreateRequestWithData).to(equal(true))
-                                expect(mockOutgoingMessageSerializer.calledCreateAuthRequest).to(equal(false))
-                                expect(MockSRWebSocket.calledSend).to(equal(true))
-                                expect(MockSRWebSocket.calledOpen).to(equal(false))
-                                expect(MockSRWebSocket.calledClose).to(equal(false))
-                                expect(MockSRWebSocket.lastSentData as? Data).to(equal(data))
-                            }
-                        }
-                        
-                        expect(calledRequestHandler).toEventually(equal(true))
-                    }
                 }
             }
             

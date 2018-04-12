@@ -15,22 +15,35 @@ import UIKit
 @objcMembers
 public class ASAPPColors: NSObject {
     
+    // MARK: - General
+    
+    /// The color of most primary text and UI elements such as icons and buttons.
+    public var primary = UIColor.ASAPP.eggplant {
+        didSet {
+            updateColors(primary: primary, dark: dark)
+        }
+    }
+    
+    /// The color of most secondary text and UI elements.
+    public var dark = UIColor.ASAPP.purpleHaze {
+        didSet {
+            updateColors(primary: primary, dark: dark)
+        }
+    }
+    
     // MARK: - Chat: Navigation Bar
     
     /// The background color of the navigation bar.
-    public var navBarBackground = UIColor.white
+    public var navBarBackground: UIColor?
     
     /// The color of the navigation bar title text.
-    public var navBarTitle = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 0.95)
+    public var navBarTitle = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.85)
     
-    /// The color of text in navigation bar buttons in the chat view with `ASAPPNavBarButtonStyle.text`, as well as the color of the close/back button.
-    public var navBarButton = UIColor(red: 0.355, green: 0.394, blue: 0.494, alpha: 1)
+    /// The color of navigation bar buttons in the chat view, as well as the color of the close/back button.
+    public var navBarButton = UIColor.ASAPP.purpleHaze
     
-    /// The color of text in navigation bar buttons with `ASAPPNavBarButtonStyle.bubble`.
-    public var navBarButtonForeground = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
-    
-    /// The color of the background in navigation bar buttons with `ASAPPNavBarButtonStyle.bubble`.
-    public var navBarButtonBackground = UIColor(red: 0.866, green: 0.878, blue: 0.907, alpha: 1)
+    /// The color of navigaiton bar buttons while tapped.
+    public var navBarButtonActive = UIColor.ASAPP.eggplant
     
     // MARK: - Chat: General Content
     
@@ -44,13 +57,13 @@ public class ASAPPColors: NSObject {
     public var textPrimary = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 1)
     
     /// The color of secondary text, such as timestamp labels.
-    public var textSecondary = UIColor(red: 0.42, green: 0.43, blue: 0.45, alpha: 1)
+    public var textSecondary = UIColor.ASAPP.purpleHaze
     
     /// The color of most separators.
-    public var separatorPrimary = UIColor(red: 0.59, green: 0.60, blue: 0.62, alpha: 1)
+    public var separatorPrimary = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
     
-    /// The color of secondary separators, such as the borders of quick reply buttons, checkboxes, and tabs.
-    public var separatorSecondary = UIColor(red: 0.816, green: 0.824, blue: 0.847, alpha: 0.5)
+    /// The color of secondary separators, such as the borders of checkboxes and tabs.
+    public var separatorSecondary = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15)
     
     /// The color of the active portion of controls, such as checkboxes, progress bars, radio buttons, sliders, and tabs.
     public var controlTint = UIColor(red: 0.075, green: 0.698, blue: 0.925, alpha: 1)
@@ -62,134 +75,83 @@ public class ASAPPColors: NSObject {
     public var controlSelectedBackground = UIColor(red: 0.953, green: 0.957, blue: 0.965, alpha: 1)
     
     /// The default color of the background of a selected button representing a positive choice (such as in a BinaryRatingView).
-    public var positiveSelectedBackground = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
+    public var positiveSelectedBackground = UIColor.ASAPP.successGreen
     
     /// The default color of the background of a selected button representing a negative choice (such as in a BinaryRatingView).
-    public var negativeSelectedBackground = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
+    public var negativeSelectedBackground = UIColor.ASAPP.errorRed
     
     // MARK: - Chat: Buttons
     
     /// The color of text buttons, usually an accent color.
-    public var textButtonPrimary = ASAPPButtonColors(textColor: UIColor(red: 0.125, green: 0.714, blue: 0.931, alpha: 1))
+    public var textButtonPrimary = ASAPPButtonColors(textColor: UIColor.ASAPP.eggplant)
     
     /// The color of secondary text buttons, usually a muted color.
     public var textButtonSecondary = ASAPPButtonColors(textColor: UIColor(red: 0.663, green: 0.686, blue: 0.733, alpha: 1))
     
     /// The colors of block-style buttons for primary actions, usually an accent color.
-    public var buttonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 0.204, green: 0.698, blue: 0.925, alpha: 1))
+    public var buttonPrimary = ASAPPButtonColors(backgroundColor: UIColor.ASAPP.eggplant)
     
     /// The colors of block-style buttons for secondary actions like cancelling, usually a muted color.
-    public var buttonSecondary = ASAPPButtonColors(
-        backgroundNormal: UIColor(red: 0.953, green: 0.957, blue: 0.965, alpha: 1),
-        backgroundHighlighted: UIColor(red: 0.903, green: 0.907, blue: 0.915, alpha: 1),
-        backgroundDisabled: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),
-        textNormal: UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1.0),
-        textHighlighted: UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1),
-        textDisabled: UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 0.8),
-        border: UIColor(red: 0.886, green: 0.890, blue: 0.906, alpha: 1))
+    public var buttonSecondary = ASAPPButtonColors(backgroundColor: .clear, textColor: UIColor.ASAPP.eggplant, border: UIColor.ASAPP.eggplant)
+    
+    /// The color of the drop shadow for text in certain buttons.
+    public var textShadow = UIColor(red: 0.12, green: 0.13, blue: 0.58, alpha: 1)
     
     // MARK: - Chat: Messages
     
-    /// The color of the background of the chat messages view.
-    public var messagesListBackground = UIColor.ASAPP.alabasterWhite
+    internal let messagesListGradientColors = [UIColor(red: 0.988, green: 0.988, blue: 0.988, alpha: 1), UIColor(red: 0.965, green: 0.965, blue: 0.973, alpha: 1)]
+    
+    internal let attachmentGradientColors = [UIColor(red: 0.988, green: 0.988, blue: 0.988, alpha: 1), UIColor(red: 0.965, green: 0.965, blue: 0.973, alpha: 1)]
+    
+    internal let messageButtonBackground = UIColor(red: 0.976, green: 0.976, blue: 0.98, alpha: 1)
     
     /// The color of chat message text.
-    public var messageText = UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1)
+    public var messageText = UIColor.white
     
     /// The color of the background of chat messages sent by the user.
-    public var messageBackground = UIColor.white
+    public var messageBackground = UIColor.ASAPP.eggplant
     
     /// The color of the border of chat messages sent by the user.
-    public var messageBorder: UIColor? = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
+    public var messageBorder: UIColor?
     
     /// The color of chat message reply text.
-    public var replyMessageText = UIColor(red: 0.264, green: 0.278, blue: 0.316, alpha: 1)
+    public var replyMessageText = UIColor.ASAPP.purpleHaze
     
     /// The color of the background of chat message replies.
-    public var replyMessageBackground = UIColor(red: 0.92, green: 0.93, blue: 0.94, alpha: 1)
+    public var replyMessageBackground = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15)
     
     /// The color of the border of chat message replies.
-    public var replyMessageBorder: UIColor? = UIColor(red: 0.80, green: 0.81, blue: 0.84, alpha: 1)
+    public var replyMessageBorder = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15)
     
     // MARK: - Chat: Quick Replies
     
-    /// The color of the background of the quick replies list.
-    public var quickRepliesBackground = UIColor.white
-    
-    /// Whether the quick replies list has a patterned background.
-    public var quickRepliesBackgroundPattern = true
-    
     /// The colors of quick reply buttons.
     public var quickReplyButton = ASAPPButtonColors(
-        backgroundColor: UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1),
-        textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1))
+        backgroundNormal: UIColor.white.withAlphaComponent(0.2),
+        backgroundHighlighted: UIColor.ASAPP.eggplant,
+        backgroundDisabled: UIColor.white.withAlphaComponent(0.2),
+        textNormal: UIColor.ASAPP.eggplant,
+        textHighlighted: .white,
+        textDisabled: UIColor.ASAPP.eggplant,
+        border: UIColor.ASAPP.eggplant)
+    
+    /// The colors of action buttons.
+    public var actionButton = ASAPPButtonColors(
+        backgroundColor: UIColor.ASAPP.eggplant,
+        textColor: .white,
+        border: UIColor.ASAPP.eggplant)
     
     // MARK: - Chat: Input
     
     /// The colors of the chat input text area.
     public var chatInput = ASAPPInputColors(
-        background: UIColor.white,
-        text: UIColor(red: 0.283, green: 0.290, blue: 0.307, alpha: 1),
-        placeholderText: UIColor(red: 0.535, green: 0.557, blue: 0.586, alpha: 1),
-        tint: UIColor(red: 0.682, green: 0.682, blue: 0.682, alpha: 1),
-        border: UIColor(red: 0.937, green: 0.945, blue: 0.949, alpha: 1),
-        primaryButton: UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1),
-        secondaryButton: UIColor(red: 0.535, green: 0.557, blue: 0.586, alpha: 1))
-    
-    // MARK: - Predictive View: Navigation Bar
-    
-    /// The color of the navigation bar of the predictive view.
-    public var predictiveNavBarBackground: UIColor?
-    
-    /// The color of the title text of the navigation bar of the predictive view.
-    public var predictiveNavBarTitle = UIColor.white
-    
-    /// The color of text in navigation bar buttons in the predictive view with `ASAPPNavBarButtonStyle.text`, as well as the color of the close/back button.
-    public var predictiveNavBarButton = UIColor.white
-    
-    /// The color of text in navigation bar buttons in the predictive view with `ASAPPNavBarButtonStyle.bubble`.
-    public var predictiveNavBarButtonForeground = UIColor.white
-    
-    /// The color of the background of navigation bar buttons in the predictive view with `ASAPPNavBarButtonStyle.bubble`.
-    public var predictiveNavBarButtonBackground = UIColor(red: 0.201, green: 0.215, blue: 0.249, alpha: 1)
-    
-    // MARK: - Predictive View: General Content
-    
-    /// The colors of the background gradient of the predictive view.
-    public var predictiveGradientColors: [UIColor] = [
-        UIColor(red: 0.31, green: 0.31, blue: 0.35, alpha: 1),
-        UIColor(red: 0.37, green: 0.38, blue: 0.40, alpha: 1),
-        UIColor(red: 0.44, green: 0.47, blue: 0.51, alpha: 1)
-    ]
-    
-    /// The locations of the colors of the background gradient of the predictive view.
-    public var predictiveGradientLocations: [CGFloat]? = [
-        0,
-        0.5,
-        1
-    ]
-    
-    /// The color of most text in the predictive view, including `ASAPPStrings.predictiveTitle` and `ASAPPStrings.predictiveWelcomeText`.
-    public var predictiveTextPrimary = UIColor.white
-    
-    /// The color of secondary text in the predictive view, namely `ASAPPStrings.predictiveOtherSuggestions`.
-    public var predictiveTextSecondary = UIColor(red: 173 / 255.0, green: 178 / 255.0, blue: 190 / 255.0, alpha: 1.0)
-    
-    /// The colors of primary buttons in the predictive view.
-    public var predictiveButtonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
-    
-    /// The colors of secondary buttons in the predictive view.
-    public var predictiveButtonSecondary = ASAPPButtonColors(backgroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0.1), textColor: .white, border: .white)
-    
-    /// The colors of the input text area in the predictive view.
-    public var predictiveInput = ASAPPInputColors(
-        background: UIColor(red: 0.232, green: 0.247, blue: 0.284, alpha: 0.9),
-        text: UIColor.white,
-        placeholderText: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),
-        tint: UIColor(red: 0.671, green: 0.678, blue: 0.694, alpha: 1),
-        border: nil,
-        primaryButton: UIColor.white,
-        secondaryButton: UIColor.white)
+        background: UIColor.white.withAlphaComponent(0.7),
+        text: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9),
+        placeholderText: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.5),
+        tint: UIColor.ASAPP.eggplant,
+        border: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15),
+        primaryButton: UIColor.ASAPP.eggplant,
+        secondaryButton: UIColor.ASAPP.eggplant)
     
     // MARK: - ASAPPButton
     
@@ -197,10 +159,48 @@ public class ASAPPColors: NSObject {
     public var helpButtonText = UIColor.white
     
     /// The color of the background of an `ASAPPButton`.
-    public var helpButtonBackground = UIColor(red: 0.374, green: 0.392, blue: 0.434, alpha: 1)
+    public var helpButtonBackground = UIColor.ASAPP.eggplant
 }
 
 extension ASAPPColors {
+    func updateColors(primary: UIColor, dark: UIColor) {
+        ASAPP.styles.textStyles.updateColors(with: dark)
+        
+        navBarButtonActive = primary
+        messageBackground = primary
+        helpButtonBackground = primary
+        navBarTitle = dark.withAlphaComponent(0.85)
+        navBarButton = dark.withAlphaComponent(0.9)
+        textSecondary = dark
+        separatorSecondary = dark.withAlphaComponent(0.15)
+        replyMessageText = dark
+        replyMessageBackground = dark.withAlphaComponent(0.15)
+        replyMessageBorder = dark.withAlphaComponent(0.15)
+        
+        textButtonPrimary = ASAPPButtonColors(textColor: primary)
+        buttonPrimary = ASAPPButtonColors(backgroundColor: primary)
+        buttonSecondary = ASAPPButtonColors(backgroundColor: .clear, textColor: primary, border: primary)
+        quickReplyButton = ASAPPButtonColors(
+            backgroundNormal: UIColor.white.withAlphaComponent(0.2),
+            backgroundHighlighted: primary,
+            backgroundDisabled: UIColor.white.withAlphaComponent(0.2),
+            textNormal: primary,
+            textHighlighted: .white,
+            textDisabled: primary,
+            border: primary)
+        actionButton = ASAPPButtonColors(
+            backgroundColor: primary,
+            textColor: .white,
+            border: primary)
+        chatInput = ASAPPInputColors(
+            background: UIColor.white.withAlphaComponent(0.7),
+            text: dark.withAlphaComponent(0.9),
+            placeholderText: dark.withAlphaComponent(0.5),
+            tint: primary,
+            border: dark.withAlphaComponent(0.15),
+            primaryButton: primary,
+            secondaryButton: primary)
+    }
     
     func getButtonColors(for buttonType: ButtonType) -> ASAPPButtonColors {
         switch buttonType {

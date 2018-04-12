@@ -66,7 +66,8 @@ class AppSettings: NSObject {
         let decoder = JSONDecoder()
         guard let string = AppSettings.getString(forKey: .appearanceConfig),
               let data = string.data(using: .utf8),
-              let config = try? decoder.decode(AppearanceConfig.self, from: data) else {
+              let config = try? decoder.decode(AppearanceConfig.self, from: data),
+              config.isValid else {
             return AppSettings.defaultAppearanceConfig
         }
         return config
@@ -127,7 +128,7 @@ class AppSettings: NSObject {
 
 // MARK: - Defaults
 
-fileprivate extension AppSettings {
+extension AppSettings {
     
     static let defaultAPIHostName = defaultAPIHostNames.first!
     
@@ -147,7 +148,8 @@ fileprivate extension AppSettings {
         return [
             "demo.asapp.com",
             "sprint.preprod.asapp.com",
-            "tetris.test.asapp.com"
+            "tetris.test.asapp.com",
+            "audit01.test.asapp.com"
         ]
     }
     
@@ -219,32 +221,26 @@ fileprivate extension AppSettings {
         let boostGrey = Color(uiColor: UIColor(hexString: "#373737")!)!
         let telstraBlue = Color(uiColor: UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1))!
         let black = Color(uiColor: .black)!
-        let white = Color(uiColor: .white)!
         
         return [
-            AppearanceConfig(name: "ASAPP", brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [
+            AppearanceConfig.create(name: "ASAPP", brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [
                 .helpButton: "HELP"
             ], fontFamilyName: .asapp),
             
-            AppearanceConfig(name: "Spear", brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
-                .demoNavBar: Color(uiColor: UIColor(white: 0.01, alpha: 1))!,
-                .brandPrimary: boostOrange,
-                .brandSecondary: boostGrey,
-                .textDark: black,
-                .textLight: white
+            AppearanceConfig.create(name: "Spear", brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
+                .demoNavBar: black,
+                .primary: boostOrange,
+                .dark: boostGrey
             ], strings: [
                 .helpButton: "CHAT"
             ], fontFamilyName: .boost),
             
-            AppearanceConfig(name: "Tetris", brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
-                .brandPrimary: telstraBlue,
-                .brandSecondary: telstraBlue,
-                .textDark: black,
-                .textLight: white
+            AppearanceConfig.create(name: "Tetris", brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
+                .primary: telstraBlue,
+                .dark: black
             ], strings: [
                 .helpButton: "HELP",
-                .chatTitle: "24x7 Chat",
-                .predictiveTitle: "24x7 Chat"
+                .chatTitle: "24x7 Chat"
             ], fontFamilyName: .asapp)
         ]
     }
@@ -346,7 +342,8 @@ extension AppSettings {
             guard let data = string.data(using: .utf8) else {
                 return nil
             }
-            return try decoder.decode(AppearanceConfig.self, from: data)
+            let config = try decoder.decode(AppearanceConfig.self, from: data)
+            return config.isValid ? config : nil
         } ?? []).flatMap { $0 }
         
         return defaultAppearanceConfigs.union(appearanceConfigArray ?? [])
@@ -390,11 +387,17 @@ extension AppSettings {
     
     class func saveAppearanceConfig(_ appearanceConfig: AppearanceConfig) {
         let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(appearanceConfig),
+        guard appearanceConfig.isValid,
+              let data = try? encoder.encode(appearanceConfig),
               let string = String.init(data: data, encoding: .utf8) else {
             return
         }
         saveObject(string, forKey: .appearanceConfig)
+    }
+    
+    class func clearAppearanceConfigArray() {
+        let key = AppSettings.Key.appearanceConfigList
+        saveObject("", forKey: key)
     }
 }
 

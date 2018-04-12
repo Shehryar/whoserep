@@ -27,19 +27,8 @@ public class ASAPPStyles: NSObject {
     /// Customizable navigation bar styles.
     public var navBarStyles = ASAPPNavBarStyles()
     
-    /// How the welcome page's options are laid out.
-    public var welcomeLayout: ASAPPWelcomeLayout = .buttonMenu
-    
-    /// The width of the stroke of separators such as timestamp headers and chat bubble borders.
-    public var separatorStrokeWidth: CGFloat = 1.0
-    
     /// Whether primary Component buttons have rounded corners.
     public var primaryButtonsRounded = false
-    
-    /// The send button image. If nil, `ASAPPStrings.predictiveSendButton` or `ASAPPStrings.chatInputSend` is displayed instead.
-    lazy public var sendButtonImage: ASAPPCustomImage? = {
-        return ASAPPCustomImage(image: Images.getImage(.iconSend)!, size: CGSize(width: 26, height: 26))
-    }()
 }
 
 extension ASAPPStyles {

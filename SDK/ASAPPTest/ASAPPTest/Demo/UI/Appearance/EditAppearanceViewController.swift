@@ -33,17 +33,14 @@ class EditAppearanceViewController: BaseTableViewController {
     
     fileprivate(set) var allColors: DictionaryLiteral<AppearanceConfig.ColorName, String> = [
         .demoNavBar: "Demo nav bar",
-        .brandPrimary: "Brand primary",
-        .brandSecondary: "Brand secondary",
-        .textLight: "Text light",
-        .textDark: "Text dark"
+        .primary: "Primary",
+        .dark: "Dark"
     ]
     fileprivate(set) var colorSettings: [AppearanceConfig.ColorName: UIColor] = [:]
     fileprivate(set) var currentColor: AppearanceConfig.ColorName?
     
     fileprivate(set) var allStrings: DictionaryLiteral<AppearanceConfig.StringName, String> = [
         .helpButton: "Help button",
-        .predictiveTitle: "Predictive title",
         .chatTitle: "Chat title"
     ]
     fileprivate(set) var stringSettings: [AppearanceConfig.StringName: String] = [:]
@@ -91,7 +88,7 @@ class EditAppearanceViewController: BaseTableViewController {
         }
         
         let logo = (newLogo?.id == selectedLogo.id) ? selectedLogo : Image(id: UUID().uuidString, uiImage: selectedLogo.uiImage)
-        let config = AppearanceConfig(name: name, brand: .custom, logo: logo, colors: colorSettings.mapValues { Color(uiColor: $0)! }, strings: stringSettings, fontFamilyName: selectedFontFamily)
+        let config = AppearanceConfig.create(name: name, brand: .custom, logo: logo, colors: colorSettings.mapValues { Color(uiColor: $0)! }, strings: stringSettings, fontFamilyName: selectedFontFamily)
         AppSettings.addAppearanceConfigToArray(config)
         AppSettings.saveAppearanceConfig(config)
         AppSettings.shared.branding = Branding(appearanceConfig: config)

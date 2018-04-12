@@ -58,7 +58,7 @@ class HTTPClientSpec: QuickSpec {
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
                         expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
-                        expect(urlSession.lastRequest?.httpMethod).to(equal(HTTPMethod.GET.rawValue))
+                        expect(urlSession.lastRequest?.httpMethod).to(equal(HTTPMethod.POST.rawValue))
                         expect(task.resumeWasCalled).to(equal(true))
                     }
                 }
@@ -81,7 +81,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlSession = MockURLSession()
                         let subject = HTTPClient(urlSession: urlSession)
                         let url = URL(string: "http://example.com/")!
-                        subject.sendRequest(url: url, params: ["foo": "9001", "bar": "9002"], completion: { (_, _, _) in })
+                        subject.sendRequest(method: .GET, url: url, params: ["foo": "9001", "bar": "9002"], completion: { (_, _, _) in })
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
@@ -102,7 +102,7 @@ class HTTPClientSpec: QuickSpec {
                         expect(urlSession.lastRequest?.httpBody).toNot(beNil())
                         let body = urlSession.lastRequest!.httpBody!
                         let dict = try? JSONSerialization.jsonObject(with: body, options: []) as! [String: Any]
-                        expect(dict?["foo"] as? Int).to(equal(9001))
+                        expect((dict?["params"] as? [String: Any] ?? [:])["foo"] as? Int).to(equal(9001))
                     }
                 }
                 

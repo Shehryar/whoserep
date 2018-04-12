@@ -52,7 +52,7 @@ class ChatMessagesViewSpec: QuickSpec {
                     issueId: 0,
                     sendTime: Date(timeIntervalSince1970: eventTime))
                 
-                event.chatMessage = ChatMessage(text: text, attachment: nil, quickReplies: nil, metadata: metadata)
+                event.chatMessage = ChatMessage(text: text, notification: nil, attachment: nil, quickReplies: nil, metadata: metadata)
                 
                 return event
             }
@@ -73,8 +73,6 @@ class ChatMessagesViewSpec: QuickSpec {
                 
                 beforeEach {
                     TestUtil.createStyle()
-                    ASAPP.strings.chatEmptyTitle = "Empty Title"
-                    ASAPP.strings.chatEmptyMessage = "Empty message."
                     view = ChatMessagesView(frame: CGRect(x: 0, y: 0, width: 300, height: 500))
                     nextEventId = 0
                     nextEventTime = 327511937

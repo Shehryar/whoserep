@@ -1,7 +1,7 @@
 ASAPP - iOS
 ===========
 
-© 2017 ASAPP Inc, all rights reserved.
+© 2018 ASAPP Inc, all rights reserved.
 
 Organization
 ------------
@@ -53,8 +53,8 @@ Manually distributing a beta build of the test app (for QA)
 Program   | Version
 ----------|---------
 ruby      | 2.4.0
-[bundler](https://github.com/bundler/bundler)   | 1.16.0
-[fastlane](https://github.com/fastlane/fastlane)  | 2.70.1
+[bundler](https://github.com/bundler/bundler)   | 1.16.1
+[fastlane](https://github.com/fastlane/fastlane)  | 2.89.0
 
 #### Note
 
@@ -85,7 +85,7 @@ Generating API reference pages from documentation comments
 Program   | Version
 ----------|---------
 ruby      | 2.4.0
-[bundler](https://github.com/bundler/bundler)   | 1.16.0
+[bundler](https://github.com/bundler/bundler)   | 1.16.1
 [jazzy](https://github.com/realm/jazzy)  | 0.8.4
 
 ### Running `jazzy`
@@ -96,5 +96,5 @@ You may need to run `bundle update` as above.
 scripts/generate_docs.sh
 ```
 
-The reference website can be found at `docs/swift/index.html`.
+The reference website can be found at `package/docs/swift/index.html`.
 

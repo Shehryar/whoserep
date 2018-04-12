@@ -45,8 +45,13 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     
                     it("creates an auth request with the default region code") {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
-                        let authRequest = serializer.createAuthRequest()
-                        expect(authRequest.params["RegionCode"] as? String).to(equal("US"))
+                        
+                        waitUntil { done in
+                            serializer.createAuthRequest { authRequest in
+                                expect(authRequest.params["RegionCode"] as? String).to(equal("US"))
+                                done()
+                            }
+                        }
                     }
                 }
                 
@@ -63,8 +68,13 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     
                     it("creates an auth request with the custom region code") {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
-                        let authRequest = serializer.createAuthRequest()
-                        expect(authRequest.params["RegionCode"] as? String).to(equal("AUS"))
+                        
+                        waitUntil { done in
+                            serializer.createAuthRequest { authRequest in
+                                expect(authRequest.params["RegionCode"] as? String).to(equal("AUS"))
+                                done()
+                            }
+                        }
                     }
                 }
                 
@@ -81,9 +91,14 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     
                     it("creates an auth request for an anonymous user") {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
-                        let authRequest = serializer.createAuthRequest()
-                        expect(authRequest.path).to(equal("auth/CreateAnonCustomerAccount"))
-                        expect(authRequest.isSessionAuthRequest).to(beFalse())
+                        
+                        waitUntil { done in
+                            serializer.createAuthRequest { authRequest in
+                                expect(authRequest.path).to(equal("auth/CreateAnonCustomerAccount"))
+                                expect(authRequest.isSessionAuthRequest).to(beFalse())
+                                done()
+                            }
+                        }
                     }
                 }
                 
@@ -100,9 +115,14 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     
                     it("creates an auth request with a customer identifier") {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
-                        let authRequest = serializer.createAuthRequest()
-                        expect(authRequest.path).to(equal("auth/AuthenticateWithCustomerIdentifier"))
-                        expect(authRequest.isSessionAuthRequest).to(beFalse())
+                        
+                        waitUntil { done in
+                            serializer.createAuthRequest { authRequest in
+                                expect(authRequest.path).to(equal("auth/AuthenticateWithCustomerIdentifier"))
+                                expect(authRequest.isSessionAuthRequest).to(beFalse())
+                                done()
+                            }
+                        }
                     }
                 }
                 
@@ -142,9 +162,13 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     }
                     
                     it("creates an auth request with an existing session") {
-                        let authRequest = serializer.createAuthRequest()
-                        expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
-                        expect(authRequest.isSessionAuthRequest).to(beTrue())
+                        waitUntil { done in
+                            serializer.createAuthRequest { authRequest in
+                                expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
+                                expect(authRequest.isSessionAuthRequest).to(beTrue())
+                                done()
+                            }
+                        }
                     }
                 }
                 
@@ -185,9 +209,13 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     }
                     
                     it("creates an auth request with an existing session") {
-                        let authRequest = serializer.createAuthRequest()
-                        expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
-                        expect(authRequest.isSessionAuthRequest).to(beTrue())
+                        waitUntil { done in
+                            serializer.createAuthRequest { authRequest in
+                                expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
+                                expect(authRequest.isSessionAuthRequest).to(beTrue())
+                                done()
+                            }
+                        }
                     }
                 }
             }

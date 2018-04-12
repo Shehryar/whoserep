@@ -13,9 +13,7 @@ import UIKit
 extension IncomingMessage {
     
     typealias Events = [Event]
-    
-    typealias EventsJSONArray = [[String: AnyObject]]
-    
+    typealias EventsJSONArray = [[String: Any]]
     typealias ErrorMessage = String
     
     struct ParsedEvents {
@@ -27,13 +25,13 @@ extension IncomingMessage {
     func parseEvents() -> ParsedEvents {
         
         var events: [Event]?
-        var eventsJSONArray: [[String: AnyObject]]?
+        var eventsJSONArray: [[String: Any]]?
         var errorMessage: String?
         
         if type == .response {
-            if let array = body?["EventList"] as? [[String: AnyObject]] ?? body?["Events"] as? [[String: AnyObject]] {
+            if let array = body?["EventList"] as? [[String: Any]] ?? body?["Events"] as? [[String: Any]] {
                 events = [Event]()
-                eventsJSONArray = [[String: AnyObject]]()
+                eventsJSONArray = [[String: Any]]()
                 for eventJSON in array {
                     if let event = Event.fromJSON(eventJSON) {
                         events?.append(event)

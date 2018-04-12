@@ -13,11 +13,18 @@ class BubbleButton: Button {
         return contentView as! BubbleView
     }
     
+    var isEnabled: Bool = true {
+        didSet {
+            alpha = isEnabled ? 1 : 0.5
+            setNeedsDisplay()
+        }
+    }
+    
     override func commonInit() {
         contentView = BubbleView(frame: frame)
         
         bubble.roundedCorners = [.bottomLeft, .topLeft, .topRight]
-        bubble.strokeLineWidth = UIScreen.main.scale > 1 ? 0.5 : 1
+        bubble.strokeLineWidth = 1
         
         super.commonInit()
     }
@@ -26,11 +33,5 @@ class BubbleButton: Button {
         if let bgColor = backgroundColorForState(currentState) {
             bubble.fillColor = bgColor
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        bubble.cornerRadius = bubble.frame.height / 2
     }
 }

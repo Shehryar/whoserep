@@ -26,7 +26,6 @@
 		307301D01DAE9BAA0002CF3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307301C91DAE9BAA0002CF3B /* LaunchScreen.storyboard */; };
 		307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */; };
 		307301E11DAE9C750002CF3B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307301D71DAE9C750002CF3B /* NavigationController.swift */; };
-		3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */; };
 		30821BAF1F538838009F43EC /* SpearEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30821BAE1F538838009F43EC /* SpearEnvironment.swift */; };
 		30821BB11F538921009F43EC /* SpearAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30821BB01F538921009F43EC /* SpearAPI.swift */; };
 		308887261F4F4C50008189AD /* CustomerIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308887251F4F4C50008189AD /* CustomerIdViewController.swift */; };
@@ -104,6 +103,7 @@
 		3A86332C1FB235E400E90C18 /* CountableEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86332B1FB235E400E90C18 /* CountableEnum.swift */; };
 		3A8633311FB2417C00E90C18 /* TetrisAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8633301FB2417C00E90C18 /* TetrisAPI.swift */; };
 		3AB67B2A1FC636D200FC3C69 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */; };
+		3AF5DAE62075239B00C39DF1 /* ChatBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5DAE52075239B00C39DF1 /* ChatBadge.swift */; };
 		3AFB74C81FDA006200AF0442 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C01FDA006200AF0442 /* Roboto-Bold.ttf */; };
 		3AFB74C91FDA006200AF0442 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C11FDA006200AF0442 /* Roboto-BoldItalic.ttf */; };
 		3AFB74CA1FDA006200AF0442 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C21FDA006200AF0442 /* Roboto-Italic.ttf */; };
@@ -149,7 +149,6 @@
 		307301CD1DAE9BAA0002CF3B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageBackgroundViewController.swift; sourceTree = "<group>"; };
 		307301D71DAE9C750002CF3B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechToTextViewController.swift; sourceTree = "<group>"; };
 		30821BAE1F538838009F43EC /* SpearEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpearEnvironment.swift; sourceTree = "<group>"; };
 		30821BB01F538921009F43EC /* SpearAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpearAPI.swift; sourceTree = "<group>"; };
 		308887251F4F4C50008189AD /* CustomerIdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerIdViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +231,7 @@
 		3A86332B1FB235E400E90C18 /* CountableEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountableEnum.swift; sourceTree = "<group>"; };
 		3A8633301FB2417C00E90C18 /* TetrisAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TetrisAPI.swift; sourceTree = "<group>"; };
 		3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		3AF5DAE52075239B00C39DF1 /* ChatBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBadge.swift; sourceTree = "<group>"; };
 		3AFB74C01FDA006200AF0442 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		3AFB74C11FDA006200AF0442 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3AFB74C21FDA006200AF0442 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
@@ -325,14 +325,6 @@
 			path = Demo;
 			sourceTree = "<group>";
 		};
-		3077DBEF1ECE461E005818B8 /* Speech to Text */ = {
-			isa = PBXGroup;
-			children = (
-				3077DBF01ECE489A005818B8 /* SpeechToTextViewController.swift */,
-			);
-			path = "Speech to Text";
-			sourceTree = "<group>";
-		};
 		30821BAD1F538825009F43EC /* Spear Integration */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,7 +365,6 @@
 				30988EA51DC7BA8700470E09 /* Home */,
 				300452351F1545D3009475CD /* Login */,
 				30988EA11DC7BA8700470E09 /* Bill Details */,
-				3077DBEF1ECE461E005818B8 /* Speech to Text */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -389,6 +380,7 @@
 		30988EA51DC7BA8700470E09 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3AF5DAE52075239B00C39DF1 /* ChatBadge.swift */,
 				30988EA71DC7BA8700470E09 /* HomeViewController.swift */,
 				30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */,
 			);
@@ -729,6 +721,7 @@
 				307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */,
 				281D8E011DC9681300E4A65B /* TableViewCell.swift in Sources */,
 				308887261F4F4C50008189AD /* CustomerIdViewController.swift in Sources */,
+				3AF5DAE62075239B00C39DF1 /* ChatBadge.swift in Sources */,
 				30C24C381DCA4BEF00529785 /* DemoLog.swift in Sources */,
 				281D8E031DC9696A00E4A65B /* TitleDetailValueCell.swift in Sources */,
 				3A5C40411FD9968E00F63797 /* Image.swift in Sources */,
@@ -750,7 +743,6 @@
 				3A0E7F981FB3A5A3008F9544 /* TetrisEnvironment.swift in Sources */,
 				30E78EDC1DCA6D32006A2AD8 /* HomeTableView.swift in Sources */,
 				302A20D61E60BC55007C522A /* TextInputViewController.swift in Sources */,
-				3077DBF11ECE489A005818B8 /* SpeechToTextViewController.swift in Sources */,
 				281D8DFF1DC9681300E4A65B /* LabelIconCell.swift in Sources */,
 				30821BB11F538921009F43EC /* SpearAPI.swift in Sources */,
 				308994151EFC3E500068D616 /* ImageViewCarouselCell.swift in Sources */,
@@ -867,7 +859,7 @@
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
-				CURRENT_PROJECT_VERSION = 135;
+				CURRENT_PROJECT_VERSION = 139;
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
 				DEMO_LIVE_CHAT = YES;
@@ -957,7 +949,7 @@
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell Morgan (95LSW78FNM)";
-				CURRENT_PROJECT_VERSION = 135;
+				CURRENT_PROJECT_VERSION = 139;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;

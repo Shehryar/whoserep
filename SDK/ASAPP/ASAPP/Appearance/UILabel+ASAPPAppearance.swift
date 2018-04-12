@@ -13,9 +13,13 @@ extension UILabel {
     func setAttributedText(_ text: String?,
                            textStyle: ASAPPTextStyle,
                            color: UIColor? = nil) {
-        guard let text = text else {
+        guard var text = text else {
             attributedText = nil
             return
+        }
+        
+        if textStyle.uppercase {
+            text = text.localizedUppercase
         }
         
         attributedText = NSAttributedString(string: text, attributes: [

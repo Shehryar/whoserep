@@ -9,7 +9,6 @@
 import UIKit
 
 protocol ChatMessageCellDelegate: class {
- 
     func chatMessageCell(_ cell: ChatMessageCell,
                          didTap buttonItem: ButtonItem,
                          from message: ChatMessage)
@@ -17,6 +16,9 @@ protocol ChatMessageCellDelegate: class {
     func chatMessageCell(_ cell: ChatMessageCell,
                          didPageCarouselViewItem: CarouselViewItem,
                          from: ComponentView)
+    
+    func chatMessageCell(_ cell: ChatMessageCell,
+                         didTapButtonWith action: Action)
 }
 
 class ChatMessageCell: UITableViewCell {
@@ -25,12 +27,11 @@ class ChatMessageCell: UITableViewCell {
     
     var message: ChatMessage? {
         didSet {
+            textBubbleView.messagePosition = messagePosition
             textBubbleView.message = message
             
             timeLabel.textAlignment = isReply ? .left : .right
-            timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail2, color: ASAPP.styles.colors.textSecondary)
-            
-            setNeedsLayout()
+            timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail1, color: ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5))
         }
     }
     
@@ -43,7 +44,7 @@ class ChatMessageCell: UITableViewCell {
     
     var messagePosition: MessageListPosition = .none {
         didSet {
-            textBubbleView.messagePosition = messagePosition
+            ((attachmentView ?? textBubbleView) as? MessageBubbleCornerRadiusUpdating)?.messagePosition = messagePosition
             updateContentInset()
         }
     }
@@ -64,11 +65,9 @@ class ChatMessageCell: UITableViewCell {
     
     let timeLabelMarginTop: CGFloat = 4.0
     
-    internal var attachmentViewMaxWidthPercentage: CGFloat {
-        return 1.0
-    }
+    internal let attachmentViewWidth: CGFloat = 260
     
-    private(set) var contentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16) {
+    private(set) var contentInset = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16) {
         didSet {
             if oldValue != contentInset {
                 setNeedsLayout()
@@ -103,12 +102,13 @@ class ChatMessageCell: UITableViewCell {
     func commonInit() {
         selectionStyle = .none
         isOpaque = true
-        backgroundColor = ASAPP.styles.colors.messagesListBackground
+        backgroundColor = .clear
     
+        textBubbleView.delegate = self
         contentView.addSubview(textBubbleView)
         
         timeLabel.alpha = 0.0
-        timeLabel.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        timeLabel.backgroundColor = .clear
         contentView.insertSubview(timeLabel, belowSubview: textBubbleView)
     }
     
@@ -122,23 +122,32 @@ class ChatMessageCell: UITableViewCell {
         commonInit()
     }
     
+    func update(_ message: ChatMessage?, showButtons: Bool) {
+        self.message = message
+        
+        let actions = showButtons ? message?.messageActions : nil
+        updateMessageButtons(actions)
+        
+        setNeedsLayout()
+    }
+    
     // MARK: Styling Methods
     
     private func updateContentInset() {
-        var updatedContentInset = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
+        var updatedContentInset = UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16)
         
         switch messagePosition {
         case .firstOfMany:
-            updatedContentInset.bottom = 1
+            updatedContentInset.bottom = 2
             
         case .middleOfMany:
-            updatedContentInset.top = 1
+            updatedContentInset.top = 2
             if !isTimeLabelVisible {
-                updatedContentInset.bottom = 1
+                updatedContentInset.bottom = 3
             }
             
         case .lastOfMany:
-            updatedContentInset.top = 1
+            updatedContentInset.top = 2
             
         case .none:
             // No need to change
@@ -159,6 +168,7 @@ extension ChatMessageCell {
         
         textBubbleView.message = nil
         timeLabel.text = nil
+        updateMessageButtons(nil)
         
         textBubbleView.alpha = 1.0
         attachmentView?.alpha = 1.0
@@ -179,6 +189,18 @@ extension ChatMessageCell {
         
         setNeedsLayout()
     }
+    
+    func updateMessageButtons(_ messageActions: [QuickReply]?) {
+        if let container = (attachmentView ?? textBubbleView) as? MessageButtonsViewContainer {
+            guard let messageActions = messageActions,
+                  !messageActions.isEmpty else {
+                container.messageButtonsView?.removeFromSuperview()
+                container.messageButtonsView = nil
+                return
+            }
+            container.messageButtonsView = MessageButtonsView(messageActions: messageActions, separatorColor: ASAPP.styles.colors.replyMessageBorder)
+        }
+    }
 }
 
 // MARK: - Layout + Sizing
@@ -188,8 +210,7 @@ extension ChatMessageCell {
     func getAttachmentViewSizeThatFits(_ size: CGSize) -> CGSize {
         var attachmentViewSize: CGSize = .zero
         if let attachmentView = attachmentView {
-            let maxAttachmentWidth = floor(size.width * attachmentViewMaxWidthPercentage)
-            attachmentViewSize = attachmentView.sizeThatFits(CGSize(width: maxAttachmentWidth, height: 0))
+            attachmentViewSize = attachmentView.sizeThatFits(CGSize(width: attachmentViewWidth, height: 0))
         }
         return attachmentViewSize
     }
@@ -217,7 +238,7 @@ extension ChatMessageCell {
             attachmentViewTop += attachmentViewMarginTop
         }
         var attachmentViewLeft = contentInset.left
-        if attachmentViewMaxWidthPercentage < 1 && !isReply {
+        if !isReply {
             attachmentViewLeft = size.width - contentInset.right - ceil(attachmentViewSize.width)
         }
         let attachmentViewFrame = CGRect(x: attachmentViewLeft, y: attachmentViewTop,
@@ -347,5 +368,11 @@ extension ChatMessageCell {
                 self?.isAnimating = false
                 self?.setNeedsLayout()
         })
+    }
+}
+
+extension ChatMessageCell: MessageButtonsViewContainerDelegate {
+    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTapButtonWith action: Action) {
+        delegate?.chatMessageCell(self, didTapButtonWith: action)
     }
 }

@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appearance = UINavigationBar.appearance()
         appearance.titleTextAttributes = [
             NSFontAttributeName : UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight),
-            NSForegroundColorAttributeName : UIColor(hue:0.619, saturation:0.197, brightness:0.278, alpha:1.000),
+            NSForegroundColorAttributeName : UIColor(hue: 0.619, saturation: 0.197, brightness: 0.278, alpha: 1),
             NSKernAttributeName : 1,
         ]
         

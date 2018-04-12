@@ -20,10 +20,8 @@ struct AppearanceConfig: Codable {
     
     enum ColorName: Int, CountableEnum, Codable {
         case demoNavBar
-        case brandPrimary
-        case brandSecondary
-        case textDark
-        case textLight
+        case primary
+        case dark
     }
     
     enum FontFamilyName: Int, CountableEnum, Codable {
@@ -35,7 +33,6 @@ struct AppearanceConfig: Codable {
     enum StringName: Int, CountableEnum, Codable {
         case helpButton
         case chatTitle
-        case predictiveTitle
     }
     
     let name: String
@@ -44,9 +41,16 @@ struct AppearanceConfig: Codable {
     let colors: [ColorName: Color]
     let strings: [StringName: String]
     let fontFamilyName: FontFamilyName
+    let version: Int
 }
 
 extension AppearanceConfig {
+    static let lastChangedVersion = 139
+    
+    var isValid: Bool {
+        return version >= AppearanceConfig.lastChangedVersion
+    }
+    
     var fontFamily: ASAPPFontFamily {
         return AppearanceConfig.fontFamily(for: fontFamilyName)
     }
@@ -71,6 +75,10 @@ extension AppearanceConfig {
         let defaultColor = Branding.defaultColors[colorName]!
         return (color ?? defaultColor)!.uiColor
     }
+    
+    static func create(name: String, brand: Brand, logo: Image, colors: [ColorName: Color] = [:], strings: [StringName: String] = [:], fontFamilyName: FontFamilyName = .asapp) -> AppearanceConfig {
+        return AppearanceConfig(name: name, brand: brand, logo: logo, colors: colors, strings: strings, fontFamilyName: fontFamilyName, version: Bundle.main.buildVersion)
+    }
 }
 
 extension AppearanceConfig: Equatable {
@@ -80,6 +88,13 @@ extension AppearanceConfig: Equatable {
                lhs.logo.id == rhs.logo.id &&
                lhs.colors == rhs.colors &&
                lhs.strings == rhs.strings &&
-               lhs.fontFamilyName == rhs.fontFamilyName
+               lhs.fontFamilyName == rhs.fontFamilyName &&
+               lhs.version == rhs.version
+    }
+}
+
+extension Bundle {
+    var buildVersion: Int {
+        return Int(infoDictionary?["CFBundleVersion"] as? String ?? "") ?? 0
     }
 }

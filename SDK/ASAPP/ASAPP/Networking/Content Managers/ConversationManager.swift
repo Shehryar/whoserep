@@ -8,8 +8,62 @@
 
 import Foundation
 
-class ConversationManager: NSObject {
+protocol ConversationManagerProtocol {
+    typealias ComponentViewHandler = (ComponentViewContainer?) -> Void
+    typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
     
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?)
+    
+    weak var delegate: ConversationManagerDelegate? { get set }
+    var events: [Event] { get }
+    var currentSRSClassification: String? { get set }
+    var isLiveChat: Bool { get }
+    var isConnected: Bool { get }
+    
+    func enterConversation()
+    func exitConversation()
+    func saveCurrentEvents(async: Bool)
+    func isConnected(retryConnectionIfNeeded: Bool) -> Bool
+    
+    func getCurrentQuickReplyMessage() -> ChatMessage?
+    func getEvents(afterEvent: Event?, completion: @escaping FetchedEventsCompletion)
+    func sendEnterChatRequest(_ completion: (() -> Void)?)
+    func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler)
+    func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String)
+    func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClient.DictCompletionHandler)
+    func sendRequestForTreewalkAction(_ action: TreewalkAction, messageText: String?, parentMessage: ChatMessage?, completion: ((Bool) -> Void)?)
+    func getComponentView(named name: String, data: [String: Any]?, completion: @escaping ComponentViewHandler)
+    func sendUserTypingStatus(isTyping: Bool, withText text: String?)
+    func sendAskRequest(_ completion: ((_ success: Bool) -> Void)?)
+    func sendPictureMessage(_ image: UIImage, completion: (() -> Void)?)
+    func sendTextMessage(_ message: String, completion: RequestResponseHandler?)
+    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool)
+    func endLiveChat() -> Bool
+}
+
+extension ConversationManagerProtocol {
+    func sendEnterChatRequest() {
+        return sendEnterChatRequest(nil)
+    }
+    
+    func saveCurrentEvents() {
+        return saveCurrentEvents(async: false)
+    }
+    
+    func sendPictureMessage(_ image: UIImage) {
+        return sendPictureMessage(image, completion: nil)
+    }
+    
+    func sendTextMessage(_ message: String) {
+        return sendTextMessage(message, completion: nil)
+    }
+    
+    func getEvents(completion: @escaping FetchedEventsCompletion) {
+        return getEvents(afterEvent: nil, completion: completion)
+    }
+}
+
+class ConversationManager: NSObject, ConversationManagerProtocol {
     let config: ASAPPConfig
     
     let user: ASAPPUser
@@ -51,16 +105,20 @@ class ConversationManager: NSObject {
     
     let socketConnection: SocketConnection
     
+    let httpClient: HTTPClientProtocol
+    
     let fileStore: ConversationFileStore
     
     // MARK: Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
+    required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
         self.config = config
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)
         self.simpleStore = ChatSimpleStore(config: config, user: user)
         self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
+        self.httpClient = HTTPClient.shared
+        self.httpClient.config(config)
         self.fileStore = ConversationFileStore(config: config, user: user)
         self.events = self.fileStore.getSavedEvents() ?? [Event]()
         self.isLiveChat = EventType.getLiveChatStatus(from: self.events)
@@ -173,22 +231,21 @@ extension ConversationManager {
     func sendRequest(path: String,
                      params: [String: Any]? = nil,
                      requiresContext: Bool = true,
-                     isRequestFromPrediction: Bool = false,
-                     completion: IncomingMessageHandler? = nil) {
+                     completion: RequestResponseHandler? = nil) {
                 
-        getRequestParameters(with: params, requiresContext: requiresContext) { (requestParams) in
-    
-            self.socketConnection.sendRequest(withPath: path, params: requestParams, context: nil, requestHandler: { (incomingMessage, request, responseTime) in
-                completion?(incomingMessage, request, responseTime)
-       
-                if path.contains("srs/") {
-                    self.trackSRSRequest(path: path,
-                                         requestUUID: request?.requestUUID,
-                                         isPredictive: isRequestFromPrediction,
-                                         params: params,
-                                         responseTimeInMilliseconds: responseTime)
+        getRequestParameters(with: params, requiresContext: requiresContext) { [httpClient] requestParams in
+            httpClient.sendRequest(method: .POST, path: path, params: requestParams) { (data: [String: Any]?, _, error) in
+                guard error == nil else {
+                    let message = IncomingMessage.errorMessage(error?.localizedDescription ?? "Response error")
+                    completion?(message)
+                    return
                 }
-            })
+                
+                let message = IncomingMessage()
+                message.body = data
+                message.type = .response
+                completion?(message)
+            }
         }
     }
 }
@@ -204,15 +261,24 @@ extension ConversationManager {
         
         let path = "customer/GetEvents"
         let afterSeq = afterEvent != nil ? afterEvent!.eventLogSeq : 0
-        let params = ["AfterSeq": afterSeq as AnyObject]
+        let params = ["AfterSeq": afterSeq]
         
-        socketConnection.sendRequest(withPath: path, params: params) { (message: IncomingMessage, _, _) in
+        httpClient.sendRequest(method: .POST, path: path, params: params) { (data: [String: Any]?, _, error) in
+            guard let data = data,
+                  error == nil else {
+                completion(nil, "Error fetching events.")
+                return
+            }
             
             Dispatcher.performOnBackgroundThread { [weak self] in
                 guard let strongSelf = self else {
                     return
                 }
-            
+                
+                let message = IncomingMessage()
+                message.body = data
+                message.type = .response
+                
                 let parsedEvents = message.parseEvents()
                 if let events = parsedEvents.events, let eventsJSONArray = parsedEvents.eventsJSONArray {
                     strongSelf.events = events
@@ -231,43 +297,16 @@ extension ConversationManager {
 // MARK: - Quick Replies
 
 extension ConversationManager {
-    
-    func getQuickReplyMessages() -> [ChatMessage]? {
-        guard let (currentQuickReplyEvent, currentQuickReplyMessage) = getCurrentQuickReplyMessage() else {
-            return nil
-        }
-        
-        var quickReplyMessages: [ChatMessage] = [currentQuickReplyMessage]
-        var parentEventLogSeq = currentQuickReplyEvent.parentEventLogSeq
-        
-        for (_, event) in events.enumerated().reversed() {
-            if parentEventLogSeq == nil || parentEventLogSeq! > event.eventLogSeq || parentEventLogSeq == 0 {
-                break
-            }
-            
-            if event.eventLogSeq == parentEventLogSeq {
-                if let message = event.chatMessage {
-                    quickReplyMessages.append(message)
-                    parentEventLogSeq = event.parentEventLogSeq
-                } else {
-                    break
-                }
-            }
-        }
-        
-        return quickReplyMessages.reversed()
-    }
-    
-    func getCurrentQuickReplyMessage() -> (Event, ChatMessage)? {
-        for (_, event) in events.enumerated().reversed() {
+    func getCurrentQuickReplyMessage() -> ChatMessage? {
+        for event in events.reversed() {
             if event.eventType == .accountMerge {
                 break
             }
             
-            if event.isReply {
+            if event.isReplyMessageEvent {
                 if let chatMessage = event.chatMessage,
-                    let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
-                    return (event, chatMessage)
+                   let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
+                    return chatMessage
                 }
                 break
             }
@@ -323,6 +362,11 @@ extension ConversationManager: SocketConnectionDelegate {
             return
         }
         
+        // Continue Event
+        if event.ephemeralType == .continue {
+            delegate?.conversationManager(self, didReturnAfterInactivityWith: event)
+        }
+        
         // Message Event
         if let message = event.chatMessage {
             if message.metadata.isAutomatedMessage {
@@ -340,6 +384,9 @@ extension ConversationManager: SocketConnectionDelegate {
     
     func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection) {
         DebugLog.d("ConversationManager: Established Connection")
+        
+        httpClient.session = socketConnection.session
+        PushNotificationsManager.shared.session = socketConnection.session
         
         delegate?.conversationManager(self, didChangeConnectionStatus: true)
     }

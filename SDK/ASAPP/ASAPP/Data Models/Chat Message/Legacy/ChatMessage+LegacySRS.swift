@@ -89,6 +89,7 @@ extension ChatMessage {
         }
     
         return ChatMessage(text: legacyComponents.message,
+                           notification: nil,
                            attachment: attachment,
                            quickReplies: quickRepliesHash,
                            metadata: metadata)

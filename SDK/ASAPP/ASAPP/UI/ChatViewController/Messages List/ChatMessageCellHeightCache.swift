@@ -13,6 +13,7 @@ class ChatMessageCellHeightCache: NSObject {
     private struct CachedHeight {
         let height: CGFloat
         let messagePosition: MessageListPosition
+        let buttonsVisible: Bool
     }
     
     private var cache = [ChatMessage: CachedHeight]()
@@ -22,17 +23,17 @@ class ChatMessageCellHeightCache: NSObject {
 
 extension ChatMessageCellHeightCache {
     
-    func getCachedHeight(for message: ChatMessage, with messagePosition: MessageListPosition) -> CGFloat? {
-        if let cachedHeight = cache[message] {
-            if cachedHeight.messagePosition == messagePosition {
-                return cachedHeight.height
-            }
+    func getCachedHeight(for message: ChatMessage, with messagePosition: MessageListPosition, buttonsVisible: Bool) -> CGFloat? {
+        if let cachedHeight = cache[message],
+           cachedHeight.messagePosition == messagePosition
+           && cachedHeight.buttonsVisible == buttonsVisible {
+            return cachedHeight.height
         }
         return nil
     }
     
-    func cacheHeight(_ height: CGFloat, for message: ChatMessage, with messagePosition: MessageListPosition) {
-        cache[message] = CachedHeight(height: height, messagePosition: messagePosition)
+    func cacheHeight(_ height: CGFloat, for message: ChatMessage, with messagePosition: MessageListPosition, buttonsVisible: Bool) {
+        cache[message] = CachedHeight(height: height, messagePosition: messagePosition, buttonsVisible: buttonsVisible)
     }
 
     func clearCache() {

@@ -20,6 +20,7 @@ identifier_name:
     - y
     - z
     - id
+    - in
 
 nesting:
   type_level:

@@ -8,17 +8,6 @@
 
 import UIKit
 
-extension ConversationManager {
-    
-    // MARK: Sample Responses
-    
-    func demo_AppOpenResponse() -> AppOpenResponse? {
-        guard ASAPP.isDemoContentEnabled() else { return nil }
-        
-        return AppOpenResponse.sampleResponse(forCompany: config.appId)
-    }
-}
-
 // MARK: - Sending Fake Data
 
 extension ConversationManager {
@@ -28,9 +17,7 @@ extension ConversationManager {
         
         let editedString = jsonString.replacingOccurrences(of: "\n", with: "")
         
-        socketConnection.sendRequest(
-            withPath: "srs/Echo",
-            params: ["Echo": editedString as AnyObject])
+        sendRequest(path: "srs/Echo", params: ["Echo": editedString])
     }
     
     // MARK: Generic

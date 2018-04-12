@@ -8,8 +8,31 @@
 
 import UIKit
 
-class ComponentCardView: UIView {
-
+class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleCornerRadiusUpdating {
+    weak var delegate: MessageButtonsViewContainerDelegate?
+    
+    var backgroundLayer: CALayer?
+    
+    var message: ChatMessage? {
+        didSet {
+            guard let message = message else {
+                return
+            }
+            
+            roundedCorners = getBubbleCorners(for: message, isAttachment: true)
+            
+            setNeedsDisplay()
+        }
+    }
+    
+    var messagePosition: MessageListPosition = .none {
+        didSet {
+            if let message = message {
+                roundedCorners = getBubbleCorners(for: message, isAttachment: true)
+            }
+        }
+    }
+    
     var component: Component? {
         didSet {
             componentView = component?.createView()
@@ -21,7 +44,9 @@ class ComponentCardView: UIView {
     
     var borderDisabled: Bool = false {
         didSet {
-            updateBorder()
+            if borderDisabled {
+                strokeColor = nil
+            }
         }
     }
     
@@ -49,11 +74,25 @@ class ComponentCardView: UIView {
         }
     }
     
-    // MARK: Initialization
+    var messageButtonsView: MessageButtonsView? {
+        didSet {
+            if let view = messageButtonsView, oldValue == nil {
+                view.contentInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+                view.delegate = self
+                addSubview(view)
+            }
+            
+            if let message = message {
+                roundedCorners = getBubbleCorners(for: message, isAttachment: true)
+            }
+        }
+    }
     
     func commonInit() {
-        
-        updateBorder()
+        super.commonInit()
+        fillColor = .clear
+        strokeColor = ASAPP.styles.colors.replyMessageBorder
+        strokeLineWidth = 1
     }
     
     override init(frame: CGRect) {
@@ -70,21 +109,17 @@ class ComponentCardView: UIView {
         componentView?.interactionHandler = nil
     }
     
-    // MAKR: Utility
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        backgroundLayer = setLinearGradient(degrees: 25, colors: ASAPP.styles.colors.attachmentGradientColors)
+    }
     
-    func updateBorder() {
-        if borderDisabled {
-            clipsToBounds = false
-            backgroundColor = UIColor.clear
-            layer.borderColor = nil
-            layer.borderWidth = 0
-        } else {
-            clipsToBounds = true
-            backgroundColor = ASAPP.styles.colors.backgroundPrimary
-            layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
-            layer.borderWidth = ASAPP.styles.separatorStrokeWidth
-            layer.cornerRadius = 5
-        }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        backgroundLayer?.removeAllAnimations()
+        backgroundLayer?.removeFromSuperlayer()
     }
     
     // MARK: Layout
@@ -92,7 +127,10 @@ class ComponentCardView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        componentView?.view.frame = bounds
+        let messageButtonsHeight = getMessageButtonsViewSizeThatFits(bounds.width).height
+        messageButtonsView?.frame = CGRect(x: 0, y: bounds.height - messageButtonsHeight, width: bounds.width, height: messageButtonsHeight)
+        
+        componentView?.view.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - messageButtonsHeight)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -101,7 +139,15 @@ class ComponentCardView: UIView {
         }
         
         let fittedSize = componentView.view.sizeThatFits(size)
-            
-        return fittedSize
+        
+        let messageButtonsSize = getMessageButtonsViewSizeThatFits(size.width)
+        
+        return CGSize(width: size.width, height: fittedSize.height + messageButtonsSize.height)
+    }
+}
+
+extension ComponentCardView: MessageButtonsViewDelegate {
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTapButtonWith action: Action) {
+        delegate?.messageButtonsViewContainer(self, didTapButtonWith: action)
     }
 }

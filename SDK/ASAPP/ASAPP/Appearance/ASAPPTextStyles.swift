@@ -16,59 +16,54 @@ import UIKit
 public class ASAPPTextStyles: NSObject {
     // MARK: General
     
-    /// The style of the navigation bar title.
-    public var navTitle = ASAPPTextStyle(font: Fonts.default.bold, size: 18, letterSpacing: 2, color: UIColor.ASAPP.manateeGray)
-    
     /// The style of navigation bar buttons.
     public var navButton = ASAPPTextStyle(font: Fonts.default.bold, size: 11, letterSpacing: 1, color: UIColor.ASAPP.manateeGray)
     
+    /// The text style of buttons.
+    public var button = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.2, color: UIColor.ASAPP.cometBlue)
+    
+    /// The style of action buttons.
+    public var actionButton = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .white)
+    
+    /// The style of links.
+    public var link = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: UIColor.ASAPP.ceruleanBlue)
+    
     // MARK: ComponentUI: Headers
     
-    /// The style of the predictive view title. See `ASAPPStrings.predictiveTitle`.
-    public var predictiveHeader = ASAPPTextStyle(font: Fonts.default.regular, size: 30, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
-    
-    /// The style of the predictive view message under the title. See `ASAPPStrings.predictiveOtherSuggestions`.
-    public var predictiveSubheader = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0, color: UIColor.ASAPP.cometBlue)
-    
     /// The style of top-level headers.
-    public var header1 = ASAPPTextStyle(font: Fonts.default.bold, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    public var header1 = ASAPPTextStyle(font: Fonts.default.regular, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9))
     
     /// The style of second-level headers.
-    public var header2 = ASAPPTextStyle(font: Fonts.default.bold, size: 18, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    public var header2 = ASAPPTextStyle(font: Fonts.default.bold, size: 20, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze)
+    
+    /// The style of third-level headers.
+    public var header3 = ASAPPTextStyle(font: Fonts.default.medium, size: 18, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze)
     
     /// The style of subheaders.
-    public var subheader = ASAPPTextStyle(font: Fonts.default.bold, size: 11, letterSpacing: 1.5, color: UIColor.ASAPP.manateeGray)
+    public var subheader = ASAPPTextStyle(font: Fonts.default.medium, size: 11, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze)
 
     // MARK: ComponentUI: Body
     
     /// The style of body text.
-    public var body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    public var body = ASAPPTextStyle(font: Fonts.default.regular, size: 16, letterSpacing: 0.2, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.85))
     
     /// The style of bold body text.
-    public var bodyBold  = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    public var bodyBold  = ASAPPTextStyle(font: Fonts.default.medium, size: 16, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze)
     
-    /// The style of italic body text.
-    public var bodyItalic = ASAPPTextStyle(font: Fonts.default.regularItalic ?? Fonts.default.regular, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    /// The style of secondary body text.
+    public var body2 = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.2, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.85))
     
-    /// The style of bold italic body text.
-    public var bodyBoldItalic = ASAPPTextStyle(font: Fonts.default.mediumItalic ?? Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.cometBlue)
+    /// The style of bold secondary body text.
+    public var bodyBold2  = ASAPPTextStyle(font: Fonts.default.medium, size: 16, letterSpacing: 0.2, color: UIColor.ASAPP.purpleHaze)
     
     /// The style of top-level detail text.
-    public var detail1 = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.manateeGray)
+    public var detail1 = ASAPPTextStyle(font: Fonts.default.regular, size: 11, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.5))
     
     /// The style of second-level detail text.
-    public var detail2 = ASAPPTextStyle(font: Fonts.default.medium, size: 10, letterSpacing: 0.75, color: UIColor.ASAPP.manateeGray)
+    public var detail2 = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9))
     
     /// The style of error text.
-    public var error = ASAPPTextStyle(font: Fonts.default.medium, size: 15, letterSpacing: 0.5, color: UIColor.ASAPP.burntSiennaRed)
-
-    // MARK: ComponentUI: Buttons
-    
-    /// The text style of buttons.
-    public var button = ASAPPTextStyle(font: Fonts.default.bold, size: 14, letterSpacing: 1.5, color: UIColor.ASAPP.cometBlue)
-    
-    /// The style of links.
-    public var link = ASAPPTextStyle(font: Fonts.default.bold, size: 12, letterSpacing: 1.5, color: UIColor.ASAPP.ceruleanBlue)
+    public var error = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.errorRed)
     
     // MARK: ComponentUI: Fonts
     
@@ -78,22 +73,35 @@ public class ASAPPTextStyles: NSObject {
      - parameter fontFamily: The font family to apply to all text styles. Each text style will use an appropriate weight.
      */
     public func updateStyles(for fontFamily: ASAPPFontFamily) {
-        navTitle.updateFont(fontFamily.medium)
-        navButton.updateFont(fontFamily.medium)
-        bodyItalic.updateFont(fontFamily.regularItalic ?? fontFamily.regular)
-        bodyBoldItalic.updateFont(fontFamily.mediumItalic ?? fontFamily.medium)
-        predictiveHeader.updateFont(fontFamily.regular)
-        predictiveSubheader.updateFont(fontFamily.regular)
-        header1.updateFont(fontFamily.bold)
+        navButton.updateFont(fontFamily.bold)
+        button.updateFont(fontFamily.bold)
+        actionButton.updateFont(fontFamily.regular)
+        link.updateFont(fontFamily.bold)
+        
+        header1.updateFont(fontFamily.regular)
         header2.updateFont(fontFamily.bold)
-        subheader.updateFont(fontFamily.bold)
+        header3.updateFont(fontFamily.medium)
+        subheader.updateFont(fontFamily.medium)
         body.updateFont(fontFamily.regular)
         bodyBold.updateFont(fontFamily.medium)
+        body2.updateFont(fontFamily.regular)
+        bodyBold2.updateFont(fontFamily.medium)
         detail1.updateFont(fontFamily.regular)
-        detail2.updateFont(fontFamily.medium)
-        error.updateFont(fontFamily.medium)
-        button.updateFont(fontFamily.bold)
-        link.updateFont(fontFamily.bold)
+        detail2.updateFont(fontFamily.regular)
+        error.updateFont(fontFamily.regular)
+    }
+    
+    internal func updateColors(with color: UIColor) {
+        header1.updateColor(color.withAlphaComponent(0.9))
+        header2.updateColor(color)
+        header3.updateColor(color)
+        subheader.updateColor(color)
+        body.updateColor(color.withAlphaComponent(0.85))
+        bodyBold.updateColor(color)
+        body2.updateColor(color.withAlphaComponent(0.85))
+        bodyBold2.updateColor(color)
+        detail1.updateColor(color.withAlphaComponent(0.5))
+        detail2.updateColor(color.withAlphaComponent(0.9))
     }
 }
 
@@ -101,17 +109,15 @@ extension ASAPPTextStyles {
     
     func style(for type: TextType) -> ASAPPTextStyle {
         switch type {
-        case .navTitle: return navTitle
         case .navButton: return navButton
-        case .predictiveHeader: return predictiveHeader
-        case .predictiveSubheader: return predictiveSubheader
         case .header1: return header1
         case .header2: return header2
+        case .header3: return header3
         case .subheader: return subheader
         case .body: return body
         case .bodyBold: return bodyBold
-        case .bodyItalic: return bodyItalic
-        case .bodyBoldItalic: return bodyBoldItalic
+        case .body2: return body2
+        case .bodyBold2: return bodyBold2
         case .detail1: return detail1
         case .detail2: return detail2
         case .error: return error

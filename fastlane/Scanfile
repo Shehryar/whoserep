@@ -1,0 +1,10 @@
+scheme "Tests"
+
+workspace "SDK/ASAPP.xcworkspace"
+
+device "iPhone SE"
+
+clean true
+
+output_types "html,junit"
+

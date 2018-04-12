@@ -17,7 +17,11 @@ protocol SavedSessionManagerProtocol {
 class SavedSessionManager: SavedSessionManagerProtocol {
     static let shared = SavedSessionManager()
     
-    private init() {}
+    private var codableStorage: CodableStorageProtocol
+    
+    init(codableStorage: CodableStorageProtocol = CodableStorage.default) {
+        self.codableStorage = codableStorage
+    }
     
     func clearSession() {
         save(session: nil)
@@ -26,7 +30,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
     func save(session: Session?) {
         guard let session = session else {
             do {
-                try CodableStorage.remove(sessionFileName, from: Session.defaultDirectory)
+                try codableStorage.remove(sessionFileName, from: Session.defaultDirectory)
                 DebugLog.d("Cleared saved session")
             } catch {
                 DebugLog.e(error)
@@ -35,7 +39,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
         }
         
         do {
-            try CodableStorage.store(session, as: sessionFileName)
+            try codableStorage.store(session, as: sessionFileName)
             DebugLog.d("Saved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
         } catch {
             DebugLog.e(error)
@@ -44,7 +48,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
     
     func getSession() -> Session? {
         do {
-            if let session = try CodableStorage.retrieve(sessionFileName, as: Session.self) {
+            if let session = try codableStorage.retrieve(sessionFileName, as: Session.self) {
                 DebugLog.d("Retrieved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
                 return session
             } else {

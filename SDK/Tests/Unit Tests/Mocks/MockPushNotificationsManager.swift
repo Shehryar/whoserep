@@ -12,7 +12,7 @@ class MockPushNotificationsManager: PushNotificationsManagerProtocol {
     private(set) var calledEnableIfSessionExists = false
     private(set) var calledRegister = false
     private(set) var calledDeregister = false
-    private(set) var calledGetUnreadMessagesCount = false
+    private(set) var calledGetChatStatus = false
     private(set) var calledRequestAuthorization = false
     private(set) var calledRequestAuthorizaitonIfNeeded = false
     
@@ -48,8 +48,8 @@ class MockPushNotificationsManager: PushNotificationsManagerProtocol {
         calledDeregister = true
     }
     
-    func getUnreadMessagesCount(_ handler: @escaping ASAPP.UnreadMessagesHandler) {
-        calledGetUnreadMessagesCount = true
+    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler) {
+        calledGetChatStatus = true
     }
     
     func requestAuthorization() {

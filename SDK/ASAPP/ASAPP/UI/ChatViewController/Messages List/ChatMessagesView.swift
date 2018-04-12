@@ -16,14 +16,14 @@ protocol ChatMessagesViewDelegate: class {
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didTapLastMessage message: ChatMessage)
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView,
                           didUpdateQuickRepliesFrom message: ChatMessage)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage)
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTapButtonWith action: Action)
 }
 
 class ChatMessagesView: UIView {
@@ -43,7 +43,7 @@ class ChatMessagesView: UIView {
     var contentInsetBottom: CGFloat = 0 {
         didSet {
             var newContentInset = contentInset
-            newContentInset.bottom = contentInsetBottom
+            newContentInset.bottom = contentInsetBottom + bottomPadding
             contentInset = newContentInset
             let scrollInsets = tableView.scrollIndicatorInsets
             tableView.scrollIndicatorInsets = UIEdgeInsets(top: scrollInsets.top, left: scrollInsets.left, bottom: contentInsetBottom, right: scrollInsets.right)
@@ -53,6 +53,8 @@ class ChatMessagesView: UIView {
     weak var delegate: ChatMessagesViewDelegate?
     
     var showTimeStampForMessage: ChatMessage?
+    
+    var hideMessageButtons = false
     
     var firstMessage: ChatMessage? {
         return dataSource.allMessages.first
@@ -74,14 +76,6 @@ class ChatMessagesView: UIView {
         return dataSource.isEmpty()
     }
     
-    var overrideToHideInfoView = false {
-        didSet {
-            if oldValue != overrideToHideInfoView {
-                updateSubviewVisibility()
-            }
-        }
-    }
-    
     // MARK: - Private Properties
     
     private let cellAnimationsEnabled = true
@@ -95,13 +89,13 @@ class ChatMessagesView: UIView {
     
     private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
     
+    private let bottomPadding: CGFloat = 10
+    
     private var cellMaster: ChatMessagesViewCellMaster!
     
     private var dataSource: ChatMessagesViewDataSource!
     
     private let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
-    private let emptyView = ChatMessagesEmptyView()
     
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     
@@ -111,28 +105,22 @@ class ChatMessagesView: UIView {
         self.cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
         self.dataSource = ChatMessagesViewDataSource()
         
-        backgroundColor = ASAPP.styles.colors.messagesListBackground
+        backgroundColor = .clear
         clipsToBounds = false
         
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
+        tableView.estimatedRowHeight = 0
         tableView.clipsToBounds = false
-        tableView.backgroundColor = ASAPP.styles.colors.messagesListBackground
+        tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 0.01))
         tableView.keyboardDismissMode = .interactive
         tableView.dataSource = self
         tableView.delegate = self
         addSubview(tableView)
-        
-        emptyView.frame = bounds
-        emptyView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        emptyView.title = ASAPP.strings.chatEmptyTitle
-        emptyView.message = ASAPP.strings.chatEmptyMessage
-        addSubview(emptyView)
-        
-        updateSubviewVisibility()
     }
     
     override init(frame: CGRect) {
@@ -170,30 +158,7 @@ class ChatMessagesView: UIView {
 
 // MARK: - Utility
 
-extension ChatMessagesView {
-
-    func updateSubviewVisibility(_ animated: Bool = false) {
-        let currentAlpha = emptyView.alpha
-        var nextAlpha: CGFloat
-        if overrideToHideInfoView || !dataSource.isEmpty() {
-            nextAlpha = 0.0
-        } else {
-            nextAlpha = 1.0
-        }
-        
-        if currentAlpha == nextAlpha {
-            return
-        }
-    
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: { 
-                self.emptyView.alpha = nextAlpha
-            })
-        } else {
-            emptyView.alpha = nextAlpha
-        }
-    }
-    
+extension ChatMessagesView {    
     private func messageListPositionForIndexPath(_ indexPath: IndexPath) -> MessageListPosition {
         guard let message = dataSource.getMessage(for: indexPath) else { return .none }
         
@@ -215,6 +180,10 @@ extension ChatMessagesView {
         }
         
         return .none
+    }
+    
+    private func shouldShowButtons(for message: ChatMessage) -> Bool {
+        return message == lastMessage && !hideMessageButtons
     }
 }
 
@@ -258,6 +227,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let cell = cellMaster.cellForMessage(message,
                                              listPosition: messageListPositionForIndexPath(indexPath),
                                              detailsVisible: message == showTimeStampForMessage,
+                                             buttonsVisible: shouldShowButtons(for: message),
                                              atIndexPath: indexPath)
         cell?.delegate = self
         
@@ -294,6 +264,15 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         return cellMaster.heightForTimeStampHeaderView(withTime: dataSource.getHeaderTime(for: section))
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: .leastNonzeroMagnitude))
+        return view
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let message = dataSource.getMessage(for: indexPath) else {
             return cellMaster.heightForTypingIndicatorCell()
@@ -302,7 +281,8 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let listPosition = messageListPositionForIndexPath(indexPath)
         let height = cellMaster.heightForCell(with: message,
                                               listPosition: listPosition,
-                                              detailsVisible: message == showTimeStampForMessage)
+                                              detailsVisible: message == showTimeStampForMessage,
+                                              buttonsVisible: shouldShowButtons(for: message))
         return height
     }
     
@@ -324,26 +304,22 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         
         if let message = dataSource.getMessage(for: indexPath) {
             if message == dataSource.getLastMessage() {
-                delegate?.chatMessagesView(self, didTapLastMessage: message)
+                if isNearBottom() {
+                    scrollToBottomAnimated(false)
+                }
             }
-        }   
+        }
     }
     
     func toggleTimeStampForMessage(at indexPath: IndexPath) {
         let previousMessage = showTimeStampForMessage
-        let animated: Bool
-        if #available(iOS 11.0, *) {
-            animated = false
-        } else {
-            animated = true
-        }
         
         // Hide timestamp on previous cell
         if let previousMessage = previousMessage,
             let previousIndexPath = dataSource.getIndexPath(of: previousMessage),
             let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatMessageCell {
                 showTimeStampForMessage = nil
-                previousCell.setTimeLabelVisible(false, animated: animated)
+                previousCell.setTimeLabelVisible(false, animated: true)
         }
 
         if let nextMessage = dataSource.getMessage(for: indexPath) {
@@ -351,18 +327,13 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             if previousMessage == nil || nextMessage != previousMessage {
                 if let nextCell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
                     showTimeStampForMessage = nextMessage
-                    nextCell.setTimeLabelVisible(true, animated: animated)
+                    nextCell.setTimeLabelVisible(true, animated: true)
                 }
             }
         }
         
-        // Update cell heights
-        if #available(iOS 11.0, *) {
-            tableView.reloadData()
-        } else {
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }
 
@@ -381,6 +352,10 @@ extension ChatMessagesView: ChatMessageCellDelegate {
                          from message: ChatMessage) {
         delegate?.chatMessagesView(self, didTap: buttonItem, from: message)
     }
+    
+    func chatMessageCell(_ cell: ChatMessageCell, didTapButtonWith action: Action) {
+        delegate?.chatMessagesView(self, didTapButtonWith: action)
+    }
 }
 
 // MARK: - Scroll
@@ -389,7 +364,7 @@ extension ChatMessagesView {
     
     func isNearBottom(_ delta: CGFloat = 120) -> Bool {
         let offsetWithDelta = tableView.contentOffset.y + delta
-        let offsetAtBottom = tableView.contentSize.height - tableView.bounds.height - tableView.contentInset.bottom
+        let offsetAtBottom = tableView.contentSize.height + tableView.contentInset.bottom - tableView.bounds.height
         if offsetWithDelta >= offsetAtBottom {
             return true
         }
@@ -438,7 +413,14 @@ extension ChatMessagesView {
         otherParticipantIsTyping = isTyping
         
         if isDifferent {
-            tableView.reloadData()
+            let lastSection = dataSource.numberOfSections() - 1
+            let lastRow = dataSource.numberOfRowsInSection(lastSection)
+            let lastIndexPath = IndexPath(row: lastRow, section: lastSection)
+            if isTyping {
+                tableView.insertRows(at: [lastIndexPath], with: .none)
+            } else {
+                tableView.deleteRows(at: [lastIndexPath], with: .none)
+            }
         }
         
         if shouldScrollToBottom {
@@ -454,9 +436,9 @@ extension ChatMessagesView {
     func reloadWithEvents(_ events: [Event]) {
         let countBefore = dataSource.allMessages.count
         
+        hideMessageButtons = events.last?.eventType == .accountMerge
         dataSource.reloadWithEvents(events)
         tableView.reloadData()
-        updateSubviewVisibility()
         
         if dataSource.allMessages.count != countBefore {
             scrollToBottomAnimated(false)
@@ -465,10 +447,18 @@ extension ChatMessagesView {
     }
     
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
+        var rowsToReload: [IndexPath] = []
+        
+        if let previousLastIndexPath = dataSource.getLastIndexPath() {
+            rowsToReload.append(previousLastIndexPath)
+        }
+        
         guard let indexPath = dataSource.addMessage(message) else {
             DebugLog.w(caller: self, "Failed to add message to view.")
             return
         }
+        
+        hideMessageButtons = false
         
         // Only animate the message if the user is near the bottom
         let wasNearBottom = isNearBottom()
@@ -476,18 +466,21 @@ extension ChatMessagesView {
             messagesThatShouldAnimate.insert(message)
         }
         
-        var previousIndexPath: IndexPath?
-        if (indexPath as NSIndexPath).row > 0 {
-            previousIndexPath = IndexPath(row: (indexPath as NSIndexPath).row - 1, section: (indexPath as NSIndexPath).section)
+        if indexPath.row > 0 {
+            let previousIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+            if !rowsToReload.contains(previousIndexPath) {
+                rowsToReload.append(previousIndexPath)
+            }
         }
         
         UIView.performWithoutAnimation({
             self.tableView.beginUpdates()
-            if let previousIndexPath = previousIndexPath {
-                self.tableView.reloadRows(at: [previousIndexPath], with: .none)
+            if !rowsToReload.isEmpty {
+                self.tableView.reloadRows(at: rowsToReload, with: .none)
             }
-            if self.tableView.numberOfSections <= (indexPath as NSIndexPath).section {
-                self.tableView.insertSections(IndexSet(integer: (indexPath as NSIndexPath).section), with: .none)
+            
+            if self.tableView.numberOfSections <= indexPath.section {
+                self.tableView.insertSections(IndexSet(integer: indexPath.section), with: .none)
             } else {
                 self.tableView.insertRows(at: [indexPath], with: .none)
             }
@@ -499,8 +492,6 @@ extension ChatMessagesView {
         if wasNearBottom {
             scrollToBottomAnimated(cellAnimationsEnabled)
         }
-        
-        updateSubviewVisibility(true)
         
         completion?()
     }

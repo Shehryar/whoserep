@@ -8,67 +8,75 @@
 
 import UIKit
 
-class QuickRepliesListView: UIView {
+protocol QuickRepliesListViewDelegate: class {
+    func quickRepliesListViewDidLayoutNewQuickReplies(_ quickRepliesListView: QuickRepliesListView)
+}
 
-    var onQuickReplySelected: ((QuickReply) -> Bool)?
-    
-    var message: ChatMessage? {
-        didSet {
-            selectedQuickReply = nil
-            quickReplies = message?.quickReplies
-        }
+class QuickRepliesListView: UIView {
+    enum AnimationDirection {
+        case `in`
+        case out
     }
+    
+    weak var delegate: QuickRepliesListViewDelegate?
+    
+    var onQuickReplySelected: ((QuickReply) -> Bool)?
     
     var selectionDisabled: Bool = false {
         didSet {
-            tableView.reloadData()
+            updateDisplay()
+        }
+    }
+    
+    var contentInsetBottom: CGFloat = 0 {
+        didSet {
+            scrollView.contentInset.bottom = contentInsetBottom
+            let scrollInsets = scrollView.scrollIndicatorInsets
+            scrollView.scrollIndicatorInsets = UIEdgeInsets(top: scrollInsets.top, left: scrollInsets.left, bottom: contentInsetBottom, right: scrollInsets.right)
+        }
+    }
+    
+    var contentInsetTop: CGFloat {
+        return scrollView.contentInset.top
+    }
+    
+    var contentHeight: CGFloat {
+        return scrollView.contentSize.height
+    }
+    
+    var isEmpty: Bool {
+        return quickReplies?.isEmpty ?? true
+    }
+    
+    private(set) var message: ChatMessage? {
+        didSet {
+            selectedQuickReply = nil
         }
     }
     
     private(set) var selectedQuickReply: QuickReply?
     
-    private(set) var quickReplies: [QuickReply]? {
-        didSet {
-            selectionDisabled = false
-            tableView.reloadData()
-            tableView.setContentOffset(CGPoint.zero, animated: false)
-            updateGradientVisibility()
-        }
-    }
+    private(set) var quickReplies: [QuickReply]?
     
-    private let tableView = UITableView(frame: CGRect.zero, style: .plain)
+    private let scrollView = UIScrollView()
     
-    private let cellReuseId = "CellReuseId"
+    private var quickReplyViews: [QuickReplyView] = []
     
-    private let replySizingCell = QuickReplyCell()
-    
-    private let gradientView = VerticalGradientView()
+    private let initialDelay: TimeInterval = 0.3
+    private let delayIncrement: TimeInterval = 0.2
+    private let translationDuration: TimeInterval = 0.4
+    private let initialFadeDuration: TimeInterval = 0.6
+    private let fadeDurationIncrement: TimeInterval = 0.2
     
     // MARK: Initialization
     
     func commonInit() {
-        tableView.backgroundColor = UIColor.clear
-        tableView.scrollsToTop = false
-        tableView.alwaysBounceVertical = true
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.tableFooterView = UIView()
-        tableView.register(QuickReplyCell.self, forCellReuseIdentifier: cellReuseId)
-        addSubview(tableView)
-        
-        let gradientColor = UIColor(red: 60.0 / 255.0,
-                                    green: 64.0 / 255.0,
-                                    blue: 73.0 / 255.0,
-                                    alpha: 1)
-        gradientView.update(colors: [
-            gradientColor.withAlphaComponent(0.0),
-            gradientColor.withAlphaComponent(0.08),
-            gradientColor.withAlphaComponent(0.3)
-        ])
-        gradientView.isUserInteractionEnabled = false
-        gradientView.alpha = 0.0
-        addSubview(gradientView)
+        scrollView.backgroundColor = .clear
+        scrollView.scrollsToTop = false
+        scrollView.alwaysBounceVertical = false
+        scrollView.delegate = self
+        scrollView.contentInset = UIEdgeInsets(top: QuickReplyView.contentInset.top * 3 - 1, left: 0, bottom: QuickReplyView.contentInset.bottom * 2, right: 0)
+        addSubview(scrollView)
     }
     
     override init(frame: CGRect) {
@@ -81,15 +89,21 @@ class QuickRepliesListView: UIView {
         commonInit()
     }
     
-    deinit {
-        tableView.dataSource = nil
-        tableView.delegate = nil
-    }
-    
     // MARK: - Display
     
+    func update(for message: ChatMessage?, animated: Bool) {
+        self.message = message
+        quickReplies = message?.quickReplies
+        refresh(animated: animated) { [weak self] in
+            self?.reset()
+        }
+    }
+    
     func updateDisplay() {
-        tableView.reloadData()
+        for i in quickReplyViews.indices {
+            styleQuickReplyView(at: i)
+        }
+        
         setNeedsLayout()
     }
     
@@ -98,173 +112,240 @@ class QuickRepliesListView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        tableView.frame = bounds
-        
-        let gradientHeight: CGFloat = 30.0
-        let gradientTop = bounds.height - gradientHeight
-        gradientView.frame = CGRect(x: 0, y: gradientTop, width: bounds.width, height: gradientHeight)
-        
-        updateGradientVisibility()
+        scrollView.frame = bounds
     }
     
-    func updateGradientVisibility() {
-        if tableView.contentSize.height > tableView.bounds.height {
-            
-            let maxContentOffset = tableView.contentSize.height - tableView.bounds.height
-            let visibilityBuffer: CGFloat = 70
-            let maxVisibleGradientOffset = maxContentOffset - visibilityBuffer
-            
-            let offsetY = tableView.contentOffset.y
-            if offsetY < maxVisibleGradientOffset {
-                gradientView.alpha = 1.0
-            } else if offsetY >= maxContentOffset {
-                gradientView.alpha = 0.0
-            } else {
-                gradientView.alpha = (maxContentOffset - offsetY) / visibilityBuffer
-            }
-        } else {
-            gradientView.alpha = 0.0
+    private func styleQuickReplyView(at index: Int) {
+        guard let quickReply = quickReplies?[index] else {
+            return
         }
-    }
-}
-
-// MARK: - UITableViewDataSource
-
-extension QuickRepliesListView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let quickReplies = quickReplies {
-            return quickReplies.count
-        }
-        return 0
+        
+        let view = quickReplyViews[index]
+        styleQuickReplyView(view, for: quickReply)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId) as? QuickReplyCell {
-            styleQuickReplyCell(cell, atIndexPath: indexPath)
-            return cell
+    private func styleQuickReplyView(_ view: QuickReplyView) {
+        guard let index = quickReplyViews.index(of: view),
+              let quickReply = quickReplies?[index] else {
+            return
         }
-        return UITableViewCell()
+        
+        styleQuickReplyView(view, for: quickReply)
     }
     
-    // Mark: Utility
-    
-    func quickReplyForIndexPath(_ indexPath: IndexPath) -> QuickReply? {
-        guard let quickReplies = quickReplies,
-            indexPath.row >= 0 && indexPath.row < quickReplies.count else {
-                return nil
-        }
-        return quickReplies[indexPath.row]
+    private func styleQuickReplyView(_ view: QuickReplyView, for quickReply: QuickReply) {
+        let enabled = (selectedQuickReply == nil && !selectionDisabled) || selectedQuickReply == quickReply
+        view.update(for: quickReply, enabled: enabled)
+        view.setNeedsLayout()
     }
     
-    func styleQuickReplyCell(_ cell: QuickReplyCell, atIndexPath indexPath: IndexPath) {
-        
-        cell.label.textAlignment = .center
-        cell.label.textColor = ASAPP.styles.colors.quickReplyButton.textNormal
-        cell.backgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundNormal
-        
-        cell.label.font = ASAPP.styles.textStyles.body.font
-        cell.separatorBottomColor = ASAPP.styles.colors.separatorSecondary
-        
-        if let quickReply = quickReplyForIndexPath(indexPath) {
-            
-            if quickReply.action.type == .componentView {
-                cell.label.setAttributedText(quickReply.title,
-                                             textType: .bodyBold,
-                                             color: ASAPP.styles.colors.quickReplyButton.textNormal)
-            } else {
-                cell.label.setAttributedText(quickReply.title,
-                                             textType: .body,
-                                             color: ASAPP.styles.colors.quickReplyButton.textNormal)
-            }
-            
-            cell.imageTintColor = ASAPP.styles.colors.quickReplyButton.textNormal
-            
-            if quickReply.action.willExitASAPP {
-                cell.imageView?.isHidden = false
-                cell.accessibilityTraits = UIAccessibilityTraitLink
-            } else {
-                cell.imageView?.isHidden = true
-                cell.accessibilityTraits = UIAccessibilityTraitButton
-            }
-        } else {
-            cell.label.text = nil
-        }
-        
-        if selectedQuickReply != nil || selectionDisabled {
-            if selectedQuickReply == quickReplyForIndexPath(indexPath) {
-                cell.label.alpha = 1
-            } else {
-                cell.label.alpha = 0.3
-            }
-            cell.selectedBackgroundColor = nil
-        } else {
-            cell.label.alpha = 1
-            cell.selectedBackgroundColor = ASAPP.styles.colors.quickReplyButton.backgroundHighlighted
-        }
-        
-        cell.layoutSubviews()
-    }
-}
-
-// MARK: - UITableViewDelegate
-
-extension QuickRepliesListView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        styleQuickReplyCell(replySizingCell, atIndexPath: indexPath)
-        let height = replySizingCell.sizeThatFits(CGSize(width: tableView.bounds.width, height: 0)).height
-        return height
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard selectedQuickReply == nil && !selectionDisabled else { return }
-        
-        if let quickReply = quickReplyForIndexPath(indexPath),
-            let onQuickReplySelected = onQuickReplySelected {
-            selectedQuickReply = quickReply
-            if !onQuickReplySelected(quickReply) {
-                selectedQuickReply = nil
-            }
-            updateCellsAnimated(animated: true)
-        }
-    }
-    
-    private func updateCellsAnimated(animated: Bool) {
-        func updateBlock() {
-            for cell in tableView.visibleCells {
-                if let cell = cell as? QuickReplyCell,
-                    let cellIdxPath = tableView.indexPath(for: cell) {
-                    self.styleQuickReplyCell(cell, atIndexPath: cellIdxPath)
-                }
-            }
-        }
-        
+    private func updateViewsAnimated(_ animated: Bool) {
         if animated {
-            UIView.animate(withDuration: 0.3, animations: updateBlock)
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.updateDisplay()
+            }
         } else {
-            updateBlock()
+            updateDisplay()
         }
     }
 }
 
-// MARK: - UIScrollViewDelegate
+extension QuickRepliesListView {
+    // MARK: - Animations
+    
+    func getTotalAnimationDuration(delay shouldDelay: Bool, direction: AnimationDirection) -> TimeInterval {
+        let lastIndex = (quickReplies?.count ?? 1) - 1
+        let delay = getDelay(initial: shouldDelay, at: lastIndex)
+        let translationDuration = getTranslationDuration(direction: direction)
+        return delay + translationDuration
+    }
+    
+    private func getDelay(initial: Bool, at index: Int) -> TimeInterval {
+        return (initial ? initialDelay : 0) + delayIncrement * Double(index)
+    }
+    
+    private func getFadeDuration(at index: Int, direction: AnimationDirection) -> TimeInterval {
+        return ((direction == .in ? 1 : 0.5) * initialFadeDuration) + Double(index) * fadeDurationIncrement
+    }
+    
+    private func getTranslationDuration(direction: AnimationDirection) -> TimeInterval {
+        return (direction == .in ? 1 : 0.5) * translationDuration
+    }
+    
+    private func getTranslationOffset(for view: QuickReplyView) -> CGFloat {
+        return view.buttonMinHeight * 0.75
+    }
+    
+    private func refresh(animated: Bool, _ completion: (() -> Void)? = nil) {
+        removeAll(animated: animated) { [weak self] delayNext in
+            self?.addAll(animated: animated, shouldDelay: delayNext, completion)
+        }
+    }
+    
+    private func removeAll(animated: Bool, _ completion: ((_ delayNext: Bool) -> Void)? = nil) {
+        guard !quickReplyViews.isEmpty else {
+            completion?(true)
+            return
+        }
+        
+        guard animated else {
+            quickReplyViews.forEach { $0.removeFromSuperview() }
+            quickReplyViews = []
+            scrollView.setNeedsLayout()
+            scrollView.layoutIfNeeded()
+            scrollView.setNeedsDisplay()
+            completion?(false)
+            return
+        }
+        
+        for (i, view) in quickReplyViews.reversed().enumerated() {
+            let targetY = view.center.y + getTranslationOffset(for: view)
+            let delay = getDelay(initial: false, at: i)
+            let fadeDuration = getFadeDuration(at: i, direction: .out)
+            let translationDuration = getTranslationDuration(direction: .out)
+            
+            // fade and translation durations are intentionally swapped
+            UIView.animate(withDuration: fadeDuration, delay: delay, options: .curveEaseInOut, animations: {
+                view.center.y = targetY
+                view.setNeedsLayout()
+            })
+            
+            UIView.animate(withDuration: translationDuration, delay: delay, options: .curveEaseInOut, animations: {
+                view.alpha = 0
+                view.setNeedsLayout()
+            })
+        }
+        
+        Dispatcher.delay(1000 * getTotalAnimationDuration(delay: false, direction: .out)) { [weak self] in
+            self?.quickReplyViews = []
+            self?.scrollView.setNeedsLayout()
+            self?.scrollView.layoutIfNeeded()
+            self?.scrollView.setNeedsDisplay()
+            completion?(false)
+        }
+    }
+    
+    private func addAll(animated: Bool, shouldDelay: Bool, _ completion: (() -> Void)? = nil) {
+        scrollView.subviews.forEach { view in
+            view.removeFromSuperview()
+        }
+        scrollView.contentOffset = CGPoint(x: 0, y: -scrollView.contentInset.top)
+        scrollView.setNeedsLayout()
+        scrollView.layoutIfNeeded()
+        
+        guard let quickReplies = quickReplies else {
+            completion?()
+            return
+        }
+        
+        var totalHeight: CGFloat = 0
+        
+        for (i, quickReply) in quickReplies.enumerated() {
+            let view = QuickReplyView(frame: .zero)
+            view.delegate = self
+            view.gestureRecognizer?.delegate = self
+            view.update(for: quickReply, enabled: true)
+            
+            let size = view.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude))
+            let startOffset = animated ? getTranslationOffset(for: view) : 0
+            view.frame = CGRect(x: 0, y: totalHeight + startOffset, width: size.width, height: size.height)
+            
+            totalHeight += size.height
+            let endY = view.center.y - startOffset
+            
+            quickReplyViews.append(view)
+            scrollView.addSubview(view)
+            
+            guard animated else {
+                continue
+            }
+            
+            view.alpha = 0
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+            
+            let delay = getDelay(initial: shouldDelay, at: i)
+            let fadeDuration = getFadeDuration(at: i, direction: .in)
+            let translationDuration = getTranslationDuration(direction: .in)
+            
+            UIView.animate(withDuration: translationDuration, delay: delay, options: .curveEaseInOut, animations: {
+                view.center.y = endY
+                view.setNeedsLayout()
+            })
+            
+            UIView.animate(withDuration: fadeDuration, delay: delay, options: .curveEaseInOut, animations: {
+                view.alpha = 1
+                view.setNeedsLayout()
+            })
+        }
+        
+        scrollView.contentSize = CGSize(width: bounds.width, height: totalHeight)
+        
+        delegate?.quickRepliesListViewDidLayoutNewQuickReplies(self)
+        
+        guard animated else {
+            completion?()
+            return
+        }
+        
+        Dispatcher.delay(1000 * getTotalAnimationDuration(delay: shouldDelay, direction: .in)) {
+            completion?()
+        }
+    }
+    
+    private func reset() {
+        selectionDisabled = false
+    }
+}
+
+extension QuickRepliesListView: QuickReplyViewDelegate {
+    func didTapQuickReplyView(_ quickReplyView: QuickReplyView) {
+        guard selectedQuickReply == nil,
+              !selectionDisabled,
+              let index = quickReplyViews.index(of: quickReplyView),
+              let quickReply = quickReplies?[index],
+              let onQuickReplySelected = onQuickReplySelected else {
+            return
+        }
+        
+        selectedQuickReply = quickReply
+        if !onQuickReplySelected(quickReply) {
+            selectedQuickReply = nil
+        }
+        updateViewsAnimated(true)
+    }
+}
+
+extension QuickRepliesListView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
 
 extension QuickRepliesListView: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        for view in quickReplyViews {
+            view.gestureRecognizer?.isEnabled = false
+            view.gestureRecognizer?.isEnabled = true
+            view.canBeHighlighted = false
+            view.setHighlighted(false, animated: false)
+        }
+    }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateGradientVisibility()
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        for view in quickReplyViews {
+            view.canBeHighlighted = true
+        }
     }
 }
 
 // MARK: - Public Methods
 
 extension QuickRepliesListView {
-    
     func flashScrollIndicatorsIfNecessary() {
-        if tableView.contentSize.height > tableView.bounds.height + 30 {
-            Dispatcher.delay(600) {
-                self.tableView.flashScrollIndicators()
+        if scrollView.contentSize.height > scrollView.bounds.height + 30 {
+            Dispatcher.delay(600) { [weak self] in
+                self?.scrollView.flashScrollIndicators()
             }
         }
     }
@@ -272,17 +353,17 @@ extension QuickRepliesListView {
     func deselectButtonSelection(animated: Bool) {
         if selectedQuickReply != nil {
             selectedQuickReply = nil
-            updateCellsAnimated(animated: animated)
+            updateViewsAnimated(animated)
         }
     }
     
     func clearSelection() {
         selectedQuickReply = nil
         selectionDisabled = false
-        tableView.reloadData()
+        updateDisplay()
     }
     
     class func approximateRowHeight() -> CGFloat {
-        return QuickReplyCell.approximateHeight(withFont: ASAPP.styles.textStyles.body.font)
+        return QuickReplyView.approximateHeight(with: ASAPP.styles.textStyles.body.font)
     }
 }

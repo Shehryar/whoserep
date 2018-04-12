@@ -112,9 +112,10 @@ extension ChatMessagesViewCellMaster {
     private func updateMessageCell(_ cell: ChatMessageCell?,
                                    with message: ChatMessage,
                                    listPosition: MessageListPosition,
-                                   detailsVisible: Bool) {
+                                   detailsVisible: Bool,
+                                   buttonsVisible: Bool) {
         cell?.messagePosition = listPosition
-        cell?.message = message
+        cell?.update(message, showButtons: buttonsVisible)
         cell?.isAccessibilityElement = true
         cell?.accessibilityLabel = message.text
         cell?.isTimeLabelVisible = detailsVisible
@@ -169,10 +170,16 @@ extension ChatMessagesViewCellMaster {
     func cellForMessage(_ message: ChatMessage,
                         listPosition: MessageListPosition,
                         detailsVisible: Bool,
+                        buttonsVisible: Bool,
                         atIndexPath indexPath: IndexPath) -> ChatMessageCell? {
         let reuseId = getCellReuseId(for: message.attachment?.type)
         if let cell = getCell(with: reuseId, at: indexPath) as? ChatMessageCell {
-            updateMessageCell(cell, with: message, listPosition: listPosition, detailsVisible: detailsVisible)
+            updateMessageCell(
+                cell,
+                with: message,
+                listPosition: listPosition,
+                detailsVisible: detailsVisible,
+                buttonsVisible: buttonsVisible)
             return cell
         }
         return nil
@@ -202,7 +209,10 @@ extension ChatMessagesViewCellMaster {
         return cachedTypingIndicatorCellHeight ?? 0.0
     }
     
-    func heightForCell(with message: ChatMessage?, listPosition: MessageListPosition, detailsVisible: Bool) -> CGFloat {
+    func heightForCell(with message: ChatMessage?,
+                       listPosition: MessageListPosition,
+                       detailsVisible: Bool,
+                       buttonsVisible: Bool) -> CGFloat {
         guard let message = message else { return 0.0 }
         
         let canCacheHeight = !detailsVisible
@@ -210,7 +220,7 @@ extension ChatMessagesViewCellMaster {
         cachedTableViewWidth = tableView.bounds.width
         
         if canCacheHeight {
-            if let cachedHeight = cellHeightCache.getCachedHeight(for: message, with: listPosition) {
+            if let cachedHeight = cellHeightCache.getCachedHeight(for: message, with: listPosition, buttonsVisible: buttonsVisible) {
                 return cachedHeight
             }
         }
@@ -219,9 +229,10 @@ extension ChatMessagesViewCellMaster {
         let height: CGFloat = calculateHeightForCell(with: message,
                                                      listPosition: listPosition,
                                                      detailsVisible: detailsVisible,
+                                                     buttonsVisible: buttonsVisible,
                                                      width: cachedTableViewWidth)
         if canCacheHeight {
-            cellHeightCache.cacheHeight(height, for: message, with: listPosition)
+            cellHeightCache.cacheHeight(height, for: message, with: listPosition, buttonsVisible: buttonsVisible)
         }
                 
         return height
@@ -232,12 +243,14 @@ extension ChatMessagesViewCellMaster {
     private func calculateHeightForCell(with message: ChatMessage,
                                         listPosition: MessageListPosition,
                                         detailsVisible: Bool,
+                                        buttonsVisible: Bool,
                                         width: CGFloat) -> CGFloat {
         let sizingCell = getMessageSizingCell(forAttachmentType: message.attachment?.type)
         updateMessageCell(sizingCell,
                           with: message,
                           listPosition: listPosition,
-                          detailsVisible: detailsVisible)
+                          detailsVisible: detailsVisible,
+                          buttonsVisible: buttonsVisible)
         
         return heightForStyledView(sizingCell, width: width)
     }
