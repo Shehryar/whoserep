@@ -258,15 +258,6 @@ class ChatViewController: ASAPPViewController {
         view.addSubview(connectionStatusView)
         view.addSubview(spinner)
         
-        let minTimeBetweenSessions: TimeInterval = 60 * 15 // 15 minutes
-        if chatMessagesView.lastMessage == nil ||
-            chatMessagesView.lastMessage!.metadata.sendTime.timeSinceIsGreaterThan(numberOfSeconds: minTimeBetweenSessions) {
-            conversationManager.trackSessionStart()
-        }
-        
-        // Inferred button
-        conversationManager.trackButtonTap(buttonName: .openChat)
-        
         if !chatMessagesView.isEmpty && !isLiveChat {
             showQuickRepliesViewIfNecessary(animated: false)
         }
@@ -281,8 +272,6 @@ class ChatViewController: ASAPPViewController {
             Dispatcher.delay(1000 * disconnectedTimeThreshold + 300) { [weak self] in
                 self?.updateFramesAnimated(false, scrollToBottomIfNearBottom: false)
             }
-            
-            conversationManager.sendEnterChatRequest()
         }
     }
     
@@ -393,7 +382,6 @@ extension ChatViewController {
         if connectionStatus == .disconnected {
             connectionStatus = .connecting
             conversationManager.enterConversation()
-            conversationManager.sendEnterChatRequest()
         }
     }
     
@@ -440,8 +428,6 @@ extension ChatViewController {
 
 extension ChatViewController {
     @objc func didTapCloseButton() {
-        conversationManager.trackButtonTap(buttonName: .closeChat)
-        
         dismissChatViewController()
     }
     
@@ -695,12 +681,14 @@ extension ChatViewController {
             
             conversationManager.sendRequestForTreewalkAction(
                 action as! TreewalkAction,
-                messageText: quickReply?.title,
+                messageText: quickReply?.title ?? buttonItem?.title,
                 parentMessage: message,
-                completion: { [weak self] (success) in
-                if !success {
-                    self?.quickRepliesView.deselectCurrentSelection(animated: true)
-                }
+                completion: { [weak self] success in
+                    Dispatcher.performOnMainThread { [weak self] in
+                        if !success {
+                            self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                        }
+                    }
             })
             
         case .userLogin:
@@ -716,8 +704,6 @@ extension ChatViewController {
             // No-op
             break
         }
-        
-        conversationManager.trackAction(action)
         
         return action.performsUIBlockingNetworkRequest
     }
@@ -895,8 +881,8 @@ extension ChatViewController {
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
     }
     
-    func showRestartActionButton() {
-        quickRepliesView.showRestartActionButton(animated: true)
+    func showRestartButtonAlone() {
+        quickRepliesView.showRestartButtonAlone(animated: true)
         updateInputState(.conversationEnd, animated: true)
     }
 }
@@ -946,14 +932,16 @@ extension ChatViewController: ActionSheetDelegate {
         
         conversationManager.sendAskRequest { success in
             guard !success else { return }
-            actionSheet.hideSpinner()
+            Dispatcher.performOnMainThread {
+                actionSheet.hideSpinner()
+            }
         }
     }
 }
 
 extension ChatViewController: NotificationBannerDelegate {
     func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, action: Action) {
-        performAction(action)
+        performAction(action, buttonItem: notificationBanner.notification.button)
     }
     
     func notificationBannerDidTapCollapse(_ notificationBanner: NotificationBanner) {
@@ -1060,7 +1048,7 @@ extension ChatViewController: ConversationManagerDelegate {
             
             if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
                 || (message.metadata.isReply && !isLiveChat && !message.userCanTypeResponse && !message.hasQuickReplies) {
-                showRestartActionButton()
+                showRestartButtonAlone()
             } else if message.hasQuickReplies {
                 didReceiveMessageWithQuickReplies(message)
             } else if message.metadata.isReply {
@@ -1121,20 +1109,16 @@ extension ChatViewController: ConversationManagerDelegate {
     
     // Live Chat Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
-        let wasLiveChat = self.isLiveChat
         self.isLiveChat = isLiveChat
-        
-        if !wasLiveChat && self.isLiveChat {
-            conversationManager.trackLiveChatBegan(issueId: event.issueId)
-        } else if wasLiveChat && !self.isLiveChat {
-            conversationManager.trackLiveChatEnded(issueId: event.issueId)
-        }
-        
         conversationManager.saveCurrentEvents(async: true)
     }
     
     // Connection Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool) {
+        if !didConnectAtLeastOnce && isConnected {
+            conversationManager.sendEnterChatRequest()
+        }
+        
         if isConnected {
             didConnectAtLeastOnce = true
             delayedDisconnectTime = nil
@@ -1160,7 +1144,7 @@ extension ChatViewController: ConversationManagerDelegate {
             
             if inputState == .conversationEnd {
                 // show the restart action button again in case the spinner is visible
-                showRestartActionButton()
+                showRestartButtonAlone()
             }
         }
         

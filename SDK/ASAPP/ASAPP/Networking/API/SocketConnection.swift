@@ -21,9 +21,9 @@ protocol SocketConnectionDelegate: class {
 
 class SocketConnection: NSObject {
     
-    private let logAnalyticsEventsVerbose = false
-    
     // MARK: Public Properties
+    
+    weak var delegate: SocketConnectionDelegate?
     
     let config: ASAPPConfig
 
@@ -34,7 +34,9 @@ class SocketConnection: NSObject {
         return false
     }
     
-    weak var delegate: SocketConnectionDelegate?
+    var session: Session? {
+        return outgoingMessageSerializer.session
+    }
     
     // MARK: Private Properties
     
@@ -51,8 +53,6 @@ class SocketConnection: NSObject {
     private var outgoingMessageSerializer: OutgoingMessageSerializerProtocol
     
     private var incomingMessageDeserializer = IncomingMessageDeserializer()
-    
-    private var requestQueue = [SocketRequest]()
     
     private var requestHandlers = [Int: IncomingMessageHandler]()
     
@@ -76,7 +76,7 @@ class SocketConnection: NSObject {
         
         if let savedSession = self.savedSessionManager.getSession() {
             if savedSession.customer.matches(id: user.userIdentifier) {
-                self.outgoingMessageSerializer.session = savedSession
+                updateSession(savedSession)
             } else if savedSession.isAnonymous && !user.isAnonymous {
                 self.outgoingMessageSerializer.userLoginAction = UserLoginAction(customer: savedSession.customer, nextAction: self.outgoingMessageSerializer.userLoginAction?.nextAction)
             } else {
@@ -94,6 +94,11 @@ class SocketConnection: NSObject {
     deinit {
         NotificationCenter.default.removeObserver(self)
         socket?.delegate = nil
+    }
+    
+    private func updateSession(_ session: Session?) {
+        outgoingMessageSerializer.session = session
+        PushNotificationsManager.shared.session = session
     }
 }
 
@@ -166,17 +171,6 @@ extension SocketConnection {
 // MARK: - Sending Messages
 
 extension SocketConnection {
-    func sendRequest(withPath path: String,
-                     params: [String: Any]?,
-                     context: [String: Any]? = nil,
-                     requestHandler: IncomingMessageHandler? = nil) {
-
-        let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: context)
-        if let requestHandler = requestHandler {
-            requestHandlers[request.requestId] = requestHandler
-        }
-        sendRequestWithRequest(request)
-    }
     
     private func sendAuthRequest(withPath path: String,
                                  params: [String: Any]?,
@@ -185,45 +179,23 @@ extension SocketConnection {
         if let requestHandler = requestHandler {
             requestHandlers[request.requestId] = requestHandler
         }
-        sendRequestWithRequest(request, isAuthRequest: true)
-    }
-    
-    func sendRequestWithData(_ data: Data,
-                             requestHandler: IncomingMessageHandler? = nil) {
-        let request = outgoingMessageSerializer.createRequestWithData(data)
-        if let requestHandler = requestHandler {
-            requestHandlers[request.requestId] = requestHandler
-        }
-        sendRequestWithRequest(request)
-    }
-    
-    private func sendRequestWithRequest(_ request: SocketRequest, isAuthRequest: Bool = false) {
-        if isConnected {
-            guard isAuthRequest || isAuthenticated else {
-                DebugLog.d("User not authenticated. Queueing request: \(request.path)")
-                requestQueue.append(request)
-                return
-            }
-            
-            requestSendTimes[request.requestId] = Date.timeIntervalSinceReferenceDate
-            requestLookup[request.requestId] = request
-            
-            if let data = request.requestData {
-                DebugLog.d("Sending data request - (\(data.count) bytes)")
-                socket?.send(data)
-            } else {
-                let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
-                
-                if !requestString.contains("srs/PutMAEvent") || logAnalyticsEventsVerbose {
-                    request.logRequest(with: requestString)
-                }
-                
-                socket?.send(requestString)
-            }
-        } else {
-            DebugLog.d("Socket not connected. Queueing request: \(request.path)")
-            requestQueue.append(request)
+        
+        requestSendTimes[request.requestId] = Date.timeIntervalSinceReferenceDate
+        requestLookup[request.requestId] = request
+        
+        guard isConnected else {
+            DebugLog.d("Socket not connected. Not sending request: \(request.path). Reconnecting...")
             connect()
+            return
+        }
+        
+        if let data = request.requestData {
+            DebugLog.d("Sending data request - (\(data.count) bytes)")
+            socket?.send(data)
+        } else {
+            let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
+            request.logRequest(with: requestString)
+            socket?.send(requestString)
         }
     }
 }
@@ -244,14 +216,14 @@ extension SocketConnection {
                 
                 if let session = session {
                     self?.savedSessionManager.save(session: session)
-                    self?.outgoingMessageSerializer.session = session
+                    self?.updateSession(session)
                     self?.isAuthenticated = true
                 } else {
                     self?.isAuthenticated = false
                     
                     if self?.outgoingMessageSerializer.session != nil {
                         self?.savedSessionManager.clearSession()
-                        self?.outgoingMessageSerializer.session = nil
+                        self?.updateSession(nil)
                         
                         if attempts == 0 {
                             self?.authenticate(attempts: 1, completion)
@@ -279,14 +251,6 @@ extension SocketConnection {
         let decoder = JSONDecoder()
         decoder.userInfo[Session.rawBodyKey] = bodyString
         return try? decoder.decode(Session.self, from: data)
-    }
-    
-    func resendQueuedRequestsIfNeeded() {
-        while !requestQueue.isEmpty {
-            let request = requestQueue[0] 
-            requestQueue.remove(at: 0)
-            sendRequestWithRequest(request)
-        }
     }
 }
 
@@ -318,7 +282,12 @@ extension SocketConnection: SRWebSocketDelegate {
             }
         }
         
-        let incomingMessage = incomingMessageDeserializer.deserialize(message)
+        guard let messageString = message as? String else {
+            DebugLog.w(caller: SocketConnection.self, "Cannot downcast message \(message) to String for deserialization")
+            return
+        }
+        
+        let incomingMessage = incomingMessageDeserializer.deserialize(messageString)
         if let requestId = incomingMessage.requestId {
             
             // Original Request
@@ -357,7 +326,6 @@ extension SocketConnection: SRWebSocketDelegate {
             guard self != nil else { return }
             
             if errorMessage == nil {
-                self?.resendQueuedRequestsIfNeeded()
                 self?.delegate?.socketConnectionEstablishedConnection(self!)
             } else {
                 self?.delegate?.socketConnectionFailedToAuthenticate(self!)

@@ -113,7 +113,7 @@ extension ConversationFileStore {
 
 extension ConversationFileStore {
     
-    private func stringForJSONObject(jsonObject: [String: AnyObject]) -> String? {
+    private func stringForJSONObject(jsonObject: [String: Any]) -> String? {
         if let jsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions.prettyPrinted) {
             if let jsonString = String(data: jsonData, encoding: String.Encoding.utf8) {
                 return jsonString
@@ -139,13 +139,13 @@ extension ConversationFileStore {
 
 extension ConversationFileStore {
     
-    private func getStoredEventsJSONArray() -> [[String: AnyObject]]? {
+    private func getStoredEventsJSONArray() -> [[String: Any]]? {
         if let stringOnFile = readStringFromFile() {
             
             let storedEventsJSONString = "[\(stringOnFile)]"
             
             if let data = storedEventsJSONString.data(using: String.Encoding.utf8) {
-                if let storedEventsArray = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: AnyObject]] {
+                if let storedEventsArray = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]] {
                     return storedEventsArray
                 } else {
                     _debugLog(message: "Unable to serialize array from events json string:\n\(storedEventsJSONString)")
@@ -194,7 +194,7 @@ extension ConversationFileStore {
     
     // MARK: Private
     
-    private func addEventJSONSynchronous(eventJSON: [String: AnyObject]) {
+    private func addEventJSONSynchronous(eventJSON: [String: Any]) {
         if let eventJSONString = stringForJSONObject(jsonObject: eventJSON) {
             addEventJSONStringSynchronous(eventJSONString: eventJSONString)
         }
@@ -205,7 +205,7 @@ extension ConversationFileStore {
         needsWriteToFile = true
     }
     
-    private func replaceEventsWithJSONArraySynchronous(eventsJSONArray: [[String: AnyObject]]) {
+    private func replaceEventsWithJSONArraySynchronous(eventsJSONArray: [[String: Any]]) {
         writeQueue.removeAll()
         
         for eventJSON in eventsJSONArray {
@@ -219,7 +219,7 @@ extension ConversationFileStore {
     
     // MARK: Public
     
-    func addEventJSON(eventJSON: [String: AnyObject]?) {
+    func addEventJSON(eventJSON: [String: Any]?) {
         guard let eventJSON = eventJSON else { return }
         
         Dispatcher.performOnBackgroundThread {
@@ -235,7 +235,7 @@ extension ConversationFileStore {
         }
     }
     
-    func replaceEventsWithJSONArray(eventsJSONArray: [[String: AnyObject]]) {
+    func replaceEventsWithJSONArray(eventsJSONArray: [[String: Any]]) {
         Dispatcher.performOnBackgroundThread {
             self.replaceEventsWithJSONArraySynchronous(eventsJSONArray: eventsJSONArray)
         }

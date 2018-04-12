@@ -27,11 +27,6 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledSendTextMessage = false
     private(set) var calledSendSRSQuery = false
     private(set) var calledEndLiveChat = false
-    private(set) var calledTrackSessionStart = false
-    private(set) var calledTrackButtonTap = false
-    private(set) var calledTrackAction = false
-    private(set) var calledTrackLiveChatBegan = false
-    private(set) var calledTrackLiveChatEnded = false
     
     weak var delegate: ConversationManagerDelegate?
     var events: [Event]
@@ -81,11 +76,11 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendRequestForAPIAction = true
     }
     
-    func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String, completion: IncomingMessageHandler?) {
+    func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String) {
         calledSendRequestForDeepLinkAction = true
     }
     
-    func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClient.CompletionHandler) {
+    func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClient.DictCompletionHandler) {
         calledSendRequestForHTTPAction = true
     }
     
@@ -109,7 +104,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendPictureMessage = true
     }
     
-    func sendTextMessage(_ message: String, completion: IncomingMessageHandler?) {
+    func sendTextMessage(_ message: String, completion: RequestResponseHandler?) {
         calledSendTextMessage = true
     }
     
@@ -120,26 +115,6 @@ class MockConversationManager: ConversationManagerProtocol {
     func endLiveChat() -> Bool {
         calledEndLiveChat = true
         return true
-    }
-    
-    func trackSessionStart() {
-        calledTrackSessionStart = true
-    }
-    
-    func trackButtonTap(buttonName: AnalyticsButtonName) {
-        calledTrackButtonTap = true
-    }
-    
-    func trackAction(_ action: Action) {
-        calledTrackAction = true
-    }
-    
-    func trackLiveChatBegan(issueId: Int) {
-        calledTrackLiveChatBegan = true
-    }
-    
-    func trackLiveChatEnded(issueId: Int) {
-        calledTrackLiveChatEnded = true
     }
     
     func cleanCalls() {
@@ -161,11 +136,6 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendTextMessage = false
         calledSendSRSQuery = false
         calledEndLiveChat = false
-        calledTrackSessionStart = false
-        calledTrackButtonTap = false
-        calledTrackAction = false
-        calledTrackLiveChatBegan = false
-        calledTrackLiveChatEnded = false
     }
     
     func clean() {

@@ -18,7 +18,7 @@ extension ConversationManager {
         sendRequest(path: path, params: params, requiresContext: false, completion: nil)
     }
     
-    func sendTextMessage(_ message: String, completion: IncomingMessageHandler? = nil) {
+    func sendTextMessage(_ message: String, completion: RequestResponseHandler? = nil) {
         let path = "customer/SendTextMessage"
         let params = ["Text": message]
         sendRequest(path: path, params: params, completion: completion)
@@ -39,8 +39,7 @@ extension ConversationManager {
             "PicHeight": image.size.height
         ]
         
-        socketConnection.sendRequest(withPath: path, params: params)
-        socketConnection.sendRequestWithData(imageData) { _, _, _ in
+        httpClient.sendRequest(method: .POST, path: path, headers: nil, params: params, data: imageData) { (_: Data?, _, _) in
             completion?()
         }
     }
@@ -51,7 +50,7 @@ extension ConversationManager {
             return false
         }
         
-        socketConnection.sendRequest(withPath: "customer/EndConversation", params: nil)
+        sendRequest(path: "customer/EndConversation")
         
         return true
     }
@@ -61,14 +60,14 @@ extension ConversationManager {
 
 extension ConversationManager {
     func sendEnterChatRequest(_ completion: (() -> Void)? = nil) {
-        let handler: IncomingMessageHandler = { _, _, _ in
+        let handler: RequestResponseHandler = { _ in
             completion?()
         }
         sendRequest(path: "customer/enterChat", completion: handler)
     }
     
     func sendAskRequest(_ completion: ((_ success: Bool) -> Void)? = nil) {
-        let handler: IncomingMessageHandler = { (message: IncomingMessage, _, _) in
+        let handler: RequestResponseHandler = { message in
             let success = message.type != MessageType.responseError
             completion?(success)
         }
@@ -87,6 +86,6 @@ extension ConversationManager {
             "SearchQuery": query
         ]
         
-        sendRequest(path: path, params: params, isRequestFromPrediction: isRequestFromPrediction)
+        sendRequest(path: path, params: params)
     }
 }

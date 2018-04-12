@@ -17,9 +17,7 @@ extension ConversationManager {
         
         let editedString = jsonString.replacingOccurrences(of: "\n", with: "")
         
-        socketConnection.sendRequest(
-            withPath: "srs/Echo",
-            params: ["Echo": editedString as AnyObject])
+        sendRequest(path: "srs/Echo", params: ["Echo": editedString])
     }
     
     // MARK: Generic

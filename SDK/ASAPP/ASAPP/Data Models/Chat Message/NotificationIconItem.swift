@@ -64,7 +64,9 @@ class NotificationIconItem {
     
     required init?(with dict: [String: Any]) {
         guard let icon = Icon.from(dict.string(for: JSONKey.name.rawValue)) else {
-            DebugLog.w(caller: NotificationIconItem.self, "No icon name found in dictionary: \(String(describing: dict))")
+            if !dict.keys.isEmpty {
+                DebugLog.w(caller: NotificationIconItem.self, "No icon name found in dictionary: \(String(describing: dict))")
+            }
             return nil
         }
         

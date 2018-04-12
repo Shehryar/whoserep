@@ -118,11 +118,6 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(mockConversationManager.calledTrackSessionStart).to(equal(true))
-                        expect(mockConversationManager.calledTrackButtonTap).to(equal(true))
-                        expect(mockConversationManager.calledTrackAction).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatBegan).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatEnded).to(equal(false))
                         expect(vc.view).to(haveValidSnapshot())
                     }
                 }
@@ -151,11 +146,6 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(mockConversationManager.calledTrackSessionStart).to(equal(true))
-                        expect(mockConversationManager.calledTrackButtonTap).to(equal(true))
-                        expect(mockConversationManager.calledTrackAction).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatBegan).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatEnded).to(equal(false))
                         expect(vc.view).to(haveValidSnapshot())
                     }
                 }
@@ -187,11 +177,6 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(mockConversationManager.calledTrackSessionStart).to(equal(true))
-                        expect(mockConversationManager.calledTrackButtonTap).to(equal(true))
-                        expect(mockConversationManager.calledTrackAction).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatBegan).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatEnded).to(equal(false))
                         expect(vc.view).to(haveValidSnapshot())
                     }
                 }
@@ -224,11 +209,6 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(mockConversationManager.calledTrackSessionStart).to(equal(true))
-                        expect(mockConversationManager.calledTrackButtonTap).to(equal(true))
-                        expect(mockConversationManager.calledTrackAction).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatBegan).to(equal(false))
-                        expect(mockConversationManager.calledTrackLiveChatEnded).to(equal(false))
                         expect(vc.view).to(haveValidSnapshot())
                     }
                 }

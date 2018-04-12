@@ -39,13 +39,7 @@ class QuickRepliesView: UIView {
         didSet {
             restartButton.alpha = isRestartButtonVisible ? 1 : 0
             listView.contentInsetBottom = isRestartButtonVisible ? restartButton.defaultHeight : 0
-            if isRestartButtonVisible,
-               !listView.isEmpty,
-               listView.contentHeight > containerView.frame.height - restartButton.defaultHeight {
-                restartButton.showBlur()
-            } else {
-                restartButton.hideBlur()
-            }
+            updateRestartButtonDisplay()
         }
     }
     
@@ -81,6 +75,7 @@ class QuickRepliesView: UIView {
         
         addSubview(blurredBackground)
         
+        listView.delegate = self
         containerView.addSubview(listView)
         
         addSubview(containerView)
@@ -119,6 +114,16 @@ class QuickRepliesView: UIView {
     
     func updateDisplay() {
         listView.updateDisplay()
+    }
+    
+    func updateRestartButtonDisplay() {
+        if isRestartButtonVisible,
+            !listView.isEmpty,
+            listView.contentHeight > containerView.frame.height - restartButton.defaultHeight {
+            restartButton.showBlur()
+        } else {
+            restartButton.hideBlur()
+        }
     }
 }
 
@@ -199,7 +204,7 @@ extension QuickRepliesView {
         listView.deselectButtonSelection(animated: animated)
     }
     
-    func showRestartActionButton(animated: Bool) {
+    func showRestartButtonAlone(animated: Bool) {
         clear(animated: animated)
         
         if animated {
@@ -218,5 +223,11 @@ extension QuickRepliesView {
             setNeedsLayout()
             layoutIfNeeded()
         }
+    }
+}
+
+extension QuickRepliesView: QuickRepliesListViewDelegate {
+    func quickRepliesListViewDidLayoutNewQuickReplies(_ quickRepliesListView: QuickRepliesListView) {
+        updateRestartButtonDisplay()
     }
 }

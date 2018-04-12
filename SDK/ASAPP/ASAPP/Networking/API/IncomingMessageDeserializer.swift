@@ -37,16 +37,12 @@ typealias ResponseTimeInMilliseconds = Int
 
 typealias IncomingMessageHandler = ((_ message: IncomingMessage, _ request: SocketRequest?, _ responseTime: ResponseTimeInMilliseconds) -> Void)
 
+typealias RequestResponseHandler = ((_ message: IncomingMessage) -> Void)
+
 class IncomingMessageDeserializer {
     
-    func deserialize(_ message: Any?) -> IncomingMessage {
-        let serializedMessage = IncomingMessage(withFullMessage: message)
-        
-        guard let messageString = message as? String else {
-            serializedMessage.debugError = "Response not in expected string format"
-            DebugLog.e(serializedMessage.debugError!)
-            return serializedMessage
-        }
+    func deserialize(_ messageString: String) -> IncomingMessage {
+        let serializedMessage = IncomingMessage(withFullMessage: messageString)
         
         let tokens = messageString.split(separator: "|").map(String.init)
         

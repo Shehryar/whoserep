@@ -68,23 +68,6 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    private func getHeaders(for session: Session) -> [String: String]? {
-        let passwordPayloadString = session.sessionTokenForHTTP
-        
-        let authPayloadString = ":\(passwordPayloadString)"
-        guard let authPayloadData = authPayloadString.data(using: .utf8) else {
-            DebugLog.e(caller: self, "Could not serialize the authentication payload.")
-            return nil
-        }
-        
-        let headers = [
-            "Content-Type": "application/json",
-            "Authorization": "Basic \(authPayloadData.base64EncodedString())"
-        ]
-        
-        return headers
-    }
-    
     func enableIfSessionExists() {
         if session != nil {
             register()
@@ -93,8 +76,6 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     
     func register() {
         ASAPP.assertSetupComplete()
-        
-        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/register")!
         
         guard let token = deviceToken,
               let session = session else {
@@ -107,12 +88,12 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             "Token": token
         ]
         
-        guard let headers = getHeaders(for: session) else {
+        guard let headers = HTTPClient.shared.getHeaders(for: session) else {
             DebugLog.e(caller: self, "Could not enable push notifications because there was an error constructing the request headers.")
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .POST, url: url, headers: headers, params: params) { data, response, error in
+        HTTPClient.shared.sendRequest(method: .POST, path: "customer/push/register", headers: headers, params: params) { (data: [String: Any]?, response, error) in
             guard let data = data,
                   let device = data["Device"] as? [String: Any],
                   let deviceId = device["DeviceID"] as? Int else {
@@ -132,8 +113,6 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     func deregister() {
         ASAPP.assertSetupComplete()
         
-        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/deregister")!
-        
         guard let session = session ?? SavedSessionManager.shared.getSession() else {
             DebugLog.e(caller: self, "Could not disable push notifications because no session was found.")
             return
@@ -146,12 +125,12 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         
         let params: [String: Any] = ["DeviceId": deviceId]
         
-        guard let headers = getHeaders(for: session) else {
+        guard let headers = HTTPClient.shared.getHeaders(for: session) else {
             DebugLog.e(caller: self, "Could not disable push notifications because there was an error constructing the request headers.")
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .POST, url: url, headers: headers, params: params) { data, response, error in
+        HTTPClient.shared.sendRequest(method: .POST, path: "customer/push/deregister", headers: headers, params: params) { (data: [String: Any]?, response, error) in
             guard data != nil else {
                 if let error = error {
                     DebugLog.e(error)
@@ -169,19 +148,17 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler) {
         ASAPP.assertSetupComplete()
         
-        let url = URL(string: "https://\(ASAPP.config.apiHostName)/api/http/v1/customer/push/chatStatus")!
-        
         guard let session = session ?? SavedSessionManager.shared.getSession() else {
             DebugLog.e(caller: self, "Could not get chat status because no session was found.")
             return
         }
         
-        guard let headers = getHeaders(for: session) else {
+        guard let headers = HTTPClient.shared.getHeaders(for: session) else {
             DebugLog.e(caller: self, "Could not get chat status because there was an error constructing the request headers.")
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .GET, url: url, headers: headers) { data, response, error in
+        HTTPClient.shared.sendRequest(method: .GET, path: "customer/push/chatStatus", headers: headers) { (data: [String: Any]?, response, error) in
             guard let data = data,
                   let count = data["UnreadMessages"] as? Int,
                   let isLiveChat = data["IsLiveChat"] as? Bool else {

@@ -199,7 +199,6 @@
 		3050A2BD1DF8A73100A21906 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3050A2BC1DF8A73100A21906 /* SessionManager.swift */; };
 		30523B891EF031A50014C5ED /* LegacyActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30523B881EF031A50014C5ED /* LegacyActionType.swift */; };
 		30523B8B1EF032960014C5ED /* UserLoginAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30523B8A1EF032960014C5ED /* UserLoginAction.swift */; };
-		305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */; };
 		305C6C971DB6A4BE00FF0AF4 /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */; };
 		305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */; };
 		305FF5CC1E841E58004DD9D5 /* ComponentLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */; };
@@ -614,7 +613,6 @@
 		3050A2BC1DF8A73100A21906 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		30523B881EF031A50014C5ED /* LegacyActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyActionType.swift; sourceTree = "<group>"; };
 		30523B8A1EF032960014C5ED /* UserLoginAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginAction.swift; sourceTree = "<group>"; };
-		305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConversationManager+Analytics.swift"; sourceTree = "<group>"; };
 		305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		305C6C991DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IncomingMessage+EventList.swift"; sourceTree = "<group>"; };
 		305FF5CB1E841E58004DD9D5 /* ComponentLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngine.swift; sourceTree = "<group>"; };
@@ -1234,7 +1232,6 @@
 				30DF3F6A1F2790E300D6DB02 /* ConversationManagerDelegate.swift */,
 				30DF3F601F267F2000D6DB02 /* ConversationManager+Actions.swift */,
 				302B6E1C1E79ECC80035B584 /* ConversationManager+OutgoingAPI.swift */,
-				305C6C941DB697EC00FF0AF4 /* ConversationManager+Analytics.swift */,
 				285F7AF11DAB2358008C2EF6 /* ConversationManager+DemoContent.swift */,
 			);
 			path = "Content Managers";
@@ -2269,7 +2266,6 @@
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
 				30131F9E1EAFB3B2009E7299 /* ASAPPButtonColors.swift in Sources */,
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
-				305C6C951DB697EC00FF0AF4 /* ConversationManager+Analytics.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
 				3A9EF22A202E59B60092A1AA /* ContinuePrompt.swift in Sources */,
 				3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */,

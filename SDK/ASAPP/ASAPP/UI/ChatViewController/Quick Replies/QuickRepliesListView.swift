@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol QuickRepliesListViewDelegate: class {
+    func quickRepliesListViewDidLayoutNewQuickReplies(_ quickRepliesListView: QuickRepliesListView)
+}
+
 class QuickRepliesListView: UIView {
     enum AnimationDirection {
         case `in`
         case out
     }
+    
+    weak var delegate: QuickRepliesListViewDelegate?
     
     var onQuickReplySelected: ((QuickReply) -> Bool)?
     
@@ -146,7 +152,6 @@ extension QuickRepliesListView {
     func getTotalAnimationDuration(delay shouldDelay: Bool, direction: AnimationDirection) -> TimeInterval {
         let lastIndex = (quickReplies?.count ?? 1) - 1
         let delay = getDelay(initial: shouldDelay, at: lastIndex)
-        let fadeDuration = getFadeDuration(at: lastIndex, direction: direction)
         let translationDuration = getTranslationDuration(direction: direction)
         return delay + translationDuration
     }
@@ -170,7 +175,6 @@ extension QuickRepliesListView {
     private func refresh(animated: Bool, _ completion: (() -> Void)? = nil) {
         removeAll(animated: animated) { [weak self] delayNext in
             self?.addAll(animated: animated, shouldDelay: delayNext, completion)
-            
         }
     }
     
@@ -272,6 +276,8 @@ extension QuickRepliesListView {
         }
         
         scrollView.contentSize = CGSize(width: bounds.width, height: totalHeight)
+        
+        delegate?.quickRepliesListViewDidLayoutNewQuickReplies(self)
         
         guard animated else {
             completion?()
