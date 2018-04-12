@@ -104,9 +104,9 @@ extension OutgoingMessageSerializer {
                 params["IdentifierType"] = config.identifierType
                 params["CustomerIdentifier"] = user.userIdentifier
                 
-                if let userLoginAction = userLoginAction {
-                    params["MergeCustomerId"] = userLoginAction.mergeCustomerId
-                    params["MergeCustomerGUID"] = userLoginAction.mergeCustomerGUID
+                if let customer = userLoginAction?.customer {
+                    params["MergeCustomerId"] = customer.id
+                    params["MergeCustomerGUID"] = customer.guid
                 }
                 
                 user.getContext { (_, authToken) in

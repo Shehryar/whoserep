@@ -54,6 +54,8 @@ class ChatMessagesView: UIView {
     
     var showTimeStampForMessage: ChatMessage?
     
+    var hideMessageButtons = false
+    
     var firstMessage: ChatMessage? {
         return dataSource.allMessages.first
     }
@@ -179,6 +181,10 @@ extension ChatMessagesView {
         
         return .none
     }
+    
+    private func shouldShowButtons(for message: ChatMessage) -> Bool {
+        return message == lastMessage && !hideMessageButtons
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -221,7 +227,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let cell = cellMaster.cellForMessage(message,
                                              listPosition: messageListPositionForIndexPath(indexPath),
                                              detailsVisible: message == showTimeStampForMessage,
-                                             buttonsVisible: message == lastMessage,
+                                             buttonsVisible: shouldShowButtons(for: message),
                                              atIndexPath: indexPath)
         cell?.delegate = self
         
@@ -276,7 +282,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let height = cellMaster.heightForCell(with: message,
                                               listPosition: listPosition,
                                               detailsVisible: message == showTimeStampForMessage,
-                                              buttonsVisible: message == lastMessage)
+                                              buttonsVisible: shouldShowButtons(for: message))
         return height
     }
     
@@ -430,6 +436,7 @@ extension ChatMessagesView {
     func reloadWithEvents(_ events: [Event]) {
         let countBefore = dataSource.allMessages.count
         
+        hideMessageButtons = events.last?.eventType == .accountMerge
         dataSource.reloadWithEvents(events)
         tableView.reloadData()
         
@@ -450,6 +457,8 @@ extension ChatMessagesView {
             DebugLog.w(caller: self, "Failed to add message to view.")
             return
         }
+        
+        hideMessageButtons = false
         
         // Only animate the message if the user is near the bottom
         let wasNearBottom = isNearBottom()

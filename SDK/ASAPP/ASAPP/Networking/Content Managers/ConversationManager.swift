@@ -303,9 +303,9 @@ extension ConversationManager {
                 break
             }
             
-            if event.isReply {
+            if event.isReplyMessageEvent {
                 if let chatMessage = event.chatMessage,
-                    let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
+                   let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
                     return chatMessage
                 }
                 break

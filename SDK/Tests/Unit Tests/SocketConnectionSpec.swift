@@ -173,8 +173,8 @@ class SocketConnectionSpec: QuickSpec {
                         expect(mockSavedSessionManager.calledSave).to(equal(false))
                         expect(mockSavedSessionManager.calledGetSession).to(equal(true))
                         expect(mockOutgoingMessageSerializer.userLoginAction).toNot(beNil())
-                        expect(mockOutgoingMessageSerializer.userLoginAction?.mergeCustomerId).to(equal(session.customer.id))
-                        expect(mockOutgoingMessageSerializer.userLoginAction?.mergeCustomerGUID).to(equal(session.customer.guid))
+                        expect(mockOutgoingMessageSerializer.userLoginAction?.customer?.id).to(equal(session.customer.id))
+                        expect(mockOutgoingMessageSerializer.userLoginAction?.customer?.guid).to(equal(session.customer.guid))
                     }
                 }
             }

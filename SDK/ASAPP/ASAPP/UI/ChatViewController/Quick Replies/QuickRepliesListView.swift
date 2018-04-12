@@ -36,6 +36,10 @@ class QuickRepliesListView: UIView {
         }
     }
     
+    var contentInsetTop: CGFloat {
+        return scrollView.contentInset.top
+    }
+    
     var contentHeight: CGFloat {
         return scrollView.contentSize.height
     }

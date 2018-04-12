@@ -208,8 +208,8 @@ class ChatViewController: ASAPPViewController {
     
     func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
         DebugLog.d("Updating user. userIdentifier=\(user.userIdentifier)")
-        if let userLoginAction = userLoginAction {
-            DebugLog.d("Merging Accounts: {\n  mergeCustomerId: \(userLoginAction.mergeCustomerId),\n  mergeCustomerGUID: \(userLoginAction.mergeCustomerGUID)\n}")
+        if let customer = userLoginAction?.customer {
+            DebugLog.d("Merging Accounts: {\n  mergeCustomerId: \(customer.id),\n  mergeCustomerGUID: \(customer.guid ?? "nil")\n}")
         }
         
         if conversationManager != nil {
@@ -503,12 +503,16 @@ extension ChatViewController {
             chatInputView.bubbleInset.bottom = 8
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         case .both, .quickReplies, .conversationEnd:
-            chatInputView.hideBlur()
+            let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
+            if inputHeight > 0 && quickRepliesTop + quickRepliesView.contentHeight >= chatInputView.frame.minY {
+                quickRepliesView.contentInsetBottom = inputHeight
+                chatInputView.showBlur()
+            } else {
+                chatInputView.hideBlur()
+            }
             chatInputView.displayBorderTop = false
             chatInputView.bubbleInset.bottom = 23
-            quickRepliesTop -= quickRepliesHeight
-            let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
-            quickRepliesTop -= inputHeight
+            quickRepliesTop -= quickRepliesHeight + inputHeight
             chatMessagesView.contentInsetBottom = quickRepliesHeight + inputHeight
         }
         
@@ -918,8 +922,8 @@ extension ChatViewController: ActionSheetDelegate {
     
     func actionSheetDidTapHideButton(_ actionSheet: BaseActionSheet) {
         hideActionSheet(actionSheet) { [weak self] in
-            if let lastEvent = self?.conversationManager.events.last {
-                self?.updateState(for: lastEvent)
+            if self?.conversationManager.events.isEmpty == false {
+                self?.updateStateForLastEvent()
                 self?.showNotificationBannerIfNecessary()
             } else {
                 self?.updateFrames()
@@ -1014,18 +1018,20 @@ extension ChatViewController: ConversationManagerDelegate {
         guard let notification = conversationManager.events.last?.chatMessage?.notification,
               actionSheet == nil,
               notification.expiration?.compare(Date()) != .orderedDescending else {
+            updateFrames()
             return
         }
         
         showNotificationBanner(notification)
     }
     
-    private func updateState(for event: Event) {
-        if let message = event.chatMessage {
+    private func updateStateForLastEvent() {
+        if let message = conversationManager.events.reversed().first(where: { $0.isReplyMessageEvent })?.chatMessage {
             updateState(for: message)
         }
         
-        if event.eventType == .conversationEnd || (event.chatMessage?.userCanTypeResponse == false && !isLiveChat) {
+        if let lastEvent = conversationManager.events.last,
+            lastEvent.eventType == .conversationEnd || (lastEvent.chatMessage?.userCanTypeResponse == false && !isLiveChat) {
             updateInputState(.conversationEnd)
         }
     }
@@ -1222,9 +1228,7 @@ extension ChatViewController {
             }
             
             strongSelf.clearQuickRepliesView(animated: false, completion: nil)
-            if let lastEvent = fetchedEvents.last {
-                strongSelf.updateState(for: lastEvent)
-            }
+            strongSelf.updateStateForLastEvent()
             strongSelf.showQuickRepliesViewIfNecessary(animated: true)
             Dispatcher.delay(300) { [weak self] in
                 self?.showNotificationBannerIfNecessary()

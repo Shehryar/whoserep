@@ -47,6 +47,16 @@ class QuickRepliesView: UIView {
         return listView.getTotalAnimationDuration(delay: true, direction: .in)
     }
     
+    var contentHeight: CGFloat {
+        return listView.contentInsetTop + listView.contentHeight
+    }
+    
+    var contentInsetBottom: CGFloat = 0 {
+        didSet {
+            listView.contentInsetBottom = contentInsetBottom
+        }
+    }
+    
     // MARK: Private Properties
     
     private let buttonSize: CGFloat = 34

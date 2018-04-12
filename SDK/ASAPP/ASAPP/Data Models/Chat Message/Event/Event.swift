@@ -67,13 +67,40 @@ class Event: NSObject {
         self.eventJSON = eventJSON
         
         self.uniqueIdentifier = UUID().uuidString
-        self.isCustomerEvent = eventFlags == 1
-        self.isReply = !self.isCustomerEvent || eventType == .conversationEnd
+        self.isCustomerEvent = eventFlags == 1 && eventType != .conversationEnd
+        self.isReply = !isCustomerEvent
         self.eventDate = Date(timeIntervalSince1970: eventTime)
         self.sendTimeString = self.eventDate.formattedStringMostRecent()
         self.isAutomatedMessage = eventType == .srsResponse
         
         super.init()
+    }
+    
+    var isReplyMessageEvent: Bool {
+        return isReply && isChatMessageEvent
+    }
+    
+    var isChatMessageEvent: Bool {
+        guard eventJSON != nil else {
+            return false
+        }
+        
+        guard [.textMessage,
+               .newRep,
+               .conversationEnd,
+               .conversationTimedOut,
+               .srsResponse,
+               .srsAction,
+               .switchSRSToChat,
+               .switchChatToSRS].contains(eventType) else {
+            return false
+        }
+        
+        guard chatMessage?.text != nil || chatMessage?.attachment != nil else {
+            return false
+        }
+        
+        return true
     }
     
     // MARK: - Metadata
