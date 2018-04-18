@@ -298,18 +298,13 @@ extension ConversationManager {
 
 extension ConversationManager {
     func getCurrentQuickReplyMessage() -> ChatMessage? {
-        for event in events.reversed() {
-            if event.eventType == .accountMerge {
-                break
+        for event in events.reversed().prefix(while: { $0.eventType != .accountMerge })
+            where event.isReplyMessageEvent {
+            if let chatMessage = event.chatMessage,
+               let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
+                return chatMessage
             }
-            
-            if event.isReplyMessageEvent {
-                if let chatMessage = event.chatMessage,
-                   let quickReplies = chatMessage.quickReplies, !quickReplies.isEmpty {
-                    return chatMessage
-                }
-                break
-            }
+            break
         }
         
         return nil
