@@ -8,15 +8,28 @@
 
 import UIKit
 
+protocol UserDefaultsProtocol {
+    func set(_ value: Any?, forKey defaultName: String)
+    func removeObject(forKey defaultName: String)
+    func object(forKey defaultName: String) -> Any?
+    func string(forKey defaultName: String) -> String?
+    func integer(forKey defaultName: String) -> Int
+}
+
+extension UserDefaults: UserDefaultsProtocol {}
+
 class ChatSimpleStore: NSObject {
     
     let config: ASAPPConfig
     
     let user: ASAPPUser
     
-    required init(config: ASAPPConfig, user: ASAPPUser) {
+    private let userDefaults: UserDefaultsProtocol
+    
+    required init(config: ASAPPConfig, user: ASAPPUser, userDefaults: UserDefaultsProtocol = UserDefaults.standard) {
         self.config = config
         self.user = user
+        self.userDefaults = userDefaults
         super.init()
     }
 }
@@ -32,15 +45,15 @@ extension ChatSimpleStore {
     func updateSRSOriginalSearchQuery(query: String?) {
         if let query = query {
             DebugLog.d("Updated SRSOriginalSearchQuery: \(query)")
-            UserDefaults.standard.set(query, forKey: srsOriginalSearchQueryKey())
+            userDefaults.set(query, forKey: srsOriginalSearchQueryKey())
         } else {
             DebugLog.d("Removed saved SRSOriginalSearchQuery")
-            UserDefaults.standard.removeObject(forKey: srsOriginalSearchQueryKey())
+            userDefaults.removeObject(forKey: srsOriginalSearchQueryKey())
         }
     }
     
     func getSRSOriginalSearchQuery() -> String? {
-        let query = UserDefaults.standard.object(forKey: srsOriginalSearchQueryKey())
+        let query = userDefaults.object(forKey: srsOriginalSearchQueryKey())
         
         if let query = query as? String {
             DebugLog.d("Found SRSOriginalSearchQuery: \(query)")
