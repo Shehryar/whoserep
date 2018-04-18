@@ -914,7 +914,7 @@ extension ChatViewController: QuickRepliesViewDelegate {
         }
         
         self.actionSheet = actionSheet
-        actionSheet.show(in: view)
+        actionSheet.show(in: view, below: connectionStatusView)
     }
     
     func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
@@ -932,6 +932,8 @@ extension ChatViewController: ActionSheetDelegate {
     }
     
     func actionSheetDidTapHideButton(_ actionSheet: BaseActionSheet) {
+        reconnect()
+        
         hideActionSheet(actionSheet) { [weak self] in
             if self?.conversationManager.events.isEmpty == false {
                 self?.updateStateForLastEvent()
@@ -947,8 +949,9 @@ extension ChatViewController: ActionSheetDelegate {
         
         conversationManager.sendAskRequest { success in
             guard !success else { return }
-            Dispatcher.performOnMainThread {
+            Dispatcher.performOnMainThread { [weak self] in
                 actionSheet.hideSpinner()
+                self?.reconnect()
             }
         }
     }
@@ -1102,7 +1105,7 @@ extension ChatViewController: ConversationManagerDelegate {
         chatInputView.alpha = 0
         
         self.actionSheet = actionSheet
-        actionSheet.show(in: view, below: spinner)
+        actionSheet.show(in: view, below: connectionStatusView)
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let strongSelf = self else { return }
             var top: CGFloat = 0

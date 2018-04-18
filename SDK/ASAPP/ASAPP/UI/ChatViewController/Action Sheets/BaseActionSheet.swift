@@ -16,7 +16,9 @@ protocol ActionSheetDelegate: class {
 class BaseActionSheet: UIView {
     weak var delegate: ActionSheetDelegate?
     
+    let buttonAnimationDuration: TimeInterval = 0.6
     let contentView = UIView()
+    
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let titleLabel = UILabel()
     private let bodyLabel = UILabel()
@@ -27,6 +29,9 @@ class BaseActionSheet: UIView {
     private let sheetInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     private let contentInsets = UIEdgeInsets(top: 43, left: 24, bottom: 48, right: 24)
     private let buttonInsets = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
+    
+    private var buttonAnimating = false
+    private var onButtonAnimationComplete: (() -> Void)?
     
     private var hasTitleLabel: Bool {
         return titleLabel.superview != nil
@@ -193,28 +198,40 @@ class BaseActionSheet: UIView {
         finalButtonFrame.origin.x += (restartButton.frame.size.width - finalButtonFrame.size.width) / 2
         
         let rotation = CGAffineTransform(rotationAngle: .pi / -2)
+        buttonAnimating = true
         
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {[weak self] in
+        UIView.animate(withDuration: buttonAnimationDuration / 3, delay: 0, options: .curveEaseIn, animations: {[weak self] in
             guard let button = self?.restartButton else { return }
             button.frame = finalButtonFrame
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.6) { [weak self] in
+        UIView.animate(withDuration: buttonAnimationDuration, animations: { [weak self] in
             guard let button = self?.restartButton else { return }
             self?.activityIndicator?.alpha = 1
             button.transform = rotation
             button.alpha = 0
-        }
+        }, completion: { [weak self] _ in
+            self?.buttonAnimating = false
+            self?.onButtonAnimationComplete?()
+        })
     }
     
     func hideSpinner() {
-        activityIndicator?.removeFromSuperview()
-        restartButton.isEnabled = true
-        restartButton.titleLabel?.alpha = 1
-        restartButton.transform = .identity
-        restartButton.alpha = 1
-        restartButton.updateBackgroundColors(ASAPP.styles.colors.actionButton)
-        setNeedsLayout()
-        layoutIfNeeded()
+        func f() {
+            activityIndicator?.removeFromSuperview()
+            restartButton.isEnabled = true
+            restartButton.titleLabel?.alpha = 1
+            restartButton.transform = .identity
+            restartButton.alpha = 1
+            restartButton.updateBackgroundColors(ASAPP.styles.colors.actionButton)
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+        
+        if buttonAnimating {
+            onButtonAnimationComplete = f
+        } else {
+            f()
+        }
     }
 }
