@@ -227,7 +227,7 @@ extension QuickRepliesListView {
     
     private func addAll(animated: Bool, shouldDelay: Bool, _ completion: (() -> Void)? = nil) {
         scrollView.subviews.forEach { view in
-            view.removeFromSuperview()
+            (view as? QuickReplyView)?.removeFromSuperview()
         }
         scrollView.contentOffset = CGPoint(x: 0, y: -scrollView.contentInset.top)
         scrollView.setNeedsLayout()
