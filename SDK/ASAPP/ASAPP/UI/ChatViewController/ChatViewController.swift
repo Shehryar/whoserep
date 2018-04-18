@@ -614,7 +614,9 @@ extension ChatViewController {
         case .api:
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
-                    self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                    Dispatcher.performOnMainThread { [weak self] in
+                        self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                    }
                     return
                 }
                 
@@ -625,9 +627,11 @@ extension ChatViewController {
                     }
                     
                 case .error:
-                    self?.showRequestErrorAlert(message: response.error?.userMessage)
-                    if quickReply != nil {
-                        self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                    Dispatcher.performOnMainThread { [weak self] in
+                        self?.showRequestErrorAlert(message: response.error?.userMessage)
+                        if quickReply != nil {
+                            self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                        }
                     }
                     
                 case .componentView:

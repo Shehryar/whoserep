@@ -14,7 +14,7 @@ import Nimble_Snapshots
 
 class NotificationBannerSpec: QuickSpec {
     override func spec() {
-        describe("NotificationBanner") {
+        describe("NotificationBanner") {            
             beforeSuite {
                 FBSnapshotTest.setReferenceImagesDirectory(
                     ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
@@ -28,10 +28,11 @@ class NotificationBannerSpec: QuickSpec {
             
             context("on its own") {
                 let text = "Your payment of $9001 is due in two days. Please pay on time to avoid any late fees."
-                let icon = NotificationIconItem(with: ["name": NotificationIcon.alertErrorOutline.rawValue])
+                var icon: IconItem!
                 
                 beforeEach {
                     ASAPP.styles = ASAPPStyles()
+                    icon = IconItem(style: TestUtil.createStyle(), content: ["icon": ComponentIcon.alertError.rawValue])
                 }
                 
                 context("without an icon or text") {

@@ -60,6 +60,7 @@ class QuickReplyView: UIView {
         backgroundColor = .clear
         isUserInteractionEnabled = true
         
+        button.imageIgnoresForegroundColor = true
         button.isUserInteractionEnabled = false
         button.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         button.label.textAlignment = .left
@@ -112,7 +113,7 @@ class QuickReplyView: UIView {
     
     func updateIcon() {
         button.imageSize = leftIconSize
-        button.image = leftIconImage?.tinted(iconTintColor)
+        button.image = leftIconImage
     }
     
     func update(for quickReply: QuickReply?, enabled: Bool) {
