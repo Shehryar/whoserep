@@ -86,6 +86,9 @@
 		3A2E5C511FD7316700687928 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E5C501FD7316700687928 /* ImageCell.swift */; };
 		3A2E5C531FD73AED00687928 /* EditAppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E5C521FD73AED00687928 /* EditAppearanceViewController.swift */; };
 		3A2E5C551FD740D500687928 /* ImageCheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E5C541FD740D500687928 /* ImageCheckmarkCell.swift */; };
+		3A304C53208641750072BA56 /* NHaasGroteskDSStd-65Md.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A304C50208641750072BA56 /* NHaasGroteskDSStd-65Md.otf */; };
+		3A304C54208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A304C51208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf */; };
+		3A304C55208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A304C52208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf */; };
 		3A5C403D1FD888EF00F63797 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C403C1FD888EF00F63797 /* ColorPickerViewController.swift */; };
 		3A5C403F1FD9965600F63797 /* AppearanceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C403E1FD9965600F63797 /* AppearanceConfig.swift */; };
 		3A5C40411FD9968E00F63797 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C40401FD9968E00F63797 /* Image.swift */; };
@@ -212,6 +215,9 @@
 		3A2E5C501FD7316700687928 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		3A2E5C521FD73AED00687928 /* EditAppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAppearanceViewController.swift; sourceTree = "<group>"; };
 		3A2E5C541FD740D500687928 /* ImageCheckmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCheckmarkCell.swift; sourceTree = "<group>"; };
+		3A304C50208641750072BA56 /* NHaasGroteskDSStd-65Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NHaasGroteskDSStd-65Md.otf"; sourceTree = "<group>"; };
+		3A304C51208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NHaasGroteskDSStd-75Bd.otf"; sourceTree = "<group>"; };
+		3A304C52208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NHaasGroteskDSStd-55Rg.otf"; sourceTree = "<group>"; };
 		3A4FEF361F58B5D900338B00 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		3A4FEF371F58B5D900338B00 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		3A5C403C1FD888EF00F63797 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
@@ -458,6 +464,16 @@
 			path = Appearance;
 			sourceTree = "<group>";
 		};
+		3A304C4F208641750072BA56 /* Neue Haas Grotesk */ = {
+			isa = PBXGroup;
+			children = (
+				3A304C52208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf */,
+				3A304C50208641750072BA56 /* NHaasGroteskDSStd-65Md.otf */,
+				3A304C51208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf */,
+			);
+			path = "Neue Haas Grotesk";
+			sourceTree = "<group>";
+		};
 		3A6811031F7AF51A00078E3F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +488,7 @@
 		3A6811061F7AF56A00078E3F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				3A304C4F208641750072BA56 /* Neue Haas Grotesk */,
 				3A6811091F7AF58100078E3F /* Boost Neo */,
 				3AFB74BF1FDA006200AF0442 /* Roboto */,
 				3A6811081F7AF58100078E3F /* Sprint */,
@@ -658,6 +675,7 @@
 				3AFB74C91FDA006200AF0442 /* Roboto-BoldItalic.ttf in Resources */,
 				3A68111C1F7BEB7200078E3F /* BoostNeo-Regular.ttf in Resources */,
 				3A1E00751F8ECB5B008C3F39 /* json-style-example.json in Resources */,
+				3A304C54208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf in Resources */,
 				30A003551DC3EFBA00CFA4CD /* LaunchScreen-ASAPP.storyboard in Resources */,
 				3A1E007D1F8ECB5B008C3F39 /* schedule-appointment-selection.json in Resources */,
 				3A68111E1F7BEB7200078E3F /* SprintSans-Bold.ttf in Resources */,
@@ -674,6 +692,7 @@
 				3A68111B1F7BEB7200078E3F /* BoostNeo-Light.ttf in Resources */,
 				3A1E007C1F8ECB5B008C3F39 /* schedule-appointment-5-day.json in Resources */,
 				3AFB74CE1FDA006200AF0442 /* Roboto-MediumItalic.ttf in Resources */,
+				3A304C53208641750072BA56 /* NHaasGroteskDSStd-65Md.otf in Resources */,
 				3A1E00761F8ECB5B008C3F39 /* live-chat-begin.json in Resources */,
 				3AFB74C81FDA006200AF0442 /* Roboto-Bold.ttf in Resources */,
 				3A6811191F7BEB7200078E3F /* BoostNeo-Black.ttf in Resources */,
@@ -684,6 +703,7 @@
 				3A1E00681F8ECB5B008C3F39 /* bill-paid.json in Resources */,
 				307301CF1DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard in Resources */,
 				3A1E006B1F8ECB5B008C3F39 /* cancel-appointment-confirmation.json in Resources */,
+				3A304C55208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf in Resources */,
 				3A6811181F7BEB6500078E3F /* Assets.xcassets in Resources */,
 				3A1E00791F8ECB5B008C3F39 /* phone-upgrade-ineligible.json in Resources */,
 				3A1E00711F8ECB5B008C3F39 /* data-usage-near-full-message.json in Resources */,

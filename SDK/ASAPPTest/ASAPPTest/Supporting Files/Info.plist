@@ -80,6 +80,9 @@
 		<string>Roboto-Italic.ttf</string>
 		<string>Roboto-MediumItalic.ttf</string>
 		<string>Roboto-BoldItalic.ttf</string>
+		<string>NHaasGroteskDSStd-55Rg.otf</string>
+		<string>NHaasGroteskDSStd-65Md.otf</string>
+		<string>NHaasGroteskDSStd-75Bd.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>$(LAUNCH_SCREEN)</string>

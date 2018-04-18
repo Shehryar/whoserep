@@ -48,13 +48,17 @@ class Branding: NSObject {
         switch appearanceConfig.brand {
         case .asapp:
             styles = ASAPPStyles()
-            views.chatTitle = Branding.createASAPPTitle(colors: colors, styles: styles, fontFamily: appearanceConfig.fontFamily)
+            views.chatTitle = Branding.createChatTitle(image: #imageLiteral(resourceName: "asapp-logo"), frame: CGRect(x: 0, y: 7, width: 76, height: 14.6))
             
         case .boost:
             styles = Branding.createBoostStyles(appearanceConfig)
             
         case .telstra:
             styles = Branding.createTelstraStyles(appearanceConfig)
+            
+        case .verizon:
+            styles = Branding.createVerizonStyles(appearanceConfig)
+            views.chatTitle = Branding.createChatTitle(image: #imageLiteral(resourceName: "fios-logo"), frame: CGRect(x: 0, y: 0, width: 72, height: 30))
         
         case .custom:
             styles = Branding.createCustomStyles(appearanceConfig)
@@ -68,11 +72,11 @@ class Branding: NSObject {
         super.init()
     }
     
-    private class func createASAPPTitle(colors: BrandingColors, styles: ASAPPStyles, fontFamily: ASAPPFontFamily) -> UIView {
+    private class func createChatTitle(image: UIImage, frame: CGRect) -> UIView {
         let container = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
         
-        let logo = UIImageView(image: #imageLiteral(resourceName: "asapp-logo"))
-        var logoFrame = CGRect(x: 0, y: 7, width: 76, height: 14.6)
+        let logo = UIImageView(image: image)
+        var logoFrame = frame
         logoFrame.origin.x = logoFrame.size.width / -2
         logo.frame = logoFrame
         
@@ -108,6 +112,20 @@ extension Branding {
         return styles
     }
     
+    fileprivate class func createVerizonStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+        let styles = createCustomStyles(config)
+        
+        // Verizon special cases
+        
+        styles.textStyles.header2 = ASAPPTextStyle(font: config.fontFamily.bold, size: 22, letterSpacing: 0.5, color: .black)
+        styles.textStyles.subheader = ASAPPTextStyle(font: config.fontFamily.medium, size: 11, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
+        styles.textStyles.bodyBold2 = ASAPPTextStyle(font: config.fontFamily.medium, size: 15, letterSpacing: 0.2, color: .black)
+        styles.textStyles.detail1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
+        styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 11, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
+        
+        return styles
+    }
+    
     fileprivate class func createCustomStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = ASAPPStyles()
         
@@ -118,6 +136,7 @@ extension Branding {
         
         styles.colors.primary = primary
         styles.colors.dark = dark
+        styles.textStyles.updateColors(with: dark)
         
         return styles
     }

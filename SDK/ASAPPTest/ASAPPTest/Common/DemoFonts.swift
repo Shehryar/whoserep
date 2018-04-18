@@ -27,4 +27,10 @@ class DemoFonts: NSObject {
         regularItalic: UIFont(name: "Roboto-Italic", size: 16)!,
         mediumItalic: UIFont(name: "Roboto-MediumItalic", size: 16)!,
         boldItalic: UIFont(name: "Roboto-BoldItalic", size: 16)!)
+    
+    static let neueHaasGrotesk = ASAPPFontFamily(
+        light: UIFont(name: "NHaasGroteskDSStd-55Rg", size: 16)!,
+        regular: UIFont(name: "NHaasGroteskDSStd-55Rg", size: 16)!,
+        medium: UIFont(name: "NHaasGroteskDSStd-65Md", size: 16)!,
+        bold: UIFont(name: "NHaasGroteskDSStd-75Bd", size: 16)!)
 }
