@@ -220,6 +220,7 @@ extension AppSettings {
         let boostOrange = Color(uiColor: UIColor(hexString: "#f7901e")!)!
         let boostGrey = Color(uiColor: UIColor(hexString: "#373737")!)!
         let telstraBlue = Color(uiColor: UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1))!
+        let verizonBlue = Color(uiColor: UIColor(red: 0.22, green: 0.55, blue: 0.98, alpha: 1))!
         let black = Color(uiColor: .black)!
         
         return [
@@ -241,7 +242,12 @@ extension AppSettings {
             ], strings: [
                 .helpButton: "HELP",
                 .chatTitle: "24x7 Chat"
-            ], fontFamilyName: .asapp)
+            ], fontFamilyName: .asapp),
+            
+            AppearanceConfig.create(name: "Rome", brand: .verizon, logo: Image(id: "verizon", uiImage: #imageLiteral(resourceName: "fios-logo")), colors: [
+                .primary: verizonBlue,
+                .dark: black
+            ], strings: [:], fontFamilyName: .neueHaasGrotesk)
         ]
     }
 }

@@ -14,9 +14,9 @@ class QuickReply: NSObject {
     
     let action: Action
     
-    let icon: NotificationIconItem?
+    let icon: IconItem?
     
-    init(title: String, action: Action, icon: NotificationIconItem? = nil) {
+    init(title: String, action: Action, icon: IconItem? = nil) {
         self.title = title
         self.action = action
         self.icon = icon
@@ -49,9 +49,9 @@ extension QuickReply {
             return nil
         }
         
-        var icon: NotificationIconItem?
+        var icon: IconItem?
         if let iconDict = json.jsonObject(for: JSONKey.icon.rawValue) {
-            icon = NotificationIconItem(with: iconDict)
+            icon = ComponentFactory.component(with: iconDict.string(for: "name"), styles: nil) as? IconItem
         }
         
         return QuickReply(title: title, action: action, icon: icon)

@@ -15,6 +15,8 @@ import Nimble_Snapshots
 class QuickReplyViewSpec: QuickSpec {
     override func spec() {
         describe("QuickReplyView") {
+            var style: ComponentStyle!
+            
             beforeSuite {
                 FBSnapshotTest.setReferenceImagesDirectory(
                     ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
@@ -24,6 +26,7 @@ class QuickReplyViewSpec: QuickSpec {
                 window.makeKeyAndVisible()
                 
                 TestUtil.setUpASAPP()
+                style = TestUtil.createStyle()
             }
             
             context("on its own") {
@@ -51,13 +54,13 @@ class QuickReplyViewSpec: QuickSpec {
                     }
                 }
                 
-                context("with a filled bell icon") {
+                context("with a clock icon") {
                     it("has a valid snapshot") {
                         let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         
                         let action = Action(content: nil)!
-                        let icon = NotificationIconItem(with: ["name": "bell"])
+                        let icon = IconItem(style: style, content: ["icon": "clock"])
                         let quickReply = QuickReply(title: "Sc he du le an ap po in tm en t to return equipment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)
@@ -82,7 +85,7 @@ class QuickReplyViewSpec: QuickSpec {
                     }
                 }
                 
-                context("with a web action and a filled bell icon") {
+                context("with a web action and a clock icon") {
                     it("has a valid snapshot") {
                         let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
@@ -90,7 +93,7 @@ class QuickReplyViewSpec: QuickSpec {
                         let action = WebPageAction(content: [
                             "url": "https://asapp.com/"
                         ])!
-                        let icon = NotificationIconItem(with: ["name": "bell"])
+                        let icon = IconItem(style: style, content: ["icon": "clock"])
                         let quickReply = QuickReply(title: "Schedule an appointment to return equipment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)
@@ -99,7 +102,7 @@ class QuickReplyViewSpec: QuickSpec {
                     }
                 }
                 
-                context("with a short title and a web action and a filled bell icon") {
+                context("with a short title and a web action and an error icon") {
                     it("has a valid snapshot") {
                         let cell = QuickReplyView()
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
@@ -107,7 +110,7 @@ class QuickReplyViewSpec: QuickSpec {
                         let action = WebPageAction(content: [
                             "url": "https://asapp.com/"
                         ])!
-                        let icon = NotificationIconItem(with: ["name": "bell"])
+                        let icon = IconItem(style: style, content: ["icon": "alertError"])
                         let quickReply = QuickReply(title: "Appointment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)

@@ -392,7 +392,10 @@ extension ChatViewController {
         
         if isLiveChat {
             clearQuickRepliesView(animated: true, completion: nil)
-            chatInputView.becomeFirstResponder()
+            Dispatcher.delay(300) { [weak self] in
+                self?.chatInputView.needsToBecomeFirstResponder = true
+                self?.updateFramesAnimated()
+            }
         } else {
             chatInputView.resignFirstResponder()
         }
@@ -489,7 +492,7 @@ extension ChatViewController {
         }
         spinner.alpha = chatMessagesView.isEmpty ? 1 : 0
         
-        let showRestartButton = [.quickReplies, .conversationEnd].contains(inputState)
+        let showRestartButton = [.quickReplies, .conversationEnd].contains(inputState) || (quickRepliesMessage == nil && inputState == .both && !chatMessagesView.isEmpty)
         quickRepliesView.isRestartButtonVisible = showRestartButton
         chatInputView.alpha = showRestartButton || actionSheet != nil || chatMessagesView.isEmpty ? 0 : 1
         
@@ -524,6 +527,11 @@ extension ChatViewController {
         
         if inputState != .both || quickRepliesView.frame.height > chatInputView.frame.height {
             quickRepliesView.isHidden = false
+        }
+        
+        if chatInputView.alpha == 1 && chatInputView.needsToBecomeFirstResponder {
+            chatInputView.becomeFirstResponder()
+            chatInputView.needsToBecomeFirstResponder = false
         }
     }
     
@@ -614,7 +622,9 @@ extension ChatViewController {
         case .api:
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
-                    self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                    Dispatcher.performOnMainThread { [weak self] in
+                        self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                    }
                     return
                 }
                 
@@ -625,9 +635,11 @@ extension ChatViewController {
                     }
                     
                 case .error:
-                    self?.showRequestErrorAlert(message: response.error?.userMessage)
-                    if quickReply != nil {
-                        self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                    Dispatcher.performOnMainThread { [weak self] in
+                        self?.showRequestErrorAlert(message: response.error?.userMessage)
+                        if quickReply != nil {
+                            self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                        }
                     }
                     
                 case .componentView:
@@ -834,7 +846,6 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView) {
-        chatInputView.becomeFirstResponder()
         let nextState: InputState = (previousInputState == nil || inputState == .both) ? .prechat : .chat
         updateInputState(nextState, animated: true)
     }
@@ -885,9 +896,9 @@ extension ChatViewController {
         updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
     }
     
-    func showRestartButtonAlone() {
-        quickRepliesView.showRestartButtonAlone(animated: true)
-        updateInputState(.conversationEnd, animated: true)
+    func showRestartButtonAlone(animated: Bool = true) {
+        quickRepliesView.showRestartButtonAlone(animated: animated)
+        updateInputState(.conversationEnd, animated: animated)
     }
 }
 
@@ -903,7 +914,7 @@ extension ChatViewController: QuickRepliesViewDelegate {
         }
         
         self.actionSheet = actionSheet
-        actionSheet.show(in: view)
+        actionSheet.show(in: view, below: connectionStatusView)
     }
     
     func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
@@ -921,6 +932,8 @@ extension ChatViewController: ActionSheetDelegate {
     }
     
     func actionSheetDidTapHideButton(_ actionSheet: BaseActionSheet) {
+        reconnect()
+        
         hideActionSheet(actionSheet) { [weak self] in
             if self?.conversationManager.events.isEmpty == false {
                 self?.updateStateForLastEvent()
@@ -936,8 +949,9 @@ extension ChatViewController: ActionSheetDelegate {
         
         conversationManager.sendAskRequest { success in
             guard !success else { return }
-            Dispatcher.performOnMainThread {
+            Dispatcher.performOnMainThread { [weak self] in
                 actionSheet.hideSpinner()
+                self?.reconnect()
             }
         }
     }
@@ -1026,12 +1040,16 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     private func updateStateForLastEvent() {
-        if let message = conversationManager.events.reversed().first(where: { $0.isReplyMessageEvent })?.chatMessage {
+        if let message = conversationManager.events
+            .reversed()
+            .prefix(while: { $0.eventType != .accountMerge })
+            .first(where: { $0.isReplyMessageEvent })?
+            .chatMessage {
             updateState(for: message)
         }
         
         if let lastEvent = conversationManager.events.last,
-            lastEvent.eventType == .conversationEnd || (lastEvent.chatMessage?.userCanTypeResponse == false && !isLiveChat) {
+            lastEvent.eventType == .conversationEnd || (lastEvent.chatMessage?.userCanTypeResponse != true && !isLiveChat) {
             updateInputState(.conversationEnd)
         }
     }
@@ -1043,7 +1061,6 @@ extension ChatViewController: ConversationManagerDelegate {
         } else if message.hasQuickReplies {
             updateInputState(.quickReplies, animated: animated)
         } else if showChatInput && actionSheet == nil {
-            chatInputView.becomeFirstResponder()
             updateInputState(.chat, animated: animated)
         }
     }
@@ -1088,7 +1105,7 @@ extension ChatViewController: ConversationManagerDelegate {
         chatInputView.alpha = 0
         
         self.actionSheet = actionSheet
-        actionSheet.show(in: view, below: spinner)
+        actionSheet.show(in: view, below: connectionStatusView)
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let strongSelf = self else { return }
             var top: CGFloat = 0
@@ -1236,6 +1253,10 @@ extension ChatViewController {
                 self?.spinner.alpha = self?.chatMessagesView.isEmpty == true ? 1 : 0
             }
             strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
+            
+            if strongSelf.isLiveChat && !strongSelf.chatInputView.isFirstResponder {
+                strongSelf.updateViewForLiveChat(animated: false)
+            }
         }
     }
 }

@@ -102,7 +102,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         if method == .GET {
             if let stringyParams = params as? [String: String] {
                 urlParams.add(stringyParams)
-            } else {
+            } else if params != nil {
                 DebugLog.w(caller: self, "GET params must be String values: \(String(describing: params))")
             }
         }
@@ -134,8 +134,8 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         }
         
         if ASAPP.debugLogLevel.rawValue >= ASAPPLogLevel.debug.rawValue {
-            let headersString = JSONUtil.stringify(request.allHTTPHeaderFields) ?? ""
-            let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? ""
+            let headersString = JSONUtil.stringify(request.allHTTPHeaderFields) ?? "nil"
+            let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? "nil"
             DebugLog.d(caller: HTTPClient.self, "Sending HTTP Request \(method): \(requestURL)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
         }
         

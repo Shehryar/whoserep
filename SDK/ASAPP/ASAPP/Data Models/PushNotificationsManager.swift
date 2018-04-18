@@ -24,7 +24,11 @@ protocol PushNotificationsManagerProtocol {
 class PushNotificationsManager: PushNotificationsManagerProtocol {
     static let shared = PushNotificationsManager()
     
-    private init() {}
+    private let userDefaults: UserDefaultsProtocol
+    
+    init(userDefaults: UserDefaultsProtocol = UserDefaults.standard) {
+        self.userDefaults = userDefaults
+    }
     
     private let deviceTokenKey = "deviceToken"
     
@@ -51,20 +55,20 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     
     var deviceToken: String? {
         get {
-            return UserDefaults.standard.string(forKey: deviceTokenKey)
+            return userDefaults.string(forKey: deviceTokenKey)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: deviceTokenKey)
+            userDefaults.set(newValue, forKey: deviceTokenKey)
         }
     }
     
     var deviceId: Int? {
         get {
-            let result = UserDefaults.standard.integer(forKey: deviceIdKey)
+            let result = userDefaults.integer(forKey: deviceIdKey)
             return result != 0 ? result : nil
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: deviceIdKey)
+            userDefaults.set(newValue, forKey: deviceIdKey)
         }
     }
     

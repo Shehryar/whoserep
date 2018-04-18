@@ -12,7 +12,7 @@ class ChatMessageNotification {
     let title: String
     let text: String?
     let button: ButtonItem?
-    let icon: NotificationIconItem?
+    let icon: IconItem?
     let expiration: Date?
     
     enum JSONKey: String {
@@ -23,7 +23,7 @@ class ChatMessageNotification {
         case expiration
     }
     
-    init(title: String, text: String?, button: ButtonItem?, icon: NotificationIconItem?, expiration: Date?) {
+    init(title: String, text: String?, button: ButtonItem?, icon: IconItem?, expiration: Date?) {
         self.title = title
         self.text = text
         self.button = button
@@ -40,13 +40,15 @@ class ChatMessageNotification {
             "content": dict.jsonObject(for: JSONKey.button.rawValue) ?? ""
         ] as [String: Any]
         let button = ComponentFactory.component(with: fakeButtonDict, styles: nil) as? ButtonItem
-        let icon = NotificationIconItem(with: dict.jsonObject(for: JSONKey.icon.rawValue) ?? [:])
         
-        let expiration: Date?
+        var icon: IconItem?
+        if let iconDict = dict.jsonObject(for: JSONKey.icon.rawValue) {
+            icon = ComponentFactory.component(with: iconDict.string(for: "name"), styles: nil) as? IconItem
+        }
+        
+        var expiration: Date?
         if let expirationInt = dict.int(for: JSONKey.expiration.rawValue) {
             expiration = Date(timeIntervalSince1970: TimeInterval(expirationInt))
-        } else {
-            expiration = nil
         }
         
         return ChatMessageNotification(title: title, text: text, button: button, icon: icon, expiration: expiration)

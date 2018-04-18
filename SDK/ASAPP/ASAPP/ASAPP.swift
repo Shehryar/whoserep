@@ -73,6 +73,7 @@ public class ASAPP: NSObject {
      */
     public class func initialize(with config: ASAPPConfig) {
         ASAPP.config = config
+        HTTPClient.shared.config(config)
         ASAPP.loadFonts()
     }
 

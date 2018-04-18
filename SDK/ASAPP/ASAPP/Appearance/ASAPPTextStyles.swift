@@ -91,7 +91,12 @@ public class ASAPPTextStyles: NSObject {
         error.updateFont(fontFamily.regular)
     }
     
-    internal func updateColors(with color: UIColor) {
+    /**
+     Updates all text styles above with the given color.
+     
+     - parameter color: The color to apply to all text styles. Each text style will use the color at an appropriate opacity.
+     */
+    public func updateColors(with color: UIColor) {
         header1.updateColor(color.withAlphaComponent(0.9))
         header2.updateColor(color)
         header3.updateColor(color)

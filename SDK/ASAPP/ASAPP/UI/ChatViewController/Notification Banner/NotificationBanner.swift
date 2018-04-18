@@ -32,7 +32,6 @@ class NotificationBanner: UIView {
     private var iconView: UIImageView?
     private let titleLabel = UILabel()
     private let expandIcon = UIImageView()
-    private let topBorder = UIView()
     private let bottomBorder = UIView()
     private let overlayButton = UIButton()
     
@@ -58,14 +57,11 @@ class NotificationBanner: UIView {
         bannerContainer.backgroundColor = .white
         addSubview(bannerContainer)
         
-        topBorder.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
-        addSubview(topBorder)
-        
-        bottomBorder.backgroundColor = topBorder.backgroundColor
+        bottomBorder.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
         addSubview(bottomBorder)
         
         if let icon = notification.icon?.icon {
-            let imageView = UIImageView(image: icon.getImage()?.tinted(ASAPP.styles.colors.primary))
+            let imageView = UIImageView(image: icon.getImage())
             iconView = imageView
             if let iconView = self.iconView {
                 bannerContainer.addSubview(iconView)
@@ -129,7 +125,6 @@ class NotificationBanner: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        topBorder.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 1)
         bottomBorder.frame = CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1)
         
         // banner container

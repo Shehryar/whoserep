@@ -16,6 +16,7 @@ struct AppearanceConfig: Codable {
         case boost
         case telstra
         case custom
+        case verizon
     }
     
     enum ColorName: Int, CountableEnum, Codable {
@@ -28,6 +29,7 @@ struct AppearanceConfig: Codable {
         case asapp
         case boost
         case roboto
+        case neueHaasGrotesk
     }
     
     enum StringName: Int, CountableEnum, Codable {
@@ -63,6 +65,8 @@ extension AppearanceConfig {
             return DemoFonts.boost
         case .roboto:
             return DemoFonts.roboto
+        case .neueHaasGrotesk:
+            return DemoFonts.neueHaasGrotesk
         }
     }
     

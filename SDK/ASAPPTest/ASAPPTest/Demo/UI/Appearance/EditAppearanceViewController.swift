@@ -28,7 +28,8 @@ class EditAppearanceViewController: BaseTableViewController {
     fileprivate(set) var fontFamilyOptions: DictionaryLiteral<AppearanceConfig.FontFamilyName, String> = [
         .asapp: "Lato",
         .boost: "Boost",
-        .roboto: "Roboto"
+        .roboto: "Roboto",
+        .neueHaasGrotesk: "Neue Haas Grotesk"
     ]
     
     fileprivate(set) var allColors: DictionaryLiteral<AppearanceConfig.ColorName, String> = [

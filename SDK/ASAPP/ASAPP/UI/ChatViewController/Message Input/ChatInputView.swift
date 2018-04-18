@@ -22,6 +22,8 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     weak var delegate: ChatInputViewDelegate?
     
+    var needsToBecomeFirstResponder = false
+    
     var inputColors: ASAPPInputColors = ASAPP.styles.colors.chatInput {
         didSet {
             applyColors()

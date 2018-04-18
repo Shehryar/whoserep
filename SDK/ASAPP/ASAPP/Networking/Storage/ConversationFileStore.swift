@@ -22,6 +22,8 @@ class ConversationFileStore: NSObject {
     
     private var writeQueue = [String]()
     
+    private let serialQueue: DispatchQueue
+    
     private var needsWriteToFile = false
     
     private let debugLoggingEnabled = false
@@ -32,6 +34,7 @@ class ConversationFileStore: NSObject {
         self.config = config
         self.user = user
         self.fileName = "\(config.hashKey(with: user, prefix: "Stored-Events_")).txt"
+        self.serialQueue = DispatchQueue(label: "ConversationFileStore", qos: .background)
         super.init()
         
         if let dir = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first {
@@ -178,7 +181,7 @@ extension ConversationFileStore {
     }
     
     func getSavedEventsWithCompletion(completion: @escaping (([Event]?) -> Void)) {
-        Dispatcher.performOnBackgroundThread {
+        serialQueue.async {
             let events = self.getSavedEvents()
             
             Dispatcher.performOnMainThread {
@@ -222,7 +225,7 @@ extension ConversationFileStore {
     func addEventJSON(eventJSON: [String: Any]?) {
         guard let eventJSON = eventJSON else { return }
         
-        Dispatcher.performOnBackgroundThread {
+        serialQueue.async {
             self.addEventJSONSynchronous(eventJSON: eventJSON)
         }
     }
@@ -230,13 +233,13 @@ extension ConversationFileStore {
     func addEventJSONString(eventJSONString: String?) {
         guard let eventJSONString = eventJSONString else { return }
         
-        Dispatcher.performOnBackgroundThread {
+        serialQueue.async {
             self.addEventJSONStringSynchronous(eventJSONString: eventJSONString)
         }
     }
     
     func replaceEventsWithJSONArray(eventsJSONArray: [[String: Any]]) {
-        Dispatcher.performOnBackgroundThread {
+        serialQueue.async {
             self.replaceEventsWithJSONArraySynchronous(eventsJSONArray: eventsJSONArray)
         }
     }
@@ -267,13 +270,13 @@ extension ConversationFileStore {
     // MARK: Public
     
     func save(async: Bool = true) {
-        guard needsWriteToFile else { return }
-        
         if async {
-            Dispatcher.performOnBackgroundThread {
-                self.writeEventJSONStringsToDisk()
+            serialQueue.async { [weak self] in
+                guard self?.needsWriteToFile == true else { return }
+                self?.writeEventJSONStringsToDisk()
             }
         } else {
+            guard needsWriteToFile else { return }
             writeEventJSONStringsToDisk()
         }
     }
