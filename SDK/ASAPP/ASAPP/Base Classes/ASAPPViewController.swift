@@ -199,7 +199,7 @@ extension ASAPPViewController {
             return
         }
         
-        let componentViewController = ComponentViewController(viewName: action.name, viewData: action.data)
+        let componentViewController = ComponentViewController(viewName: action.name, viewData: action.data, isInset: action.displayStyle == .inset)
         componentViewController.delegate = delegate
         
         let navigationController = ComponentNavigationController(rootViewController: componentViewController)
