@@ -254,7 +254,7 @@ extension ComponentPreviewViewController {
     }
     
     func handleComponentViewAction(_ action: ComponentViewAction) {
-        let viewController = ComponentViewController(viewName: action.name, viewData: action.data)
+        let viewController = ComponentViewController(viewName: action.name, viewData: action.data, isInset: action.displayStyle == .inset)
         viewController.delegate = self
         let navigationController = ComponentNavigationController(rootViewController: viewController)
         navigationController.displayStyle = action.displayStyle

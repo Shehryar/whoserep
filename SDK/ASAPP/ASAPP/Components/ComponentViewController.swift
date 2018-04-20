@@ -40,6 +40,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         didSet {
             title = componentViewContainer?.title
             rootView = componentViewContainer?.createView()
+            updateTitleBar()
         }
     }
     
@@ -81,9 +82,19 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     private let emptyView = ComponentViewEmptyReloadView()
     
+    private let titleBarHeight: CGFloat = 44
+    
+    private let titleBar = UIView()
+    
+    private let titleLabel = UILabel()
+    
+    private let closeButton = UIButton()
+    
     private let viewName: String?
     
     private let viewData: [String: Any]?
+    
+    private let isInset: Bool
     
     // MARK: Init
     
@@ -105,9 +116,10 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         spinnerView.hidesWhenStopped = true
     }
     
-    init(viewName: String, viewData: [String: Any]?) {
+    init(viewName: String, viewData: [String: Any]?, isInset: Bool) {
         self.viewName = viewName
         self.viewData = viewData
+        self.isInset = isInset
         super.init(nibName: nil, bundle: nil)
         commonInit()
     }
@@ -115,6 +127,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     required init?(coder aDecoder: NSCoder) {
         self.viewName = nil
         self.viewData = nil
+        self.isInset = false
         super.init(coder: aDecoder)
         commonInit()
     }
@@ -122,6 +135,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.viewName = nil
         self.viewData = nil
+        self.isInset = false
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         commonInit()
     }
@@ -148,6 +162,19 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         } else {
             refreshView()
         }
+        
+        titleLabel.textAlignment = .center
+        let icon = Images.getImage(.iconX)
+        closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark), for: .normal)
+        closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark).withAlpha(0.5), for: .highlighted)
+        closeButton.addTarget(self, action: #selector(didTapNavigationCloseButton), for: .touchUpInside)
+        titleBar.addSubview(closeButton)
+        titleBar.addSubview(titleLabel)
+        let borderLayer = CALayer()
+        borderLayer.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15).cgColor
+        borderLayer.frame = CGRect(x: 0, y: titleBarHeight, width: view.bounds.width, height: 1)
+        titleBar.layer.addSublayer(borderLayer)
+        view.addSubview(titleBar)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -173,8 +200,19 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
                 top = intersection.maxY
             }
         }
-        let height = view.bounds.height - top
+        
         let width = view.bounds.width
+        
+        if isInset {
+            titleBar.frame = CGRect(x: 0, y: 0, width: width, height: titleBarHeight)
+            let buttonSize = titleBarHeight
+            closeButton.frame = CGRect(x: width - buttonSize, y: 0, width: buttonSize, height: buttonSize)
+            titleLabel.frame = CGRect(x: buttonSize, y: 0, width: width - 2 * buttonSize, height: titleBarHeight)
+            top = titleBar.frame.maxY
+        }
+        
+        let height = view.bounds.height - top
+        
         rootView?.view.frame = CGRect(x: 0, y: top, width: width, height: height)
         rootView?.updateFrames()
         
@@ -211,8 +249,8 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func showComponentView(named name: String, withData data: [String: Any]?) {
-        let viewController = ComponentViewController(viewName: name, viewData: data)
+    func showComponentView(named name: String, withData data: [String: Any]?, isInset: Bool) {
+        let viewController = ComponentViewController(viewName: name, viewData: data, isInset: isInset)
         viewController.delegate = delegate
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -228,6 +266,16 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
             dismiss(animated: true, completion: nil)
         }
     }
+    
+    func updateTitleBar() {
+        if isInset {
+            titleBar.isHidden = false
+        } else {
+            titleBar.isHidden = true
+        }
+        
+        titleLabel.setAttributedText(title, textType: .body2)
+    }
 }
 
 // MARK: - InteractionHandler
@@ -240,7 +288,7 @@ extension ComponentViewController: InteractionHandler {
         } else if let apiAction = buttonItem.action as? APIAction {
             handleAPIAction(apiAction, from: buttonView, with: buttonItem)
         } else if let componentViewAction = buttonItem.action as? ComponentViewAction {
-            showComponentView(named: componentViewAction.name, withData: componentViewAction.data)
+            showComponentView(named: componentViewAction.name, withData: componentViewAction.data, isInset: componentViewAction.displayStyle == .inset)
         } else if let finishAction = buttonItem.action as? FinishAction {
             finish(with: finishAction)
         }
