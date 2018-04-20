@@ -495,7 +495,7 @@ extension ChatViewController {
         
         let showRestartButton = [.quickReplies, .conversationEnd].contains(inputState) || (quickRepliesMessage == nil && inputState == .both && !chatMessagesView.isEmpty)
         quickRepliesView.isRestartButtonVisible = showRestartButton
-        chatInputView.alpha = showRestartButton || actionSheet != nil || chatMessagesView.isEmpty ? 0 : 1
+        chatInputView.alpha = showRestartButton || actionSheet != nil || (chatMessagesView.isEmpty && quickRepliesMessage == nil) ? 0 : 1
         
         let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
         var quickRepliesTop = view.bounds.height
