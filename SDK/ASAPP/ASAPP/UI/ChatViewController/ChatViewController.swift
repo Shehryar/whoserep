@@ -51,6 +51,7 @@ class ChatViewController: ASAPPViewController {
     private var segue: ASAPPSegue = .present
     private var inputState: InputState = .both
     private var previousInputState: InputState?
+    private var shouldConfirmRestart: Bool = true
     
     // MARK: Properties: Keyboard
     
@@ -906,6 +907,16 @@ extension ChatViewController {
 
 extension ChatViewController: QuickRepliesViewDelegate {
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {
+        guard shouldConfirmRestart else {
+            conversationManager.sendAskRequest { success in
+                guard !success else { return }
+                Dispatcher.performOnMainThread { [weak self] in
+                    self?.reconnect()
+                }
+            }
+            return
+        }
+        
         let restartSheet = RestartConfirmationActionSheet()
         restartSheet.delegate = self
         actionSheet = restartSheet
@@ -1055,6 +1066,8 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     private func updateState(for message: ChatMessage, animated: Bool = false) {
+        shouldConfirmRestart = !message.suppressNewQuestionConfirmation
+        
         let showChatInput = isLiveChat || message.userCanTypeResponse
         if showChatInput && message.hasQuickReplies {
             updateInputState(.both, animated: false)
