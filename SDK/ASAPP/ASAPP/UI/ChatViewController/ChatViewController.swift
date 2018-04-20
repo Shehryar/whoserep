@@ -507,7 +507,8 @@ extension ChatViewController {
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         case .both, .quickReplies, .conversationEnd:
             let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
-            if inputHeight > 0 && quickRepliesTop + quickRepliesView.contentHeight >= chatInputView.frame.minY {
+            quickRepliesTop -= quickRepliesHeight + inputHeight
+            if inputHeight > 0 && quickRepliesTop + quickRepliesView.contentHeight >= view.bounds.height - inputHeight {
                 quickRepliesView.contentInsetBottom = inputHeight
                 chatInputView.showBlur()
             } else {
@@ -515,7 +516,6 @@ extension ChatViewController {
             }
             chatInputView.displayBorderTop = false
             chatInputView.bubbleInset.bottom = 23
-            quickRepliesTop -= quickRepliesHeight + inputHeight
             chatMessagesView.contentInsetBottom = quickRepliesHeight + inputHeight
         }
         
