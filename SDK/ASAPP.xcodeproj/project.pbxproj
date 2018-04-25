@@ -368,6 +368,8 @@
 		3A51137A1FD1D95F00BE0785 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */; };
 		3A5370AB1F86B2BB0092B3B3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */; };
 		3A621FBD208E38DA00CB11D6 /* GatekeeperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FBC208E38DA00CB11D6 /* GatekeeperView.swift */; };
+		3A621FC3208E854A00CB11D6 /* ScaleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC2208E854A00CB11D6 /* ScaleItem.swift */; };
+		3A621FC5208E861E00CB11D6 /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC4208E861E00CB11D6 /* ScaleView.swift */; };
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
 		3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68112C1F7C1BF800078E3F /* FontLoader.swift */; };
 		3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */; };
@@ -782,6 +784,8 @@
 		3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3A621FBC208E38DA00CB11D6 /* GatekeeperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperView.swift; sourceTree = "<group>"; };
+		3A621FC2208E854A00CB11D6 /* ScaleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleItem.swift; sourceTree = "<group>"; };
+		3A621FC4208E861E00CB11D6 /* ScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleView.swift; sourceTree = "<group>"; };
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
 		3A68112C1F7C1BF800078E3F /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageButtonsView.swift; sourceTree = "<group>"; };
@@ -931,6 +935,7 @@
 				289E040D1EC791FC00CAC413 /* RadioButtonsContainerView.swift */,
 				288085051E875DB700240A5D /* RadioButtonView.swift */,
 				289E040B1EC791CC00CAC413 /* RadioButton.swift */,
+				3A621FC4208E861E00CB11D6 /* ScaleView.swift */,
 				281C347C1E7F092C001A2AA3 /* SeparatorView.swift */,
 				288084FF1E874BF900240A5D /* SliderView.swift */,
 				307DBE7E1E9E827500B8F10F /* TextAreaView.swift */,
@@ -1177,6 +1182,7 @@
 				289E04131EC792DB00CAC413 /* RadioButtonsContainerItem.swift */,
 				289E04111EC792D100CAC413 /* RadioButtonViewItem.swift */,
 				289E040F1EC792C400CAC413 /* RadioButtonItem.swift */,
+				3A621FC2208E854A00CB11D6 /* ScaleItem.swift */,
 				30131FC11EB10FD0009E7299 /* ScrollViewItem.swift */,
 				30131FC21EB10FD0009E7299 /* SeparatorItem.swift */,
 				30131FC31EB10FD0009E7299 /* SliderItem.swift */,
@@ -2083,6 +2089,7 @@
 				30226CF61D493F5300871453 /* BubbleView.swift in Sources */,
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				30BBB4D31F3CE5C200FD5615 /* UIViewController+TitleView.swift in Sources */,
+				3A621FC5208E861E00CB11D6 /* ScaleView.swift in Sources */,
 				3AE183A72059B45B00FD0D7A /* CollectionExtensions.swift in Sources */,
 				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
 				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
@@ -2174,6 +2181,7 @@
 				307484E61EB8FF66008CF3E4 /* WebPageAction.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
 				30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */,
+				3A621FC3208E854A00CB11D6 /* ScaleItem.swift in Sources */,
 				30B7C2781F27E7DF00D69824 /* SRSIcon.swift in Sources */,
 				306619101D9458F50092B4C5 /* SDImageCache.m in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,
