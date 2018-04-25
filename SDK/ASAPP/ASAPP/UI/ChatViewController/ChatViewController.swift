@@ -37,6 +37,7 @@ class ChatViewController: ASAPPViewController {
     private let chatInputView = ChatInputView()
     private let connectionStatusView = ChatConnectionStatusView()
     private let quickRepliesView = QuickRepliesView()
+    private var gatekeeperView: GatekeeperView?
     private var actionSheet: BaseActionSheet?
     private var notificationBanner: NotificationBanner?
     private var hapticFeedbackGenerator: Any?
@@ -226,6 +227,9 @@ class ChatViewController: ASAPPViewController {
         
         if let nextAction = userLoginAction?.nextAction {
             performAction(nextAction, queueRequestIfNoConnection: true)
+        } else if connectionStatus != .connected {
+            gatekeeperView?.showSpinner()
+            conversationManager.enterConversation()
         }
     }
     
@@ -491,7 +495,7 @@ extension ChatViewController {
         } else {
             spinner.frame = chatMessagesView.frame
         }
-        spinner.alpha = chatMessagesView.isEmpty ? 1 : 0
+        spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil ? 1 : 0
         
         let showRestartButton = [.quickReplies, .conversationEnd].contains(inputState) || (quickRepliesMessage == nil && inputState == .both && !chatMessagesView.isEmpty)
         quickRepliesView.isRestartButtonVisible = showRestartButton
@@ -654,7 +658,10 @@ extension ChatViewController {
             })
             
         case .componentView:
-            showComponentView(fromAction: action, delegate: self)
+            Dispatcher.performOnMainThread { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.showComponentView(fromAction: action, delegate: strongSelf)
+            }
             
         case .deepLink:
             if let deepLinkAction = action as? DeepLinkAction {
@@ -667,10 +674,14 @@ extension ChatViewController {
                 
                 switch segue {
                 case .present:
-                    dismiss(animated: true, completion: completion)
+                    Dispatcher.performOnMainThread { [weak self] in
+                        self?.dismiss(animated: true, completion: completion)
+                    }
                 case .push:
                     if let container = navigationController?.parent as? ContainerViewController {
-                        container.navigationController?.popViewController(animated: true, completion: completion)
+                        Dispatcher.performOnMainThread {
+                            container.navigationController?.popViewController(animated: true, completion: completion)
+                        }
                     }
                 }
             }
@@ -694,7 +705,9 @@ extension ChatViewController {
             }
             
         case .treewalk:
-            chatMessagesView.scrollToBottomAnimated(true)
+            Dispatcher.performOnMainThread { [weak self] in
+                self?.chatMessagesView.scrollToBottomAnimated(true)
+            }
             
             conversationManager.sendRequestForTreewalkAction(
                 action as! TreewalkAction,
@@ -711,11 +724,15 @@ extension ChatViewController {
         case .userLogin:
             if let userLoginAction = action as? UserLoginAction {
                 ASAPP.userLoginAction = userLoginAction
-                ASAPP.delegate?.chatViewControllerDidTapUserLoginButton()
+                Dispatcher.performOnMainThread {
+                    ASAPP.delegate?.chatViewControllerDidTapUserLoginButton()
+                }
             }
             
         case .web:
-            showWebPage(fromAction: action)
+            Dispatcher.performOnMainThread { [weak self] in
+                self?.showWebPage(fromAction: action)
+            }
             
         case .unknown:
             // No-op
@@ -1150,7 +1167,18 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Connection Status
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool) {
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authenticationFailed: Bool) {
+        if authenticationFailed && gatekeeperView == nil {
+            gatekeeperView = GatekeeperView(contentType: .unauthenticated)
+            if let gatekeeper = gatekeeperView {
+                gatekeeper.delegate = self
+                gatekeeper.frame = view.bounds
+                view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
+                spinner.alpha = 0
+            }
+            return
+        }
+        
         if !didConnectAtLeastOnce && isConnected {
             conversationManager.sendEnterChatRequest()
         }
@@ -1172,6 +1200,7 @@ extension ChatViewController: ConversationManagerDelegate {
         if isConnected {
             // Fetch events
             reloadMessageEvents()
+            gatekeeperView?.removeFromSuperview()
         } else {
             if chatMessagesView.isEmpty {
                 chatMessagesView.reloadWithEvents(conversationManager.events)
@@ -1181,6 +1210,15 @@ extension ChatViewController: ConversationManagerDelegate {
             if inputState == .conversationEnd {
                 // show the restart action button again in case the spinner is visible
                 showRestartButtonAlone()
+            }
+            
+            if !didConnectAtLeastOnce && gatekeeperView == nil {
+                gatekeeperView = GatekeeperView(contentType: .notConnected)
+                if let gatekeeper = gatekeeperView {
+                    gatekeeper.delegate = self
+                    gatekeeper.frame = view.bounds
+                    view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
+                }
             }
         }
         
@@ -1211,6 +1249,18 @@ extension ChatViewController: ConversationManagerDelegate {
                 self?.showQuickRepliesView(with: message)
             }
         }
+    }
+}
+
+// MARK: - GatekeeperViewDelegate
+
+extension ChatViewController: GatekeeperViewDelegate {
+    func gatekeeperViewDidTapLogIn(_ gatekeeperView: GatekeeperView) {
+        ASAPP.delegate?.chatViewControllerDidTapUserLoginButton()
+    }
+    
+    func gatekeeperViewDidTapReconnect(_ gatekeeperView: GatekeeperView) {
+        reconnect()
     }
 }
 

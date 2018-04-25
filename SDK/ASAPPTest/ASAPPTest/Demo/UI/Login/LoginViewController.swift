@@ -10,11 +10,11 @@ import UIKit
 
 class LoginViewController: OptionsForKeyViewController {
 
-    var onUserLogin: ((_ customerIdentifier: String?) -> Void)?
+    var onUserSelection: (() -> Void)?
     
     var onCancel: (() -> Void)?
     
-    var dismissOnUserLogin: Bool = true
+    var dismissOnUserSelection: Bool = true
     
     override func commonInit() {
         super.commonInit()
@@ -24,7 +24,7 @@ class LoginViewController: OptionsForKeyViewController {
         update(selectedOptionKey: AppSettings.Key.customerIdentifier,
                optionsListKey: AppSettings.Key.customerIdentifierList)
         
-        onSelection = { [weak self] (customerIdentifier) in
+        onSelection = { [weak self] customerIdentifier in
             if let customerIdentifier = customerIdentifier {
                 self?.userDidLogin(customerIdentifier)
             }
@@ -44,9 +44,9 @@ class LoginViewController: OptionsForKeyViewController {
     }
     
     fileprivate func userDidLogin(_ customerIdentifier: String) {
-        onUserLogin?(customerIdentifier)
+        onUserSelection?()
         
-        if dismissOnUserLogin {
+        if dismissOnUserSelection {
             dismiss(animated: true, completion: nil)
         }
     }

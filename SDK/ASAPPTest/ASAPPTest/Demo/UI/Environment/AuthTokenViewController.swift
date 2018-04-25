@@ -39,6 +39,8 @@ class AuthTokenViewController: BaseTableViewController {
     
     // MARK: Properties
     
+    fileprivate var onTapNext: (() -> Void)?
+    
     fileprivate var spearEnvironment = AppSettings.shared.spearEnvironment {
         didSet {
             AppSettings.saveObject(spearEnvironment.rawValue, forKey: .spearEnvironment)
@@ -111,6 +113,15 @@ class AuthTokenViewController: BaseTableViewController {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
+    }
+    
+    func addNextButton(title: String, onTapNext: @escaping (() -> Void)) {
+        self.onTapNext = onTapNext
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: .done, target: self, action: #selector(didTapNext))
+    }
+    
+    @objc func didTapNext() {
+        onTapNext?()
     }
 }
 

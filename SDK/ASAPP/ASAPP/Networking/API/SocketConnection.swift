@@ -346,6 +346,10 @@ extension SocketConnection: SRWebSocketDelegate {
         
         isAuthenticated = false
         
-        delegate?.socketConnectionFailedToAuthenticate(self)
+        if (error as NSError).code == 50 {
+            delegate?.socketConnectionDidLoseConnection(self)
+        } else {
+            delegate?.socketConnectionFailedToAuthenticate(self)
+        }
     }
 }
