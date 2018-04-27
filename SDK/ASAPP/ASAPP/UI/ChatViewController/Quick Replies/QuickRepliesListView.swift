@@ -75,7 +75,7 @@ class QuickRepliesListView: UIView {
         scrollView.scrollsToTop = false
         scrollView.alwaysBounceVertical = false
         scrollView.delegate = self
-        scrollView.contentInset = UIEdgeInsets(top: QuickReplyView.contentInset.top * 3 - 1, left: 0, bottom: QuickReplyView.contentInset.bottom * 2, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: QuickReplyView.contentInset.top * 5 - 1, left: 0, bottom: QuickReplyView.contentInset.bottom * 2, right: 0)
         addSubview(scrollView)
     }
     
