@@ -43,7 +43,9 @@ class ChatInputView: UIView, TextViewAutoExpanding {
                 shadowBottomConstraint.constant = -bubbleInset.bottom
                 invalidateIntrinsicContentSize()
                 resizeIfNeeded(animated: true, notifyOfHeightChange: true)
-                cornerRadius = (inputHeight + contentInset.top + contentInset.bottom) / 2
+                if cornerRadius == 0 {
+                    cornerRadius = (inputHeight + contentInset.top + contentInset.bottom) / 2
+                }
             }
             setNeedsLayout()
         }
@@ -388,6 +390,13 @@ extension ChatInputView: UITextViewDelegate {
             }
             return false
         }
+        
+        if text == UIPasteboard.general.string {
+            Dispatcher.delay(100) {
+                textView.scrollRangeToVisible(NSRange(location: max(0, textView.text.count - 1), length: 1))
+            }
+        }
+        
         return true
     }
     
@@ -439,5 +448,26 @@ extension ChatInputView {
     func showSolidBackground() {
         backgroundColor = .white
         setNeedsDisplay()
+    }
+    
+    func prepareForFocus(in safeAreaInsets: UIEdgeInsets? = nil) {
+        showBlur()
+        displayBorderTop = true
+        resizeIfNeeded(animated: false)
+        textView.selectedTextRange = textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
+        if let insets = safeAreaInsets {
+            bubbleInset.bottom = isFirstResponder ? 8 : max(8, insets.bottom - 13)
+        } else {
+            bubbleInset.bottom = 8
+        }
+    }
+    
+    func prepareForNormalState() {
+        inputHeight = inputMinHeight
+        textView.isScrollEnabled = true
+        textView.bounces = true
+        textView.scrollRangeToVisible(NSRange(location: max(0, textView.text.count - 1), length: 1))
+        displayBorderTop = false
+        bubbleInset.bottom = 23
     }
 }

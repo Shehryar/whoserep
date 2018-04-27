@@ -506,15 +506,14 @@ extension ChatViewController {
         
         switch inputState {
         case .prechat, .chat:
-            chatInputView.showBlur()
-            chatInputView.displayBorderTop = true
             if #available(iOS 11.0, *) {
-                chatInputView.bubbleInset.bottom = chatInputView.isFirstResponder ? 8 : max(8, view.safeAreaInsets.bottom - 13)
+                chatInputView.prepareForFocus(in: view.safeAreaInsets)
             } else {
-                chatInputView.bubbleInset.bottom = 8
+                chatInputView.prepareForFocus()
             }
             chatMessagesView.contentInsetBottom = keyboardRenderedHeight
         case .both, .quickReplies, .conversationEnd:
+            chatInputView.prepareForNormalState()
             let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
             quickRepliesTop -= quickRepliesHeight + inputHeight
             if inputHeight > 0 && quickRepliesTop + quickRepliesView.contentHeight >= view.bounds.height - inputHeight {
@@ -523,8 +522,6 @@ extension ChatViewController {
             } else {
                 chatInputView.hideBlur()
             }
-            chatInputView.displayBorderTop = false
-            chatInputView.bubbleInset.bottom = 23
             chatMessagesView.contentInsetBottom = quickRepliesHeight + inputHeight
         }
         
