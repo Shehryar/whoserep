@@ -397,9 +397,12 @@ extension ChatViewController {
         
         if isLiveChat {
             clearQuickRepliesView(animated: true, completion: nil)
-            Dispatcher.delay(300) { [weak self] in
-                self?.chatInputView.needsToBecomeFirstResponder = true
-                self?.updateFramesAnimated()
+            
+            if chatMessagesView.lastMessage?.userCanTypeResponse == true {
+                Dispatcher.delay(300) { [weak self] in
+                    self?.chatInputView.needsToBecomeFirstResponder = true
+                    self?.updateFramesAnimated()
+                }
             }
         } else {
             chatInputView.resignFirstResponder()
@@ -1077,8 +1080,9 @@ extension ChatViewController: ConversationManagerDelegate {
             updateState(for: message)
         }
         
+        let canType = conversationManager.events.last?.chatMessage?.userCanTypeResponse ?? false
         if let lastEvent = conversationManager.events.last,
-            lastEvent.eventType == .conversationEnd || (lastEvent.chatMessage?.userCanTypeResponse != true && !isLiveChat) {
+            lastEvent.eventType == .conversationEnd || (!canType && !isLiveChat) || (!canType && isLiveChat && lastEvent.eventType == .switchSRSToChat) {
             updateInputState(.conversationEnd)
         }
     }
@@ -1164,6 +1168,7 @@ extension ChatViewController: ConversationManagerDelegate {
     // Live Chat Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
         self.isLiveChat = isLiveChat
+        updateViewForLiveChat()
         conversationManager.saveCurrentEvents(async: true)
     }
     
@@ -1311,15 +1316,20 @@ extension ChatViewController {
             strongSelf.clearQuickRepliesView(animated: false, completion: nil)
             strongSelf.updateStateForLastEvent()
             strongSelf.showQuickRepliesViewIfNecessary(animated: true)
-            Dispatcher.delay(300) { [weak self] in
-                self?.showNotificationBannerIfNecessary()
-                self?.chatMessagesView.reloadWithEvents(fetchedEvents)
-                self?.spinner.alpha = self?.chatMessagesView.isEmpty == true ? 1 : 0
-            }
-            strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
             
-            if strongSelf.isLiveChat && !strongSelf.chatInputView.isFirstResponder {
-                strongSelf.updateViewForLiveChat(animated: false)
+            Dispatcher.delay(300) { [weak self] in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.showNotificationBannerIfNecessary()
+                strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
+                strongSelf.spinner.alpha = strongSelf.chatMessagesView.isEmpty == true ? 1 : 0
+                strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
+                
+                if strongSelf.isLiveChat && !strongSelf.chatInputView.isFirstResponder {
+                    strongSelf.updateViewForLiveChat(animated: false)
+                }
             }
         }
     }
