@@ -383,18 +383,18 @@ extension ConversationManager: SocketConnectionDelegate {
         httpClient.session = socketConnection.session
         PushNotificationsManager.shared.session = socketConnection.session
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: true)
+        delegate?.conversationManager(self, didChangeConnectionStatus: true, authenticationFailed: false)
     }
     
     func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection) {
         DebugLog.d("ConversationManager: Authentication Failed")
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: false)
+        delegate?.conversationManager(self, didChangeConnectionStatus: false, authenticationFailed: true)
     }
     
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection) {
         DebugLog.d("ConversationManager: Connection Lost")
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: false)
+        delegate?.conversationManager(self, didChangeConnectionStatus: false, authenticationFailed: false)
     }
 }

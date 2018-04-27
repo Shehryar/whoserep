@@ -161,7 +161,7 @@ class ChatViewControllerSpec: QuickSpec {
                         let vc = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
                         window.rootViewController = vc
                         mockConversationManager.delegate = vc
-                        mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true)
+                        mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true, authenticationFailed: false)
                         _ = vc.view
                         
                         expect(vc.config).to(equal(config))
@@ -194,7 +194,7 @@ class ChatViewControllerSpec: QuickSpec {
                         _ = vc.view
                         
                         mockConversationManager.isConnected = true
-                        mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true)
+                        mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true, authenticationFailed: false)
                         
                         expect(vc.config).to(equal(config))
                         expect(vc.user).to(equal(user))

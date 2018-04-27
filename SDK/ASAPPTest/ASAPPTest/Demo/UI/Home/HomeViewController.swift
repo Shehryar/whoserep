@@ -144,22 +144,25 @@ class HomeViewController: BaseViewController {
 extension HomeViewController: ASAPPDelegate {
     func chatViewControllerDidTapUserLoginButton() {
         let loginViewController = LoginViewController()
+        loginViewController.dismissOnUserSelection = false
         
-        loginViewController.onUserLogin = { [weak self] (customerId) in
-            guard let strongSelf = self, let customerId = customerId else {
+        let navController = NavigationController(rootViewController: loginViewController)
+        
+        loginViewController.onUserSelection = { [weak self] (customerId) in
+            guard let strongSelf = self else {
                 return
             }
             
-            let user = strongSelf.createASAPPUser(customerIdentifier: customerId)
-            ASAPP.user = user
+            let authTokenVC = AuthTokenViewController()
+            authTokenVC.addNextButton(title: "Log in", onTapNext: {
+                let user = strongSelf.createASAPPUser(customerIdentifier: AppSettings.shared.customerIdentifier)
+                ASAPP.user = user
+                navController.dismiss(animated: true, completion: nil)
+            })
+            navController.pushViewController(authTokenVC, animated: true)
         }
         
-        let navController = NavigationController(rootViewController: loginViewController)
-        if let presentedVC = presentedViewController {
-            presentedVC.present(navController, animated: true, completion: nil)
-        } else {
-            present(navController, animated: true, completion: nil)
-        }
+        (presentedViewController ?? self).present(navController, animated: true, completion: nil)
     }
 }
 

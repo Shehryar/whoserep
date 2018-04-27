@@ -1,0 +1,147 @@
+{
+  "formatVersion": 1,
+  "title": "How did we do?",
+  "root": {
+    "type": "stackView",
+    "content": {
+      "orientation": "vertical",
+      "items": [
+        {
+          "type": "scrollView",
+          "content": {
+            "root": {
+              "type": "stackView",
+              "content": {
+                "orientation": "vertical",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "How did we do?"
+                    },
+                    "style": {
+                      "textType": "header1",
+                      "marginBottom": 30
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Were you able to solve your chat query today?"
+                    },
+                    "style": {
+                      "marginBottom": 25,
+                      "textType": "bodyBold"
+                    }
+                  },
+                  {
+                    "type": "binaryRatingView",
+                    "name": "ableToResolve",
+                    "content": {
+                      "positiveValue": "true",
+                      "positiveText": "YES",
+                      "negativeValue": "false",
+                      "negativeText": "NO"
+                    },
+                    "style": {
+                      "align": "center",
+                      "textType": "body"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Based on your experience today, how likely are you to recommend this service to a friend or colleague?"
+                    },
+                    "style": {
+                      "textType": "bodyBold",
+                      "marginTop": 40
+                    }
+                  },
+                  {
+                    "type": "scale",
+                    "name": "likelyToRecommend",
+                    "style": {
+                      "marginTop": 20,
+                      "marginBottom": 6
+                    }
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "comments",
+                    "content": {
+                      "textInputType": "text",
+                      "placeholder": "Add additional comments here..."
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "padding": 40
+              }
+            }
+          },
+          "style": {
+            "weight": 1
+          }
+        },
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "buttonType": "secondary"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/SubmitFeedback",
+                      "data": {
+                        "issueId": "310001",
+                        "requireTargetIssueId": true,
+                        "text": "upload feedback",
+                        "metaData": "{\"dataFields\":[{\"name\":\"likelyToRecommend\",\"question\":\"Based on your experience today, how likely are you to recommend this service to a friend or colleague?\",\"type\":\"scale\",\"meta\":{\"min\":1,\"max\":5}},{\"name\":\"ableToResolve\",\"question\":\"Were you able to solve your chat query today?\",\"type\":\"radio\",\"optionLabels\":[{\"value\":\"true\",\"label\":\"YES\"},{\"value\":\"false\",\"label\":\"NO\"}]},{\"name\":\"comments\",\"question\":\"Add additional comments here...\",\"type\":\"string\"}]}",
+                        "flowId": "deadbeef",
+                        "actionTarget": "_SUBMIT_FEEDBACK"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "buttonType": "primary"
+                }
+              }
+            ]
+          },
+          "style": {
+            "weight": 0
+          }
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill",
+      "align": "fill"
+    }
+  }
+}
+

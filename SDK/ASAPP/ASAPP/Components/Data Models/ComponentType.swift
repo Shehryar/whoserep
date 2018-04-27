@@ -24,6 +24,7 @@ enum ComponentType: String {
     case radioButtonsContainer
     case radioButtonView
     case radioButton
+    case scale
     case separator
     case slider
     case textArea
@@ -53,6 +54,7 @@ enum ComponentType: String {
         case .radioButtonView: return RadioButtonViewItem.self
         case .radioButtonsContainer: return RadioButtonsContainerItem.self
         case .radioButton: return RadioButtonItem.self
+        case .scale: return ScaleItem.self
         case .separator: return SeparatorItem.self
         case .slider: return SliderItem.self
         case .textArea: return TextAreaItem.self
