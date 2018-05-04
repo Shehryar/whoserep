@@ -13,7 +13,7 @@ protocol MessageButtonsViewContainerDelegate: class {
 }
 
 protocol MessageButtonsViewContainer: class {
-    weak var delegate: MessageButtonsViewContainerDelegate? { get set }
+    var delegate: MessageButtonsViewContainerDelegate? { get set }
     var messageButtonsView: MessageButtonsView? { get set }
 }
 

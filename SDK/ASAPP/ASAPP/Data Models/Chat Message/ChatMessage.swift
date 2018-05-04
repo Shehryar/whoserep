@@ -17,7 +17,7 @@ class ChatMessage: NSObject {
     let attachment: ChatMessageAttachment?
     let quickReplies: [QuickReply]?
     let messageActions: [QuickReply]?
-    let userCanTypeResponse: Bool
+    let userCanTypeResponse: Bool?
     let suppressNewQuestionConfirmation: Bool
     let metadata: EventMetadata
     
@@ -35,7 +35,7 @@ class ChatMessage: NSObject {
           notification: ChatMessageNotification?,
           attachment: ChatMessageAttachment?,
           quickReplies: [String: [QuickReply]]?,
-          userCanTypeResponse: Bool = false,
+          userCanTypeResponse: Bool? = nil,
           suppressNewQuestionConfirmation: Bool = false,
           metadata: EventMetadata) {
         guard (text != nil && !(text?.isEmpty == true)) || attachment != nil || quickReplies != nil else {
@@ -125,7 +125,7 @@ extension ChatMessage {
             quickRepliesDictionary = nil
         }
         
-        let userCanTypeResponse = json.bool(for: JSONKey.userCanTypeResponse.rawValue) ?? false
+        let userCanTypeResponse = json.bool(for: JSONKey.userCanTypeResponse.rawValue)
         
         let suppressNewQuestionConfirmation = json.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
 

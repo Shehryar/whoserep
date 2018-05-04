@@ -15,12 +15,21 @@ excluded:
   - Carthage
 
 identifier_name:
+  min_length: 3
+  max_length: 40
   excluded:
     - x
     - y
     - z
     - id
     - in
+    - i
+    - j
+    - k
+    - a
+    - r
+    - g
+    - b
 
 nesting:
   type_level:

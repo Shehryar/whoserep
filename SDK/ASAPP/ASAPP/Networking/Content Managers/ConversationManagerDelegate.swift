@@ -12,6 +12,8 @@ protocol ConversationManagerDelegate: class {
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReceive message: ChatMessage)
     
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceiveEventOutOfOrder event: Event)
+    
     func conversationManager(_ manager: ConversationManagerProtocol, didUpdate message: ChatMessage)
     
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event)

@@ -11,16 +11,16 @@ import UIKit
 
 class FormValidation: ComponentViewController {
     let stackStyle: ComponentStyle = {
-        var s = ComponentStyle()
-        s.padding = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
-        return s
+        var style = ComponentStyle()
+        style.padding = UIEdgeInsets(top: 40, left: 20, bottom: 40, right: 20)
+        return style
     }()
     
     let itemStyle: ComponentStyle = {
-        var s = ComponentStyle()
-        s.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        s.alignment = .fill
-        return s
+        var style = ComponentStyle()
+        style.margin = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        style.alignment = .fill
+        return style
     }()
     
     override func viewDidLoad() {

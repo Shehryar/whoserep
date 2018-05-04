@@ -37,9 +37,7 @@ class BubbleView: UIView, Bubble {
     
     var strokeColor: UIColor? {
         didSet {
-            if oldValue != strokeColor {
-                setNeedsDisplay()
-            }
+            setNeedsDisplay()
         }
     }
     
@@ -153,31 +151,31 @@ extension Bubble where Self: UIView {
         let bottomLeftCornerRadius = getCornerRadius(.bottomLeft)
         let bottomLeftCornerCenter = move(bottomLeft, x: bottomLeftCornerRadius, y: -bottomLeftCornerRadius)
         
-        let pi_2 = CGFloat.pi / 2.0
+        let halfPi = CGFloat.pi / 2
         let path = CGMutablePath()
         
         path.addArc(center: CGPoint(x: topLeftCornerCenter.x, y: topLeftCornerCenter.y),
                     radius: topLeftCornerRadius,
-                    startAngle: 2 * pi_2,
-                    endAngle: 3 * pi_2,
+                    startAngle: 2 * halfPi,
+                    endAngle: 3 * halfPi,
                     clockwise: false)
         
         path.addArc(center: CGPoint(x: topRightCornerCenter.x, y: topRightCornerCenter.y),
                     radius: topRightCornerRadius,
-                    startAngle: 3 * pi_2,
-                    endAngle: 4 * pi_2,
+                    startAngle: 3 * halfPi,
+                    endAngle: 4 * halfPi,
                     clockwise: false)
         
         path.addArc(center: CGPoint(x: bottomRightCornerCenter.x, y: bottomRightCornerCenter.y),
                     radius: bottomRightCornerRadius,
-                    startAngle: 4 * pi_2,
-                    endAngle: 5 * pi_2,
+                    startAngle: 4 * halfPi,
+                    endAngle: 5 * halfPi,
                     clockwise: false)
         
         path.addArc(center: CGPoint(x: bottomLeftCornerCenter.x, y: bottomLeftCornerCenter.y),
                     radius: bottomLeftCornerRadius,
-                    startAngle: 5 * pi_2,
-                    endAngle: 6 * pi_2,
+                    startAngle: 5 * halfPi,
+                    endAngle: 6 * halfPi,
                     clockwise: false)
         
         path.closeSubpath()

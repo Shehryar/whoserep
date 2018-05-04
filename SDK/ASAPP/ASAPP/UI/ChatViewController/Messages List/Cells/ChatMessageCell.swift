@@ -138,7 +138,7 @@ class ChatMessageCell: UITableViewCell {
         
         switch messagePosition {
         case .firstOfMany:
-            updatedContentInset.bottom = 2
+            updatedContentInset.bottom = 3
             
         case .middleOfMany:
             updatedContentInset.top = 2

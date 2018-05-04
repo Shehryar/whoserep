@@ -163,7 +163,7 @@ extension ChatMessagesViewCellMaster {
 
     // MARK: Public
     
-    func typingIndicatorCell(forIndexPath indexPath: IndexPath) -> UITableViewCell? {
+    func typingIndicatorCell(for indexPath: IndexPath) -> UITableViewCell? {
         return getCell(with: typingIndicatorCellReuseId, at: indexPath) as? ChatTypingIndicatorCell
     }
     

@@ -217,10 +217,6 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        textView.delegate = nil
-    }
-    
     // MARK: - Appearance
     
     private func createSendIcon() -> UIImage? {

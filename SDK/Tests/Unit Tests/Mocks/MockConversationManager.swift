@@ -11,10 +11,11 @@
 class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledEnterConversation = false
     private(set) var calledExitConversation = false
-    private(set) var calledSaveCurrentEvents = false
     private(set) var calledIsConnected = false
     private(set) var calledGetCurrentQuickReplyMessage = false
-    private(set) var calledGetEvents = false
+    private(set) var calledGetEventsBefore = false
+    private(set) var calledGetEventsAfter = false
+    private(set) var calledGetEventWithLimit = false
     private(set) var calledSendEnterChatRequest = false
     private(set) var calledSendRequestForAPIAction = false
     private(set) var calledSendRequestForDeepLinkAction = false
@@ -33,6 +34,7 @@ class MockConversationManager: ConversationManagerProtocol {
     var currentSRSClassification: String?
     var isLiveChat: Bool
     var isConnected: Bool
+    var hasConversationEnded: Bool
     
     var nextQuickReplyMessage: ChatMessage?
     
@@ -40,6 +42,7 @@ class MockConversationManager: ConversationManagerProtocol {
         events = []
         isLiveChat = false
         isConnected = false
+        hasConversationEnded = false
     }
     
     func enterConversation() {
@@ -48,10 +51,6 @@ class MockConversationManager: ConversationManagerProtocol {
     
     func exitConversation() {
         calledExitConversation = true
-    }
-    
-    func saveCurrentEvents(async: Bool) {
-        calledSaveCurrentEvents = true
     }
     
     func isConnected(retryConnectionIfNeeded: Bool) -> Bool {
@@ -64,8 +63,16 @@ class MockConversationManager: ConversationManagerProtocol {
         return nextQuickReplyMessage
     }
     
-    func getEvents(afterEvent: Event?, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
-        calledGetEvents = true
+    func getEvents(before firstEvent: Event, limit: Int, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
+        calledGetEventsBefore = true
+    }
+    
+    func getEvents(after lastEvent: Event, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
+        calledGetEventsAfter = true
+    }
+    
+    func getEvents(limit: Int, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
+        calledGetEventWithLimit = true
     }
     
     func sendEnterChatRequest(_ completion: (() -> Void)?) {
@@ -120,10 +127,11 @@ class MockConversationManager: ConversationManagerProtocol {
     func cleanCalls() {
         calledEnterConversation = false
         calledExitConversation = false
-        calledSaveCurrentEvents = false
         calledIsConnected = false
         calledGetCurrentQuickReplyMessage = false
-        calledGetEvents = false
+        calledGetEventsBefore = false
+        calledGetEventsAfter = false
+        calledGetEventWithLimit = false
         calledSendEnterChatRequest = false
         calledSendRequestForAPIAction = false
         calledSendRequestForDeepLinkAction = false

@@ -8,25 +8,27 @@
 
 import Foundation
 
-protocol ConversationManagerProtocol {
+protocol ConversationManagerProtocol: class {
     typealias ComponentViewHandler = (ComponentViewContainer?) -> Void
     typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
     
     init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?)
     
-    weak var delegate: ConversationManagerDelegate? { get set }
+    var delegate: ConversationManagerDelegate? { get set }
     var events: [Event] { get }
     var currentSRSClassification: String? { get set }
     var isLiveChat: Bool { get }
     var isConnected: Bool { get }
+    var hasConversationEnded: Bool { get }
     
     func enterConversation()
     func exitConversation()
-    func saveCurrentEvents(async: Bool)
     func isConnected(retryConnectionIfNeeded: Bool) -> Bool
     
     func getCurrentQuickReplyMessage() -> ChatMessage?
-    func getEvents(afterEvent: Event?, completion: @escaping FetchedEventsCompletion)
+    func getEvents(before firstEvent: Event, limit: Int, completion: @escaping FetchedEventsCompletion)
+    func getEvents(after lastEvent: Event, completion: @escaping FetchedEventsCompletion)
+    func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion)
     func sendEnterChatRequest(_ completion: (() -> Void)?)
     func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler)
     func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String)
@@ -46,20 +48,12 @@ extension ConversationManagerProtocol {
         return sendEnterChatRequest(nil)
     }
     
-    func saveCurrentEvents() {
-        return saveCurrentEvents(async: false)
-    }
-    
     func sendPictureMessage(_ image: UIImage) {
         return sendPictureMessage(image, completion: nil)
     }
     
     func sendTextMessage(_ message: String) {
         return sendTextMessage(message, completion: nil)
-    }
-    
-    func getEvents(completion: @escaping FetchedEventsCompletion) {
-        return getEvents(afterEvent: nil, completion: completion)
     }
 }
 
@@ -87,27 +81,37 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         }
     }
     
+    var hasConversationEnded: Bool {
+        guard let lastEvent = events.last else {
+            return true
+        }
+        
+        return lastEvent.eventType == .conversationEnd
+            || lastEvent.eventType == .accountMerge
+            || ((lastEvent.chatMessage?.hasMessageActions == true
+                || lastEvent.chatMessage?.hasQuickReplies == true)
+                && lastEvent.chatMessage?.userCanTypeResponse != true)
+    }
+    
     var isConnected: Bool {
         return socketConnection.isConnected
     }
     
     private let simpleStore: ChatSimpleStore
     
-    private(set) var events: [Event]
+    private(set) var events: [Event] = []
     
-    private(set) var isLiveChat: Bool
+    private(set) var isLiveChat: Bool = false
     
     private var conversantBeganTypingTime: TimeInterval?
     
-    private var timer: Timer?
+    private weak var timer: RepeatingTimer?
     
     // MARK: Private Properties
     
     let socketConnection: SocketConnection
     
     let httpClient: HTTPClientProtocol
-    
-    let fileStore: ConversationFileStore
     
     // MARK: Initialization
     
@@ -119,26 +123,12 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
         self.httpClient = HTTPClient.shared
         self.httpClient.config(config)
-        self.fileStore = ConversationFileStore(config: config, user: user)
-        self.events = self.fileStore.getSavedEvents() ?? [Event]()
-        self.isLiveChat = EventType.getLiveChatStatus(from: self.events)
         super.init()
         
         self.socketConnection.delegate = self
-        self.timer = Timer.scheduledTimer(timeInterval: 6,
-                                          target: self,
-                                          selector: #selector(ConversationManager.checkForTypingStatusChange),
-                                          userInfo: nil,
-                                          repeats: true)
-    }
-    
-    deinit {
-        socketConnection.delegate = nil
         
-        if let timer = timer {
-            timer.invalidate()
-            self.timer = nil
-        }
+        self.timer = RepeatingTimer(interval: 6)
+        self.timer?.eventHandler = checkForTypingStatusChange
     }
 }
 
@@ -154,7 +144,7 @@ extension ConversationManager {
         return isConnected
     }
     
-    @objc func checkForTypingStatusChange() {
+    func checkForTypingStatusChange() {
         guard let conversantBeganTypingTime = conversantBeganTypingTime else {
             return
         }
@@ -164,10 +154,6 @@ extension ConversationManager {
             self.conversantBeganTypingTime = nil
             delegate?.conversationManager(self, didChangeTypingStatus: false)
         }
-    }
-    
-    func saveCurrentEvents(async: Bool = false) {
-        fileStore.save(async: async)
     }
 }
 
@@ -184,7 +170,6 @@ extension ConversationManager {
     func exitConversation() {
         DebugLog.d(caller: self, "Exiting Conversation")
         
-        fileStore.save()
         socketConnection.disconnect()
     }
 }
@@ -256,16 +241,37 @@ extension ConversationManager {
     
     typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
     
-    func getEvents(afterEvent: Event? = nil,
-                   completion: @escaping FetchedEventsCompletion) {
+    func getEvents(before firstEvent: Event, limit: Int, completion: @escaping FetchedEventsCompletion) {
+        getEvents(before: firstEvent, after: nil, limit: limit, completion: completion)
+    }
+    
+    func getEvents(after lastEvent: Event, completion: @escaping FetchedEventsCompletion) {
+        getEvents(before: nil, after: lastEvent, limit: nil, completion: completion)
+    }
+    
+    func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion) {
+        getEvents(before: nil, after: nil, limit: limit, completion: completion)
+    }
+    
+    private func getEvents(before firstEvent: Event?, after lastEvent: Event?, limit: Int?, completion: @escaping FetchedEventsCompletion) {
+        let path = "customer/events"
+        let shouldInsert = firstEvent != nil
+        let shouldAppend = lastEvent != nil
+        var params: [String: Int] = [:]
         
-        let path = "customer/GetEvents"
-        let afterSeq = afterEvent != nil ? afterEvent!.eventLogSeq : 0
-        let params = ["AfterSeq": afterSeq]
+        if let limit = limit {
+            params["Limit"] = limit
+        }
+        
+        if let firstEvent = firstEvent {
+            params["BeforeSeq"] = firstEvent.eventLogSeq
+        } else if let lastEvent = lastEvent {
+            params["AfterSeq"] = lastEvent.eventLogSeq
+        }
         
         httpClient.sendRequest(method: .POST, path: path, params: params) { (data: [String: Any]?, _, error) in
             guard let data = data,
-                  error == nil else {
+                error == nil else {
                 completion(nil, "Error fetching events.")
                 return
             }
@@ -280,10 +286,16 @@ extension ConversationManager {
                 message.type = .response
                 
                 let parsedEvents = message.parseEvents()
-                if let events = parsedEvents.events, let eventsJSONArray = parsedEvents.eventsJSONArray {
-                    strongSelf.events = events
-                    strongSelf.fileStore.replaceEventsWithJSONArray(eventsJSONArray: eventsJSONArray)
-                    strongSelf.isLiveChat = EventType.getLiveChatStatus(from: strongSelf.events)
+                if let events = parsedEvents.events {
+                    strongSelf.isLiveChat = data["IsLiveChat"] as? Bool ?? false
+                    
+                    if shouldInsert {
+                        strongSelf.events.insert(contentsOf: events, at: 0)
+                    } else if shouldAppend {
+                        strongSelf.events.append(contentsOf: events)
+                    } else {
+                        strongSelf.events = events
+                    }
                 }
                 
                 Dispatcher.performOnMainThread {
@@ -321,10 +333,18 @@ extension ConversationManager: SocketConnectionDelegate {
               let event = Event.fromJSON(body) else {
             return
         }
+        
+        if event.ephemeralType == .none && event.eventLogSeq < events.last?.eventLogSeq ?? 0 {
+            return
+        }
+        
+        if event.ephemeralType == .none && event.eventLogSeq > (events.last?.eventLogSeq ?? (Int.max - 1)) + 1 {
+            delegate?.conversationManager(self, didReceiveEventOutOfOrder: event)
+            return
+        }
     
         if event.ephemeralType == .none {
             events.append(event)
-            fileStore.addEventJSONString(eventJSONString: message.bodyString)
         }
         
         // Entering / Exiting Live Chat

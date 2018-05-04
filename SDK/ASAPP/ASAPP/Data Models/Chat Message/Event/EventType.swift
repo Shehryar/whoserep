@@ -9,6 +9,7 @@
 import UIKit
 
 enum EventType: Int {
+    case unknown = -1
     case none = 0
     case textMessage = 1
     case newRep = 3
@@ -23,11 +24,11 @@ enum EventType: Int {
     case accountMerge = 30
     case switchChatToSRS = 31
     
-    static func from(_ value: Any?) -> EventType? {
+    static func from(_ value: Any?) -> EventType {
         guard let value = value as? Int else {
-            return nil
+            return .unknown
         }
-        return EventType(rawValue: value)
+        return EventType(rawValue: value) ?? .unknown
     }
 }
 
@@ -61,16 +62,5 @@ extension EventType {
         default:
             return nil
         }
-    }
-    
-    static func getLiveChatStatus(from events: [Event]) -> Bool {
-        var liveChat = false
-        for (_, event) in events.enumerated().reversed() {
-            if let liveChatStatus = EventType.getLiveChatStatus(for: event.eventType) {
-                liveChat = liveChatStatus
-                break
-            }
-        }
-        return liveChat
     }
 }
