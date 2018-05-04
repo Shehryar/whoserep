@@ -24,6 +24,8 @@ protocol ChatMessagesViewDelegate: class {
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTapButtonWith action: Action)
+    
+    func chatMessagesViewDidScrollNearBeginning(_ messagesView: ChatMessagesView)
 }
 
 class ChatMessagesView: UIView {
@@ -52,6 +54,19 @@ class ChatMessagesView: UIView {
     
     weak var delegate: ChatMessagesViewDelegate?
     
+    private lazy var loadingView: UIView = {
+        let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        loadingView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: loadingHeaderHeight)
+        loadingView.startAnimating()
+        return loadingView
+    }()
+    
+    var shouldShowLoadingHeader = false {
+        didSet {
+            tableView.tableHeaderView = shouldShowLoadingHeader ? loadingView : UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: .leastNonzeroMagnitude))
+        }
+    }
+    
     var showTimeStampForMessage: ChatMessage?
     
     var hideMessageButtons = false
@@ -76,11 +91,15 @@ class ChatMessagesView: UIView {
         return dataSource.isEmpty()
     }
     
+    let pageSize = 100
+    
     // MARK: - Private Properties
     
     private let cellAnimationsEnabled = true
     
     private var otherParticipantIsTyping: Bool = false
+    
+    private var isMoving = false
     
     internal var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
@@ -89,7 +108,9 @@ class ChatMessagesView: UIView {
     
     private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
     
-    private let bottomPadding: CGFloat = 10
+    private let bottomPadding: CGFloat = -10
+    
+    private let loadingHeaderHeight: CGFloat = 60
     
     private var cellMaster: ChatMessagesViewCellMaster!
     
@@ -114,6 +135,9 @@ class ChatMessagesView: UIView {
         tableView.frame = bounds
         tableView.contentInset = defaultContentInset
         tableView.estimatedRowHeight = 0
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: .leastNonzeroMagnitude))
         tableView.clipsToBounds = false
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -133,11 +157,6 @@ class ChatMessagesView: UIView {
         commonInit()
     }
     
-    deinit {
-        tableView.dataSource = nil
-        tableView.delegate = nil
-    }
-    
     // MARK: Layout
     
     override func layoutSubviews() {
@@ -153,6 +172,12 @@ class ChatMessagesView: UIView {
         tableView.reloadData()
         
         scrollToBottomAnimated(false)
+    }
+    
+    func clear() {
+        cellMaster = ChatMessagesViewCellMaster(withTableView: tableView)
+        dataSource = ChatMessagesViewDataSource()
+        tableView.reloadData()
     }
 }
 
@@ -195,11 +220,9 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         let numberOfSections = dataSource.numberOfSections()
-        if otherParticipantIsTyping {
-            return max(1, numberOfSections)
-        } else {
-            return numberOfSections
-        }
+        
+        // typing indicator cell is always in the last section
+        return max((otherParticipantIsTyping ? 1 : 0), numberOfSections)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -213,14 +236,16 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     // MARK: Views / Cells
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section < dataSource.numberOfSections() else { return nil }
+        guard section < dataSource.numberOfSections() else {
+            return nil
+        }
   
         return cellMaster.timeStampHeaderView(withTime: dataSource.getHeaderTime(for: section))
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let message = dataSource.getMessage(for: indexPath) else {
-            let typingCell = cellMaster.typingIndicatorCell(forIndexPath: indexPath)
+            let typingCell = cellMaster.typingIndicatorCell(for: indexPath)
             return typingCell ?? UITableViewCell()
         }
         
@@ -237,13 +262,17 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let isTypingCell = cell as? ChatTypingIndicatorCell {
-            isTypingCell.startAnimating()
+        if let typingIndicatorCell = cell as? ChatTypingIndicatorCell {
+            typingIndicatorCell.startAnimating()
             return
         }
         
         guard let message = dataSource.getMessage(for: indexPath) else {
             return
+        }
+        
+        if !isMoving && indexPath.section == 0 && indexPath.row == 0 {
+            notifyDelegateOfScrolling()
         }
         
         if cellAnimationsEnabled && messagesThatShouldAnimate.contains(message) {
@@ -252,14 +281,61 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    private func notifyDelegateOfScrolling() {
+        guard let firstVisibleIndexPath = tableView.indexPathsForVisibleRows?.first else {
+            return
+        }
+        
+        let messageIndex: Int?
+        if let message = dataSource.getMessage(for: firstVisibleIndexPath) {
+            messageIndex = allMessages?.index(of: message)
+        } else {
+            messageIndex = nil
+        }
+        
+        if messageIndex ?? 0 <= pageSize / 2 {
+            delegate?.chatMessagesViewDidScrollNearBeginning(self)
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isMoving = true
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isMoving = false
+        notifyDelegateOfScrolling()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard !decelerate else {
+            return
+        }
+        
+        isMoving = false
+        notifyDelegateOfScrolling()
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        isMoving = false
+        notifyDelegateOfScrolling()
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        isMoving = true
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? ChatTypingIndicatorCell {
-            cell.loadingView.stopAnimating()
+        if let typingIndicatorCell = cell as? ChatTypingIndicatorCell {
+            typingIndicatorCell.loadingView.stopAnimating()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard section < dataSource.numberOfSections() else { return 0.0 }
+        guard section < dataSource.numberOfSections() else {
+            return 0
+        }
         
         return cellMaster.heightForTimeStampHeaderView(withTime: dataSource.getHeaderTime(for: section))
     }
@@ -408,23 +484,24 @@ extension ChatMessagesView {
     
     func updateTypingStatus(_ isTyping: Bool) {
         let isDifferent = isTyping != otherParticipantIsTyping
-        let shouldScrollToBottom = isNearBottom() && isDifferent && isTyping
+        let shouldScrollToBottom = isNearBottom() && isDifferent
         
         otherParticipantIsTyping = isTyping
         
         if isDifferent {
             let lastSection = dataSource.numberOfSections() - 1
             let lastRow = dataSource.numberOfRowsInSection(lastSection)
-            let lastIndexPath = IndexPath(row: lastRow, section: lastSection)
+            tableView.beginUpdates()
             if isTyping {
-                tableView.insertRows(at: [lastIndexPath], with: .none)
+                tableView.insertRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
             } else {
-                tableView.deleteRows(at: [lastIndexPath], with: .none)
+                tableView.deleteRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
             }
-        }
-        
-        if shouldScrollToBottom {
-            scrollToBottomAnimated(false)
+            tableView.endUpdates()
+            
+            if shouldScrollToBottom {
+                tableView.scrollToRow(at: IndexPath(row: lastRow - 1, section: lastSection), at: .top, animated: true)
+            }
         }
     }
 }
@@ -432,6 +509,41 @@ extension ChatMessagesView {
 // MARK: - Adding / Replacing Messages
 
 extension ChatMessagesView {
+    func appendEvents(_ events: [Event]) {
+        guard !events.isEmpty else {
+            return
+        }
+        
+        let messages = events.map { $0.chatMessage }.compactMap { $0 }
+        let appended = dataSource.appendMessages(Array(messages))
+        
+        UIView.performWithoutAnimation { [weak self] in
+            self?.tableView.insertRows(at: appended, with: .none)
+        }
+    }
+    
+    func insertEvents(_ events: [Event]) {
+        guard !events.isEmpty else {
+            return
+        }
+        
+        let messages = events.map { $0.chatMessage }.compactMap { $0 }
+        let formerFirstMessage = dataSource.allMessages.first
+        dataSource.insertMessages(Array(messages))
+        let loadingIndicatorOffset: CGFloat = shouldShowLoadingHeader ? 0 : loadingHeaderHeight
+        
+        UIView.performWithoutAnimation { [tableView] in
+            let distanceFromBottom = tableView.contentSize.height - tableView.contentOffset.y
+            tableView.reloadData()
+            
+            if let formerFirst = dataSource?.getIndexPath(of: formerFirstMessage) {
+                tableView.reloadRows(at: [formerFirst], with: .none)
+            }
+            
+            let newOffsetY = tableView.contentSize.height - distanceFromBottom - loadingIndicatorOffset
+            tableView.setContentOffset(CGPoint(x: 0, y: newOffsetY), animated: false)
+        }
+    }
     
     func reloadWithEvents(_ events: [Event]) {
         let countBefore = dataSource.allMessages.count
@@ -443,7 +555,6 @@ extension ChatMessagesView {
         if dataSource.allMessages.count != countBefore {
             scrollToBottomAnimated(false)
         }
-        return
     }
     
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
@@ -473,7 +584,7 @@ extension ChatMessagesView {
             }
         }
         
-        UIView.performWithoutAnimation({
+        UIView.performWithoutAnimation {
             self.tableView.beginUpdates()
             if !rowsToReload.isEmpty {
                 self.tableView.reloadRows(at: rowsToReload, with: .none)
@@ -485,7 +596,7 @@ extension ChatMessagesView {
                 self.tableView.insertRows(at: [indexPath], with: .none)
             }
             self.tableView.endUpdates()
-        })
+        }
         
         focusAccessibilityOnLastMessage()
         

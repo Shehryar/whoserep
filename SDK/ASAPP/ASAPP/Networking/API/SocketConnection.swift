@@ -78,7 +78,8 @@ class SocketConnection: NSObject {
             if savedSession.customer.matches(id: user.userIdentifier) {
                 updateSession(savedSession)
             } else if savedSession.isAnonymous && !user.isAnonymous {
-                self.outgoingMessageSerializer.userLoginAction = UserLoginAction(customer: savedSession.customer, nextAction: self.outgoingMessageSerializer.userLoginAction?.nextAction)
+                let nextAction = self.outgoingMessageSerializer.userLoginAction?.nextAction
+                self.outgoingMessageSerializer.userLoginAction = UserLoginAction(customer: savedSession.customer, nextAction: nextAction)
             } else {
                 self.savedSessionManager.clearSession()
             }
@@ -93,7 +94,6 @@ class SocketConnection: NSObject {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        socket?.delegate = nil
     }
     
     private func updateSession(_ session: Session?) {

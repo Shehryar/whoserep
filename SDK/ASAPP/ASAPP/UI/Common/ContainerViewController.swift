@@ -42,6 +42,8 @@ class ContainerViewController: UIViewController {
         
         if isMovingFromParentViewController {
             navigationController?.setNavigationBarHidden(false, animated: animated)
+            nav.viewControllers = []
+            nav = nil
         }
     }
     

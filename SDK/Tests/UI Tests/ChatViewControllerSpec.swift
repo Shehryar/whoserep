@@ -101,12 +101,12 @@ class ChatViewControllerSpec: QuickSpec {
                 context("default state") {
                     it("is initialized and loaded properly") {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
-                        let vc = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
-                        window.rootViewController = vc
-                        _ = vc.view
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        window.rootViewController = viewController
+                        _ = viewController.view
                         
-                        expect(vc.config).to(equal(config))
-                        expect(vc.user).to(equal(user))
+                        expect(viewController.config).to(equal(config))
+                        expect(viewController.user).to(equal(user))
                         expect(mockConversationManager.calledEnterConversation).to(equal(true))
                         expect(mockConversationManager.calledExitConversation).to(equal(false))
                         expect(mockConversationManager.calledIsConnected).to(equal(false))
@@ -118,7 +118,7 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(vc.view).to(haveValidSnapshot())
+                        expect(viewController.view).to(haveValidSnapshot())
                     }
                 }
                 
@@ -129,12 +129,12 @@ class ChatViewControllerSpec: QuickSpec {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
                         mockConversationManager.events = [event]
                         
-                        let vc = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
-                        window.rootViewController = vc
-                        _ = vc.view
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        window.rootViewController = viewController
+                        _ = viewController.view
                         
-                        expect(vc.config).to(equal(config))
-                        expect(vc.user).to(equal(user))
+                        expect(viewController.config).to(equal(config))
+                        expect(viewController.user).to(equal(user))
                         expect(mockConversationManager.calledEnterConversation).to(equal(true))
                         expect(mockConversationManager.calledExitConversation).to(equal(false))
                         expect(mockConversationManager.calledIsConnected).to(equal(false))
@@ -146,7 +146,7 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(vc.view).to(haveValidSnapshot())
+                        expect(viewController.view).to(haveValidSnapshot())
                     }
                 }
                 
@@ -158,14 +158,14 @@ class ChatViewControllerSpec: QuickSpec {
                         mockConversationManager.events = [event]
                         mockConversationManager.isConnected = true
                         
-                        let vc = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
-                        window.rootViewController = vc
-                        mockConversationManager.delegate = vc
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        window.rootViewController = viewController
+                        mockConversationManager.delegate = viewController
                         mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true, authenticationFailed: false)
-                        _ = vc.view
+                        _ = viewController.view
                         
-                        expect(vc.config).to(equal(config))
-                        expect(vc.user).to(equal(user))
+                        expect(viewController.config).to(equal(config))
+                        expect(viewController.user).to(equal(user))
                         expect(mockConversationManager.calledEnterConversation).to(equal(false))
                         expect(mockConversationManager.calledExitConversation).to(equal(false))
                         expect(mockConversationManager.calledIsConnected).to(equal(false))
@@ -177,7 +177,7 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(vc.view).to(haveValidSnapshot())
+                        expect(viewController.view).to(haveValidSnapshot())
                     }
                 }
                 
@@ -188,16 +188,16 @@ class ChatViewControllerSpec: QuickSpec {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
                         mockConversationManager.events = [event]
                         
-                        let vc = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
-                        window.rootViewController = vc
-                        mockConversationManager.delegate = vc
-                        _ = vc.view
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        window.rootViewController = viewController
+                        mockConversationManager.delegate = viewController
+                        _ = viewController.view
                         
                         mockConversationManager.isConnected = true
                         mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true, authenticationFailed: false)
                         
-                        expect(vc.config).to(equal(config))
-                        expect(vc.user).to(equal(user))
+                        expect(viewController.config).to(equal(config))
+                        expect(viewController.user).to(equal(user))
                         expect(mockConversationManager.calledEnterConversation).to(equal(true))
                         expect(mockConversationManager.calledExitConversation).to(equal(false))
                         expect(mockConversationManager.calledIsConnected).to(equal(false))
@@ -209,7 +209,7 @@ class ChatViewControllerSpec: QuickSpec {
                         expect(mockConversationManager.calledSendUserTypingStatus).to(equal(false))
                         expect(mockConversationManager.calledSendAskRequest).to(equal(false))
                         expect(mockConversationManager.calledSendSRSQuery).to(equal(false))
-                        expect(vc.view).to(haveValidSnapshot())
+                        expect(viewController.view).to(haveValidSnapshot())
                     }
                 }
             }

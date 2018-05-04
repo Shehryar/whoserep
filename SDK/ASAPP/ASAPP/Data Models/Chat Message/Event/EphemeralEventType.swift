@@ -9,15 +9,16 @@
 import UIKit
 
 enum EphemeralEventType: Int {
+    case unknown = -1
     case none = 0
     case typingStatus = 1
     case eventStatus = 6
     case `continue` = 8
     
-    static func from(_ value: Any?) -> EphemeralEventType? {
+    static func from(_ value: Any?) -> EphemeralEventType {
         guard let value = value as? Int else {
-            return nil
+            return .unknown
         }
-        return EphemeralEventType(rawValue: value)
+        return EphemeralEventType(rawValue: value) ?? .unknown
     }
 }

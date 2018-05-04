@@ -28,15 +28,15 @@ struct HSBa {
             return nil
         }
         
-        var h: CGFloat = 0,
-            s: CGFloat = 0,
-            b: CGFloat = 0,
-            a: CGFloat = 0
-        guard color.getHue(&h, saturation: &s, brightness: &b, alpha: &a) else {
+        var hue: CGFloat = 0,
+            saturation: CGFloat = 0,
+            brightness: CGFloat = 0,
+            alpha: CGFloat = 0
+        guard color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) else {
             return nil
         }
         
-        self.init(hue: h, saturation: s, brightness: b, alpha: a)
+        self.init(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
     }
 }
 

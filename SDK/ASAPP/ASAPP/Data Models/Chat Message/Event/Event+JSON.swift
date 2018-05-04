@@ -51,10 +51,11 @@ extension Event {
 extension Event {
     
     class func fromJSON(_ json: [String: Any]) -> Event? {
+        let originalEventType = EventType.from(json[JSONKey.eventType.rawValue])
+        let ephemeralType = EphemeralEventType.from(json[JSONKey.ephemeralType.rawValue])
+        
         // Required Properties
-        guard let originalEventType = EventType.from(json[JSONKey.eventType.rawValue]),
-              let ephemeralType = EphemeralEventType.from(json[JSONKey.ephemeralType.rawValue]),
-              let issueId = json[JSONKey.issueId.rawValue] as? Int,
+        guard let issueId = json[JSONKey.issueId.rawValue] as? Int,
               let companyId = json[JSONKey.companyId.rawValue] as? Int,
               let customerId = json[JSONKey.customerId.rawValue] as? Int,
               let repId = json[JSONKey.repId.rawValue] as? Int,

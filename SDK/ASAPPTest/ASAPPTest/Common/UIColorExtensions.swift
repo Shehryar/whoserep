@@ -28,15 +28,15 @@ struct HSBa {
             return nil
         }
         
-        var h: CGFloat = 0,
-        s: CGFloat = 0,
-        b: CGFloat = 0,
-        a: CGFloat = 0
-        guard color.getHue(&h, saturation: &s, brightness: &b, alpha: &a) else {
+        var hue: CGFloat = 0,
+        saturation: CGFloat = 0,
+        brightness: CGFloat = 0,
+        alpha: CGFloat = 0
+        guard color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) else {
             return nil
         }
         
-        self.init(hue: h, saturation: s, brightness: b, alpha: a)
+        self.init(hue: hue, saturation: saturation, brightness: brightness, alpha: alpha)
     }
 }
 
@@ -108,10 +108,10 @@ extension UIColor {
     }
     
     func contrastRatio(with other: UIColor) -> Double {
-        let l1 = self.getLuminance()
-        let l2 = other.getLuminance()
-        let lighter = max(l1, l2)
-        let darker = min(l1, l2)
+        let lum1 = self.getLuminance()
+        let lum2 = other.getLuminance()
+        let lighter = max(lum1, lum2)
+        let darker = min(lum1, lum2)
         return (lighter + 0.05) / (darker + 0.05)
     }
     

@@ -31,13 +31,15 @@ extension ChatMessagesViewDataSource {
         guard section >= 0 && section < sections.count else {
             return 0
         }
+        
         return sections[section].count
     }
     
-    func getMessages(in section: Int) -> [ChatMessage]? {
+    private func getMessages(in section: Int) -> [ChatMessage]? {
         guard section >= 0 && section < sections.count else {
             return nil
         }
+        
         return sections[section]
     }
     
@@ -47,6 +49,7 @@ extension ChatMessagesViewDataSource {
                 return messagesInSection[row]
             }
         }
+        
         return nil
     }
     
@@ -127,13 +130,15 @@ extension ChatMessagesViewDataSource {
         let sortedEvents = events.sorted { (event1, event2) -> Bool in
             return event1.eventLogSeq < event2.eventLogSeq
         }
+        
         for event in sortedEvents {
             if let message = event.chatMessage {
-                _ = addMessage(message)
+                addMessage(message)
             }
         }
     }
     
+    @discardableResult
     func addMessage(_ message: ChatMessage) -> IndexPath? {
         allMessages.append(message)
         
@@ -173,5 +178,52 @@ extension ChatMessagesViewDataSource {
         sections[indexPath.section][indexPath.row] = message
         
         return indexPath
+    }
+    
+    func appendMessages(_ messages: [ChatMessage]) -> [IndexPath] {
+        var indexPaths: [IndexPath] = []
+        
+        for message in messages {
+            if let indexPath = addMessage(message) {
+                indexPaths.append(indexPath)
+            }
+        }
+        
+        return indexPaths
+    }
+    
+    func insertMessages(_ messages: [ChatMessage]) {
+        var sectionsToAdd: [[ChatMessage]] = []
+        var newSection: [ChatMessage] = []
+        var earliestTime = allMessages.first?.metadata.sendTime.timeIntervalSinceReferenceDate ?? Date().timeIntervalSinceReferenceDate
+        
+        allMessages.insert(contentsOf: messages, at: 0)
+        
+        for message in messages.reversed() {
+            let earliestTimeForEarliestSection = earliestTime - secondsBetweenSections
+            if message.metadata.sendTime.timeIntervalSinceReferenceDate > earliestTimeForEarliestSection {
+                newSection.append(message)
+            } else {
+                sectionsToAdd.append(newSection)
+                newSection = []
+                newSection.append(message)
+            }
+            
+            earliestTime = message.metadata.sendTime.timeIntervalSinceReferenceDate
+        }
+        
+        if !newSection.isEmpty {
+            sectionsToAdd.append(newSection)
+            newSection = []
+        }
+        
+        if !sectionsToAdd.isEmpty {
+            let addToExistingFirstSection = Array(sectionsToAdd.removeFirst().reversed())
+            sections[0].insert(contentsOf: addToExistingFirstSection, at: 0)
+        }
+        
+        for section in sectionsToAdd {
+            sections.insert(section.reversed(), at: 0)
+        }
     }
 }

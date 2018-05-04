@@ -121,11 +121,13 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         }
         request.injectHeaders(headers)
         
+        let contextParams = context ?? getContext(for: session)
+        
         if method != .GET,
            let params = params {
             var dict = [
                 "params": params,
-                "ctxParams": context ?? getContext(for: session)
+                "ctxParams": contextParams
             ] as [String: Any]
             if let data = data {
                 dict["binaryBase64"] = data.base64EncodedString()
@@ -136,7 +138,8 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         if ASAPP.debugLogLevel.rawValue >= ASAPPLogLevel.debug.rawValue {
             let headersString = JSONUtil.stringify(request.allHTTPHeaderFields) ?? "nil"
             let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? "nil"
-            DebugLog.d(caller: HTTPClient.self, "Sending HTTP Request \(method): \(requestURL)\n  Headers: \(headersString)\n  Params: \(paramsString)\n")
+            let contextParamsString = method == .GET ? "N/A" : JSONUtil.stringify(contextParams, prettyPrinted: true) ?? "nil"
+            DebugLog.d(caller: HTTPClient.self, "Sending HTTP Request \(method): \(requestURL)\nHeaders: \(headersString)\nparams: \(paramsString)\nctxParams: \(contextParamsString)\n--------")
         }
         
         return request
@@ -161,6 +164,12 @@ class HTTPClient: NSObject, HTTPClientProtocol {
             
             if let jsonObject = jsonObject as? [String: Any] {
                 jsonMap = jsonObject
+            }
+            
+            if response?.mimeType != "application/json",
+               let data = data,
+               let responseString = String(data: data, encoding: .utf8) {
+                DebugLog.d(caller: HTTPClient.self, "Received instead of JSON: \(responseString)")
             }
             
             completion(jsonMap, response, error)

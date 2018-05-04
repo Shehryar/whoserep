@@ -56,7 +56,6 @@
 		3A26997C206063C9007C0EC6 /* ChatInputViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26997B206063C9007C0EC6 /* ChatInputViewTestCase.swift */; };
 		3A304C44207FFAB60072BA56 /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A304C43207FFAB60072BA56 /* MockUserDefaults.swift */; };
 		3A304C46207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A304C45207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift */; };
-		3A304C48208007190072BA56 /* ConversationFileStoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A304C47208007190072BA56 /* ConversationFileStoreSpec.swift */; };
 		3A33A5AF1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */; };
 		3A391B381FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
 		3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
@@ -242,7 +241,6 @@
 		3A26997B206063C9007C0EC6 /* ChatInputViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputViewTestCase.swift; sourceTree = "<group>"; };
 		3A304C43207FFAB60072BA56 /* MockUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
 		3A304C45207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSimpleStoreSpec.swift; sourceTree = "<group>"; };
-		3A304C47208007190072BA56 /* ConversationFileStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationFileStoreSpec.swift; sourceTree = "<group>"; };
 		3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageDeserializerSpec.swift; sourceTree = "<group>"; };
 		3A391B371FA14E080085C2DA /* FormValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidation.swift; sourceTree = "<group>"; };
 		3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationTestCase.swift; sourceTree = "<group>"; };
@@ -436,7 +434,6 @@
 				3A304C45207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift */,
 				3AD60A9D204F41ED00C0F2C2 /* CodableStorageSpec.swift */,
 				3A127DB41FC4DCAE00EEF9E0 /* ComponentLayoutEngineSpec.swift */,
-				3A304C47208007190072BA56 /* ConversationFileStoreSpec.swift */,
 				3AB92C7E1FED8B25000AE21A /* EventSpec.swift */,
 				3A0521751F9E66480072D089 /* EventMetadataSpec.swift */,
 				3A0521771F9E6C7A0072D089 /* EventTypeSpec.swift */,
@@ -748,7 +745,6 @@
 				3AA1E4FC1FFC766600548E3D /* MockPushNotificationsManager.swift in Sources */,
 				3AD60A9A204F3ABE00C0F2C2 /* MockCodableStorage.swift in Sources */,
 				3A0F04AE200955C30064E76F /* APIActionResponseSpec.swift in Sources */,
-				3A304C48208007190072BA56 /* ConversationFileStoreSpec.swift in Sources */,
 				3A0521781F9E6C7A0072D089 /* EventTypeSpec.swift in Sources */,
 				3A0521761F9E66480072D089 /* EventMetadataSpec.swift in Sources */,
 				3A05216F1F9A78C70072D089 /* SessionManagerSpec.swift in Sources */,

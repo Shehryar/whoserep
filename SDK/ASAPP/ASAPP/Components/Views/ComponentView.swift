@@ -29,9 +29,9 @@ protocol ComponentView: UpdatableFrames {
     
     var nestedComponentViews: [ComponentView]? { get }
     
-    weak var interactionHandler: InteractionHandler? { get set }
+    var interactionHandler: InteractionHandler? { get set }
     
-    weak var contentHandler: ComponentViewContentHandler? { get set }
+    var contentHandler: ComponentViewContentHandler? { get set }
     
     // Handled by the extensions below
     

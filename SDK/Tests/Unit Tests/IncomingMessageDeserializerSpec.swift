@@ -113,13 +113,14 @@ class IncomingMessageDeserializerSpec: QuickSpec {
                 }
                 
                 context("with a response message with 2 valid events out of 5") {
-                    it("creates a ParsedEvents object with 2 events") {
+                    it("creates a ParsedEvents object with 5 events") {
                         let message = TestUtil.stringForFile(named: "event-list")
                         let incomingMessage = IncomingMessageDeserializer().deserialize(message!)
                         let result = incomingMessage.parseEvents()
                         expect(result.errorMessage).to(beNil())
-                        expect(result.events?.count).to(equal(2))
-                        expect(result.eventsJSONArray?.count).to(equal(2))
+                        expect(result.events?.count).to(equal(5))
+                        expect(result.eventsJSONArray?.count).to(equal(5))
+                        expect(result.events?.filter { $0.eventType == .unknown }.count).to(equal(3))
                     }
                 }
             }
