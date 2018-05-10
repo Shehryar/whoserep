@@ -1229,10 +1229,6 @@ extension ChatViewController: ConversationManagerDelegate {
             .chatMessage {
             updateState(for: message)
         }
-        
-        if conversationManager.hasConversationEnded {
-            updateInputState(.conversationEnd)
-        }
     }
     
     private func updateState(for message: ChatMessage, animated: Bool = false) {
@@ -1246,12 +1242,16 @@ extension ChatViewController: ConversationManagerDelegate {
             updateInputState(.quickReplies, animated: animated)
         } else if showChatInput && actionSheet == nil {
             updateInputState(.chat, animated: animated)
+        } else {
+            updateInputState(.conversationEnd)
         }
     }
     
     private func messageCompletionHandler(_ message: ChatMessage) {
         func update() {
-            updateState(for: message, animated: true)
+            if message.metadata.isReply {
+                updateState(for: message, animated: true)
+            }
             
             if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
                 || (message.metadata.isReply && !isLiveChat && message.userCanTypeResponse == false && !message.hasQuickReplies) {
@@ -1323,18 +1323,29 @@ extension ChatViewController: ConversationManagerDelegate {
         self.isLiveChat = isLiveChat
     }
     
+    func showUnauthenticatedGatekeeperIfNecessary() {
+        guard connectionStatus != .connected else {
+            return
+        }
+        
+        gatekeeperView = GatekeeperView(contentType: .unauthenticated)
+        if let gatekeeper = gatekeeperView {
+            gatekeeper.delegate = self
+            gatekeeper.frame = view.bounds
+            view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
+            spinner.alpha = 0
+            updateInputState(.conversationEnd, animated: false)
+            shouldReloadOnUserUpdate = true
+        }
+    }
+    
     // Connection Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authenticationFailed: Bool) {
         if authenticationFailed && isAppInForeground {
             gatekeeperView?.removeFromSuperview()
-            gatekeeperView = GatekeeperView(contentType: .unauthenticated)
-            if let gatekeeper = gatekeeperView {
-                gatekeeper.delegate = self
-                gatekeeper.frame = view.bounds
-                view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
-                spinner.alpha = 0
-                updateInputState(.conversationEnd, animated: false)
-                shouldReloadOnUserUpdate = true
+            // delay in case we reconnect immediately
+            Dispatcher.delay(300) { [weak self] in
+                self?.showUnauthenticatedGatekeeperIfNecessary()
             }
             return
         }

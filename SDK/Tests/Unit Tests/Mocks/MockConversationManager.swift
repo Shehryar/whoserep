@@ -35,7 +35,6 @@ class MockConversationManager: ConversationManagerProtocol {
     var currentSRSClassification: String?
     var isLiveChat: Bool
     var isConnected: Bool
-    var hasConversationEnded: Bool
     
     var nextQuickReplyMessage: ChatMessage?
     
@@ -43,7 +42,6 @@ class MockConversationManager: ConversationManagerProtocol {
         events = []
         isLiveChat = false
         isConnected = false
-        hasConversationEnded = false
     }
     
     func enterConversation() {

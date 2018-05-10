@@ -172,7 +172,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         titleBar.addSubview(titleLabel)
         let borderLayer = CALayer()
         borderLayer.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15).cgColor
-        borderLayer.frame = CGRect(x: 0, y: titleBarHeight, width: view.bounds.width, height: 1)
+        borderLayer.frame = CGRect(x: 0, y: titleBarHeight - 1, width: view.bounds.width, height: 1)
         titleBar.layer.addSublayer(borderLayer)
         view.addSubview(titleBar)
     }

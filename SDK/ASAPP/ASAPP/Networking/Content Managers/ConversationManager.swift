@@ -44,7 +44,6 @@ protocol ConversationManagerProtocol: class {
     var currentSRSClassification: String? { get set }
     var isLiveChat: Bool { get }
     var isConnected: Bool { get }
-    var hasConversationEnded: Bool { get }
     
     func enterConversation()
     func exitConversation()
@@ -105,18 +104,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         didSet {
             DebugLog.d(caller: self, "Updating currentSRSClassification: \(currentSRSClassification ?? "nil")")
         }
-    }
-    
-    var hasConversationEnded: Bool {
-        guard let lastEvent = events.last else {
-            return true
-        }
-        
-        return lastEvent.eventType == .conversationEnd
-            || lastEvent.eventType == .accountMerge
-            || ((lastEvent.chatMessage?.hasMessageActions == true
-                || lastEvent.chatMessage?.hasQuickReplies == true)
-                && lastEvent.chatMessage?.userCanTypeResponse != true)
     }
     
     var isConnected: Bool {

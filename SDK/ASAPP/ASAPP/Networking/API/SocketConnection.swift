@@ -41,26 +41,18 @@ class SocketConnection: NSObject {
     // MARK: Private Properties
     
     private var isAuthenticated = false
-    
     private var connectionRequest: URLRequest
-    
     private var webSocketClass: SRWebSocket.Type
-    
     private var socket: SRWebSocket?
-    
     private let savedSessionManager: SavedSessionManagerProtocol
-    
     private var outgoingMessageSerializer: OutgoingMessageSerializerProtocol
-    
     private var incomingMessageDeserializer = IncomingMessageDeserializer()
-    
     private var requestHandlers = [Int: IncomingMessageHandler]()
-    
     private var requestSendTimes = [Int: TimeInterval]()
-    
     private var requestLookup = [Int: SocketRequest]()
-    
     private var didManuallyDisconnect = false
+    
+    private let invalidAuthString = "invalid_auth"
     
     // MARK: Initialization
     
@@ -323,12 +315,14 @@ extension SocketConnection: SRWebSocketDelegate {
         DebugLog.d("Socket Did Open")
         
         authenticate { [weak self] (_, errorMessage) in
-            guard self != nil else { return }
+            guard let strongSelf = self else {
+                return
+            }
             
-            if errorMessage == nil {
-                self?.delegate?.socketConnectionEstablishedConnection(self!)
+            if errorMessage == strongSelf.invalidAuthString {
+                strongSelf.delegate?.socketConnectionFailedToAuthenticate(strongSelf)
             } else {
-                self?.delegate?.socketConnectionFailedToAuthenticate(self!)
+                strongSelf.delegate?.socketConnectionEstablishedConnection(strongSelf)
             }
         }
     }
@@ -346,10 +340,6 @@ extension SocketConnection: SRWebSocketDelegate {
         
         isAuthenticated = false
         
-        if (error as NSError).code == 50 {
-            delegate?.socketConnectionDidLoseConnection(self)
-        } else {
-            delegate?.socketConnectionFailedToAuthenticate(self)
-        }
+        delegate?.socketConnectionDidLoseConnection(self)
     }
 }
