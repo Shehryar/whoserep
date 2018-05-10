@@ -178,10 +178,10 @@ public class ASAPP: NSObject {
         guard let aps = userInfo?["aps"] as? [AnyHashable: Any] ?? userInfo else {
             return false
         }
-        if let boolValue = aps["asapp"] as? Bool {
+        if let boolValue = aps["FromASAPP"] as? Bool {
             return boolValue
         }
-        return aps.keys.contains("asapp")
+        return aps.keys.contains("FromASAPP")
     }
     
     // MARK: - Session Management
