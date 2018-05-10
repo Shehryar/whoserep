@@ -38,7 +38,7 @@ class ChatInputViewTestCase: FBSnapshotTestCase {
         backgroundView.backgroundColor = UIColor.ASAPP.eggplant
         
         let input = ChatInputView()
-        input.frame = CGRect(x: 10, y: 0, width: 320, height: 88)
+        input.frame = CGRect(x: 0, y: 0, width: 320, height: 88)
         input.contentInset = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 8)
         input.bubbleInset = UIEdgeInsets(top: 8, left: 20, bottom: 30, right: 20)
         input.displayBorderTop = false
@@ -58,7 +58,7 @@ class ChatInputViewTestCase: FBSnapshotTestCase {
         backgroundView.backgroundColor = UIColor.ASAPP.eggplant
         
         let input = ChatInputView()
-        input.frame = CGRect(x: 10, y: 0, width: 320, height: 88)
+        input.frame = CGRect(x: 0, y: 0, width: 320, height: 88)
         input.contentInset = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 8)
         input.bubbleInset = UIEdgeInsets(top: 8, left: 20, bottom: 30, right: 20)
         input.displayBorderTop = false

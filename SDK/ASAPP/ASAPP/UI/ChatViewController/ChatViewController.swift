@@ -60,6 +60,17 @@ class ChatViewController: ASAPPViewController {
     private var nextAction: Action?
     private var isAppInForeground = true
     
+    // MARK: Properties: Autosuggest
+    
+    private var selectedSuggestionMetadata: AutosuggestMetadata?
+    private var partialAutosuggestMetadataByResponseId: [AutosuggestMetadata.ResponseId: AutosuggestMetadata] = [:]
+    private var keystrokesBeforeSelection = 0
+    private var keystrokesAfterSelection = 0
+    private let autosuggestThrottler = Throttler(interval: 0.2)
+    private var shouldShowFetchedSuggestions = true
+    private var pendingAutosuggestRequestQueries: [String] = []
+    private let maxPendingAutosuggestRequests = 10
+    
     // MARK: Properties: Keyboard
     
     private var keyboardObserver = KeyboardObserver()
@@ -87,12 +98,8 @@ class ChatViewController: ASAPPViewController {
         self.conversationManager.delegate = self
         isLiveChat = self.conversationManager.isLiveChat
         
-        //
-        // UI Setup
-        //
         automaticallyAdjustsScrollViewInsets = false
         
-        // Close Button
         let side = ASAPP.styles.closeButtonSide(for: segue)
         let closeButton = NavCloseBarButtonItem(location: .chat, side: .right)
             .configSegue(segue)
@@ -107,38 +114,27 @@ class ChatViewController: ASAPPViewController {
 
         closeButton.accessibilityLabel = ASAPP.strings.accessibilityClose
         
-        // Chat Messages View
         chatMessagesView.delegate = self
         
-        // Chat Input
         chatInputView.delegate = self
         chatInputView.displayMediaButton = false
         chatInputView.isRounded = true
         chatInputView.alpha = 0
         
-        // Quick Replies
         quickRepliesView.delegate = self
         quickRepliesView.isHidden = true
         
-        // Connection Status View
         connectionStatusView.onTapToConnect = { [weak self] in
             self?.reconnect()
         }
         
-        // Fonts
         updateDisplay()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: .UIContentSizeCategoryDidChange, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(userDidChange), name: .UserDidChange, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: .UIApplicationDidEnterBackground, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
 
-        //
-        // Interaction Setup
-        //
-        
         keyboardObserver.delegate = self
         
         if #available(iOS 10.0, *) {
@@ -436,6 +432,17 @@ extension ChatViewController {
         
         chatInputView.displayMediaButton = isLiveChat
         
+        let selected = chatInputView.textView.selectedTextRange
+        let wasFirstResponder = chatInputView.isFirstResponder
+        keyboardObserver.deregisterForNotification()
+        chatInputView.resignFirstResponder()
+        chatInputView.textView.autocorrectionType = isLiveChat ? .default : .no
+        chatInputView.textView.selectedTextRange = selected
+        keyboardObserver.registerForNotifications()
+        if wasFirstResponder {
+            chatInputView.becomeFirstResponder()
+        }
+        
         reloadInputViews()
         
         if animated {
@@ -607,6 +614,8 @@ extension ChatViewController: KeyboardObserverDelegate {
         guard keyboardOffset != height else {
             return
         }
+        
+        let height = height - chatInputView.suggestionsViewSize().height
         
         keyboardOffset = height
         if height > 0 {
@@ -922,17 +931,77 @@ extension ChatViewController: ComponentViewControllerDelegate {
 // MARK: - ChatInputViewDelegate
 
 extension ChatViewController: ChatInputViewDelegate {
+    func chatInputView(_ chatInputView: ChatInputView, didSelectSuggestion suggestion: String, at index: Int, count: Int, responseId: AutosuggestMetadata.ResponseId) {
+        autosuggestThrottler.cancel()
+        shouldShowFetchedSuggestions = false
+        
+        selectedSuggestionMetadata = AutosuggestMetadata()
+        selectedSuggestionMetadata?.suggestion = suggestion
+        selectedSuggestionMetadata?.index = index
+        selectedSuggestionMetadata?.displayedCount = count
+        if let partial = partialAutosuggestMetadataByResponseId[responseId] {
+            selectedSuggestionMetadata?.responseId = partial.responseId
+            selectedSuggestionMetadata?.returnedCount = partial.returnedCount
+            selectedSuggestionMetadata?.original = partial.original
+        }
+    }
+    
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?) {
-        if isLiveChat && conversationManager.isConnected {
+        guard conversationManager.isConnected else {
+            return
+        }
+        
+        if isLiveChat {
             let isTyping = text != nil && !text!.isEmpty
-            conversationManager.sendUserTypingStatus(isTyping: isTyping, withText: text)
+            conversationManager.sendUserTypingStatus(isTyping: isTyping, with: text)
+        } else {
+            if let text = text, !text.isEmpty {
+                shouldShowFetchedSuggestions = true
+                autosuggestThrottler.throttle { [weak self] in
+                    self?.fetchSuggestions(for: text)
+                }
+            } else {
+                autosuggestThrottler.cancel()
+                chatInputView.clearSuggestions()
+            }
+        }
+    }
+    
+    func fetchSuggestions(for text: String) {
+        pendingAutosuggestRequestQueries.append(text)
+        let difference = pendingAutosuggestRequestQueries.count - maxPendingAutosuggestRequests
+        if difference > 0 {
+            pendingAutosuggestRequestQueries.removeFirst(difference)
+        }
+        
+        conversationManager.getSuggestions(for: text) { [weak self] (suggestions, responseId, error) in
+            guard error == nil else {
+                DebugLog.d(caller: self, error ?? "")
+                return
+            }
+            
+            self?.didFetchSuggestions(suggestions, responseId, query: text)
+        }
+    }
+    
+    func chatInputView(_ chatInputView: ChatInputView, willChangeTextWithKeystrokes keystrokes: Int) {
+        if let selected = selectedSuggestionMetadata, !selected.suggestion.isEmpty {
+            keystrokesAfterSelection += keystrokes
+        } else {
+            keystrokesBeforeSelection += keystrokes
         }
     }
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
         if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+            selectedSuggestionMetadata?.keystrokesBeforeSelection = keystrokesBeforeSelection
+            selectedSuggestionMetadata?.keystrokesAfterSelection = keystrokesAfterSelection
             chatInputView.clear()
-            sendMessage(withText: message)
+            sendMessage(with: message, autosuggestMetadata: selectedSuggestionMetadata)
+            keystrokesBeforeSelection = 0
+            keystrokesAfterSelection = 0
+            selectedSuggestionMetadata = nil
+            partialAutosuggestMetadataByResponseId = [:]
         }
     }
     
@@ -1167,6 +1236,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     private func updateState(for message: ChatMessage, animated: Bool = false) {
+        chatInputView.clearSuggestions()
         shouldConfirmRestart = !message.suppressNewQuestionConfirmation
         
         let showChatInput = isLiveChat || message.userCanTypeResponse == true
@@ -1385,7 +1455,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 extension ChatViewController {
     
-    func sendMessage(withText text: String, fromPrediction: Bool = false) {
+    func sendMessage(with text: String, fromPrediction: Bool = false, autosuggestMetadata: AutosuggestMetadata? = nil) {
         if conversationManager.isConnected {
             chatMessagesView.scrollToBottomAnimated(true)
         }
@@ -1393,10 +1463,35 @@ extension ChatViewController {
         if isLiveChat {
             conversationManager.sendTextMessage(text)
         } else {
-            conversationManager.sendSRSQuery(text, isRequestFromPrediction: fromPrediction)
+            conversationManager.sendSRSQuery(text, isRequestFromPrediction: fromPrediction, autosuggestMetadata: autosuggestMetadata)
         }
         
         PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: 3)
+    }
+    
+    func didFetchSuggestions(_ suggestions: [String], _ responseId: AutosuggestMetadata.ResponseId, query: String) {
+        if let index = pendingAutosuggestRequestQueries.index(of: query) {
+            pendingAutosuggestRequestQueries.removeFirst(index + 1)
+        } else {
+            return
+        }
+        
+        guard !suggestions.isEmpty,
+              !chatInputView.textView.text.isEmpty,
+              shouldShowFetchedSuggestions else {
+            chatInputView.clearSuggestions()
+            return
+        }
+        
+        chatInputView.showSuggestions(suggestions, responseId: responseId)
+        
+        updateInputState(.chat, animated: false)
+        
+        var partialMetadata = AutosuggestMetadata()
+        partialMetadata.responseId = responseId
+        partialMetadata.original = query
+        partialMetadata.returnedCount = suggestions.count
+        partialAutosuggestMetadataByResponseId[responseId] = partialMetadata
     }
     
     func reloadMessageEvents() {

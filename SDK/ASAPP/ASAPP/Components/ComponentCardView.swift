@@ -50,13 +50,13 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleC
         }
     }
     
-    var interactionHandler: InteractionHandler? {
+    weak var interactionHandler: InteractionHandler? {
         didSet {
             componentView?.interactionHandler = interactionHandler
         }
     }
     
-    var contentHandler: ComponentViewContentHandler? {
+    weak var contentHandler: ComponentViewContentHandler? {
         didSet {
             componentView?.contentHandler = contentHandler
         }

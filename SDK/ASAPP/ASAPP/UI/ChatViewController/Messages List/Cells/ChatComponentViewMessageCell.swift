@@ -34,11 +34,6 @@ class ChatComponentViewMessageCell: ChatMessageCell {
         cardView.delegate = self
     }
     
-    deinit {
-        cardView.interactionHandler = nil
-        cardView.contentHandler = nil
-    }
-    
     // MARK: Reuse
     
     override func prepareForReuse() {

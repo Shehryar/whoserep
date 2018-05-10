@@ -367,6 +367,7 @@
 		3A51137A1FD1D95F00BE0785 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */; };
 		3A5370AB1F86B2BB0092B3B3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */; };
 		3A5B019A209CB4C800178E15 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B0199209CB4C800178E15 /* RepeatingTimer.swift */; };
+		3A5B019C209CFEB900178E15 /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B019B209CFEB900178E15 /* SuggestionsView.swift */; };
 		3A621FBD208E38DA00CB11D6 /* GatekeeperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FBC208E38DA00CB11D6 /* GatekeeperView.swift */; };
 		3A621FC3208E854A00CB11D6 /* ScaleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC2208E854A00CB11D6 /* ScaleItem.swift */; };
 		3A621FC5208E861E00CB11D6 /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC4208E861E00CB11D6 /* ScaleView.swift */; };
@@ -399,6 +400,7 @@
 		3A9EF24420340A0E0092A1AA /* bellFilled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9EF23820340A0D0092A1AA /* bellFilled@2x.png */; };
 		3A9EF24520340A0E0092A1AA /* alertOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9EF23920340A0E0092A1AA /* alertOutline.png */; };
 		3A9EF24620340A0E0092A1AA /* clockFilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A9EF23A20340A0E0092A1AA /* clockFilled.png */; };
+		3AB23D6E20A3808D00591A56 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB23D6D20A3808D00591A56 /* Throttler.swift */; };
 		3AB25B751F7AB23500CB335F /* ASAPPViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB25B741F7AB23500CB335F /* ASAPPViews.swift */; };
 		3ACAAA9C20570B4700963DD3 /* RestartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAAA9B20570B4700963DD3 /* RestartButton.swift */; };
 		3ACAAAA020570CE300963DD3 /* icon-new-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACAAA9D20570CE100963DD3 /* icon-new-question.png */; };
@@ -783,6 +785,7 @@
 		3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3A5B0199209CB4C800178E15 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
+		3A5B019B209CFEB900178E15 /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
 		3A621FBC208E38DA00CB11D6 /* GatekeeperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperView.swift; sourceTree = "<group>"; };
 		3A621FC2208E854A00CB11D6 /* ScaleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleItem.swift; sourceTree = "<group>"; };
 		3A621FC4208E861E00CB11D6 /* ScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleView.swift; sourceTree = "<group>"; };
@@ -815,6 +818,7 @@
 		3A9EF23820340A0D0092A1AA /* bellFilled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bellFilled@2x.png"; sourceTree = "<group>"; };
 		3A9EF23920340A0E0092A1AA /* alertOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = alertOutline.png; sourceTree = "<group>"; };
 		3A9EF23A20340A0E0092A1AA /* clockFilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockFilled.png; sourceTree = "<group>"; };
+		3AB23D6D20A3808D00591A56 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		3AB25B741F7AB23500CB335F /* ASAPPViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPViews.swift; sourceTree = "<group>"; };
 		3ACAAA9B20570B4700963DD3 /* RestartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartButton.swift; sourceTree = "<group>"; };
 		3ACAAA9D20570CE100963DD3 /* icon-new-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-new-question.png"; sourceTree = "<group>"; };
@@ -1020,6 +1024,7 @@
 			isa = PBXGroup;
 			children = (
 				3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */,
+				3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */,
 				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
 				3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */,
 				3049CD231D42AD8500F0C0E6 /* DebugLog.swift */,
@@ -1030,16 +1035,16 @@
 				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
 				28E9BE571D47800600ACCF86 /* KeyboardObserver.swift */,
 				3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */,
+				3A5B0199209CB4C800178E15 /* RepeatingTimer.swift */,
 				30CBACB41DCA9F83003D9CD7 /* StringExtensions.swift */,
 				3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */,
 				3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */,
+				3AB23D6D20A3808D00591A56 /* Throttler.swift */,
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */,
 				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
 				3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */,
-				3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */,
 				3A28113E206B2B6F00B7CE04 /* UIViewExtensions.swift */,
-				3A5B0199209CB4C800178E15 /* RepeatingTimer.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1285,6 +1290,7 @@
 			isa = PBXGroup;
 			children = (
 				30226CEA1D493F5300871453 /* ChatInputView.swift */,
+				3A5B019B209CFEB900178E15 /* SuggestionsView.swift */,
 			);
 			path = "Message Input";
 			sourceTree = "<group>";
@@ -2197,6 +2203,7 @@
 				30523B891EF031A50014C5ED /* LegacyActionType.swift in Sources */,
 				30F6B4C81EC2466E00ABA570 /* CheckboxViewItem.swift in Sources */,
 				3093A4AB1E730D4F00C65818 /* ChatMessage.swift in Sources */,
+				3AB23D6E20A3808D00591A56 /* Throttler.swift in Sources */,
 				30BBB4D51F3CE5D900FD5615 /* ChatViewController+Multimedia.swift in Sources */,
 				3046CDFA1E8ABA0E0022AEE5 /* ComponentMessagePreviewViewController.swift in Sources */,
 				285F7AF21DAB2358008C2EF6 /* ConversationManager+DemoContent.swift in Sources */,
@@ -2240,6 +2247,7 @@
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,
 				30F6B4BE1EBCE6C100ABA570 /* TemplateServerIntentsViewController.swift in Sources */,
 				306619211D9458F50092B4C5 /* UIImage+GIF.m in Sources */,
+				3A5B019C209CFEB900178E15 /* SuggestionsView.swift in Sources */,
 				302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
