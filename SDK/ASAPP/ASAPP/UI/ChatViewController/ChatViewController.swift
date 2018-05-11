@@ -420,8 +420,6 @@ extension ChatViewController {
         updateMoreButton()
         
         if isLiveChat {
-            clearQuickRepliesView(animated: true, completion: nil)
-            
             Dispatcher.delay(300) { [weak self] in
                 self?.chatInputView.needsToBecomeFirstResponder = true
                 self?.updateFramesAnimated()
@@ -1320,6 +1318,9 @@ extension ChatViewController: ConversationManagerDelegate {
     
     // Live Chat Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
+        if isLiveChat {
+            updateInputState(.chat, animated: true)
+        }
         self.isLiveChat = isLiveChat
     }
     
