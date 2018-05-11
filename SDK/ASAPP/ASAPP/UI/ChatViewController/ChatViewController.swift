@@ -66,7 +66,7 @@ class ChatViewController: ASAPPViewController {
     private var partialAutosuggestMetadataByResponseId: [AutosuggestMetadata.ResponseId: AutosuggestMetadata] = [:]
     private var keystrokesBeforeSelection = 0
     private var keystrokesAfterSelection = 0
-    private let autosuggestThrottler = Throttler(interval: 0.2)
+    private let autosuggestThrottler = Throttler(interval: 0.1)
     private var shouldShowFetchedSuggestions = true
     private var pendingAutosuggestRequestQueries: [String] = []
     private let maxPendingAutosuggestRequests = 10
