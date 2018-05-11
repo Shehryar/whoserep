@@ -39,12 +39,12 @@ class DropdownItem: Component {
                    style: ComponentStyle,
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
-        guard let dictArray = content?[JSONKey.options.rawValue] as? [[String: Any]] else {
+        guard let dicts = Component.arrayOfDicts(content?[JSONKey.options.rawValue]) else {
             return nil
         }
         
         var optionsArray: [Option] = []
-        for dict in dictArray {
+        for dict in dicts {
             guard let text = dict["text"] as? String,
                   let value = dict["value"] else {
                 return nil

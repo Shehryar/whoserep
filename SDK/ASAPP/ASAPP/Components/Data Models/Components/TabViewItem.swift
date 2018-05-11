@@ -45,9 +45,9 @@ class TabViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         var pages = [TabViewPage]()
-        if let pagesJSON = content?[JSONKey.pages.rawValue] as? [[String: Any]] {
-            for pageJSON in pagesJSON {
-                if let page = TabViewPage.init(json: pageJSON, styles: styles) {
+        if let dicts = Component.arrayOfDicts(content?[JSONKey.pages.rawValue]) {
+            for dict in dicts {
+                if let page = TabViewPage(dict: dict, styles: styles) {
                     pages.append(page)
                 }
             }
@@ -84,11 +84,10 @@ class TabViewPage: NSObject {
     
     // MARK: Init
     
-    init?(json: Any?, styles: [String: Any]?) {
-        guard let json = json as? [String: Any],
-            let title = json[JSONKey.title.rawValue] as? String,
-            let root = ComponentFactory.component(with: json[JSONKey.root.rawValue], styles: styles) else {
-                return nil
+    init?(dict: [String: Any], styles: [String: Any]?) {
+        guard let title = dict[JSONKey.title.rawValue] as? String,
+              let root = ComponentFactory.component(with: dict[JSONKey.root.rawValue], styles: styles) else {
+            return nil
         }
         self.title = title
         self.root = root

@@ -178,3 +178,13 @@ class Component: NSObject {
         return data
     }
 }
+
+extension Component {
+    class func arrayOfDicts(_ array: Any?) -> [[String: Any]]? {
+        guard let array = array as? [Any?] else {
+            return nil
+        }
+        
+        return array.map { $0 as? [String: Any] }.compactMap { $0 }
+    }
+}
