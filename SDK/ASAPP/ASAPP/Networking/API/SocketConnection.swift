@@ -40,7 +40,6 @@ class SocketConnection: NSObject {
     
     // MARK: Private Properties
     
-    private var isAuthenticated = false
     private var connectionRequest: URLRequest
     private var webSocketClass: SRWebSocket.Type
     private var socket: SRWebSocket?
@@ -50,6 +49,8 @@ class SocketConnection: NSObject {
     private var requestHandlers = [Int: IncomingMessageHandler]()
     private var requestSendTimes = [Int: TimeInterval]()
     private var requestLookup = [Int: SocketRequest]()
+    private var timer: RepeatingTimer?
+    private var isAuthenticated = false
     private var didManuallyDisconnect = false
     
     private let invalidAuthString = "invalid_auth"
@@ -77,15 +78,12 @@ class SocketConnection: NSObject {
             }
         }
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(SocketConnection.connect),
-            name: NSNotification.Name.UIApplicationDidBecomeActive,
-            object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        timer = nil
     }
     
     private func updateSession(_ session: Session?) {
@@ -157,6 +155,15 @@ extension SocketConnection {
         socket?.delegate = nil
         socket?.close()
         socket = nil
+    }
+    
+    @objc func keepAlive() {
+        guard socket?.readyState == .OPEN else {
+            timer?.suspend()
+            return
+        }
+        
+        socket?.sendPing(nil)
     }
 }
 
@@ -323,6 +330,11 @@ extension SocketConnection: SRWebSocketDelegate {
                 strongSelf.delegate?.socketConnectionFailedToAuthenticate(strongSelf)
             } else {
                 strongSelf.delegate?.socketConnectionEstablishedConnection(strongSelf)
+                
+                self?.timer = RepeatingTimer(interval: 60) { [weak self] in
+                    self?.keepAlive()
+                }
+                self?.timer?.resume()
             }
         }
     }

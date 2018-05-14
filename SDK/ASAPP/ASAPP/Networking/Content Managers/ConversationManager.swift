@@ -118,7 +118,7 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     
     private var conversantBeganTypingTime: TimeInterval?
     
-    private weak var timer: RepeatingTimer?
+    private var timer: RepeatingTimer?
     
     // MARK: Private Properties
     
@@ -140,8 +140,14 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         
         self.socketConnection.delegate = self
         
-        self.timer = RepeatingTimer(interval: 6)
-        self.timer?.eventHandler = checkForTypingStatusChange
+        timer = RepeatingTimer(interval: 6) { [weak self] in
+            self?.checkForTypingStatusChange()
+        }
+        timer?.resume()
+    }
+    
+    deinit {
+        timer = nil
     }
 }
 
