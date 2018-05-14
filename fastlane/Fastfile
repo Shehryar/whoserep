@@ -1,4 +1,4 @@
-fastlane_version "2.64.0"
+fastlane_version "2.95.0"
 
 default_platform :ios
 
@@ -39,6 +39,7 @@ platform :ios do
     # copy build directory so CircleCI can save artifacts"
     sh "mkdir -p ~/output/build"
     sh 'cp "$IPA_OUTPUT_PATH" ~/output/build/'
+    sh 'cp "$DSYM_OUTPUT_PATH" ~/output/build/'
     
     clean_build_artifacts
 
