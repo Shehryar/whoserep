@@ -1,5 +1,5 @@
 //
-//  ConversationManager+API.swift
+//  ConversationManager+OutgoingAPI.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 3/15/17.
@@ -12,7 +12,7 @@ import UIKit
 
 extension ConversationManager {
     
-    func sendUserTypingStatus(isTyping: Bool, withText text: String?) {
+    func sendUserTypingStatus(isTyping: Bool, with text: String?) {
         let path = "customer/NotifyTypingPreview"
         let params = [ "Text": text ?? "" ]
         sendRequest(path: path, params: params, requiresContext: false, completion: nil)
@@ -74,17 +74,22 @@ extension ConversationManager {
         sendRequest(path: "customer/ask", completion: handler)
     }
     
-    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false) {
+    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false, autosuggestMetadata: AutosuggestMetadata?) {
         if ASAPP.isDemoContentEnabled(), let demoResponse = Event.demoResponseForQuery(query) {
             echoMessageResponse(withJSONString: demoResponse)
             return
         }
         
         let path = "srs/SendTextMessageAndHierAndTreewalk"
-        let params = [
+        var params: [String: Any] = [
             "Text": query,
             "SearchQuery": query
         ]
+        
+        if let data = try? JSONEncoder().encode(autosuggestMetadata),
+           let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+            params["CustAutoCompleteAnalytics"] = dict
+        }
         
         sendRequest(path: path, params: params)
     }

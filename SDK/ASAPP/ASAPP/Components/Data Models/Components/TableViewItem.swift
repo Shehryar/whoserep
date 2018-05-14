@@ -48,9 +48,9 @@ class TableViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         var sections = [TableViewSectionItem]()
-        if let sectionsJSON = content?[JSONKey.sections.rawValue] as? [[String: Any]] {
-            for sectionJSON in sectionsJSON {
-                if let section = TableViewSectionItem(json: sectionJSON, styles: styles) {
+        if let dicts = Component.arrayOfDicts(content?[JSONKey.sections.rawValue]) {
+            for dict in dicts {
+                if let section = TableViewSectionItem(dict: dict, styles: styles) {
                     sections.append(section)
                 }
             }
@@ -100,16 +100,12 @@ class TableViewSectionItem: NSObject {
     
     let rows: [Component]
     
-    init?(json: Any?, styles: [String: Any]?) {
-        guard let json = json as? [String: Any] else {
-            return nil
-        }
-        
-        self.header = ComponentFactory.component(with: json[JSONKey.header.rawValue], styles: styles)
+    init?(dict: [String: Any], styles: [String: Any]?) {
+        self.header = ComponentFactory.component(with: dict[JSONKey.header.rawValue], styles: styles)
         var rows = [Component]()
-        if let rowsJSON = json[JSONKey.rows.rawValue] as? [[String: Any]] {
-            for rowJSON in rowsJSON {
-                if let row = ComponentFactory.component(with: rowJSON, styles: styles) {
+        if let rowDicts = Component.arrayOfDicts(dict[JSONKey.rows.rawValue]) {
+            for rowDict in rowDicts {
+                if let row = ComponentFactory.component(with: rowDict, styles: styles) {
                     rows.append(row)
                 }
             }

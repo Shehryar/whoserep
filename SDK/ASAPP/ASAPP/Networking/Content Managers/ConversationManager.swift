@@ -8,9 +8,34 @@
 
 import Foundation
 
+struct AutosuggestMetadata: Encodable {
+    typealias ResponseId = String
+    
+    var responseId: ResponseId = ""
+    var suggestion: String = ""
+    var original: String = ""
+    var index: Int = -1
+    var displayedCount: Int = -1
+    var returnedCount: Int = -1
+    var keystrokesBeforeSelection: Int = -1
+    var keystrokesAfterSelection: Int = -1
+    
+    enum CodingKeys: String, CodingKey {
+        case responseId = "ResponseId"
+        case suggestion = "Suggestion"
+        case original = "Original"
+        case index = "Index"
+        case displayedCount = "DisplayedCount"
+        case returnedCount = "ReturnedCount"
+        case keystrokesBeforeSelection = "KeystrokesBeforeSelection"
+        case keystrokesAfterSelection = "KeystrokesAfterSelection"
+    }
+}
+
 protocol ConversationManagerProtocol: class {
     typealias ComponentViewHandler = (ComponentViewContainer?) -> Void
     typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
+    typealias AutosuggestCompletion = (_ suggestions: [String], _ responseId: AutosuggestMetadata.ResponseId, _ error: String?) -> Void
     
     init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?)
     
@@ -19,7 +44,6 @@ protocol ConversationManagerProtocol: class {
     var currentSRSClassification: String? { get set }
     var isLiveChat: Bool { get }
     var isConnected: Bool { get }
-    var hasConversationEnded: Bool { get }
     
     func enterConversation()
     func exitConversation()
@@ -29,17 +53,18 @@ protocol ConversationManagerProtocol: class {
     func getEvents(before firstEvent: Event, limit: Int, completion: @escaping FetchedEventsCompletion)
     func getEvents(after lastEvent: Event, completion: @escaping FetchedEventsCompletion)
     func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion)
+    func getSuggestions(for: String, completion: @escaping AutosuggestCompletion)
     func sendEnterChatRequest(_ completion: (() -> Void)?)
     func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler)
     func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String)
     func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClient.DictCompletionHandler)
     func sendRequestForTreewalkAction(_ action: TreewalkAction, messageText: String?, parentMessage: ChatMessage?, completion: ((Bool) -> Void)?)
     func getComponentView(named name: String, data: [String: Any]?, completion: @escaping ComponentViewHandler)
-    func sendUserTypingStatus(isTyping: Bool, withText text: String?)
+    func sendUserTypingStatus(isTyping: Bool, with text: String?)
     func sendAskRequest(_ completion: ((_ success: Bool) -> Void)?)
     func sendPictureMessage(_ image: UIImage, completion: (() -> Void)?)
     func sendTextMessage(_ message: String, completion: RequestResponseHandler?)
-    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool)
+    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool, autosuggestMetadata: AutosuggestMetadata?)
     func endLiveChat() -> Bool
 }
 
@@ -81,18 +106,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         }
     }
     
-    var hasConversationEnded: Bool {
-        guard let lastEvent = events.last else {
-            return true
-        }
-        
-        return lastEvent.eventType == .conversationEnd
-            || lastEvent.eventType == .accountMerge
-            || ((lastEvent.chatMessage?.hasMessageActions == true
-                || lastEvent.chatMessage?.hasQuickReplies == true)
-                && lastEvent.chatMessage?.userCanTypeResponse != true)
-    }
-    
     var isConnected: Bool {
         return socketConnection.isConnected
     }
@@ -105,7 +118,7 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     
     private var conversantBeganTypingTime: TimeInterval?
     
-    private weak var timer: RepeatingTimer?
+    private var timer: RepeatingTimer?
     
     // MARK: Private Properties
     
@@ -127,8 +140,14 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         
         self.socketConnection.delegate = self
         
-        self.timer = RepeatingTimer(interval: 6)
-        self.timer?.eventHandler = checkForTypingStatusChange
+        timer = RepeatingTimer(interval: 6) { [weak self] in
+            self?.checkForTypingStatusChange()
+        }
+        timer?.resume()
+    }
+    
+    deinit {
+        timer = nil
     }
 }
 
@@ -238,22 +257,19 @@ extension ConversationManager {
 // MARK: - Fetching Events
 
 extension ConversationManager {
-    
-    typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
-    
-    func getEvents(before firstEvent: Event, limit: Int, completion: @escaping FetchedEventsCompletion) {
+    func getEvents(before firstEvent: Event, limit: Int, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
         getEvents(before: firstEvent, after: nil, limit: limit, completion: completion)
     }
     
-    func getEvents(after lastEvent: Event, completion: @escaping FetchedEventsCompletion) {
+    func getEvents(after lastEvent: Event, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
         getEvents(before: nil, after: lastEvent, limit: nil, completion: completion)
     }
     
-    func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion) {
+    func getEvents(limit: Int, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
         getEvents(before: nil, after: nil, limit: limit, completion: completion)
     }
     
-    private func getEvents(before firstEvent: Event?, after lastEvent: Event?, limit: Int?, completion: @escaping FetchedEventsCompletion) {
+    private func getEvents(before firstEvent: Event?, after lastEvent: Event?, limit: Int?, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
         let path = "customer/events"
         let shouldInsert = firstEvent != nil
         let shouldAppend = lastEvent != nil
@@ -301,6 +317,30 @@ extension ConversationManager {
                 Dispatcher.performOnMainThread {
                     completion(parsedEvents.events, parsedEvents.errorMessage)
                 }
+            }
+        }
+    }
+}
+
+// MARK: - Autosuggest
+
+extension ConversationManager {
+    func getSuggestions(for text: String, completion: @escaping ConversationManagerProtocol.AutosuggestCompletion) {
+        let path = "customer/autocomplete"
+        let params = ["Text": text]
+        
+        httpClient.sendRequest(method: .POST, path: path, params: params) { (data: [String: Any]?, _, error) in
+            guard let data = data,
+                  error == nil else {
+                completion([], "", "Error fetching suggestions.")
+                return
+            }
+            
+            let suggestions = data["Suggestions"] as? [String] ?? []
+            let responseId = data["ResponseId"] as? String ?? ""
+            
+            Dispatcher.performOnMainThread {
+                completion(suggestions, responseId, nil)
             }
         }
     }

@@ -28,6 +28,11 @@ platform :ios do
 
     gym(scheme: 'ASAPPTest')
 
+    upload_symbols_to_crashlytics(
+      dsym_path: '~/output/fastlane/build/ASAPPTest.app.dSYM.zip',
+      api_token: ENV['CRASHLYTICS_API_TOKEN']
+    )
+
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
@@ -62,6 +67,11 @@ platform :ios do
 
     gym(scheme: 'ASAPPTest')
 
+    upload_symbols_to_crashlytics(
+      dsym_path: '~/output/fastlane/build/ASAPPTest.app.dSYM.zip',
+      api_token: ENV['CRASHLYTICS_API_TOKEN']
+    )
+
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
@@ -85,6 +95,11 @@ platform :ios do
     incrementBuildNumber
 
     gym(scheme: 'ASAPPTest')
+
+    upload_symbols_to_crashlytics(
+      dsym_path: '~/output/fastlane/build/ASAPPTest.app.dSYM.zip',
+      api_token: ENV['CRASHLYTICS_API_TOKEN']
+    )
 
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],

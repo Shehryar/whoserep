@@ -9,8 +9,6 @@
 import Foundation
 
 class RepeatingTimer {
-    var eventHandler: (() -> Void)?
-    
     private enum State {
         case active
         case inactive
@@ -20,20 +18,17 @@ class RepeatingTimer {
     
     private var timer: DispatchSourceTimer
     
-    init(interval: TimeInterval) {
+    init(interval: TimeInterval, handler: @escaping (() -> Void)) {
         let timerSource = DispatchSource.makeTimerSource()
         timerSource.schedule(deadline: .now(), repeating: interval)
         self.timer = timerSource
-        self.timer.setEventHandler { [weak self] in
-            self?.eventHandler?()
-        }
+        self.timer.setEventHandler(handler: handler)
     }
     
     deinit {
         timer.setEventHandler {}
         timer.cancel()
         resume()
-        eventHandler = nil
     }
     
     func resume() {

@@ -10,8 +10,10 @@ import UIKit
 
 protocol ChatInputViewDelegate: class {
     func chatInputView(_ chatInputView: ChatInputView, didTypeMessageText text: String?)
+    func chatInputView(_ chatInputView: ChatInputView, willChangeTextWithKeystrokes keystrokes: Int)
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String)
     func chatInputView(_ chatInputView: ChatInputView, didTapMediaButton mediaButton: UIButton)
+    func chatInputView(_ chatInputView: ChatInputView, didSelectSuggestion suggestion: String, at index: Int, count: Int, responseId: AutosuggestMetadata.ResponseId)
     func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView)
     func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView)
 }
@@ -39,8 +41,6 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     var bubbleInset = UIEdgeInsets(top: 8, left: 14, bottom: 8, right: 14) {
         didSet {
             if oldValue.bottom != bubbleInset.bottom {
-                bubbleBottomConstraint.constant = -bubbleInset.bottom
-                shadowBottomConstraint.constant = -bubbleInset.bottom
                 invalidateIntrinsicContentSize()
                 resizeIfNeeded(animated: true, notifyOfHeightChange: true)
                 if cornerRadius == 0 {
@@ -104,17 +104,16 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     // MARK: Properties: UI
     
     let bubbleView = UIView()
+    let textView = UITextView()
+    private let suggestionsView = SuggestionsView()
     private let shadowView = UIView()
     private let borderTopView = UIView()
-    let textView = UITextView()
     private let placeholderTextView = UITextView()
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     
     private let mediaButton = UIButton()
     private var sendButtonImage: UIImage?
     private let sendButton = UIButton()
-    private var bubbleBottomConstraint: NSLayoutConstraint!
-    private var shadowBottomConstraint: NSLayoutConstraint!
     
     fileprivate var verticalInsets: CGFloat {
         return contentInset.top + contentInset.bottom + bubbleInset.top + bubbleInset.bottom
@@ -132,6 +131,9 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         
         blurredBackground.isHidden = true
         addSubview(blurredBackground)
+        
+        suggestionsView.delegate = self
+        addSubview(suggestionsView)
         
         bubbleView.clipsToBounds = true
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
@@ -153,6 +155,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         textView.textContainer.lineFragmentPadding = 0
         textView.delegate = self
         textView.returnKeyType = .send
+        textView.autocorrectionType = .no
         textView.isAccessibilityElement = true
         textView.accessibilityTraits = UIAccessibilityTraitSearchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
@@ -190,25 +193,13 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         sendButton.addTarget(self, action: #selector(ChatInputView.didTapSendButton), for: .touchUpInside)
         bubbleView.addSubview(sendButton)
         
-        addGestureRecognizer(UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder)))
+        let tap = UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder))
+        tap.cancelsTouchesInView = false
+        addGestureRecognizer(tap)
         
         applyColors()
         updateSendButtonForCurrentState()
         updateInputMinHeight()
-        
-        bubbleBottomConstraint = NSLayoutConstraint(item: bubbleView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -bubbleInset.bottom)
-        shadowBottomConstraint = NSLayoutConstraint(item: shadowView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -bubbleInset.bottom)
-        
-        addConstraints([
-            NSLayoutConstraint(item: bubbleView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: bubbleInset.top),
-            NSLayoutConstraint(item: bubbleView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -bubbleInset.right),
-            bubbleBottomConstraint,
-            NSLayoutConstraint(item: bubbleView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: bubbleInset.left),
-            NSLayoutConstraint(item: shadowView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: bubbleInset.top),
-            NSLayoutConstraint(item: shadowView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -bubbleInset.right),
-            shadowBottomConstraint,
-            NSLayoutConstraint(item: shadowView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: bubbleInset.left)
-        ])
         
         cornerRadius = bubbleView.frame.height / 2
     }
@@ -331,12 +322,23 @@ extension ChatInputView {
 // MARK: - Layout
 
 extension ChatInputView {
+    func suggestionsViewSize(thatFits size: CGSize? = nil) -> CGSize {
+        return suggestionsView.sizeThatFits(CGSize(width: size?.width ?? bounds.width, height: .greatestFiniteMagnitude))
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         blurredBackground.frame = bounds
         
-        borderTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 1)
+        let suggestionsSize = suggestionsViewSize(thatFits: bounds.size)
+        suggestionsView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: suggestionsSize.height)
+        
+        borderTopView.frame = CGRect(x: 0, y: suggestionsSize.height, width: bounds.width, height: 1)
+        
+        let bubbleHeight = inputHeight + contentInset.top + contentInset.bottom
+        bubbleView.frame = CGRect(x: bubbleInset.left, y: bounds.height - bubbleHeight - bubbleInset.bottom, width: bounds.width - bubbleInset.left - bubbleInset.right, height: bubbleHeight)
+        shadowView.frame = bubbleView.frame
         
         let sendButtonLeft = bubbleView.bounds.width - sendButtonSize.width - contentInset.right
         let buttonTop = bubbleView.bounds.height - inputMinHeight - contentInset.bottom
@@ -359,7 +361,8 @@ extension ChatInputView {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: size.width, height: inputHeight + verticalInsets)
+        let suggestionsSize = suggestionsViewSize(thatFits: size)
+        return CGSize(width: size.width, height: inputHeight + verticalInsets + suggestionsSize.height)
     }
     
     override var intrinsicContentSize: CGSize {
@@ -393,6 +396,8 @@ extension ChatInputView: UITextViewDelegate {
             }
         }
         
+        delegate?.chatInputView(self, willChangeTextWithKeystrokes: abs(range.length - text.count))
+        
         return true
     }
     
@@ -411,6 +416,19 @@ extension ChatInputView: UITextViewDelegate {
 extension ChatInputView {
     func textViewHeightDidChange() {
         delegate?.chatInputViewDidChangeContentSize(self)
+    }
+}
+
+// MARK: - SuggestionsViewDelegate
+
+extension ChatInputView: SuggestionsViewDelegate {
+    func suggestionsView(_ suggestionsView: SuggestionsView, didSelectSuggestion suggestion: String, at index: Int, count: Int) {
+        clearSuggestions()
+        textView.text = suggestion
+        invalidateIntrinsicContentSize()
+        resizeIfNeeded(animated: true, notifyOfHeightChange: true)
+        
+        delegate?.chatInputView(self, didSelectSuggestion: suggestion, at: index, count: count, responseId: suggestionsView.responseId)
     }
 }
 
@@ -465,5 +483,18 @@ extension ChatInputView {
         textView.scrollRangeToVisible(NSRange(location: max(0, textView.text.count - 1), length: 1))
         displayBorderTop = false
         bubbleInset.bottom = 23
+    }
+    
+    func clearSuggestions() {
+        suggestionsView.clear()
+        invalidateIntrinsicContentSize()
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
+    func showSuggestions(_ suggestions: [String], responseId: AutosuggestMetadata.ResponseId) {
+        suggestionsView.responseId = responseId
+        suggestionsView.reloadWithSuggestions(suggestions)
+        invalidateIntrinsicContentSize()
     }
 }

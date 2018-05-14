@@ -16,6 +16,7 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledGetEventsBefore = false
     private(set) var calledGetEventsAfter = false
     private(set) var calledGetEventWithLimit = false
+    private(set) var calledGetSuggestions = false
     private(set) var calledSendEnterChatRequest = false
     private(set) var calledSendRequestForAPIAction = false
     private(set) var calledSendRequestForDeepLinkAction = false
@@ -34,7 +35,6 @@ class MockConversationManager: ConversationManagerProtocol {
     var currentSRSClassification: String?
     var isLiveChat: Bool
     var isConnected: Bool
-    var hasConversationEnded: Bool
     
     var nextQuickReplyMessage: ChatMessage?
     
@@ -42,7 +42,6 @@ class MockConversationManager: ConversationManagerProtocol {
         events = []
         isLiveChat = false
         isConnected = false
-        hasConversationEnded = false
     }
     
     func enterConversation() {
@@ -75,6 +74,10 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetEventWithLimit = true
     }
     
+    func getSuggestions(for: String, completion: @escaping ConversationManagerProtocol.AutosuggestCompletion) {
+        calledGetSuggestions = true
+    }
+    
     func sendEnterChatRequest(_ completion: (() -> Void)?) {
         calledSendEnterChatRequest = true
     }
@@ -99,7 +102,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetComponentView = true
     }
     
-    func sendUserTypingStatus(isTyping: Bool, withText text: String?) {
+    func sendUserTypingStatus(isTyping: Bool, with text: String?) {
         calledSendUserTypingStatus = true
     }
     
@@ -115,7 +118,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendTextMessage = true
     }
     
-    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool) {
+    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool, autosuggestMetadata: AutosuggestMetadata?) {
         calledSendSRSQuery = true
     }
     
@@ -132,6 +135,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetEventsBefore = false
         calledGetEventsAfter = false
         calledGetEventWithLimit = false
+        calledGetSuggestions = false
         calledSendEnterChatRequest = false
         calledSendRequestForAPIAction = false
         calledSendRequestForDeepLinkAction = false

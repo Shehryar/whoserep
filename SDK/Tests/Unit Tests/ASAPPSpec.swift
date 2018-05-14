@@ -18,21 +18,21 @@ class ASAPPSpec: QuickSpec {
                 
                 context("when the asapp key's value is true") {
                     it("returns true") {
-                        userInfo = ["aps": ["asapp": true]]
+                        userInfo = ["aps": ["FromASAPP": true]]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beTrue())
                     }
                 }
                 
                 context("when the asapp key's value is false") {
                     it("returns false") {
-                        userInfo = ["aps": ["asapp": false]]
+                        userInfo = ["aps": ["FromASAPP": false]]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beFalse())
                     }
                 }
                 
                 context("when the asapp key's value is a dictionary") {
                     it("returns true") {
-                        userInfo = ["aps": ["asapp": ["data": "someData"]]]
+                        userInfo = ["aps": ["FromASAPP": ["data": "someData"]]]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beTrue())
                     }
                 }
@@ -46,7 +46,7 @@ class ASAPPSpec: QuickSpec {
                 
                 context("when there is an asapp key but no aps key") {
                     it("returns true") {
-                        userInfo = ["asapp": ["data": "someData"]]
+                        userInfo = ["FromASAPP": ["data": "someData"]]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beTrue())
                     }
                 }

@@ -59,13 +59,13 @@ class CarouselViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         guard let content = content,
-            let itemsJSON = content[JSONKey.items.rawValue] as? [[String: Any]] else {
-                return nil
+              let dicts = Component.arrayOfDicts(content[JSONKey.items.rawValue]) else {
+            return nil
         }
         
         var items = [Component]()
-        for itemJSON in itemsJSON {
-            if let item = ComponentFactory.component(with: itemJSON, styles: styles) {
+        for dict in dicts {
+            if let item = ComponentFactory.component(with: dict, styles: styles) {
                 items.append(item)
             }
         }

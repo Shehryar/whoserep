@@ -64,14 +64,14 @@ class StackViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         
-        guard let itemsJSON = content?[JSONKey.items.rawValue] as? [[String: Any]] else {
+        guard let dicts = Component.arrayOfDicts(content?[JSONKey.items.rawValue]) else {
             DebugLog.w(caller: StackViewItem.self, "Missing items json. Returning nil:\n\(String(describing: content))")
             return nil
         }
         
         var items = [Component]()
-        for itemJSON in itemsJSON {
-            if let component = ComponentFactory.component(with: itemJSON, styles: styles) {
+        for dict in dicts {
+            if let component = ComponentFactory.component(with: dict, styles: styles) {
                 items.append(component)
             }
         }
