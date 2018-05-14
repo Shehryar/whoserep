@@ -28,11 +28,6 @@ platform :ios do
 
     gym(scheme: 'ASAPPTest')
 
-    upload_symbols_to_crashlytics(
-      dsym_path: '~/output/fastlane/build/ASAPPTest.app.dSYM.zip',
-      api_token: ENV['CRASHLYTICS_API_TOKEN']
-    )
-
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
@@ -41,7 +36,7 @@ platform :ios do
       notifications: true
     )
 
-    # copy IPA so CircleCI can save it as an artifact"
+    # copy build directory so CircleCI can save artifacts"
     sh "mkdir -p ~/output/build"
     sh 'cp "$IPA_OUTPUT_PATH" ~/output/build/'
     
@@ -67,11 +62,6 @@ platform :ios do
 
     gym(scheme: 'ASAPPTest')
 
-    upload_symbols_to_crashlytics(
-      dsym_path: '~/output/fastlane/build/ASAPPTest.app.dSYM.zip',
-      api_token: ENV['CRASHLYTICS_API_TOKEN']
-    )
-
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
@@ -95,11 +85,6 @@ platform :ios do
     incrementBuildNumber
 
     gym(scheme: 'ASAPPTest')
-
-    upload_symbols_to_crashlytics(
-      dsym_path: '~/output/fastlane/build/ASAPPTest.app.dSYM.zip',
-      api_token: ENV['CRASHLYTICS_API_TOKEN']
-    )
 
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],

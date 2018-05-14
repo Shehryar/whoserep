@@ -106,6 +106,9 @@ jobs:
       - store_artifacts:
           path: ./build/ASAPPTest.ipa
           destination: ipa
+      - store_artifacts:
+          path: ./build/ASAPPTest.app.dSYM.zip
+          destination: dSYM
 
 workflows:
   version: 2
