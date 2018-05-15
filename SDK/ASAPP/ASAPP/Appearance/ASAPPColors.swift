@@ -66,13 +66,13 @@ public class ASAPPColors: NSObject {
     public var separatorSecondary = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15)
     
     /// The color of the active portion of controls, such as checkboxes, progress bars, radio buttons, sliders, and tabs.
-    public var controlTint = UIColor(red: 0.075, green: 0.698, blue: 0.925, alpha: 1)
+    public var controlTint = UIColor.ASAPP.eggplant
     
     /// The color of the secondary portion of some controls, such as the background of progress bars and the underline of text inputs.
     public var controlSecondary = UIColor(red: 0.898, green: 0.906, blue: 0.918, alpha: 1)
     
-    /// The color of the background of selected checkboxes and radio buttons.
-    public var controlSelectedBackground = UIColor(red: 0.953, green: 0.957, blue: 0.965, alpha: 1)
+    /// The color of the background of checkboxes and radio buttons.
+    public var controlBackground = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.07)
     
     /// The default color of the background of a selected button representing a positive choice (such as in a BinaryRatingView).
     public var positiveSelectedBackground = UIColor.ASAPP.successGreen
@@ -171,6 +171,8 @@ extension ASAPPColors {
         navBarButton = dark.withAlphaComponent(0.9)
         textSecondary = dark
         separatorSecondary = dark.withAlphaComponent(0.15)
+        controlTint = primary
+        controlBackground = dark.withAlphaComponent(0.07)
         replyMessageText = dark
         replyMessageBackground = dark.withAlphaComponent(0.15)
         replyMessageBorder = dark.withAlphaComponent(0.15)

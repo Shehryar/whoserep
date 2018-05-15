@@ -15,6 +15,7 @@ class RadioButton: BaseComponentView {
     var isSelected: Bool = false {
         didSet {
             updateDisplay()
+            setNeedsLayout()
         }
     }
     
@@ -85,11 +86,11 @@ extension RadioButton {
             backgroundColor = ASAPP.styles.colors.controlTint
             layer.borderColor = ASAPP.styles.colors.controlTint.cgColor
         } else {
-            backgroundColor = UIColor.clear
+            backgroundColor = .white
             layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
         }
         
-        centerView.backgroundColor = ASAPP.styles.colors.backgroundPrimary
+        centerView.backgroundColor = .white
         centerView.isHidden = !isSelected
     }
 }

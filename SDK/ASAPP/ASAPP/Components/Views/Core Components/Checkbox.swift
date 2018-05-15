@@ -93,7 +93,7 @@ extension Checkbox {
             backgroundColor = ASAPP.styles.colors.controlTint
             layer.borderColor = ASAPP.styles.colors.controlTint.cgColor
         } else {
-            backgroundColor = UIColor.clear
+            backgroundColor = .white
             layer.borderColor = ASAPP.styles.textStyles.body.color.cgColor
         }
         

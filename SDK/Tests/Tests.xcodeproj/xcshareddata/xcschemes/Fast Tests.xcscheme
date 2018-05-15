@@ -110,7 +110,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "formWithScale"
+            argument = "formWithRadio"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

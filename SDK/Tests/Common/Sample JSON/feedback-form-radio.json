@@ -1,0 +1,260 @@
+{
+  "root": {
+    "content": {
+      "items": [
+        {
+          "content": {
+            "root": {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Do you feel your question/issue was fully resolved?"
+                    },
+                    "style": {
+                      "marginBottom": 32,
+                      "marginTop": 32,
+                      "padding": "0 24",
+                      "textType": "header2"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "root": {
+                        "content": {
+                          "items": [
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "Yes"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "cornerRadius": 6,
+                                "marginTop": 0,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "yes"
+                            },
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "No"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "cornerRadius": 6,
+                                "marginTop": 10,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "no"
+                            },
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "I Don't Know"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "cornerRadius": 6,
+                                "marginTop": 10,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "unsure"
+                            }
+                          ]
+                        },
+                        "type": "stackView"
+                      }
+                    },
+                    "name": "questionResolved",
+                    "style": {
+                      "align": "fill",
+                      "padding": "0 24"
+                    },
+                    "type": "radioButtonsContainer"
+                  }
+                ]
+              },
+              "style": {
+                "paddingBottom": 32
+              },
+              "type": "stackView"
+            }
+          },
+          "style": {
+            "gravity": "fill",
+            "weight": 1
+          },
+          "type": "scrollView"
+        },
+        {
+          "content": {
+            "items": [
+              {
+                "content": {
+                  "action": {
+                    "content": {},
+                    "type": "finish"
+                  },
+                  "title": "CANCEL"
+                },
+                "style": {
+                  "align": "fill",
+                  "buttonType": "secondary",
+                  "gravity": "fill",
+                  "weight": 1
+                },
+                "type": "button"
+              },
+              {
+                "content": {
+                  "action": {
+                    "content": {
+                      "data": {
+                        "actionTarget": "_SUBMIT_FEEDBACK",
+                        "issueId": "133640001",
+                        "metaData": "{\"dataFields\":[{\"name\":\"rating\",\"question\":\"How likely are you to recommend Boost Mobile to friends or family?\",\"type\":\"rating\",\"meta\":{\"type\":\"star\",\"min\":0,\"max\":10}},{\"name\":\"questionResolved\",\"question\":\"Do you feel your question/issue was fully resolved?\",\"type\":\"radio\",\"meta\":{\"optionLabels\":[{\"value\":\"yes\",\"label\":\"Yes\"},{\"value\":\"no\",\"label\":\"No\"},{\"value\":\"unsure\",\"label\":\"I Don't Know\"}]}},{\"name\":\"recommendationChange\",\"question\":\"Did this chat increase, decrease or not change your likelihood to recommend Boost Mobile?\",\"type\":\"radio\",\"meta\":{\"optionLabels\":[{\"value\":\"increase\",\"label\":\"Increase\"},{\"value\":\"decrease\",\"label\":\"Decrease\"},{\"value\":\"noChange\",\"label\":\"No Change\"}]}},{\"name\":\"comment\",\"question\":\"Can you briefly explain why?\",\"type\":\"string\"}]}",
+                        "repId": "150001",
+                        "requireTargetIssueId": true,
+                        "text": "Uploaded feedback"
+                      },
+                      "requestPath": "srs/SubmitFeedback"
+                    },
+                    "type": "api"
+                  },
+                  "title": "SUBMIT"
+                },
+                "style": {
+                  "align": "fill",
+                  "buttonType": "primary",
+                  "gravity": "fill",
+                  "weight": 1
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "style": {
+            "weight": 0
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill"
+    },
+    "type": "stackView"
+  }
+}

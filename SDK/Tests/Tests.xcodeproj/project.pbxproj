@@ -132,6 +132,12 @@
 		3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA0D3B620AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
+		3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
+		3AA0D3B820AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
+		3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */; };
+		3AA0D3BB20AA16AC00A04206 /* FormWithRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */; };
+		3AA0D3BD20AA328300A04206 /* RadioButtonViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */; };
 		3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */; };
 		3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */; };
 		3AA1E4F11FF429C700548E3D /* ChatMessageCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */; };
@@ -323,6 +329,9 @@
 		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
 		3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Interaction Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA0D41220AA454E00A04206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form-radio.json"; sourceTree = "<group>"; };
+		3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWithRadio.swift; sourceTree = "<group>"; };
+		3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewSpec.swift; sourceTree = "<group>"; };
 		3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderViewSpec.swift; sourceTree = "<group>"; };
 		3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCellSpec.swift; sourceTree = "<group>"; };
 		3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCellSpec.swift; sourceTree = "<group>"; };
@@ -422,6 +431,7 @@
 				3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */,
 				3A9F51C01FB122F3009C68AE /* event-list.json */,
 				3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */,
+				3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */,
 				3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */,
 				3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */,
 				3A0429321F97C1E30031CD78 /* live-chat-begin.json */,
@@ -476,6 +486,7 @@
 				3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */,
 				3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */,
 				3A391B371FA14E080085C2DA /* FormValidation.swift */,
+				3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */,
 				3A621FD4208E93E800CB11D6 /* FormWithScale.swift */,
 				3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */,
 				3AED18ED1FA0EB11005955DA /* TextInputMaxLength.swift */,
@@ -542,6 +553,7 @@
 				3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */,
 				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */,
+				3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
 				3AD3B242205813C6006DD9FA /* RestartButtonTestCase.swift */,
 				3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */,
@@ -735,6 +747,7 @@
 				3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */,
 				3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */,
 				3A391B3C1FA14EB20085C2DA /* change-pin-form.json in Resources */,
+				3AA0D3B620AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3A391B411FA14EB20085C2DA /* security-pin.json in Resources */,
 				3A621FCB208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
 			);
@@ -744,6 +757,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3AED18F31FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A04293D1F97C24C0031CD78 /* add-credit-card.json in Resources */,
@@ -763,6 +777,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA0D3B820AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3AED18F41FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A0429421F97C24C0031CD78 /* add-credit-card.json in Resources */,
@@ -840,6 +855,7 @@
 				3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */,
 				3A621FD5208E93E800CB11D6 /* FormWithScale.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
+				3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
 				3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */,
 				3A391B3A1FA14EAC0085C2DA /* TestUtil.swift in Sources */,
 			);
@@ -896,6 +912,7 @@
 				3A4B48FB1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift in Sources */,
 				3A4B48F91FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift in Sources */,
 				3A391B501FA3B0B90085C2DA /* InvalidInputsSpec.swift in Sources */,
+				3AA0D3BD20AA328300A04206 /* RadioButtonViewSpec.swift in Sources */,
 				3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */,
 				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
@@ -926,6 +943,8 @@
 				3AE183A92059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift in Sources */,
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
 				3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */,
+				3AA0D3BB20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
+				3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A621FD6208E93E800CB11D6 /* FormWithScale.swift in Sources */,
 				3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */,

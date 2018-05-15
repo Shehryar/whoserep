@@ -18,6 +18,7 @@ class RestartButtonTestCase: FBSnapshotTestCase {
         window.rootViewController = UIViewController()
         window.makeKeyAndVisible()
         TestUtil.setUpASAPP()
+        TestUtil.createStyle()
     }
     
     func testOnItsOwn() {
