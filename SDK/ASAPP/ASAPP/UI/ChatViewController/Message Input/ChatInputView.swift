@@ -464,7 +464,6 @@ extension ChatInputView {
         showBlur()
         displayBorderTop = true
         resizeIfNeeded(animated: false)
-        textView.selectedTextRange = textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
         if let insets = safeAreaInsets {
             bubbleInset.bottom = isFirstResponder ? 8 : max(8, insets.bottom - 13)
         } else {
