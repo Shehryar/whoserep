@@ -33,14 +33,14 @@ class ChatMessageSpec: QuickSpec {
                 
                 context("without text") {
                     it("is not nil") {
-                        let msg = ChatMessage(text: nil, notification: nil, attachment: attachment, quickReplies: [:], metadata: metadata)
+                        let msg = ChatMessage(text: nil, notification: nil, attachment: attachment, quickReplies: [], metadata: metadata)
                         expect(msg).toNot(beNil())
                     }
                 }
                 
                 context("without an attachment") {
                     it("is not nil") {
-                        let msg = ChatMessage(text: "foo", notification: nil, attachment: nil, quickReplies: [:], metadata: metadata)
+                        let msg = ChatMessage(text: "foo", notification: nil, attachment: nil, quickReplies: [], metadata: metadata)
                         expect(msg).toNot(beNil())
                     }
                 }
@@ -54,7 +54,7 @@ class ChatMessageSpec: QuickSpec {
                 
                 context("with an empty quickReplies array") {
                     it("has a nil quickReplies property") {
-                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, quickReplies: [:], metadata: metadata)
+                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, quickReplies: [], metadata: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.quickReplies).to(beNil())
                     }
@@ -64,11 +64,7 @@ class ChatMessageSpec: QuickSpec {
                     it("has the attachment quick reply") {
                         let attachment = ChatMessageAttachment(content: Component(id: "a", name: "a", value: "foo", isChecked: nil, style: ComponentStyle(), styles: nil, content: nil) as Any)
                         let quickReply = QuickReply(title: "bar", action: Action(content: "baz")!)
-                        let otherQuickReply = QuickReply(title: "alpha", action: Action(content: "beta")!)
-                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, quickReplies: [
-                            "foo": [quickReply],
-                            "other": [otherQuickReply]
-                        ], metadata: metadata)
+                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, quickReplies: [quickReply], metadata: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.quickReplies).toNot(beNil())
                         expect(msg!.quickReplies).to(equal([quickReply]))

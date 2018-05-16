@@ -34,7 +34,7 @@ class ChatMessage: NSObject {
     init?(text: String?,
           notification: ChatMessageNotification?,
           attachment: ChatMessageAttachment?,
-          quickReplies: [String: [QuickReply]]?,
+          quickReplies: [QuickReply]?,
           userCanTypeResponse: Bool? = nil,
           suppressNewQuestionConfirmation: Bool = false,
           metadata: EventMetadata) {
@@ -46,16 +46,7 @@ class ChatMessage: NSObject {
         self.notification = notification
         self.attachment = attachment
         
-        var quickRepliesArray: [QuickReply]?
-        
-        if let attachmentValue = attachment?.currentValue as? String,
-           let attachmentQuickReplies = quickReplies?[attachmentValue] {
-            quickRepliesArray = attachmentQuickReplies
-        } else {
-            quickRepliesArray = quickReplies?.first?.value
-        }
-        
-        let (filteredMessageActions, filteredQuickReplies) = quickRepliesArray?.separate { quickReply -> Bool in
+        let (filteredMessageActions, filteredQuickReplies) = quickReplies?.separate { quickReply -> Bool in
             return quickReply.action.isMessageAction
         } ?? ([], [])
         
@@ -84,51 +75,44 @@ extension ChatMessage {
         case userCanTypeResponse
     }
     
-    class func fromJSON(_ json: Any?, with metadata: EventMetadata) -> ChatMessage? {
-        guard let json = json as? [String: Any] else {
+    class func fromJSON(_ dict: Any?, with metadata: EventMetadata) -> ChatMessage? {
+        guard let dict = dict as? [String: Any] else {
             return nil
         }
         
-        let messageJSON = json.jsonObject(for: JSONKey.clientMessage.rawValue) ?? json
+        let messageDict = dict.jsonObject(for: JSONKey.clientMessage.rawValue) ?? dict
         
-        if jsonIsLikelyLegacy(messageJSON), let legacyMessage = fromLegacySRSJSON(messageJSON, with: metadata) {
+        if jsonIsLikelyLegacy(messageDict),
+           let legacyMessage = fromLegacySRSJSON(messageDict, with: metadata) {
             return legacyMessage
         }
         
-        let text = messageJSON.string(for: JSONKey.text.rawValue)
+        let text = messageDict.string(for: JSONKey.text.rawValue)
         
         let notification: ChatMessageNotification?
-        if let notificationDict = messageJSON[JSONKey.notification.rawValue] as? [String: Any] {
+        if let notificationDict = messageDict[JSONKey.notification.rawValue] as? [String: Any] {
             notification = ChatMessageNotification.fromDict(notificationDict)
         } else {
             notification = nil
         }
         
-        let attachment = ChatMessageAttachment.fromJSON(messageJSON[JSONKey.attachment.rawValue])
+        let attachment = ChatMessageAttachment.fromJSON(messageDict[JSONKey.attachment.rawValue])
         
-        var quickRepliesDictionary: [String: [QuickReply]]? = [String: [QuickReply]]()
-        if let quickRepliesJSONDict = messageJSON[JSONKey.quickReplies.rawValue] as? [String: [[String: Any]]] {
-            for (pageId, buttonsJSON) in quickRepliesJSONDict {
-                var quickReplies = [QuickReply]()
-                for buttonJSON in buttonsJSON {
-                    if let quickReply = QuickReply.fromJSON(buttonJSON) {
-                        quickReplies.append(quickReply)
-                    }
-                }
-                if quickReplies.count > 0 {
-                    quickRepliesDictionary?[pageId] = quickReplies
-                }
-            }
+        var quickReplies: [QuickReply]?
+        if let quickReplyDicts = messageDict.arrayOfDictionaries(for: JSONKey.quickReplies.rawValue) {
+            quickReplies = QuickReply.arrayFromJSON(quickReplyDicts)
         }
         
-        if (quickRepliesDictionary ?? [String: [QuickReply]]()).isEmpty {
-            quickRepliesDictionary = nil
+        // fall back to parsing a dictionary of arrays of quick replies
+        if quickReplies?.isEmpty ?? true,
+           let quickRepliesDict = messageDict[JSONKey.quickReplies.rawValue] as? [String: [[String: Any]]] {
+            quickReplies = QuickReply.arrayFromJSON(quickRepliesDict.first?.value)
         }
         
-        let userCanTypeResponse = json.bool(for: JSONKey.userCanTypeResponse.rawValue)
+        let userCanTypeResponse = dict.bool(for: JSONKey.userCanTypeResponse.rawValue)
         
-        let suppressNewQuestionConfirmation = json.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
+        let suppressNewQuestionConfirmation = dict.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
 
-        return ChatMessage(text: text, notification: notification, attachment: attachment, quickReplies: quickRepliesDictionary, userCanTypeResponse: userCanTypeResponse, suppressNewQuestionConfirmation: suppressNewQuestionConfirmation, metadata: metadata)
+        return ChatMessage(text: text, notification: notification, attachment: attachment, quickReplies: quickReplies, userCanTypeResponse: userCanTypeResponse, suppressNewQuestionConfirmation: suppressNewQuestionConfirmation, metadata: metadata)
     }
 }

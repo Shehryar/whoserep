@@ -80,18 +80,11 @@ extension ChatMessage {
                 }
             }
         }
-        
-        var quickRepliesHash: [String: [QuickReply]]?
-        if let quickReplies = quickReplies, !quickReplies.isEmpty {
-            quickRepliesHash = [
-                "default": quickReplies
-            ]
-        }
     
         return ChatMessage(text: legacyComponents.message,
                            notification: nil,
                            attachment: attachment,
-                           quickReplies: quickRepliesHash,
+                           quickReplies: quickReplies,
                            metadata: metadata)
     }
     

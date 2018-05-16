@@ -28,10 +28,6 @@ class ChatMessageAttachment: NSObject {
     let template: Component?
     let requiresNoContainer: Bool
     
-    var currentValue: Any? {
-        return template?.value
-    }
-    
     // MARK: - Init
     
     init(content: Any, requiresNoContainer: Bool? = nil) {

@@ -48,7 +48,7 @@ class TableViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         var sections = [TableViewSectionItem]()
-        if let dicts = Component.arrayOfDicts(content?[JSONKey.sections.rawValue]) {
+        if let dicts = content?.arrayOfDictionaries(for: JSONKey.sections.rawValue) {
             for dict in dicts {
                 if let section = TableViewSectionItem(dict: dict, styles: styles) {
                     sections.append(section)
@@ -103,7 +103,7 @@ class TableViewSectionItem: NSObject {
     init?(dict: [String: Any], styles: [String: Any]?) {
         self.header = ComponentFactory.component(with: dict[JSONKey.header.rawValue], styles: styles)
         var rows = [Component]()
-        if let rowDicts = Component.arrayOfDicts(dict[JSONKey.rows.rawValue]) {
+        if let rowDicts = dict.arrayOfDictionaries(for: JSONKey.rows.rawValue) {
             for rowDict in rowDicts {
                 if let row = ComponentFactory.component(with: rowDict, styles: styles) {
                     rows.append(row)

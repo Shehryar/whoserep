@@ -64,7 +64,7 @@ class StackViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         
-        guard let dicts = Component.arrayOfDicts(content?[JSONKey.items.rawValue]) else {
+        guard let dicts = content?.arrayOfDictionaries(for: JSONKey.items.rawValue) else {
             DebugLog.w(caller: StackViewItem.self, "Missing items json. Returning nil:\n\(String(describing: content))")
             return nil
         }

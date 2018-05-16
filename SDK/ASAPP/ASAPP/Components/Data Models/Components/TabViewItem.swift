@@ -45,7 +45,7 @@ class TabViewItem: Component {
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
         var pages = [TabViewPage]()
-        if let dicts = Component.arrayOfDicts(content?[JSONKey.pages.rawValue]) {
+        if let dicts = content?.arrayOfDictionaries(for: JSONKey.pages.rawValue) {
             for dict in dicts {
                 if let page = TabViewPage(dict: dict, styles: styles) {
                     pages.append(page)
