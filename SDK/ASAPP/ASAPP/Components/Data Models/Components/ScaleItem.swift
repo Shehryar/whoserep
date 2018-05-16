@@ -10,6 +10,17 @@ import UIKit
 
 class ScaleItem: Component {
     
+    enum ScaleType: String {
+        case fiveNumber
+        case fiveStar
+    }
+    
+    enum JSONKey: String {
+        case scaleType
+    }
+    
+    let scaleType: ScaleType
+    
     // MARK: - Component Properties
     
     override var viewClass: UIView.Type {
@@ -26,6 +37,11 @@ class ScaleItem: Component {
                    style: ComponentStyle,
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
+        let scaleTypeString = content?.string(for: JSONKey.scaleType.rawValue) ?? ""
+        let scaleType = ScaleType.init(rawValue: scaleTypeString) ?? .fiveNumber
+        
+        self.scaleType = scaleType
+        
         super.init(id: id,
                    name: name,
                    value: value,
