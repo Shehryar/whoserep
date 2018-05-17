@@ -968,7 +968,7 @@
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mitchell Morgan (95LSW78FNM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hans Hyttinen (V444Y7FXP4)";
 				CURRENT_PROJECT_VERSION = 145;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
