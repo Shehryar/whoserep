@@ -515,10 +515,10 @@ extension ChatMessagesView {
         }
         
         let messages = events.map { $0.chatMessage }.compactMap { $0 }
-        let appended = dataSource.appendMessages(Array(messages))
+        dataSource.appendMessages(Array(messages))
         
         UIView.performWithoutAnimation { [weak self] in
-            self?.tableView.insertRows(at: appended, with: .none)
+            self?.tableView.reloadData()
         }
     }
     

@@ -180,16 +180,10 @@ extension ChatMessagesViewDataSource {
         return indexPath
     }
     
-    func appendMessages(_ messages: [ChatMessage]) -> [IndexPath] {
-        var indexPaths: [IndexPath] = []
-        
+    func appendMessages(_ messages: [ChatMessage]) {
         for message in messages {
-            if let indexPath = addMessage(message) {
-                indexPaths.append(indexPath)
-            }
+            addMessage(message)
         }
-        
-        return indexPaths
     }
     
     func insertMessages(_ messages: [ChatMessage]) {
