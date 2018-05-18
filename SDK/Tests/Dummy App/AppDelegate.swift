@@ -17,6 +17,7 @@ let testCaseViewControllers: [TestCaseViewController.Type] = [
     FormValidation.self,
     FormWithScale.self,
     FormWithRadio.self,
+    ImageLayout.self,
     Dropdown.self
 ]
 

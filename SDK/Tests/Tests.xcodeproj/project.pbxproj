@@ -93,11 +93,30 @@
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
 		3A7AE86E2050AD7F0087DA45 /* MockConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7AE86D2050AD7F0087DA45 /* MockConversationManager.swift */; };
 		3A7AE86F20518C630087DA45 /* ChatViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7AE86920509FA90087DA45 /* ChatViewControllerSpec.swift */; };
+		3A7B8ECF20ACDB5F00DC5EAE /* image-layout.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */; };
+		3A7B8ED020ACDB5F00DC5EAE /* image-layout.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */; };
+		3A7B8ED120ACDB5F00DC5EAE /* image-layout.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */; };
+		3A7B8ED220ACDB5F00DC5EAE /* image-layout.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */; };
+		3A7B8ED320ACDDAF00DC5EAE /* FormWithRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */; };
+		3A7B8ED520ACDDCB00DC5EAE /* ImageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ED420ACDDCB00DC5EAE /* ImageLayout.swift */; };
+		3A7B8ED620ACDDCB00DC5EAE /* ImageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ED420ACDDCB00DC5EAE /* ImageLayout.swift */; };
+		3A7B8ED720ACDDCB00DC5EAE /* ImageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ED420ACDDCB00DC5EAE /* ImageLayout.swift */; };
 		3A889FE41FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */; };
+		3A95F2D720AD03BD00885C94 /* ImageViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95F2D620AD03BD00885C94 /* ImageViewSpec.swift */; };
+		3A95F2D920AD06EA00885C94 /* feedback-form-image.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F2D820AD06EA00885C94 /* feedback-form-image.json */; };
+		3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F2D820AD06EA00885C94 /* feedback-form-image.json */; };
+		3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F2D820AD06EA00885C94 /* feedback-form-image.json */; };
+		3A95F2DC20AD06EA00885C94 /* feedback-form-image.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F2D820AD06EA00885C94 /* feedback-form-image.json */; };
 		3A9EF228202A60510092A1AA /* NotificationBannerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */; };
 		3A9F51C11FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C21FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C31FB122F9009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
+		3AA0D3B620AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
+		3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
+		3AA0D3B820AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
+		3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */; };
+		3AA0D3BB20AA16AC00A04206 /* FormWithRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */; };
+		3AA0D3BD20AA328300A04206 /* RadioButtonViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */; };
 		3AA0D3C220AA448100A04206 /* DropdownTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */; };
 		3AA0D3C320AA448100A04206 /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AA0D3C720AA448100A04206 /* SingleComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */; };
@@ -132,12 +151,6 @@
 		3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3AA0D3B620AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
-		3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
-		3AA0D3B820AA160B00A04206 /* feedback-form-radio.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */; };
-		3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */; };
-		3AA0D3BB20AA16AC00A04206 /* FormWithRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */; };
-		3AA0D3BD20AA328300A04206 /* RadioButtonViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */; };
 		3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */; };
 		3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */; };
 		3AA1E4F11FF429C700548E3D /* ChatMessageCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */; };
@@ -324,14 +337,18 @@
 		3A797B8F1F97A29D00883ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A7AE86920509FA90087DA45 /* ChatViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControllerSpec.swift; sourceTree = "<group>"; };
 		3A7AE86D2050AD7F0087DA45 /* MockConversationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConversationManager.swift; sourceTree = "<group>"; };
+		3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "image-layout.json"; sourceTree = "<group>"; };
+		3A7B8ED420ACDDCB00DC5EAE /* ImageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLayout.swift; sourceTree = "<group>"; };
 		3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializerSpec.swift; sourceTree = "<group>"; };
+		3A95F2D620AD03BD00885C94 /* ImageViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewSpec.swift; sourceTree = "<group>"; };
+		3A95F2D820AD06EA00885C94 /* feedback-form-image.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form-image.json"; sourceTree = "<group>"; };
 		3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerSpec.swift; sourceTree = "<group>"; };
 		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
-		3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Interaction Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AA0D41220AA454E00A04206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form-radio.json"; sourceTree = "<group>"; };
 		3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWithRadio.swift; sourceTree = "<group>"; };
 		3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewSpec.swift; sourceTree = "<group>"; };
+		3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Interaction Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AA0D41220AA454E00A04206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderViewSpec.swift; sourceTree = "<group>"; };
 		3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCellSpec.swift; sourceTree = "<group>"; };
 		3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCellSpec.swift; sourceTree = "<group>"; };
@@ -431,9 +448,11 @@
 				3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */,
 				3A9F51C01FB122F3009C68AE /* event-list.json */,
 				3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */,
+				3A95F2D820AD06EA00885C94 /* feedback-form-image.json */,
 				3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */,
 				3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */,
 				3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */,
+				3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */,
 				3A0429321F97C1E30031CD78 /* live-chat-begin.json */,
 				3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */,
 				3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */,
@@ -485,6 +504,7 @@
 				3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */,
 				3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */,
 				3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */,
+				3A7B8ED420ACDDCB00DC5EAE /* ImageLayout.swift */,
 				3A391B371FA14E080085C2DA /* FormValidation.swift */,
 				3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */,
 				3A621FD4208E93E800CB11D6 /* FormWithScale.swift */,
@@ -547,6 +567,7 @@
 				3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */,
 				3A621FC0208E79EC00CB11D6 /* GatekeeperViewSpec.swift */,
 				3ADD60811FE4485A00FC783C /* IconViewSpec.swift */,
+				3A95F2D620AD03BD00885C94 /* ImageViewSpec.swift */,
 				3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */,
 				3A0521791F9E9A000072D089 /* LabelViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
@@ -742,6 +763,8 @@
 				3A127DB81FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
 				3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
 				3A391B3F1FA14EB20085C2DA /* phone-plan-upgrade.json in Resources */,
+				3A7B8ECF20ACDB5F00DC5EAE /* image-layout.json in Resources */,
+				3A95F2D920AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A391B3B1FA14EB20085C2DA /* add-credit-card.json in Resources */,
 				3ACF18981FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */,
@@ -758,8 +781,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */,
+				3A7B8ED020ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AED18F31FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
+				3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A04293D1F97C24C0031CD78 /* add-credit-card.json in Resources */,
 				3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3A04293F1F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
@@ -778,8 +803,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA0D3B820AA160B00A04206 /* feedback-form-radio.json in Resources */,
+				3A7B8ED120ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AED18F41FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
+				3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A0429421F97C24C0031CD78 /* add-credit-card.json in Resources */,
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3A0429441F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
@@ -802,10 +829,12 @@
 				3AA0D3FD20AA448100A04206 /* add-credit-card.json in Resources */,
 				3AA0D3FE20AA448100A04206 /* schedule-appointment-5-day.json in Resources */,
 				3AA0D3FF20AA448100A04206 /* phone-plan-upgrade.json in Resources */,
+				3A7B8ED220ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AA0D40020AA448100A04206 /* security-pin.json in Resources */,
 				3AA0D40120AA448100A04206 /* live-chat-begin.json in Resources */,
 				3AA0D40220AA448100A04206 /* event-list.json in Resources */,
 				3AA0D40320AA448100A04206 /* change-pin-form.json in Resources */,
+				3A95F2DC20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3AA0D40420AA448100A04206 /* change-pin-form-proper-padding.json in Resources */,
 				3AA0D40520AA448100A04206 /* feedback-form.json in Resources */,
 				3AA0D40620AA448100A04206 /* feedback-form-scale.json in Resources */,
@@ -854,6 +883,7 @@
 				3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */,
 				3A621FD5208E93E800CB11D6 /* FormWithScale.swift in Sources */,
+				3A7B8ED520ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
 				3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
 				3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */,
@@ -900,6 +930,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A7B8ED620ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
 				3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */,
 				3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */,
@@ -940,11 +971,11 @@
 				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
+				3A95F2D720AD03BD00885C94 /* ImageViewSpec.swift in Sources */,
 				3AE183A92059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift in Sources */,
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
 				3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */,
 				3AA0D3BB20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
-				3A0521821F9FD8550072D089 /* TextAreaViewTestCase.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A621FD6208E93E800CB11D6 /* FormWithScale.swift in Sources */,
 				3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */,
@@ -958,6 +989,7 @@
 			files = (
 				3AA0D3C220AA448100A04206 /* DropdownTestCase.swift in Sources */,
 				3AA0D3C320AA448100A04206 /* TextAreaMaxLength.swift in Sources */,
+				3A7B8ED320ACDDAF00DC5EAE /* FormWithRadio.swift in Sources */,
 				3AA0D3C720AA448100A04206 /* SingleComponentViewController.swift in Sources */,
 				3AA0D3C920AA448100A04206 /* TextInputViewTestCase.swift in Sources */,
 				3AA0D3D120AA448100A04206 /* IdentifiableTestCase.swift in Sources */,
@@ -968,6 +1000,7 @@
 				3AA0D3ED20AA448100A04206 /* TextInputMaxLength.swift in Sources */,
 				3AA0D3EF20AA448100A04206 /* TextAreaViewTestCase.swift in Sources */,
 				3AA0D3F120AA448100A04206 /* FormWithScale.swift in Sources */,
+				3A7B8ED720ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3AA0D3F220AA448100A04206 /* FormValidationTestCase.swift in Sources */,
 				3AA0D3F320AA448100A04206 /* Dropdown.swift in Sources */,
 			);

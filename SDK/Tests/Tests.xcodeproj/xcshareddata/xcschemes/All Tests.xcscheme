@@ -120,7 +120,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "formWithScale"
+            argument = "imageLayout"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
