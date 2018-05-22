@@ -26,35 +26,35 @@ class ChatMessageSpec: QuickSpec {
                 
                 context("without text, an attachment, and quickReplies") {
                     it("is nil") {
-                        let msg = ChatMessage(text: nil, notification: nil, attachment: nil, quickReplies: nil, metadata: metadata)
+                        let msg = ChatMessage(text: nil, notification: nil, attachment: nil, buttons: nil, quickReplies: nil, metadata: metadata)
                         expect(msg).to(beNil())
                     }
                 }
                 
                 context("without text") {
                     it("is not nil") {
-                        let msg = ChatMessage(text: nil, notification: nil, attachment: attachment, quickReplies: [], metadata: metadata)
+                        let msg = ChatMessage(text: nil, notification: nil, attachment: attachment, buttons: nil, quickReplies: [], metadata: metadata)
                         expect(msg).toNot(beNil())
                     }
                 }
                 
                 context("without an attachment") {
                     it("is not nil") {
-                        let msg = ChatMessage(text: "foo", notification: nil, attachment: nil, quickReplies: [], metadata: metadata)
+                        let msg = ChatMessage(text: "foo", notification: nil, attachment: nil, buttons: nil, quickReplies: [], metadata: metadata)
                         expect(msg).toNot(beNil())
                     }
                 }
                 
                 context("without quickReplies") {
                     it("is not nil") {
-                        let msg = ChatMessage(text: "foo", notification: nil, attachment: attachment, quickReplies: nil, metadata: metadata)
+                        let msg = ChatMessage(text: "foo", notification: nil, attachment: attachment, buttons: nil, quickReplies: nil, metadata: metadata)
                         expect(msg).toNot(beNil())
                     }
                 }
                 
                 context("with an empty quickReplies array") {
                     it("has a nil quickReplies property") {
-                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, quickReplies: [], metadata: metadata)
+                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, buttons: nil, quickReplies: [], metadata: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.quickReplies).to(beNil())
                     }
@@ -63,11 +63,28 @@ class ChatMessageSpec: QuickSpec {
                 context("with an attachment quick reply") {
                     it("has the attachment quick reply") {
                         let attachment = ChatMessageAttachment(content: Component(id: "a", name: "a", value: "foo", isChecked: nil, style: ComponentStyle(), styles: nil, content: nil) as Any)
-                        let quickReply = QuickReply(title: "bar", action: Action(content: "baz")!)
-                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, quickReplies: [quickReply], metadata: metadata)
+                        let quickReply = QuickReply(title: "bar", action: Action(content: "baz")!, icon: nil, isTransient: false)
+                        let msg = ChatMessage(text: "", notification: nil, attachment: attachment, buttons: nil, quickReplies: [quickReply], metadata: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.quickReplies).toNot(beNil())
                         expect(msg!.quickReplies).to(equal([quickReply]))
+                    }
+                }
+                
+                context("with duplicate quick replies") {
+                    it("has the correct number of buttons and quick replies") {
+                        let msg = ChatMessage(text: "", notification: nil, attachment: nil, buttons: [
+                            QuickReply(title: "First", action: Action(content: "1")!, icon: nil, isTransient: false),
+                            QuickReply(title: "Second", action: Action(content: "2")!, icon: nil, isTransient: false)
+                        ], quickReplies: [
+                            QuickReply(title: "First", action: WebPageAction(content: ["url": "http://asapp.com"])!, icon: nil, isTransient: true),
+                            QuickReply(title: "First", action: Action(content: "1")!, icon: nil, isTransient: false),
+                            QuickReply(title: "Second", action: Action(content: "2")!, icon: nil, isTransient: false),
+                            QuickReply(title: "Third", action: Action(content: "3")!, icon: nil, isTransient: false)
+                        ], metadata: metadata)
+                        expect(msg).toNot(beNil())
+                        expect(msg!.buttons!.count).to(equal(2))
+                        expect(msg!.quickReplies!.count).to(equal(3))
                     }
                 }
             }
@@ -94,7 +111,7 @@ class ChatMessageSpec: QuickSpec {
                         expect(msg).toNot(beNil())
                         expect(msg!.text).to(contain("add a credit card"))
                         
-                        let action = msg!.messageActions?.first?.action as? DeepLinkAction
+                        let action = msg!.buttons?.first?.action as? DeepLinkAction
                         expect(action).toNot(beNil())
                         expect(action?.name).to(equal("payment"))
                         expect(msg!.hasQuickReplies).to(equal(false))
@@ -109,7 +126,7 @@ class ChatMessageSpec: QuickSpec {
                         expect(msg!.text).to(contain("security PIN"))
                         
                         expect(msg!.hasQuickReplies).to(equal(true))
-                        let action = msg!.messageActions?.first?.action as? ComponentViewAction
+                        let action = msg!.buttons?.first?.action as? ComponentViewAction
                         expect(action).toNot(beNil())
                         expect(action?.name).to(contain("new_pin"))
                     }
@@ -156,7 +173,7 @@ class ChatMessageSpec: QuickSpec {
                         
                         expect(msg!.hasQuickReplies).to(equal(false))
                         
-                        let firstReply = msg!.messageActions?.first
+                        let firstReply = msg!.buttons?.first
                         expect(firstReply).toNot(beNil())
                         expect(firstReply?.title).to(equal("Make a Payment"))
                         expect(firstReply?.action).to(beAKindOf(DeepLinkAction.self))

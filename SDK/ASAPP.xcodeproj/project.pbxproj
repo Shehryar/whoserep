@@ -380,6 +380,7 @@
 		3A7B8EC920ACC8B800DC5EAE /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */; };
 		3A7B8ECB20ACC97500DC5EAE /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */; };
 		3A7B8ECD20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECC20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift */; };
+		3A87910420B3718600AD81E5 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87910320B3718600AD81E5 /* ArrayExtensions.swift */; };
 		3A883C5D1FBB71BA00B44116 /* BubbleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */; };
 		3A883C5F1FBBAB1800B44116 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */; };
 		3A883C641FBC959F00B44116 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C601FBC959D00B44116 /* Lato-BlackItalic.ttf */; };
@@ -804,6 +805,7 @@
 		3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
 		3A7B8ECC20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
+		3A87910320B3718600AD81E5 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleButton.swift; sourceTree = "<group>"; };
 		3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
 		3A883C601FBC959D00B44116 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -1036,6 +1038,7 @@
 		30099DBD1D3EDBC400171D56 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				3A87910320B3718600AD81E5 /* ArrayExtensions.swift */,
 				3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */,
 				3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */,
 				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
@@ -2295,6 +2298,7 @@
 				3A9EF21D2028C0A00092A1AA /* RestartConfirmationActionSheet.swift in Sources */,
 				307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
+				3A87910420B3718600AD81E5 /* ArrayExtensions.swift in Sources */,
 				30131F9E1EAFB3B2009E7299 /* ASAPPButtonColors.swift in Sources */,
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,

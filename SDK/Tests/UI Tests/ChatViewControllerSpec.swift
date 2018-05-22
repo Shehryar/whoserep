@@ -69,7 +69,7 @@ class ChatViewControllerSpec: QuickSpec {
                     issueId: 0,
                     sendTime: Date(timeIntervalSince1970: eventTime))
                 
-                event.chatMessage = ChatMessage(text: text, notification: nil, attachment: nil, quickReplies: quickReplies, metadata: metadata)
+                event.chatMessage = ChatMessage(text: text, notification: nil, attachment: nil, buttons: nil, quickReplies: quickReplies, metadata: metadata)
                 
                 return event
             }

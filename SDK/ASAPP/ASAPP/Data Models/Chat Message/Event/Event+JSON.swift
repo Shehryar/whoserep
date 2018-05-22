@@ -186,6 +186,7 @@ extension Event {
             return ChatMessage(text: text,
                                notification: nil,
                                attachment: nil,
+                               buttons: nil,
                                quickReplies: nil,
                                metadata: metadata)
             
@@ -195,6 +196,7 @@ extension Event {
                 return ChatMessage(text: nil,
                                    notification: nil,
                                    attachment: attachment,
+                                   buttons: nil,
                                    quickReplies: nil,
                                    metadata: metadata)
             }

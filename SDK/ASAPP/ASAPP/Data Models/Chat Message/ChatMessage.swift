@@ -16,7 +16,7 @@ class ChatMessage: NSObject {
     let notification: ChatMessageNotification?
     let attachment: ChatMessageAttachment?
     let quickReplies: [QuickReply]?
-    let messageActions: [QuickReply]?
+    let buttons: [QuickReply]?
     let userCanTypeResponse: Bool?
     let suppressNewQuestionConfirmation: Bool
     let hideNewQuestionButton: Bool
@@ -27,7 +27,7 @@ class ChatMessage: NSObject {
     }
     
     var hasMessageActions: Bool {
-        return !(messageActions?.isEmpty ?? true)
+        return !(buttons?.isEmpty ?? true)
     }
    
     // MARK: Init
@@ -35,6 +35,7 @@ class ChatMessage: NSObject {
     init?(text: String?,
           notification: ChatMessageNotification?,
           attachment: ChatMessageAttachment?,
+          buttons: [QuickReply]?,
           quickReplies: [QuickReply]?,
           userCanTypeResponse: Bool? = nil,
           suppressNewQuestionConfirmation: Bool = false,
@@ -53,7 +54,11 @@ class ChatMessage: NSObject {
         } ?? ([], [])
         
         self.quickReplies = filteredQuickReplies.isEmpty ? nil : filteredQuickReplies
-        self.messageActions = filteredMessageActions.isEmpty ? nil : filteredMessageActions
+        
+        let combinedButtons = filteredMessageActions.map {
+            return QuickReply(title: $0.title, action: $0.action, icon: $0.icon, isTransient: true)
+        } + (buttons ?? [])
+        self.buttons = combinedButtons.isEmpty ? nil : combinedButtons.withoutDuplicates()
         
         self.metadata = metadata
         self.userCanTypeResponse = userCanTypeResponse
@@ -70,6 +75,7 @@ extension ChatMessage {
     
     enum JSONKey: String {
         case attachment
+        case buttons
         case clientMessage = "ClientMessage"
         case hideNewQuestionButton
         case notification
@@ -102,6 +108,11 @@ extension ChatMessage {
         
         let attachment = ChatMessageAttachment.fromJSON(messageDict[JSONKey.attachment.rawValue])
         
+        var buttons: [QuickReply]?
+        if let buttonDicts = messageDict.arrayOfDictionaries(for: JSONKey.buttons.rawValue) {
+            buttons = QuickReply.arrayFromJSON(buttonDicts)
+        }
+        
         var quickReplies: [QuickReply]?
         if let quickReplyDicts = messageDict.arrayOfDictionaries(for: JSONKey.quickReplies.rawValue) {
             quickReplies = QuickReply.arrayFromJSON(quickReplyDicts)
@@ -122,6 +133,7 @@ extension ChatMessage {
             text: text,
             notification: notification,
             attachment: attachment,
+            buttons: buttons,
             quickReplies: quickReplies,
             userCanTypeResponse: userCanTypeResponse,
             suppressNewQuestionConfirmation: suppressNewQuestionConfirmation,

@@ -62,7 +62,7 @@ extension ChatMessage {
         if let buttons = legacyComponents.buttons {
             quickReplies = [QuickReply]()
             for button in buttons {
-                quickReplies?.append(QuickReply(title: button.title, action: button.action))
+                quickReplies?.append(QuickReply(title: button.title, action: button.action, icon: nil, isTransient: false))
             }
         }
         
@@ -84,6 +84,7 @@ extension ChatMessage {
         return ChatMessage(text: legacyComponents.message,
                            notification: nil,
                            attachment: attachment,
+                           buttons: nil,
                            quickReplies: quickReplies,
                            metadata: metadata)
     }

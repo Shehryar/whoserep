@@ -69,7 +69,7 @@ class ChatMessagesView: UIView {
     
     var showTimeStampForMessage: ChatMessage?
     
-    var hideMessageButtons = false
+    var hideTransientMessageButtons = false
     
     var firstMessage: ChatMessage? {
         return dataSource.allMessages.first
@@ -207,8 +207,8 @@ extension ChatMessagesView {
         return .none
     }
     
-    private func shouldShowButtons(for message: ChatMessage) -> Bool {
-        return message == lastMessage && !hideMessageButtons
+    private func shouldShowTransientButtons(for message: ChatMessage) -> Bool {
+        return message == lastMessage && !hideTransientMessageButtons
     }
 }
 
@@ -249,12 +249,13 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             return typingCell ?? UITableViewCell()
         }
         
-        let cell = cellMaster.cellForMessage(message,
-                                             listPosition: messageListPositionForIndexPath(indexPath),
-                                             detailsVisible: message == showTimeStampForMessage,
-                                             buttonsVisible: shouldShowButtons(for: message),
-                                             atIndexPath: indexPath)
-        cell?.delegate = self
+        let cell = cellMaster.cellForMessage(
+            message,
+            listPosition: messageListPositionForIndexPath(indexPath),
+            detailsVisible: message == showTimeStampForMessage,
+            transientButtonsVisible: shouldShowTransientButtons(for: message),
+            atIndexPath: indexPath,
+            delegate: self)
         
         return cell ?? UITableViewCell()
     }
@@ -358,7 +359,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         let height = cellMaster.heightForCell(with: message,
                                               listPosition: listPosition,
                                               detailsVisible: message == showTimeStampForMessage,
-                                              buttonsVisible: shouldShowButtons(for: message))
+                                              transientButtonsVisible: shouldShowTransientButtons(for: message))
         return height
     }
     
@@ -548,7 +549,7 @@ extension ChatMessagesView {
     func reloadWithEvents(_ events: [Event]) {
         let countBefore = dataSource.allMessages.count
         
-        hideMessageButtons = events.last?.eventType == .accountMerge
+        hideTransientMessageButtons = events.last?.eventType == .accountMerge
         dataSource.reloadWithEvents(events)
         tableView.reloadData()
         
@@ -569,7 +570,7 @@ extension ChatMessagesView {
             return
         }
         
-        hideMessageButtons = false
+        hideTransientMessageButtons = false
         
         // Only animate the message if the user is near the bottom
         let wasNearBottom = isNearBottom()

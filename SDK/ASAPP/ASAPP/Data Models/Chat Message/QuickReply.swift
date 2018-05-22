@@ -8,19 +8,29 @@
 
 import UIKit
 
-class QuickReply: NSObject {
-
+class QuickReply {
     let title: String
     
     let action: Action
     
     let icon: IconItem?
+    let isTransient: Bool
     
-    init(title: String, action: Action, icon: IconItem? = nil) {
+    init(title: String, action: Action, icon: IconItem?, isTransient: Bool = false) {
         self.title = title
         self.action = action
         self.icon = icon
-        super.init()
+        self.isTransient = isTransient
+    }
+}
+
+extension QuickReply: Hashable {
+    var hashValue: Int {
+        return title.hashValue
+    }
+    
+    static func == (lhs: QuickReply, rhs: QuickReply) -> Bool {
+        return lhs.title == rhs.title
     }
 }
 
@@ -32,6 +42,7 @@ extension QuickReply {
         case title
         case action
         case icon
+        case isTransient
     }
     
     class func fromJSON(_ json: Any?) -> QuickReply? {
@@ -54,7 +65,9 @@ extension QuickReply {
             icon = ComponentFactory.component(with: iconDict.string(for: "name"), styles: nil) as? IconItem
         }
         
-        return QuickReply(title: title, action: action, icon: icon)
+        let isTransient = json.bool(for: JSONKey.isTransient.rawValue) ?? false
+        
+        return QuickReply(title: title, action: action, icon: icon, isTransient: isTransient)
     }
     
     class func arrayFromJSON(_ jsonArray: Any?) -> [QuickReply]? {
