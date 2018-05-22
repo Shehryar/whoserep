@@ -19,6 +19,7 @@ class ChatMessage: NSObject {
     let messageActions: [QuickReply]?
     let userCanTypeResponse: Bool?
     let suppressNewQuestionConfirmation: Bool
+    let hideNewQuestionButton: Bool
     let metadata: EventMetadata
     
     var hasQuickReplies: Bool {
@@ -37,6 +38,7 @@ class ChatMessage: NSObject {
           quickReplies: [QuickReply]?,
           userCanTypeResponse: Bool? = nil,
           suppressNewQuestionConfirmation: Bool = false,
+          hideNewQuestionButton: Bool = false,
           metadata: EventMetadata) {
         guard (text != nil && !(text?.isEmpty == true)) || attachment != nil || quickReplies != nil else {
             return nil
@@ -56,6 +58,7 @@ class ChatMessage: NSObject {
         self.metadata = metadata
         self.userCanTypeResponse = userCanTypeResponse
         self.suppressNewQuestionConfirmation = suppressNewQuestionConfirmation
+        self.hideNewQuestionButton = hideNewQuestionButton
         
         super.init()
     }
@@ -68,6 +71,7 @@ extension ChatMessage {
     enum JSONKey: String {
         case attachment
         case clientMessage = "ClientMessage"
+        case hideNewQuestionButton
         case notification
         case quickReplies
         case suppressNewQuestionConfirmation
@@ -112,7 +116,16 @@ extension ChatMessage {
         let userCanTypeResponse = dict.bool(for: JSONKey.userCanTypeResponse.rawValue)
         
         let suppressNewQuestionConfirmation = dict.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
+        let hideNewQuestionButton = dict.bool(for: JSONKey.hideNewQuestionButton.rawValue) ?? false
 
-        return ChatMessage(text: text, notification: notification, attachment: attachment, quickReplies: quickReplies, userCanTypeResponse: userCanTypeResponse, suppressNewQuestionConfirmation: suppressNewQuestionConfirmation, metadata: metadata)
+        return ChatMessage(
+            text: text,
+            notification: notification,
+            attachment: attachment,
+            quickReplies: quickReplies,
+            userCanTypeResponse: userCanTypeResponse,
+            suppressNewQuestionConfirmation: suppressNewQuestionConfirmation,
+            hideNewQuestionButton: hideNewQuestionButton,
+            metadata: metadata)
     }
 }
