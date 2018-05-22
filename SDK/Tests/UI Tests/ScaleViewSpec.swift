@@ -33,9 +33,20 @@ class ScaleViewSpec: QuickSpec {
                     style = TestUtil.createStyle()
                 }
                 
-                context("horizontal") {
+                context("five number") {
                     it("has a valid snapshot") {
                         let scaleItem = ScaleItem(style: style)
+                        let scale = ScaleView(frame: CGRect(x: 0, y: 0, width: 282, height: 80))
+                        scale.component = scaleItem
+                        let size = scale.sizeThatFits(CGSize(width: 282, height: CGFloat.greatestFiniteMagnitude))
+                        scale.frame = CGRect(x: 0, y: 0, width: scale.frame.width, height: size.height)
+                        expect(scale).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("five star") {
+                    it("has a valid snapshot") {
+                        let scaleItem = ScaleItem(style: style, content: ["scaleType": "fiveStar"])
                         let scale = ScaleView(frame: CGRect(x: 0, y: 0, width: 282, height: 80))
                         scale.component = scaleItem
                         let size = scale.sizeThatFits(CGSize(width: 282, height: CGFloat.greatestFiniteMagnitude))

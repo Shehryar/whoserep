@@ -64,6 +64,14 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         return nil
     }
     
+    func arrayOfDictionaries(for key: String) -> [[String: Any]]? {
+        guard let array = self[key as! Key] as? [Any?] else {
+            return nil
+        }
+        
+        return array.map { $0 as? [String: Any] }.compactMap { $0 }
+    }
+    
     // MARK: Boolean
     
     func bool(for key: String) -> Bool? {

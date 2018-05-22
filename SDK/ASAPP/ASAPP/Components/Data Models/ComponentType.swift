@@ -18,6 +18,7 @@ enum ComponentType: String {
     case checkboxView
     case dropdown
     case icon
+    case image
     case label
     case pageControl
     case progressBar
@@ -48,6 +49,7 @@ enum ComponentType: String {
         case .checkboxView: return CheckboxViewItem.self
         case .dropdown: return DropdownItem.self
         case .icon: return IconItem.self
+        case .image: return ImageItem.self
         case .label: return LabelItem.self
         case .pageControl: return PageControlItem.self
         case .progressBar: return ProgressBarItem.self

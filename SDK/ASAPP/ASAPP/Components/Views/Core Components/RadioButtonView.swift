@@ -53,12 +53,6 @@ class RadioButtonView: RootComponentWrapperView {
             }
         }
         
-        if isSelected {
-            backgroundColor = ASAPP.styles.colors.controlSelectedBackground
-        } else if let background = component?.style.backgroundColor {
-            backgroundColor = background
-        } else {
-            backgroundColor = ASAPP.styles.colors.backgroundPrimary
-        }
+        backgroundColor = ASAPP.styles.colors.controlBackground
     }
 }

@@ -146,6 +146,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
         let userMessage = ChatMessage(text: messageText,
                                       notification: nil,
                                       attachment: nil,
+                                      buttons: nil,
                                       quickReplies: nil, 
                                       metadata: metadata)
         addMessage(userMessage)

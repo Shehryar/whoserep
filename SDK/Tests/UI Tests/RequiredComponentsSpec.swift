@@ -24,6 +24,7 @@ class RequiredComponentsSpec: QuickSpec {
                 window.makeKeyAndVisible()
                 
                 TestUtil.setUpASAPP()
+                TestUtil.createStyle()
             }
             
             context("without the required flag") {

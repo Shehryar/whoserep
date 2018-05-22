@@ -44,7 +44,6 @@ class ChatMessageAttachmentSpec: QuickSpec {
                         expect(attachment.image).to(beNil())
                         expect(attachment.template).to(equal(component))
                         expect(attachment.requiresNoContainer).to(equal(false))
-                        expect(attachment.currentValue as? String).to(equal(value))
                     }
                 }
             }

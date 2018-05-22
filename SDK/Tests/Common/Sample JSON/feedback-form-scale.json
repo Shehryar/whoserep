@@ -61,6 +61,9 @@
                   {
                     "type": "scale",
                     "name": "likelyToRecommend",
+                    "content": {
+                      "scaleType": "fiveStar"
+                    },
                     "style": {
                       "marginTop": 20,
                       "marginBottom": 6

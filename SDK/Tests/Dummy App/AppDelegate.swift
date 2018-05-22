@@ -16,6 +16,8 @@ let testCaseViewControllers: [TestCaseViewController.Type] = [
     TextInputMaxLength.self,
     FormValidation.self,
     FormWithScale.self,
+    FormWithRadio.self,
+    ImageLayout.self,
     Dropdown.self
 ]
 

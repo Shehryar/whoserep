@@ -1,4 +1,4 @@
-scheme "Tests"
+scheme "All Tests"
 
 workspace "SDK/ASAPP.xcworkspace"
 

@@ -193,10 +193,6 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         sendButton.addTarget(self, action: #selector(ChatInputView.didTapSendButton), for: .touchUpInside)
         bubbleView.addSubview(sendButton)
         
-        let tap = UITapGestureRecognizer(target: textView, action: #selector(UIView.becomeFirstResponder))
-        tap.cancelsTouchesInView = false
-        addGestureRecognizer(tap)
-        
         applyColors()
         updateSendButtonForCurrentState()
         updateInputMinHeight()
@@ -468,7 +464,6 @@ extension ChatInputView {
         showBlur()
         displayBorderTop = true
         resizeIfNeeded(animated: false)
-        textView.selectedTextRange = textView.textRange(from: textView.endOfDocument, to: textView.endOfDocument)
         if let insets = safeAreaInsets {
             bubbleInset.bottom = isFirstResponder ? 8 : max(8, insets.bottom - 13)
         } else {

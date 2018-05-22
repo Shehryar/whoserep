@@ -72,7 +72,7 @@ class EventMetadataSpec: QuickSpec {
                             eventType: .srsResponse,
                             issueId: 1,
                             sendTime: Calendar.current.date(byAdding: .day, value: -2, to: Date())!)
-                        let message = ChatMessage(text: "foo", notification: nil, attachment: ChatMessageAttachment(content: ""), quickReplies: nil, metadata: metadata2)!
+                        let message = ChatMessage(text: "foo", notification: nil, attachment: ChatMessageAttachment(content: ""), buttons: nil, quickReplies: nil, metadata: metadata2)!
                         expect(metadata.sendTime).toNot(equal(message.metadata.sendTime))
                         metadata.updateSendTime(toMatchMessage: message)
                         expect(metadata.sendTime).to(equal(message.metadata.sendTime))

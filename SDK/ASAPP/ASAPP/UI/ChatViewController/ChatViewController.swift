@@ -53,6 +53,7 @@ class ChatViewController: ASAPPViewController {
     private var inputState: InputState = .both
     private var previousInputState: InputState?
     private var shouldConfirmRestart: Bool = true
+    private var shouldHideNewQuestionButton: Bool = false
     private var fetchingBefore: Event?
     private var fetchingAfter: Event?
     private var shouldFetchEarlier = true
@@ -532,7 +533,7 @@ extension ChatViewController {
         spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil ? 1 : 0
         
         let showRestartButton = [.quickReplies, .conversationEnd].contains(inputState) || (quickRepliesMessage == nil && inputState == .both && !chatMessagesView.isEmpty)
-        quickRepliesView.isRestartButtonVisible = showRestartButton
+        quickRepliesView.isRestartButtonVisible = !shouldHideNewQuestionButton && showRestartButton
         chatInputView.alpha = showRestartButton || actionSheet != nil || (chatMessagesView.isEmpty && quickRepliesMessage == nil) ? 0 : 1
         
         let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
@@ -1232,6 +1233,7 @@ extension ChatViewController: ConversationManagerDelegate {
     private func updateState(for message: ChatMessage, animated: Bool = false) {
         chatInputView.clearSuggestions()
         shouldConfirmRestart = !message.suppressNewQuestionConfirmation
+        shouldHideNewQuestionButton = message.hideNewQuestionButton
         
         let showChatInput = isLiveChat || message.userCanTypeResponse == true
         if showChatInput && message.hasQuickReplies {

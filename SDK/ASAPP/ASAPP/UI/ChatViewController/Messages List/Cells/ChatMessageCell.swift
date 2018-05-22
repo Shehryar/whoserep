@@ -122,11 +122,11 @@ class ChatMessageCell: UITableViewCell {
         commonInit()
     }
     
-    func update(_ message: ChatMessage?, showButtons: Bool) {
+    func update(_ message: ChatMessage?, showTransientButtons: Bool) {
         self.message = message
         
-        let actions = showButtons ? message?.messageActions : nil
-        updateMessageButtons(actions)
+        let predicate: ((QuickReply) -> Bool) = showTransientButtons ? { _ in return true } : { !$0.isTransient }
+        updateMessageButtons(message?.buttons?.filter(predicate))
         
         setNeedsLayout()
     }

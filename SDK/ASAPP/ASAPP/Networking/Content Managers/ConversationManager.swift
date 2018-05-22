@@ -171,7 +171,12 @@ extension ConversationManager {
         let timeSinceConversantBeganTyping = Date.timeIntervalSinceReferenceDate - conversantBeganTypingTime
         if timeSinceConversantBeganTyping > 10 {
             self.conversantBeganTypingTime = nil
-            delegate?.conversationManager(self, didChangeTypingStatus: false)
+            Dispatcher.performOnMainThread { [weak self] in
+                guard let strongSelf = self else {
+                    return
+                }
+                strongSelf.delegate?.conversationManager(strongSelf, didChangeTypingStatus: false)
+            }
         }
     }
 }

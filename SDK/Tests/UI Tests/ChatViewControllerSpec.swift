@@ -35,7 +35,7 @@ class ChatViewControllerSpec: QuickSpec {
                 TestUtil.createStyle()
             }
             
-            func createMessageEvent(text: String, isReply: Bool = false, time: TimeInterval? = nil, quickReplies: [String: [QuickReply]]? = nil) -> Event {
+            func createMessageEvent(text: String, isReply: Bool = false, time: TimeInterval? = nil, quickReplies: [QuickReply]? = nil) -> Event {
                 let eventTime: TimeInterval
                 if let time = time {
                     eventTime = time
@@ -69,7 +69,7 @@ class ChatViewControllerSpec: QuickSpec {
                     issueId: 0,
                     sendTime: Date(timeIntervalSince1970: eventTime))
                 
-                event.chatMessage = ChatMessage(text: text, notification: nil, attachment: nil, quickReplies: quickReplies, metadata: metadata)
+                event.chatMessage = ChatMessage(text: text, notification: nil, attachment: nil, buttons: nil, quickReplies: quickReplies, metadata: metadata)
                 
                 return event
             }

@@ -113,9 +113,11 @@ extension ChatMessagesViewCellMaster {
                                    with message: ChatMessage,
                                    listPosition: MessageListPosition,
                                    detailsVisible: Bool,
-                                   buttonsVisible: Bool) {
+                                   transientButtonsVisible: Bool,
+                                   delegate: ChatMessageCellDelegate? = nil) {
         cell?.messagePosition = listPosition
-        cell?.update(message, showButtons: buttonsVisible)
+        cell?.delegate = delegate
+        cell?.update(message, showTransientButtons: transientButtonsVisible)
         cell?.isAccessibilityElement = true
         cell?.accessibilityLabel = message.text
         cell?.isTimeLabelVisible = detailsVisible
@@ -170,8 +172,9 @@ extension ChatMessagesViewCellMaster {
     func cellForMessage(_ message: ChatMessage,
                         listPosition: MessageListPosition,
                         detailsVisible: Bool,
-                        buttonsVisible: Bool,
-                        atIndexPath indexPath: IndexPath) -> ChatMessageCell? {
+                        transientButtonsVisible: Bool,
+                        atIndexPath indexPath: IndexPath,
+                        delegate: ChatMessageCellDelegate?) -> ChatMessageCell? {
         let reuseId = getCellReuseId(for: message.attachment?.type)
         if let cell = getCell(with: reuseId, at: indexPath) as? ChatMessageCell {
             updateMessageCell(
@@ -179,7 +182,8 @@ extension ChatMessagesViewCellMaster {
                 with: message,
                 listPosition: listPosition,
                 detailsVisible: detailsVisible,
-                buttonsVisible: buttonsVisible)
+                transientButtonsVisible: transientButtonsVisible,
+                delegate: delegate)
             return cell
         }
         return nil
@@ -212,15 +216,15 @@ extension ChatMessagesViewCellMaster {
     func heightForCell(with message: ChatMessage?,
                        listPosition: MessageListPosition,
                        detailsVisible: Bool,
-                       buttonsVisible: Bool) -> CGFloat {
-        guard let message = message else { return 0.0 }
+                       transientButtonsVisible: Bool) -> CGFloat {
+        guard let message = message else { return 0 }
         
         let canCacheHeight = !detailsVisible
         
         cachedTableViewWidth = tableView.bounds.width
         
         if canCacheHeight {
-            if let cachedHeight = cellHeightCache.getCachedHeight(for: message, with: listPosition, buttonsVisible: buttonsVisible) {
+            if let cachedHeight = cellHeightCache.getCachedHeight(for: message, with: listPosition, transientButtonsVisible: transientButtonsVisible) {
                 return cachedHeight
             }
         }
@@ -229,10 +233,10 @@ extension ChatMessagesViewCellMaster {
         let height: CGFloat = calculateHeightForCell(with: message,
                                                      listPosition: listPosition,
                                                      detailsVisible: detailsVisible,
-                                                     buttonsVisible: buttonsVisible,
+                                                     transientButtonsVisible: transientButtonsVisible,
                                                      width: cachedTableViewWidth)
         if canCacheHeight {
-            cellHeightCache.cacheHeight(height, for: message, with: listPosition, buttonsVisible: buttonsVisible)
+            cellHeightCache.cacheHeight(height, for: message, with: listPosition, buttonsVisible: transientButtonsVisible)
         }
                 
         return height
@@ -243,14 +247,14 @@ extension ChatMessagesViewCellMaster {
     private func calculateHeightForCell(with message: ChatMessage,
                                         listPosition: MessageListPosition,
                                         detailsVisible: Bool,
-                                        buttonsVisible: Bool,
+                                        transientButtonsVisible: Bool,
                                         width: CGFloat) -> CGFloat {
         let sizingCell = getMessageSizingCell(forAttachmentType: message.attachment?.type)
         updateMessageCell(sizingCell,
                           with: message,
                           listPosition: listPosition,
                           detailsVisible: detailsVisible,
-                          buttonsVisible: buttonsVisible)
+                          transientButtonsVisible: transientButtonsVisible)
         
         return heightForStyledView(sizingCell, width: width)
     }

@@ -39,7 +39,7 @@ class DropdownItem: Component {
                    style: ComponentStyle,
                    styles: [String: Any]? = nil,
                    content: [String: Any]? = nil) {
-        guard let dicts = Component.arrayOfDicts(content?[JSONKey.options.rawValue]) else {
+        guard let dicts = content?.arrayOfDictionaries(for: JSONKey.options.rawValue) else {
             return nil
         }
         

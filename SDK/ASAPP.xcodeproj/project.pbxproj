@@ -374,6 +374,13 @@
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
 		3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68112C1F7C1BF800078E3F /* FontLoader.swift */; };
 		3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */; };
+		3A7B8EC520AB8FE700DC5EAE /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7B8EC220AB8F8300DC5EAE /* star.png */; };
+		3A7B8EC620AB8FE700DC5EAE /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7B8EC420AB8F8400DC5EAE /* star@2x.png */; };
+		3A7B8EC720AB8FE700DC5EAE /* star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A7B8EC320AB8F8300DC5EAE /* star@3x.png */; };
+		3A7B8EC920ACC8B800DC5EAE /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */; };
+		3A7B8ECB20ACC97500DC5EAE /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */; };
+		3A7B8ECD20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECC20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift */; };
+		3A87910420B3718600AD81E5 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87910320B3718600AD81E5 /* ArrayExtensions.swift */; };
 		3A883C5D1FBB71BA00B44116 /* BubbleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */; };
 		3A883C5F1FBBAB1800B44116 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */; };
 		3A883C641FBC959F00B44116 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C601FBC959D00B44116 /* Lato-BlackItalic.ttf */; };
@@ -792,6 +799,13 @@
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
 		3A68112C1F7C1BF800078E3F /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageButtonsView.swift; sourceTree = "<group>"; };
+		3A7B8EC220AB8F8300DC5EAE /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		3A7B8EC320AB8F8300DC5EAE /* star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@3x.png"; sourceTree = "<group>"; };
+		3A7B8EC420AB8F8400DC5EAE /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
+		3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
+		3A7B8ECC20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
+		3A87910320B3718600AD81E5 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleButton.swift; sourceTree = "<group>"; };
 		3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
 		3A883C601FBC959D00B44116 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -933,6 +947,7 @@
 				30F6B4C91EC2476E00ABA570 /* Checkbox.swift */,
 				3A4FC2821FE063810098BAE2 /* DropdownView.swift */,
 				281C347A1E7F092C001A2AA3 /* IconView.swift */,
+				3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */,
 				281C347B1E7F092C001A2AA3 /* LabelView.swift */,
 				307DBE7A1E9D65F900B8F10F /* PageControlView.swift */,
 				302AF3321E8049880086B939 /* ProgressBarView.swift */,
@@ -1023,6 +1038,7 @@
 		30099DBD1D3EDBC400171D56 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				3A87910320B3718600AD81E5 /* ArrayExtensions.swift */,
 				3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */,
 				3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */,
 				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
@@ -1040,6 +1056,7 @@
 				3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */,
 				3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */,
 				3AB23D6D20A3808D00591A56 /* Throttler.swift */,
+				3A7B8ECC20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift */,
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */,
 				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
@@ -1182,6 +1199,7 @@
 				30131FBA1EB10FD0009E7299 /* CheckboxItem.swift */,
 				3A4FC2801FE031B30098BAE2 /* DropdownItem.swift */,
 				30131FBB1EB10FD0009E7299 /* IconItem.swift */,
+				3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */,
 				30131FBC1EB10FD0009E7299 /* LabelItem.swift */,
 				30131FBD1EB10FD0009E7299 /* PageControlItem.swift */,
 				30131FBE1EB10FD0009E7299 /* ProgressBarItem.swift */,
@@ -1468,6 +1486,9 @@
 				3046CE631E8AF0C90022AEE5 /* power.png */,
 				3046CE641E8AF0C90022AEE5 /* power@2x.png */,
 				3046CE651E8AF0C90022AEE5 /* power@3x.png */,
+				3A7B8EC220AB8F8300DC5EAE /* star.png */,
+				3A7B8EC420AB8F8400DC5EAE /* star@2x.png */,
+				3A7B8EC320AB8F8300DC5EAE /* star@3x.png */,
 				3A0E7FA21FB5148A008F9544 /* thumbsDown.png */,
 				3A0E7F9F1FB51489008F9544 /* thumbsDown@2x.png */,
 				3A0E7FA01FB5148A008F9544 /* thumbsDown@3x.png */,
@@ -1980,6 +2001,8 @@
 				3AE183A42058682600FD0D7A /* alertFilled@3x.png in Resources */,
 				28AEC0B81D888FFD00139C7D /* map-equipment@3x.png in Resources */,
 				28AEC0BA1D888FFD00139C7D /* map-tech@2x.png in Resources */,
+				3A7B8EC720AB8FE700DC5EAE /* star@3x.png in Resources */,
+				3A7B8EC620AB8FE700DC5EAE /* star@2x.png in Resources */,
 				302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */,
 				30B3FE2B1ECB661700D43068 /* loginKey@3x.png in Resources */,
 				302268521D80690500EC4FB1 /* icon-x-small.png in Resources */,
@@ -2002,6 +2025,7 @@
 				3A883C671FBC959F00B44116 /* Lato-BoldItalic.ttf in Resources */,
 				3A0E7FA51FB5149B008F9544 /* thumbsDown.png in Resources */,
 				3046CE781E8AF0C90022AEE5 /* arrowOutgoing.png in Resources */,
+				3A7B8EC520AB8FE700DC5EAE /* star.png in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,
@@ -2096,6 +2120,7 @@
 				30A4BB061D5109F700795BA7 /* ImageViewer.swift in Sources */,
 				30BBB4D31F3CE5C200FD5615 /* UIViewController+TitleView.swift in Sources */,
 				3A621FC5208E861E00CB11D6 /* ScaleView.swift in Sources */,
+				3A7B8ECD20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift in Sources */,
 				3AE183A72059B45B00FD0D7A /* CollectionExtensions.swift in Sources */,
 				30F6B4D31EC3D67B00ABA570 /* TabView.swift in Sources */,
 				30F6B4D71EC3D69A00ABA570 /* TabViewTab.swift in Sources */,
@@ -2162,6 +2187,7 @@
 				3A4FC2831FE063820098BAE2 /* DropdownView.swift in Sources */,
 				3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */,
 				30DF3F6B1F2790E300D6DB02 /* ConversationManagerDelegate.swift in Sources */,
+				3A7B8EC920ACC8B800DC5EAE /* ImageView.swift in Sources */,
 				307484E21EB8FE29008CF3E4 /* DeepLinkAction.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
 				30DF3F7D1F27C0C400D6DB02 /* SRSInfo.swift in Sources */,
@@ -2251,6 +2277,7 @@
 				302B6E1A1E7999770035B584 /* QuickRepliesListView.swift in Sources */,
 				30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */,
 				30226CF11D493F5300871453 /* ChatViewController.swift in Sources */,
+				3A7B8ECB20ACC97500DC5EAE /* ImageItem.swift in Sources */,
 				30131FB61EB10F9C009E7299 /* ComponentJSONUtil.swift in Sources */,
 				306619291D9458F50092B4C5 /* UIView+WebCacheOperation.m in Sources */,
 				3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */,
@@ -2271,6 +2298,7 @@
 				3A9EF21D2028C0A00092A1AA /* RestartConfirmationActionSheet.swift in Sources */,
 				307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
+				3A87910420B3718600AD81E5 /* ArrayExtensions.swift in Sources */,
 				30131F9E1EAFB3B2009E7299 /* ASAPPButtonColors.swift in Sources */,
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
