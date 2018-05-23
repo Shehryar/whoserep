@@ -70,42 +70,6 @@ class ChatComponentViewMessageCellSpec: QuickSpec {
                         expect(cell).to(haveValidSnapshot())
                     }
                 }
-                
-                context("with a complex component view attachment") {
-                    it("has a valid snapshot") {
-                        let dict = [
-                            "formatVersion": 1,
-                            "text": "Text",
-                            "attachment": [
-                                "type": "componentView",
-                                "content": [
-                                    "formatVersion": 1,
-                                    "title": "View",
-                                    "root": [
-                                        "type": "carouselView",
-                                        "content": [
-                                            "items": [
-                                                ["type": "label", "content": ["text": "A"]],
-                                                ["type": "label", "content": ["text": "B"]],
-                                                ["type": "label", "content": ["text": "C"]]
-                                            ],
-                                            "visibleItemCount": CGFloat(1.03),
-                                            "pageControl": [
-                                                "type": "pageControl"
-                                            ],
-                                            "pagingEnabled": true
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ] as [String: Any]
-                        
-                        let cell = ChatComponentViewMessageCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-                        cell.message = ChatMessage.fromJSON(dict, with: metadata)
-                        cell.sizeToFit()
-                        expect(cell).to(haveValidSnapshot())
-                    }
-                }
             }
         }
     }

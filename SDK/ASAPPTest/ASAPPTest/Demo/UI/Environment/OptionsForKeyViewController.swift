@@ -221,12 +221,17 @@ extension OptionsForKeyViewController {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == Section.options.rawValue,
-            let option = options?[indexPath.row] {
-            return option != selectedOption
+        guard indexPath.section == Section.options.rawValue,
+              let option = options?[indexPath.row] else {
+            return false
         }
-        return false
         
+        if let key = optionsListKey,
+            AppSettings.getDefaultStringArray(forKey: key)?.contains(option) ?? false {
+            return false
+        }
+        
+        return option != selectedOption
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

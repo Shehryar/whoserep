@@ -59,8 +59,9 @@ class Component: NSObject {
     
     // MARK: View Generation
     
-    func createView() -> ComponentView? {
+    func createView(contentHandler: ComponentViewContentHandler? = nil) -> ComponentView? {
         var view = viewClass.init() as? ComponentView
+        view?.contentHandler = contentHandler
         view?.component = self
         return view
     }

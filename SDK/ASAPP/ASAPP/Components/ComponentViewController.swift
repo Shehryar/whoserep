@@ -298,9 +298,6 @@ extension ComponentViewController: InteractionHandler {
 // MARK: - ComponentViewContentHandler
 
 extension ComponentViewController: ComponentViewContentHandler {
-    
-    func componentView(_ componentView: ComponentView, didPageCarousel carousel: CarouselViewItem) {}
-
     func componentView(_ componentView: ComponentView,
                        didUpdateContent value: Any?,
                        requiresLayoutUpdate: Bool) {

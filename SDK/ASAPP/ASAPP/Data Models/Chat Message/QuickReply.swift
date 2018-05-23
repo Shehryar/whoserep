@@ -10,9 +10,7 @@ import UIKit
 
 class QuickReply {
     let title: String
-    
     let action: Action
-    
     let icon: IconItem?
     let isTransient: Bool
     

@@ -147,9 +147,7 @@ extension AppSettings {
     class var defaultAPIHostNames: [String] {
         return [
             "demo.asapp.com",
-            "sprint.preprod.asapp.com",
-            "tetris.test.asapp.com",
-            "audit01.test.asapp.com"
+            "sprint.preprod.asapp.com"
         ]
     }
     
@@ -326,7 +324,7 @@ extension AppSettings {
         return (getDefaultStringArray(forKey: key) ?? []).union(stringArray ?? [])
     }
     
-    private class func getDefaultStringArray(forKey key: Key) -> [String]? {
+    class func getDefaultStringArray(forKey key: Key) -> [String]? {
         switch key {
         case .apiHostNameList: return defaultAPIHostNames
         case .appIdList: return defaultAppIds

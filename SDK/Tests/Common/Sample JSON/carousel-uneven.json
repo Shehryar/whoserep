@@ -1,0 +1,75 @@
+{
+    "text": "Hello, world",
+    "attachment": {
+        "type": "carousel",
+        "content": {
+            "elements": [
+                {
+                    "root": {
+                        "type": "label",
+                        "content": {
+                            "text": "This is a label component. Lorem ipsum dolor sit amet."
+                        },
+                        "style": {
+                            "padding": 20
+                        }
+                    },
+                    "buttons": [
+                        {
+                            "title": "Go to ASAPP",
+                            "action": {
+                                "type": "web",
+                                "content": {
+                                    "url": "https://asapp.com"
+                                }
+                            },
+                            "isTransient": true
+                        }
+                    ]
+                },
+                {
+                    "root": {
+                        "type": "label",
+                        "content": {
+                            "text": "This is another label component. Lorem ipsum dolor sit amet."
+                        },
+                        "style": {
+                            "padding": 20
+                        }
+                    },
+                    "buttons": [
+                        {
+                            "title": "Go to Yahoo",
+                            "action": {
+                                "type": "web",
+                                "content": {
+                                    "url": "https://yahoo.com"
+                                }
+                            }
+                        },
+                        {
+                            "title": "Go to Google",
+                            "action": {
+                                "type": "web",
+                                "content": {
+                                    "url": "https://google.com"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "buttons": [
+        {
+            "title": "Look at a Rolex",
+            "action": {
+                "type": "web",
+                "content": {
+                    "url": "http://imgur.com/r/Watchexchange/EPhQm"
+                }
+            }
+        }
+    ]
+}

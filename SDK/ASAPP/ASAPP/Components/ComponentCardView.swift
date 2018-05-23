@@ -8,45 +8,16 @@
 
 import UIKit
 
-class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleCornerRadiusUpdating {
+class ComponentCardView: BubbleView, MessageButtonsViewContainer {
     weak var delegate: MessageButtonsViewContainerDelegate?
     
     var backgroundLayer: CALayer?
     
-    var message: ChatMessage? {
-        didSet {
-            guard let message = message else {
-                return
-            }
-            
-            roundedCorners = getBubbleCorners(for: message, isAttachment: true)
-            
-            setNeedsDisplay()
-        }
-    }
-    
-    var messagePosition: MessageListPosition = .none {
-        didSet {
-            if let message = message {
-                roundedCorners = getBubbleCorners(for: message, isAttachment: true)
-            }
-        }
-    }
-    
     var component: Component? {
         didSet {
-            componentView = component?.createView()
+            componentView = component?.createView(contentHandler: contentHandler)
             componentView?.interactionHandler = interactionHandler
-            componentView?.contentHandler = contentHandler
             setNeedsLayout()
-        }
-    }
-    
-    var borderDisabled: Bool = false {
-        didSet {
-            if borderDisabled {
-                strokeColor = nil
-            }
         }
     }
     
@@ -82,9 +53,7 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleC
                 addSubview(view)
             }
             
-            if let message = message {
-                roundedCorners = getBubbleCorners(for: message, isAttachment: true)
-            }
+            updateRoundedCorners()
         }
     }
     
@@ -143,6 +112,10 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer, MessageBubbleC
         let messageButtonsSize = getMessageButtonsViewSizeThatFits(size.width)
         
         return CGSize(width: size.width, height: fittedSize.height + messageButtonsSize.height)
+    }
+    
+    func updateRoundedCorners() {
+        roundedCorners = .allCorners
     }
 }
 

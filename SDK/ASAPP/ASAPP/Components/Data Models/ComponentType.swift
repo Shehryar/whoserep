@@ -20,7 +20,6 @@ enum ComponentType: String {
     case icon
     case image
     case label
-    case pageControl
     case progressBar
     case radioButtonsContainer
     case radioButtonView
@@ -32,7 +31,6 @@ enum ComponentType: String {
     case textInput
     
     // Collections
-    case carouselView
     case scrollView
     case stackView
     case tabView
@@ -51,7 +49,6 @@ enum ComponentType: String {
         case .icon: return IconItem.self
         case .image: return ImageItem.self
         case .label: return LabelItem.self
-        case .pageControl: return PageControlItem.self
         case .progressBar: return ProgressBarItem.self
         case .radioButtonView: return RadioButtonViewItem.self
         case .radioButtonsContainer: return RadioButtonsContainerItem.self
@@ -63,7 +60,6 @@ enum ComponentType: String {
         case .textInput: return TextInputItem.self
             
         // Collections
-        case .carouselView: return CarouselViewItem.self
         case .scrollView: return ScrollViewItem.self
         case .stackView: return StackViewItem.self
         case .tabView: return TabViewItem.self

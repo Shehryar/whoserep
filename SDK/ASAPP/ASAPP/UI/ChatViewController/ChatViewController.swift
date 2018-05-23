@@ -52,8 +52,9 @@ class ChatViewController: ASAPPViewController {
     private var segue: ASAPPSegue = .present
     private var inputState: InputState = .both
     private var previousInputState: InputState?
-    private var shouldConfirmRestart: Bool = true
-    private var shouldHideNewQuestionButton: Bool = false
+    private var shouldConfirmRestart = true
+    private var shouldHideActionSheetOnNextMessage = false
+    private var shouldHideNewQuestionButton = false
     private var fetchingBefore: Event?
     private var fetchingAfter: Event?
     private var shouldFetchEarlier = true
@@ -1106,6 +1107,7 @@ extension ChatViewController: QuickRepliesViewDelegate {
 
 extension ChatViewController: ActionSheetDelegate {
     private func hideActionSheet(_ actionSheet: BaseActionSheet, completion: (() -> Void)? = nil) {
+        shouldHideActionSheetOnNextMessage = false
         actionSheet.hide { [weak self] in
             self?.actionSheet = nil
             completion?()
@@ -1126,6 +1128,7 @@ extension ChatViewController: ActionSheetDelegate {
     }
     
     func actionSheetDidTapRestartButton(_ actionSheet: BaseActionSheet) {
+        shouldHideActionSheetOnNextMessage = true
         actionSheet.showSpinner()
         
         conversationManager.sendAskRequest { success in
@@ -1263,7 +1266,7 @@ extension ChatViewController: ConversationManagerDelegate {
             }
         }
         
-        if let actionSheet = actionSheet {
+        if let actionSheet = actionSheet, shouldHideActionSheetOnNextMessage {
             clearQuickRepliesView(animated: false)
             hideActionSheet(actionSheet, completion: update)
         } else {

@@ -9,56 +9,51 @@
 import UIKit
 
 class ComponentViewContainer: NSObject {
-    
-    enum JSONKey: String {
-        case root
-        case styles
-        case title
-    }
-    
-    // MARK: - Properties
-    
     let root: Component
-    
     let title: String?
-    
     let styles: [String: Any]?
-    
-    // MARK: - Init
+    let buttons: [QuickReply]?
     
     init(root: Component,
          title: String?,
-         styles: [String: Any]?) {
+         styles: [String: Any]?,
+         buttons: [QuickReply]? = nil) {
         self.root = root
         self.title = title
         self.styles = styles
+        self.buttons = buttons
         super.init()
     }
-    
-    // MARK: - Instance Methods
     
     func createView() -> ComponentView? {
         return root.createView()
     }
 }
 
-// MARK: - JSON Parsing
-
 extension ComponentViewContainer {
+    enum JSONKey: String {
+        case root
+        case styles
+        case title
+        case buttons
+    }
     
-    static func from(_ json: Any?) -> ComponentViewContainer? {
-        guard let json = json as? [String: Any] else {
+    static func from(_ dict: [String: Any]?) -> ComponentViewContainer? {
+        guard let dict = dict else {
             return nil
         }
         
-        let title = json.string(for: JSONKey.title.rawValue)
-        let styles = json[JSONKey.styles.rawValue] as? [String: Any]
-        guard let root = ComponentFactory.component(with: json[JSONKey.root.rawValue], styles: styles) else {
+        let title = dict.string(for: JSONKey.title.rawValue)
+        let styles = dict[JSONKey.styles.rawValue] as? [String: Any]
+        guard let root = ComponentFactory.component(with: dict[JSONKey.root.rawValue], styles: styles) else {
             return nil
         }
         
-        return ComponentViewContainer(root: root,
-                                      title: title,
-                                      styles: styles)
+        var buttons: [QuickReply]?
+        if let buttonDicts = dict.arrayOfDictionaries(for: JSONKey.buttons.rawValue) {
+            buttons = QuickReply.arrayFromJSON(buttonDicts)
+        }
+        
+        return ComponentViewContainer(root: root, title: title, styles: styles, buttons: buttons)
     }
 }

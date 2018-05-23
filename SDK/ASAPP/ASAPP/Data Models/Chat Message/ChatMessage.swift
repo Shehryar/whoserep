@@ -26,7 +26,7 @@ class ChatMessage: NSObject {
         return !(quickReplies?.isEmpty ?? true)
     }
     
-    var hasMessageActions: Bool {
+    var hasButtons: Bool {
         return !(buttons?.isEmpty ?? true)
     }
    
@@ -128,7 +128,7 @@ extension ChatMessage {
         
         let suppressNewQuestionConfirmation = dict.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
         let hideNewQuestionButton = dict.bool(for: JSONKey.hideNewQuestionButton.rawValue) ?? false
-
+        
         return ChatMessage(
             text: text,
             notification: notification,

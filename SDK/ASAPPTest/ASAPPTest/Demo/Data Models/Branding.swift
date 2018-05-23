@@ -58,7 +58,7 @@ class Branding: NSObject {
             
         case .verizon:
             styles = Branding.createVerizonStyles(appearanceConfig)
-            views.chatTitle = Branding.createChatTitle(image: #imageLiteral(resourceName: "fios-logo"), frame: CGRect(x: 0, y: 0, width: 72, height: 30))
+            views.chatTitle = Branding.createChatTitle(image: #imageLiteral(resourceName: "fios-logo"), frame: CGRect(x: 0, y: 5, width: 48, height: 20))
         
         case .custom:
             styles = Branding.createCustomStyles(appearanceConfig)

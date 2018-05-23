@@ -414,15 +414,9 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// MARK: - SRSItemListViewDelegate
+// MARK: - ChatMessageCellDelegate
 
 extension ChatMessagesView: ChatMessageCellDelegate {
-    
-    func chatMessageCell(_ cell: ChatMessageCell, didPageCarouselViewItem: CarouselViewItem, from: ComponentView) {
-        if let message = cell.message {
-            delegate?.chatMessagesView(self, didUpdateQuickRepliesFrom: message)
-        }
-    }
     
     func chatMessageCell(_ cell: ChatMessageCell,
                          didTap buttonItem: ButtonItem,
@@ -432,6 +426,13 @@ extension ChatMessagesView: ChatMessageCellDelegate {
     
     func chatMessageCell(_ cell: ChatMessageCell, didTapButtonWith action: Action) {
         delegate?.chatMessagesView(self, didTapButtonWith: action)
+    }
+    
+    func chatMessageCell(_ cell: ChatMessageCell, didChangeHeightWith message: ChatMessage) {
+        if let indexPath = dataSource.getIndexPath(of: message) {
+            cellMaster.invalidateHeightOfCell(for: message)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
     }
 }
 

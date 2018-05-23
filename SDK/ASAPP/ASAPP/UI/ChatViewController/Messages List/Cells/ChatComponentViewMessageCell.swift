@@ -13,15 +13,12 @@ class ChatComponentViewMessageCell: ChatMessageCell {
     override var message: ChatMessage? {
         didSet {
             cardView.component = message?.attachment?.template
-            if let attachment = message?.attachment {
-                cardView.borderDisabled = attachment.requiresNoContainer
-            }
             cardView.message = message
             setNeedsLayout()
         }
     }
     
-    let cardView = ComponentCardView()
+    let cardView = ComponentMessageCardView()
     
     // MARK: Init
     
@@ -59,9 +56,8 @@ extension ChatComponentViewMessageCell: ComponentViewContentHandler {
     func componentView(_ componentView: ComponentView,
                        didUpdateContent value: Any?,
                        requiresLayoutUpdate: Bool) {
-    }
-    
-    func componentView(_ componentView: ComponentView, didPageCarousel carousel: CarouselViewItem) {
-        delegate?.chatMessageCell(self, didPageCarouselViewItem: carousel, from: componentView)
+        if requiresLayoutUpdate {
+            updateFrames()
+        }
     }
 }

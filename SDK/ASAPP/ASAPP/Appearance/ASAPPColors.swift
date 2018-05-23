@@ -69,7 +69,7 @@ public class ASAPPColors: NSObject {
     public var controlTint = UIColor.ASAPP.eggplant
     
     /// The color of the secondary portion of some controls, such as the background of progress bars and the underline of text inputs.
-    public var controlSecondary = UIColor(red: 0.898, green: 0.906, blue: 0.918, alpha: 1)
+    public var controlSecondary = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15)
     
     /// The color of the background of checkboxes and radio buttons.
     public var controlBackground = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.07)
@@ -172,6 +172,7 @@ extension ASAPPColors {
         textSecondary = dark
         separatorSecondary = dark.withAlphaComponent(0.15)
         controlTint = primary
+        controlSecondary = dark.withAlphaComponent(0.15)
         controlBackground = dark.withAlphaComponent(0.07)
         replyMessageText = dark
         replyMessageBackground = dark.withAlphaComponent(0.15)
