@@ -18,9 +18,6 @@ protocol ComponentViewContentHandler: class {
     func componentView(_ componentView: ComponentView,
                        didUpdateContent value: Any?,
                        requiresLayoutUpdate: Bool)
-    
-    func componentView(_ componentView: ComponentView,
-                       didPageCarousel carousel: CarouselViewItem)
 }
 
 protocol ComponentView: UpdatableFrames {

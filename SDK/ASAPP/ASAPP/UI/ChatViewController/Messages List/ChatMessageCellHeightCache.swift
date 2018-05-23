@@ -39,4 +39,8 @@ extension ChatMessageCellHeightCache {
     func clearCache() {
         cache.removeAll()
     }
+    
+    func invalidateHeight(for message: ChatMessage) {
+        cache.removeValue(forKey: message)
+    }
 }

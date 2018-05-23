@@ -12,11 +12,12 @@ class ChatMessageAttachment: NSObject {
 
     enum AttachmentType: String {
         case none = "AttachmentTypeNone"
-        case image = "image"
+        case image
         case template = "componentView"
+        case carousel
        
         static let all = [
-            none, image, template
+            none, image, template, carousel
         ]
     }
     
@@ -24,20 +25,24 @@ class ChatMessageAttachment: NSObject {
     
     let type: AttachmentType
     
+    let carousel: ChatMessageCarousel?
     let image: ChatMessageImage?
     let template: Component?
-    let requiresNoContainer: Bool
     
     // MARK: - Init
     
-    init(content: Any, requiresNoContainer: Bool? = nil) {
+    init(content: Any) {
         var type = AttachmentType.none
-        var image: ChatMessageImage? = nil
-        var template: Component? = nil
+        var image: ChatMessageImage?
+        var template: Component?
+        var carousel: ChatMessageCarousel?
         
         if let contentAsImage = content as? ChatMessageImage {
             type = .image
             image = contentAsImage
+        } else if let contentAsCarousel = content as? ChatMessageCarousel {
+            type = .carousel
+            carousel = contentAsCarousel
         } else if let contentAsTemplate = content as? Component {
             type = .template
             template = contentAsTemplate
@@ -48,7 +53,7 @@ class ChatMessageAttachment: NSObject {
         self.type = type
         self.image = image
         self.template = template
-        self.requiresNoContainer = requiresNoContainer ?? false
+        self.carousel = carousel
         super.init()
     }
 }
@@ -76,16 +81,19 @@ extension ChatMessageAttachment {
         }
         
         switch type {
+        case .carousel:
+            if let carousel = ChatMessageCarousel.from(payload) {
+                return ChatMessageAttachment(content: carousel)
+            }
+            
         case .image:
-            if let image = ChatMessageImage.fromJSON(payload) {
+            if let image = ChatMessageImage.from(payload) {
                 return ChatMessageAttachment(content: image)
             }
             
         case .template:
             if let componentViewContainer = ComponentViewContainer.from(payload) {
-                return ChatMessageAttachment(
-                    content: componentViewContainer.root,
-                    requiresNoContainer: json.bool(for: "requiresNoContainer"))
+                return ChatMessageAttachment(content: componentViewContainer.root)
             }
             
         case .none:

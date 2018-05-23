@@ -73,7 +73,7 @@ extension APIActionResponse {
             finishAction = ActionFactory.action(with: content) as? FinishAction
             
         case .refreshView, .componentView:
-            view = ComponentViewContainer.from(content)
+            view = ComponentViewContainer.from(content as? [String: Any])
             
         case .error:
             error = APIActionError(content as? [String: Any])

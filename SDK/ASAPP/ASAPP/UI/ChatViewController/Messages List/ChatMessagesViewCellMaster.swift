@@ -24,13 +24,10 @@ class ChatMessagesViewCellMaster: NSObject {
     // MARK: Private Properties
     
     private let dateFormatter = DateFormatter()
-    
+    private var currentCarouselPageCache: [ChatMessage: Int] = [:]
     private let cellHeightCache = ChatMessageCellHeightCache()
-    
-    private var timeHeaderHeightCache = [Date: CGFloat]()
-    
+    private var timeHeaderHeightCache: [Date: CGFloat] = [:]
     private var cachedTypingIndicatorCellHeight: CGFloat?
-    
     private var cachedTableViewWidth: CGFloat = 0.0 {
         didSet {
             if oldValue != cachedTableViewWidth {
@@ -46,6 +43,7 @@ class ChatMessagesViewCellMaster: NSObject {
     private let pictureMessageSizingCell = ChatPictureMessageCell(style: .default, reuseIdentifier: nil)
     private let typingIndicatorSizingCell = ChatTypingIndicatorCell(style: .default, reuseIdentifier: nil)
     private let componentViewSizingCell = ChatComponentViewMessageCell(style: .default, reuseIdentifier: nil)
+    private let carouselMessageSizingCell = ChatCarouselMessageCell(style: .default, reuseIdentifier: nil)
     
     // MARK: Reuse IDs
     
@@ -86,6 +84,7 @@ extension ChatMessagesViewCellMaster {
         case .none: return ChatMessageCell.self
         case .image: return ChatPictureMessageCell.self
         case .template: return ChatComponentViewMessageCell.self
+        case .carousel: return ChatCarouselMessageCell.self
         }
     }
     
@@ -103,6 +102,7 @@ extension ChatMessagesViewCellMaster {
             case .none: return textMessageSizingCell
             case .image: return pictureMessageSizingCell
             case .template: return componentViewSizingCell
+            case .carousel: return carouselMessageSizingCell
             }
             
         }
@@ -118,6 +118,10 @@ extension ChatMessagesViewCellMaster {
         cell?.messagePosition = listPosition
         cell?.delegate = delegate
         cell?.update(message, showTransientButtons: transientButtonsVisible)
+        if let carouselCell = cell as? ChatCarouselMessageCell {
+            carouselCell.carouselDelegate = self
+            carouselCell.showPage(currentCarouselPageCache[message] ?? 0)
+        }
         cell?.isAccessibilityElement = true
         cell?.accessibilityLabel = message.text
         cell?.isTimeLabelVisible = detailsVisible
@@ -210,7 +214,7 @@ extension ChatMessagesViewCellMaster {
         cachedTableViewWidth = tableView.bounds.width
         cachedTypingIndicatorCellHeight = heightForStyledView(typingIndicatorSizingCell, width: cachedTableViewWidth)
         
-        return cachedTypingIndicatorCellHeight ?? 0.0
+        return cachedTypingIndicatorCellHeight ?? 0
     }
     
     func heightForCell(with message: ChatMessage?,
@@ -242,6 +246,10 @@ extension ChatMessagesViewCellMaster {
         return height
     }
     
+    func invalidateHeightOfCell(for message: ChatMessage) {
+        cellHeightCache.invalidateHeight(for: message)
+    }
+    
     // MARK: Private
     
     private func calculateHeightForCell(with message: ChatMessage,
@@ -260,8 +268,14 @@ extension ChatMessagesViewCellMaster {
     }
     
     private func heightForStyledView(_ view: UIView, width: CGFloat) -> CGFloat {
-        guard width > 0 else { return 0.0 }
+        guard width > 0 else { return 0 }
         
         return ceil(view.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height)
+    }
+}
+
+extension ChatMessagesViewCellMaster: ChatCarouselMessageCellDelegate {
+    func chatCarouselMessageCell(_ cell: ChatCarouselMessageCell, didChangeCurrentPage page: Int, message: ChatMessage) {
+        currentCarouselPageCache[message] = page
     }
 }

@@ -13,25 +13,23 @@ import Nimble
 class ChatMessageAttachmentSpec: QuickSpec {
     override func spec() {
         describe("ChatMessageAttachment") {
-            describe(".init(content:requiresNoContainer:") {
+            describe(".init(content:") {
                 context("with unidentifiable content") {
                     it("creates an instance with no attachment type, image, or template") {
                         let attachment = ChatMessageAttachment(content: [])
                         expect(attachment.type).to(equal(ChatMessageAttachment.AttachmentType.none))
                         expect(attachment.image).to(beNil())
                         expect(attachment.template).to(beNil())
-                        expect(attachment.requiresNoContainer).to(equal(false))
                     }
                 }
                 
-                context("with an image and requires no container") {
-                    it("creates an instance with an image that requires no container") {
+                context("with an image") {
+                    it("creates an instance with an image") {
                         let image = ChatMessageImage(url: URL(string: "test")!, width: 0, height: 0)
-                        let attachment = ChatMessageAttachment(content: image, requiresNoContainer: true)
+                        let attachment = ChatMessageAttachment(content: image)
                         expect(attachment.type).to(equal(ChatMessageAttachment.AttachmentType.image))
                         expect(attachment.image).to(equal(image))
                         expect(attachment.template).to(beNil())
-                        expect(attachment.requiresNoContainer).to(equal(true))
                     }
                 }
                 
@@ -43,7 +41,6 @@ class ChatMessageAttachmentSpec: QuickSpec {
                         expect(attachment.type).to(equal(ChatMessageAttachment.AttachmentType.template))
                         expect(attachment.image).to(beNil())
                         expect(attachment.template).to(equal(component))
-                        expect(attachment.requiresNoContainer).to(equal(false))
                     }
                 }
             }
@@ -102,7 +99,6 @@ class ChatMessageAttachmentSpec: QuickSpec {
                         expect(attachment?.image?.width).to(equal(image.width))
                         expect(attachment?.image?.height).to(equal(image.height))
                         expect(attachment?.template).to(beNil())
-                        expect(attachment?.requiresNoContainer).to(equal(false))
                     }
                 }
                 
@@ -119,14 +115,12 @@ class ChatMessageAttachmentSpec: QuickSpec {
                                         "text": text
                                     ]
                                 ]
-                            ],
-                            "requiresNoContainer": true
+                            ]
                         ])
                         expect(attachment?.type).to(equal(ChatMessageAttachment.AttachmentType.template))
                         expect(attachment?.image).to(beNil())
                         expect(attachment?.template).to(beAKindOf(LabelItem.self))
                         expect((attachment?.template as? LabelItem)?.text).to(equal(text))
-                        expect(attachment?.requiresNoContainer).to(equal(true))
                     }
                 }
             }

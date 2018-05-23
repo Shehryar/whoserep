@@ -14,11 +14,10 @@ protocol ChatMessageCellDelegate: class {
                          from message: ChatMessage)
     
     func chatMessageCell(_ cell: ChatMessageCell,
-                         didPageCarouselViewItem: CarouselViewItem,
-                         from: ComponentView)
+                         didTapButtonWith action: Action)
     
     func chatMessageCell(_ cell: ChatMessageCell,
-                         didTapButtonWith action: Action)
+                         didChangeHeightWith message: ChatMessage)
 }
 
 class ChatMessageCell: UITableViewCell {
@@ -190,15 +189,15 @@ extension ChatMessageCell {
         setNeedsLayout()
     }
     
-    func updateMessageButtons(_ messageActions: [QuickReply]?) {
+    func updateMessageButtons(_ messageButtons: [QuickReply]?) {
         if let container = (attachmentView ?? textBubbleView) as? MessageButtonsViewContainer {
-            guard let messageActions = messageActions,
-                  !messageActions.isEmpty else {
+            guard let messageButtons = messageButtons,
+                  !messageButtons.isEmpty else {
                 container.messageButtonsView?.removeFromSuperview()
                 container.messageButtonsView = nil
                 return
             }
-            container.messageButtonsView = MessageButtonsView(messageActions: messageActions, separatorColor: ASAPP.styles.colors.replyMessageBorder)
+            container.messageButtonsView = MessageButtonsView(messageButtons: messageButtons, separatorColor: ASAPP.styles.colors.replyMessageBorder)
         }
     }
 }

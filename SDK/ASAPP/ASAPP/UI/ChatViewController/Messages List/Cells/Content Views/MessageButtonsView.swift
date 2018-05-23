@@ -28,10 +28,10 @@ class MessageButtonsView: UIView {
     var separatorColor: UIColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
     let separatorHeight: CGFloat = 1
     
-    private var messageActions: [QuickReply]
+    private var messageButtons: [QuickReply]
     
-    init(messageActions: [QuickReply], separatorColor: UIColor? = nil) {
-        self.messageActions = messageActions
+    init(messageButtons: [QuickReply], separatorColor: UIColor? = nil) {
+        self.messageButtons = messageButtons
         super.init(frame: .zero)
         
         if let separatorColor = separatorColor {
@@ -56,7 +56,7 @@ class MessageButtonsView: UIView {
         separators = []
         actions = []
         
-        for (i, messageAction) in messageActions.enumerated() {
+        for (i, messageAction) in messageButtons.enumerated() {
             let button = createButton(for: messageAction)
             button.tag = i
             buttons.append(button)
@@ -75,8 +75,9 @@ class MessageButtonsView: UIView {
     
     private func createButton(for messageAction: QuickReply) -> UIButton {
         let button = UIButton()
-        button.titleLabel?.numberOfLines = 0
         button.updateText(messageAction.title, textStyle: ASAPP.styles.textStyles.body, colors: ASAPP.styles.colors.textButtonPrimary)
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.lineBreakMode = .byWordWrapping
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
         return button
@@ -90,7 +91,7 @@ class MessageButtonsView: UIView {
     
     private func updateButtonInsets() {
         buttons.forEach { button in
-            button.titleEdgeInsets = UIEdgeInsets(top: 15, left: contentInsets.left, bottom: 18, right: contentInsets.right)
+            button.contentEdgeInsets = UIEdgeInsets(top: 15, left: contentInsets.left, bottom: 18, right: contentInsets.right)
         }
     }
     
@@ -121,8 +122,9 @@ class MessageButtonsView: UIView {
                 height: separatorHeight))
             currentY += separatorHeight
             
-            let buttonSize = button.sizeThatFits(CGSize(width: buttonWidth, height: .greatestFiniteMagnitude))
-            let buttonHeight = buttonSize.height + button.titleEdgeInsets.top + button.titleEdgeInsets.bottom
+            let maxLabelWidth: CGFloat = size.width - button.contentEdgeInsets.horizontal
+            let labelSize = button.titleLabel?.sizeThatFits(CGSize(width: maxLabelWidth, height: .greatestFiniteMagnitude)) ?? .zero
+            let buttonHeight = labelSize.height + button.contentEdgeInsets.vertical
             buttonFrames.append(CGRect(x: 0, y: currentY, width: buttonWidth, height: buttonHeight))
             currentY += buttonHeight
         }

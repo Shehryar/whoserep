@@ -29,17 +29,17 @@ class ChatMessageImage: NSObject {
 
 extension ChatMessageImage {
     
-    class func fromJSON(_ json: [String: AnyObject]?) -> ChatMessageImage? {
-        guard let json = json else {
+    class func from(_ dict: [String: Any]?) -> ChatMessageImage? {
+        guard let dict = dict else {
             return nil
         }
         
-        guard let urlString = json["url"] as? String,
-            let url = URL(string: urlString),
-            let width = json["width"] as? CGFloat,
-            let height = json["height"] as? CGFloat else {
-                DebugLog.w(caller: self, "url, width, and height required: \(json)")
-                return nil
+        guard let urlString = dict["url"] as? String,
+              let url = URL(string: urlString),
+              let width = dict["width"] as? CGFloat,
+              let height = dict["height"] as? CGFloat else {
+            DebugLog.w(caller: self, "url, width, and height required: \(dict)")
+            return nil
         }
         
         return ChatMessageImage(url: url, width: width, height: height)
