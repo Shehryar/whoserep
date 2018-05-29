@@ -182,8 +182,9 @@ class ScaleView: BaseComponentView {
         let firstButton = layout.buttonFrames.first ?? .zero
         let padding = scaleItem.style.padding
         let height = firstButton.maxY + padding.bottom
+        let width = (layout.buttonFrames.last?.maxX ?? 0) + padding.right
         
-        return CGSize(width: size.width, height: height)
+        return CGSize(width: width, height: height)
     }
     
     // MARK: - Actions
