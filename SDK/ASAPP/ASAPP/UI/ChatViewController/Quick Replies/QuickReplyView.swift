@@ -62,7 +62,7 @@ class QuickReplyView: UIView {
         
         button.imageIgnoresForegroundColor = true
         button.isUserInteractionEnabled = false
-        button.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        button.contentInset = textInset
         button.label.textAlignment = .left
         button.contentAlignment = .left
         button.label.numberOfLines = 0
