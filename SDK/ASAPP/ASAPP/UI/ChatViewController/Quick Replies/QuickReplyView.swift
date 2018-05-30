@@ -130,7 +130,7 @@ class QuickReplyView: UIView {
         
         if let notificationIcon = quickReply.icon {
             leftIconSize = notificationIcon.size
-            leftIconImage = notificationIcon.icon.getImage()
+            leftIconImage = notificationIcon.icon.getImage()?.tinted(iconTintColor)
         } else {
             leftIconImage = nil
         }

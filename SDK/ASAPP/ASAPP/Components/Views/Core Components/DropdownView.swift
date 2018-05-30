@@ -13,7 +13,7 @@ class DropdownView: BaseComponentView {
     let textInputView = PlaceholderTextInputView()
     
     private lazy var icon: UIImageView = {
-        return UIImageView(image: ComponentIcon.getImage(.caretDown)?.tinted(ASAPP.styles.colors.textPrimary))
+        return UIImageView(image: Images.getImage(.iconDropdownChevron)?.tinted(ASAPP.styles.colors.textPrimary))
     }()
     
     private var choice: Int?

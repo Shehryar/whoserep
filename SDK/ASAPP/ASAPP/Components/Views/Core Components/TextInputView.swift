@@ -15,7 +15,7 @@ class TextInputView: BaseComponentView, InvalidatableInput {
     let errorLabel = UILabel()
     
     lazy var errorIcon: UIImageView = {
-        return UIImageView(image: ComponentIcon.getImage(.alertError))
+        return UIImageView(image: ComponentIcon.getImage(.notificationAlert)?.tinted(UIColor.ASAPP.errorRed))
     }()
     
     var isInvalid: Bool = false {
@@ -86,7 +86,7 @@ class TextInputView: BaseComponentView, InvalidatableInput {
     }
     
     override func updateFrames() {
-        let errorIconSize = CGSize(width: 20.5, height: 18)
+        let errorIconSize = CGSize(width: 20, height: 20)
         
         var padding = component?.style.padding ?? .zero
         padding.bottom = bottomPaddingWithError(padding)

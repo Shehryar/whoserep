@@ -58,14 +58,14 @@ class GatekeeperView: UIView {
         
         switch contentType {
         case .unauthenticated:
-            iconView.image = ComponentIcon.getImage(.user)
-            iconSize = CGSize(width: 33, height: 33)
+            iconView.image = ComponentIcon.getImage(.userUser)?.tinted(ASAPP.styles.colors.iconTint)
+            iconSize = CGSize(width: 16, height: 16)
             promptLabel.text = ASAPPLocalizedString("Please log in to continue")
             button.updateText(ASAPPLocalizedString("Log in"), textStyle: ASAPP.styles.textStyles.button, colors: ASAPP.styles.colors.buttonPrimary)
             button.addTarget(self, action: #selector(didTapLogIn), for: .touchUpInside)
         case .notConnected:
-            iconView.image = ComponentIcon.getImage(.alertError)
-            iconSize = CGSize(width: 41, height: 36)
+            iconView.image = ComponentIcon.getImage(.notificationAlert)?.tinted(ASAPP.styles.colors.iconTint)
+            iconSize = CGSize(width: 20, height: 20)
             promptLabel.text = ASAPPLocalizedString("Unable to reconnect")
             button.updateText(ASAPPLocalizedString("Retry connecting"), textStyle: ASAPP.styles.textStyles.button, colors: ASAPP.styles.colors.buttonPrimary)
             button.addTarget(self, action: #selector(didTapReconnect), for: .touchUpInside)

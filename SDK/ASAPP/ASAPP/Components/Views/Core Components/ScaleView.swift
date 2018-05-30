@@ -36,7 +36,7 @@ class RatingButton: UIButton {
         case .fiveStar:
             backgroundColor = .clear
             setTitle(nil, for: .normal)
-            setImage(ComponentIcon.getImage(.star)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
+            setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
         }
     }
     
@@ -55,9 +55,9 @@ class RatingButton: UIButton {
                 }
             case .fiveStar:
                 if isSelected {
-                    setImage(ComponentIcon.getImage(.star)?.tinted(ASAPP.styles.colors.primary, alpha: 1), for: .normal)
+                    setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.primary, alpha: 1), for: .normal)
                 } else {
-                    setImage(ComponentIcon.getImage(.star)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
+                    setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
                 }
             }
         }

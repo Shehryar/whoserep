@@ -34,7 +34,7 @@ class IconViewSpec: QuickSpec {
                     style = TestUtil.createStyle()
                     
                     content = [
-                        "icon": "xThick"
+                        "icon": "nav_close"
                     ]
                 }
                 

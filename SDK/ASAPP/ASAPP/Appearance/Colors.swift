@@ -21,12 +21,5 @@ internal extension UIColor {
         static let cometBlue = UIColor(red: 0.357, green: 0.396, blue: 0.494, alpha: 1)
         static let errorRed = UIColor(red: 0.96, green: 0.2, blue: 0.38, alpha: 1)
         static let successGreen = UIColor(red: 0.11, green: 0.68, blue: 0.52, alpha: 1)
-        
-        static var patternBackground: UIColor? {
-            if let tileImage = Images.getImage(.tileImageDash) {
-                return UIColor(patternImage: tileImage)
-            }
-            return nil
-        }
     }
 }

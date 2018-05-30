@@ -61,7 +61,7 @@ class NotificationBanner: UIView {
         addSubview(bottomBorder)
         
         if let icon = notification.icon?.icon {
-            let imageView = UIImageView(image: icon.getImage())
+            let imageView = UIImageView(image: icon.getImage()?.tinted(ASAPP.styles.colors.iconTint))
             iconView = imageView
             if let iconView = self.iconView {
                 bannerContainer.addSubview(iconView)

@@ -62,8 +62,8 @@ class BinaryRatingView: BaseComponentView {
             negativeText = item.negativeText
             
             if positiveText == nil && negativeText == nil {
-                let thumbsUp = ComponentIcon.getImage(.thumbsUp)
-                let thumbsDown = ComponentIcon.getImage(.thumbsDown)
+                let thumbsUp = ComponentIcon.getImage(.ratingThumbsUpFill)
+                let thumbsDown = ComponentIcon.getImage(.ratingThumbsDownFill)
                 yesView.setImage(thumbsUp?.tinted(yesColor), for: .normal)
                 noView.setImage(thumbsDown?.tinted(noColor), for: .normal)
                 yesView.setImage(thumbsUp, for: .highlighted)
