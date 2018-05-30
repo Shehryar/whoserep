@@ -10,7 +10,10 @@ import UIKit
 
 class RestartButton: Button {
     let defaultHeight: CGFloat = 54
+    let animationDuration: TimeInterval = 0.3
+    
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private var activityIndicator: UIActivityIndicatorView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,5 +66,38 @@ class RestartButton: Button {
     func showBlur() {
         blurredBackground.isHidden = false
         setNeedsDisplay()
+    }
+    
+    func showSpinner() {
+        isUserInteractionEnabled = false
+        
+        activityIndicator = UIActivityIndicatorView(frame: frame)
+        if let spinner = activityIndicator {
+            spinner.backgroundColor = .clear
+            spinner.activityIndicatorViewStyle = .gray
+            spinner.sizeToFit()
+            spinner.frame = CGRect(x: imageView.frame.minX, y: label.center.y - (spinner.frame.height / 2), width: spinner.frame.size.width, height: spinner.frame.size.height)
+            insertSubview(spinner, belowSubview: label)
+            spinner.startAnimating()
+            spinner.alpha = 0
+        }
+        
+        UIView.animate(withDuration: animationDuration) { [weak self] in
+            self?.activityIndicator?.alpha = 1
+            self?.label.alpha = 0
+            self?.imageView.alpha = 0
+        }
+    }
+    
+    func hideSpinner() {
+        UIView.animate(withDuration: animationDuration, animations: { [weak self] in
+            self?.activityIndicator?.alpha = 0
+            self?.label.alpha = 1
+            self?.imageView.alpha = 1
+        }, completion: { [weak self] _ in
+            self?.activityIndicator?.removeFromSuperview()
+            self?.activityIndicator = nil
+            self?.isUserInteractionEnabled = true
+        })
     }
 }

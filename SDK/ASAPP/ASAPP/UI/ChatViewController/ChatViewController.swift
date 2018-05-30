@@ -1079,10 +1079,12 @@ extension ChatViewController {
 extension ChatViewController: QuickRepliesViewDelegate {
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {
         guard shouldConfirmRestart else {
+            quickRepliesView.showRestartSpinner()
             conversationManager.sendAskRequest { success in
                 guard !success else { return }
                 Dispatcher.performOnMainThread { [weak self] in
                     self?.reconnect()
+                    quickRepliesView.hideRestartSpinner()
                 }
             }
             return
