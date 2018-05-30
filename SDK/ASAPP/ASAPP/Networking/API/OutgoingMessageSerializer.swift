@@ -109,9 +109,13 @@ extension OutgoingMessageSerializer {
                     params["MergeCustomerGUID"] = customer.guid
                 }
                 
-                user.getContext { (_, authToken) in
+                user.getContext { (context, authToken) in
                     if let authToken = authToken {
                         params["Auth"] = authToken
+                    }
+                    
+                    if let context = context {
+                        params["Context"] = context
                     }
                     
                     completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
