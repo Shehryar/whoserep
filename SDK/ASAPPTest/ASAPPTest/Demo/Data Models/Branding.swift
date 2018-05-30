@@ -117,11 +117,13 @@ extension Branding {
         
         // Verizon special cases
         
+        styles.colors.iconTint = config.getUIColor(.dark)
+        
         styles.textStyles.header2 = ASAPPTextStyle(font: config.fontFamily.bold, size: 22, letterSpacing: 0.5, color: .black)
         styles.textStyles.subheader = ASAPPTextStyle(font: config.fontFamily.medium, size: 11, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
         styles.textStyles.bodyBold2 = ASAPPTextStyle(font: config.fontFamily.medium, size: 15, letterSpacing: 0.2, color: .black)
-        styles.textStyles.detail1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
-        styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 11, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
+        styles.textStyles.detail1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 13, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
+        styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0.5, color: UIColor.black.withAlphaComponent(0.5))
         
         return styles
     }

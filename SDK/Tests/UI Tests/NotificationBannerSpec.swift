@@ -32,7 +32,7 @@ class NotificationBannerSpec: QuickSpec {
                 
                 beforeEach {
                     ASAPP.styles = ASAPPStyles()
-                    icon = IconItem(style: TestUtil.createStyle(), content: ["icon": ComponentIcon.alertError.rawValue])
+                    icon = IconItem(style: TestUtil.createStyle(), content: ["icon": ComponentIcon.notificationAlert.rawValue])
                 }
                 
                 context("without an icon or text") {

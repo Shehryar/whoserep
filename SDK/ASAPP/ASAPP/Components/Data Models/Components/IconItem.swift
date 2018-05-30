@@ -9,27 +9,33 @@
 import UIKit
 
 enum ComponentIcon: String {
-    case alertError
-    case alertWarning
-    case arrowOutgoing
-    case caretDown
-    case checkmarkCircle
-    case checkmarkThick
-    case checkmarkThin
-    case clock
-    case loginKey
-    case power
-    case star
-    case thumbsDown
-    case thumbsUp
-    case trash
-    case user
-    case userMinus
-    case xThick
-    case xThin
+    case mailEmpty
+    case mailPaper
+    case moneyCardCancel
+    case moneyCardConfirm
+    case moneyCardRecurring
+    case moneyWallet
+    case navCheck
+    case navClose
+    case navExitFill
+    case networkAlert
+    case notificationAlert
+    case ratingStar
+    case ratingThumbsUpFill
+    case ratingThumbsDownFill
+    case soundOffFill
+    case soundOnFill
+    case techRouterOn
+    case timeClock
+    case timeClockArrow
+    case userCancel
+    case userConfirm
+    case userConnecting
+    case userUser
+    case userUserStanding
     
     static func getImage(_ icon: ComponentIcon) -> UIImage? {
-        return UIImage(named: icon.rawValue, in: ASAPP.bundle, compatibleWith: nil)
+        return UIImage(named: icon.rawValue.camelToSnakeCased(), in: ASAPP.bundle, compatibleWith: nil)
     }
 }
 
@@ -55,8 +61,8 @@ class IconItem: Component {
         }
         
         static func from(_ string: String?) -> Icon? {
-            guard let string = string,
-                  let icon = ComponentIcon(rawValue: string) else {
+            guard let name = string?.snakeToCamelCased(),
+                  let icon = ComponentIcon(rawValue: name) else {
                 return nil
             }
             return Icon.named(icon)

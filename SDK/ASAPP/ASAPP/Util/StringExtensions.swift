@@ -9,16 +9,15 @@
 import UIKit
 
 extension String {
+    func camelToSnakeCased() -> String {
+        let regex = try? NSRegularExpression(pattern: "([a-z0-9])([A-Z])", options: [])
+        let range = NSRange(location: 0, length: self.count)
+        return (regex?.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: "$1_$2") ?? self).lowercased()
+    }
     
-    var isLikelyASAPPPhoneNumber: Bool {
-        let unallowedCharacterSet = CharacterSet(charactersIn: "+0123456789").inverted
-        
-        // Example: +13126089137
-        if 9 ... 15 ~= self.count &&
-            self.rangeOfCharacter(from: unallowedCharacterSet) == nil {
-            return true
-        }
- 
-        return false
+    func snakeToCamelCased() -> String {
+        return self.split(separator: "_").enumerated().map { i, character in
+            return i > 0 ? String(character).capitalized : String(character)
+        }.joined()
     }
 }

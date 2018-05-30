@@ -234,6 +234,16 @@ extension QuickRepliesView {
             layoutIfNeeded()
         }
     }
+    
+    func showRestartSpinner() {
+        listView.selectionDisabled = true
+        restartButton.showSpinner()
+    }
+    
+    func hideRestartSpinner() {
+        listView.selectionDisabled = false
+        restartButton.hideSpinner()
+    }
 }
 
 extension QuickRepliesView: QuickRepliesListViewDelegate {

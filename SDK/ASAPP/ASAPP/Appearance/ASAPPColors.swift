@@ -31,6 +31,9 @@ public class ASAPPColors: NSObject {
         }
     }
     
+    /// :nodoc:
+    public var iconTint = UIColor.ASAPP.eggplant
+    
     // MARK: - Chat: Navigation Bar
     
     /// The background color of the navigation bar.
@@ -164,6 +167,7 @@ public class ASAPPColors: NSObject {
 
 extension ASAPPColors {
     func updateColors(primary: UIColor, dark: UIColor) {
+        iconTint = primary
         navBarButtonActive = primary
         messageBackground = primary
         helpButtonBackground = primary

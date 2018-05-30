@@ -349,7 +349,7 @@ extension Button {
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let layout = getFramesThatFit(size)
-        return CGSize(width: layout.labelFrame.maxX + contentInset.right, height: max(layout.imageFrame.height, layout.labelFrame.height) + contentInset.top + contentInset.bottom)
+        return CGSize(width: layout.labelFrame.maxX + contentInset.right, height: max(layout.imageFrame.height, layout.labelFrame.height) + contentInset.vertical)
     }
 }
 

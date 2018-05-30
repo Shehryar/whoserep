@@ -261,7 +261,7 @@ extension AppSettings {
         }
         
         if async {
-            DispatchQueue.global(qos: .background).async(execute: saveBlock)
+            DispatchQueue.global(qos: .utility).async(execute: saveBlock)
         } else {
             saveBlock()
         }
@@ -276,7 +276,7 @@ extension AppSettings {
         }
         
         if async {
-            DispatchQueue.global(qos: .background).async(execute: saveBlock)
+            DispatchQueue.global(qos: .utility).async(execute: saveBlock)
         } else {
             saveBlock()
         }

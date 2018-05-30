@@ -36,7 +36,7 @@ class RatingButton: UIButton {
         case .fiveStar:
             backgroundColor = .clear
             setTitle(nil, for: .normal)
-            setImage(ComponentIcon.getImage(.star)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
+            setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
         }
     }
     
@@ -55,9 +55,9 @@ class RatingButton: UIButton {
                 }
             case .fiveStar:
                 if isSelected {
-                    setImage(ComponentIcon.getImage(.star)?.tinted(ASAPP.styles.colors.primary, alpha: 1), for: .normal)
+                    setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.primary, alpha: 1), for: .normal)
                 } else {
-                    setImage(ComponentIcon.getImage(.star)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
+                    setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
                 }
             }
         }
@@ -182,8 +182,9 @@ class ScaleView: BaseComponentView {
         let firstButton = layout.buttonFrames.first ?? .zero
         let padding = scaleItem.style.padding
         let height = firstButton.maxY + padding.bottom
+        let width = (layout.buttonFrames.last?.maxX ?? 0) + padding.right
         
-        return CGSize(width: size.width, height: height)
+        return CGSize(width: width, height: height)
     }
     
     // MARK: - Actions

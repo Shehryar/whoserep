@@ -60,7 +60,7 @@ class QuickReplyViewSpec: QuickSpec {
                         cell.frame = CGRect(x: 0, y: 0, width: 320, height: 80)
                         
                         let action = Action(content: nil)!
-                        let icon = IconItem(style: style, content: ["icon": "clock"])
+                        let icon = IconItem(style: style, content: ["icon": "time_clock"])
                         let quickReply = QuickReply(title: "Sc he du le an ap po in tm en t to return equipment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)
@@ -93,7 +93,7 @@ class QuickReplyViewSpec: QuickSpec {
                         let action = WebPageAction(content: [
                             "url": "https://asapp.com/"
                         ])!
-                        let icon = IconItem(style: style, content: ["icon": "clock"])
+                        let icon = IconItem(style: style, content: ["icon": "nav_clock"])
                         let quickReply = QuickReply(title: "Schedule an appointment to return equipment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)
@@ -110,7 +110,7 @@ class QuickReplyViewSpec: QuickSpec {
                         let action = WebPageAction(content: [
                             "url": "https://asapp.com/"
                         ])!
-                        let icon = IconItem(style: style, content: ["icon": "alertError"])
+                        let icon = IconItem(style: style, content: ["icon": "notification_alert"])
                         let quickReply = QuickReply(title: "Appointment", action: action, icon: icon)
                         
                         cell.update(for: quickReply, enabled: true)
