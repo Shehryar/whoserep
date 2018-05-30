@@ -21,7 +21,7 @@ class Dispatcher {
     }
     
     class func performOnBackgroundThread(_ closure: @escaping (() -> Void)) {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .utility).async {
             closure()
         }
     }

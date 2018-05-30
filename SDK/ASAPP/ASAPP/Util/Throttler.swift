@@ -9,7 +9,7 @@
 import Foundation
 
 class Throttler {
-    private let queue = DispatchQueue.global(qos: .background)
+    private let queue = DispatchQueue.global(qos: .utility)
     private var workItem = DispatchWorkItem(block: {})
     private var lastExecuted = Date.distantPast
     
