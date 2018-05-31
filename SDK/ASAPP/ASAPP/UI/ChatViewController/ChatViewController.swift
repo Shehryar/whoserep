@@ -1434,14 +1434,9 @@ extension ChatViewController: ConversationManagerDelegate {
             return
         }
         
-        if quickRepliesView.frame.height > 0 {
-            Dispatcher.delay(200) { [weak self] in
-                self?.showQuickRepliesView(with: message)
-            }
-        } else {
-            Dispatcher.delay(400) { [weak self] in
-                self?.showQuickRepliesView(with: message)
-            }
+        let delay: Double = quickRepliesView.currentMessage?.hasQuickReplies == true ? 200 : 600
+        Dispatcher.delay(delay) { [weak self] in
+            self?.showQuickRepliesView(with: message)
         }
     }
 }
