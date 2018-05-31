@@ -1259,6 +1259,10 @@ extension ChatViewController: ConversationManagerDelegate {
     
     private func messageCompletionHandler(_ message: ChatMessage) {
         func update() {
+            Dispatcher.delay(300) { [weak self] in
+                self?.quickRepliesView.hideRestartSpinner()
+            }
+            
             if message.metadata.isReply {
                 updateState(for: message, animated: true)
             }
