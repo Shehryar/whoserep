@@ -537,7 +537,7 @@ extension ChatViewController {
         quickRepliesView.isRestartButtonVisible = !shouldHideNewQuestionButton && showRestartButton
         chatInputView.alpha = showRestartButton || actionSheet != nil || (chatMessagesView.isEmpty && quickRepliesMessage == nil) ? 0 : 1
         
-        let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
+        var quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
         var quickRepliesTop = view.bounds.height
         
         switch inputState {
@@ -556,6 +556,11 @@ extension ChatViewController {
                 quickRepliesView.contentInsetBottom = inputHeight
                 chatInputView.showBlur()
             } else {
+                if !quickRepliesView.isRestartButtonVisible && chatInputView.alpha == 0 && quickRepliesHeight > 0 {
+                    let extraPadding: CGFloat = 20
+                    quickRepliesHeight += extraPadding
+                    quickRepliesTop -= extraPadding
+                }
                 chatInputView.hideBlur()
             }
             chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight + inputHeight)
