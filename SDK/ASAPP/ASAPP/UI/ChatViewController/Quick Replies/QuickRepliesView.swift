@@ -197,6 +197,7 @@ extension QuickRepliesView {
     
     func disableCurrentButtons() {
         listView.selectionDisabled = true
+        listView.updateEnabled()
     }
     
     func reloadButtons(for message: ChatMessage) {
@@ -236,12 +237,11 @@ extension QuickRepliesView {
     }
     
     func showRestartSpinner() {
-        listView.selectionDisabled = true
+        disableCurrentButtons()
         restartButton.showSpinner()
     }
     
     func hideRestartSpinner() {
-        listView.selectionDisabled = false
         restartButton.hideSpinner()
     }
 }

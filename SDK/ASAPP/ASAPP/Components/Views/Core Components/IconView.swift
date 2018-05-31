@@ -20,7 +20,7 @@ class IconView: BaseComponentView {
                 if let tintColor = iconItem.style.color {
                     imageView.image = iconItem.icon.getImage()?.tinted(tintColor)
                 } else {
-                    imageView.image = iconItem.icon.getImage()
+                    imageView.image = iconItem.icon.getImage()?.tinted(ASAPP.styles.colors.iconTint)
                 }
             } else {
                 imageView.image = nil

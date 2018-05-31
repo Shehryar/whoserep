@@ -537,7 +537,7 @@ extension ChatViewController {
         quickRepliesView.isRestartButtonVisible = !shouldHideNewQuestionButton && showRestartButton
         chatInputView.alpha = showRestartButton || actionSheet != nil || (chatMessagesView.isEmpty && quickRepliesMessage == nil) ? 0 : 1
         
-        let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
+        var quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
         var quickRepliesTop = view.bounds.height
         
         switch inputState {
@@ -556,6 +556,11 @@ extension ChatViewController {
                 quickRepliesView.contentInsetBottom = inputHeight
                 chatInputView.showBlur()
             } else {
+                if !quickRepliesView.isRestartButtonVisible && chatInputView.alpha == 0 && quickRepliesHeight > 0 {
+                    let extraPadding: CGFloat = 20
+                    quickRepliesHeight += extraPadding
+                    quickRepliesTop -= extraPadding
+                }
                 chatInputView.hideBlur()
             }
             chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight + inputHeight)
@@ -1254,6 +1259,10 @@ extension ChatViewController: ConversationManagerDelegate {
     
     private func messageCompletionHandler(_ message: ChatMessage) {
         func update() {
+            Dispatcher.delay(300) { [weak self] in
+                self?.quickRepliesView.hideRestartSpinner()
+            }
+            
             if message.metadata.isReply {
                 updateState(for: message, animated: true)
             }
@@ -1425,14 +1434,9 @@ extension ChatViewController: ConversationManagerDelegate {
             return
         }
         
-        if quickRepliesView.frame.height > 0 {
-            Dispatcher.delay(200) { [weak self] in
-                self?.showQuickRepliesView(with: message)
-            }
-        } else {
-            Dispatcher.delay(400) { [weak self] in
-                self?.showQuickRepliesView(with: message)
-            }
+        let delay: Double = quickRepliesView.currentMessage?.hasQuickReplies == true ? 200 : 600
+        Dispatcher.delay(delay) { [weak self] in
+            self?.showQuickRepliesView(with: message)
         }
     }
 }
