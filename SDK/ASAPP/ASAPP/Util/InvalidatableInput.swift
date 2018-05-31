@@ -18,6 +18,7 @@ protocol InvalidatableInput: class {
     func clearError()
 }
 
+/// :nodoc:
 extension InvalidatableInput where Self: UIView & ComponentView {
     var errorTextStyle: ASAPPTextStyle {
         let errorDefault = ASAPP.styles.textStyles.error
