@@ -22,11 +22,7 @@ class QuickRepliesListView: UIView {
     
     var onQuickReplySelected: ((QuickReply) -> Bool)?
     
-    var selectionDisabled: Bool = false {
-        didSet {
-            updateDisplay()
-        }
-    }
+    var selectionDisabled: Bool = false
     
     var contentInsetBottom: CGFloat = 0 {
         didSet {
@@ -107,6 +103,14 @@ class QuickRepliesListView: UIView {
         setNeedsLayout()
     }
     
+    func updateEnabled() {
+        for i in quickReplyViews.indices {
+            setQuickReplyViewEnabled(at: i, enabled: !selectionDisabled)
+        }
+        
+        setNeedsLayout()
+    }
+    
     // MARK: - Layout
     
     override func layoutSubviews() {
@@ -115,8 +119,19 @@ class QuickRepliesListView: UIView {
         scrollView.frame = bounds
     }
     
+    private func setQuickReplyViewEnabled(at index: Int, enabled: Bool) {
+        guard index < quickReplies?.count ?? 0,
+            let quickReply = quickReplies?[index] else {
+                return
+        }
+        
+        let view = quickReplyViews[index]
+        setQuickReplyViewEnabled(view, enabled: enabled)
+    }
+    
     private func styleQuickReplyView(at index: Int) {
-        guard let quickReply = quickReplies?[index] else {
+        guard index < quickReplies?.count ?? 0,
+              let quickReply = quickReplies?[index] else {
             return
         }
         
@@ -136,6 +151,11 @@ class QuickRepliesListView: UIView {
     private func styleQuickReplyView(_ view: QuickReplyView, for quickReply: QuickReply) {
         let enabled = (selectedQuickReply == nil && !selectionDisabled) || selectedQuickReply == quickReply
         view.update(for: quickReply, enabled: enabled)
+        view.setNeedsLayout()
+    }
+    
+    private func setQuickReplyViewEnabled(_ view: QuickReplyView, enabled: Bool) {
+        view.update(enabled: enabled)
         view.setNeedsLayout()
     }
     

@@ -139,6 +139,10 @@ class QuickReplyView: UIView {
         button.isEnabled = enabled
     }
     
+    func update(enabled: Bool) {
+        button.isEnabled = enabled
+    }
+    
     @objc func didPress(recognizer: UIGestureRecognizer) {
         let highlighted = ![.ended, .cancelled].contains(recognizer.state)
         Dispatcher.delay(100) { [weak self] in
