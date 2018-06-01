@@ -590,22 +590,35 @@ extension ChatViewController {
                     self?.chatInputView.showSolidBackground()
                 }
             }
+            
+            if wasNearBottom && scrollToBottomIfNearBottom {
+                chatMessagesView.scrollToBottomAnimated(true)
+            }
+            
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: { [weak self] in
                 self?.updateFrames()
+                
                 if wasNearBottom && scrollToBottomIfNearBottom {
                     self?.chatMessagesView.scrollToBottomAnimated(false)
                 }
             }, completion: { [weak self] _ in
+                if wasNearBottom && scrollToBottomIfNearBottom {
+                    self?.chatMessagesView.scrollToBottomAnimated(true)
+                }
+                
                 Dispatcher.delay(self?.quickRepliesView.initialAnimationDuration ?? 0) { [weak self] in
                     self?.chatInputView.hideSolidBackground()
                 }
+                
                 completion?()
             })
         } else {
             updateFrames()
+            
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottomAnimated(false)
             }
+            
             completion?()
         }
     }
