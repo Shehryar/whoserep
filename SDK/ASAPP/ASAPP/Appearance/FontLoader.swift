@@ -29,6 +29,7 @@ internal class FontLoader {
     }
 }
 
+/// :nodoc:
 extension FontLoader {
     private class var existingFonts: [FontName] {
         var fontNames = [FontName]()
