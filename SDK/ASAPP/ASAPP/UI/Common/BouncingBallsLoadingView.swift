@@ -109,8 +109,7 @@ class BouncingBallsLoadingView: UIView {
         for ballView in ballViews {
             animateBallView(ballView, delay: delay, animationBlockStartTime: animationBlockStartTime, completion: {
                 if ballView == self.ballViews.last {
-                    Dispatcher.delay(300) {
-                        
+                    Dispatcher.delay {
                         if self.animating && self.animationStartTime == animationBlockStartTime {
                             self.animating = false
                             self.beginAnimating()

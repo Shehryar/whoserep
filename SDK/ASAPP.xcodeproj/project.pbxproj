@@ -391,6 +391,7 @@
 		3AC81A5220BDF19700F345F9 /* nav_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC81A0720BDF19600F345F9 /* nav_check.png */; };
 		3AC81A5320BDF19700F345F9 /* tech_router_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC81A0820BDF19700F345F9 /* tech_router_on@3x.png */; };
 		3AC81A5420BDF19700F345F9 /* sound_off_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AC81A0920BDF19700F345F9 /* sound_off_fill.png */; };
+		3AC81A5820C2405100F345F9 /* DispatchTimeIntervalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC81A5720C2405100F345F9 /* DispatchTimeIntervalExtensions.swift */; };
 		3ACAAA9C20570B4700963DD3 /* RestartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACAAA9B20570B4700963DD3 /* RestartButton.swift */; };
 		3ACAAAA020570CE300963DD3 /* icon-new-question.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACAAA9D20570CE100963DD3 /* icon-new-question.png */; };
 		3ACAAAA120570CE300963DD3 /* icon-new-question@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACAAA9E20570CE200963DD3 /* icon-new-question@3x.png */; };
@@ -795,6 +796,7 @@
 		3AC81A0720BDF19600F345F9 /* nav_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_check.png; sourceTree = "<group>"; };
 		3AC81A0820BDF19700F345F9 /* tech_router_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tech_router_on@3x.png"; sourceTree = "<group>"; };
 		3AC81A0920BDF19700F345F9 /* sound_off_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sound_off_fill.png; sourceTree = "<group>"; };
+		3AC81A5720C2405100F345F9 /* DispatchTimeIntervalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchTimeIntervalExtensions.swift; sourceTree = "<group>"; };
 		3ACAAA9B20570B4700963DD3 /* RestartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartButton.swift; sourceTree = "<group>"; };
 		3ACAAA9D20570CE100963DD3 /* icon-new-question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-new-question.png"; sourceTree = "<group>"; };
 		3ACAAA9E20570CE200963DD3 /* icon-new-question@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-new-question@3x.png"; sourceTree = "<group>"; };
@@ -1003,6 +1005,7 @@
 				3049CD231D42AD8500F0C0E6 /* DebugLog.swift */,
 				305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */,
 				28E9BE551D477CE400ACCF86 /* Dispatcher.swift */,
+				3AC81A5720C2405100F345F9 /* DispatchTimeIntervalExtensions.swift */,
 				308F29731D4168BE00EC7055 /* Images.swift */,
 				3A391B441FA223810085C2DA /* InvalidatableInput.swift */,
 				30BD87851DBFF06F0008042D /* JSONUtil.swift */,
@@ -2200,6 +2203,7 @@
 				306CA6621E953DC400CFE17D /* ASAPPConstants.swift in Sources */,
 				288085221E87FCA800240A5D /* ScrollView.swift in Sources */,
 				3A0E7F9A1FB4BD10008F9544 /* BinaryRatingItem.swift in Sources */,
+				3AC81A5820C2405100F345F9 /* DispatchTimeIntervalExtensions.swift in Sources */,
 				30DF3F701F27AFF900D6DB02 /* ChatMessage+LegacySRS.swift in Sources */,
 				30B3FE1F1ECA375400D43068 /* SecureScreenCoverView.swift in Sources */,
 				3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */,

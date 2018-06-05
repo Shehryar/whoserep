@@ -206,9 +206,9 @@ extension QuickRepliesView {
         }
     }
     
-    func clear(animated: Bool) {
-        listView.update(for: nil, animated: animated)
+    func clear(animated: Bool, completion: (() -> Void)? = nil) {
         separatorTopView.alpha = 1
+        listView.update(for: nil, animated: animated, completion: completion)
     }
     
     func deselectCurrentSelection(animated: Bool) {

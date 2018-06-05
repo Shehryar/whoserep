@@ -314,7 +314,7 @@ extension ChatMessageCell {
         animationStartTime = blockStartTime
         
         prepareAnimation()
-        Dispatcher.delay(100) { [weak self] in
+        Dispatcher.delay(.milliseconds(100)) { [weak self] in
             guard let strongSelf = self else {
                 return
             }

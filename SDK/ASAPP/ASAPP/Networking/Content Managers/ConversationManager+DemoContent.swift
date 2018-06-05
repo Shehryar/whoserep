@@ -25,7 +25,7 @@ extension ConversationManager {
     func sendDemoMessageEvent(_ event: Event?) {
         guard let message = event?.chatMessage else { return }
         
-        Dispatcher.delay(600, closure: {
+        Dispatcher.delay(.defaultAnimationDuration * 2, closure: {
             self.delegate?.conversationManager(self, didReceive: message)
         })
     }

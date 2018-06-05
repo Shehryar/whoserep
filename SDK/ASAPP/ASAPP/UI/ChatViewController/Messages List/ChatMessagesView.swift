@@ -450,31 +450,43 @@ extension ChatMessagesView {
         return false
     }
     
-    func scrollToBottomAnimated(_ animated: Bool) {
-        let scroll = { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            var indexPath: IndexPath?
-            let lastSection = strongSelf.numberOfSections(in: strongSelf.tableView) - 1
-            if lastSection >= 0 {
-                let lastRow = strongSelf.tableView(strongSelf.tableView, numberOfRowsInSection: lastSection) - 1
-                if lastRow >= 0 {
-                    indexPath = IndexPath(row: lastRow, section: lastSection)
-                }
-            }
-            
-            if let indexPath = indexPath {
-                strongSelf.tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+    private func getLastIndexPath() -> IndexPath? {
+        var indexPath: IndexPath?
+        let lastSection = numberOfSections(in: tableView) - 1
+        
+        if lastSection >= 0 {
+            let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
+            if lastRow >= 0 {
+                indexPath = IndexPath(row: lastRow, section: lastSection)
             }
         }
         
-        if #available(iOS 11, *) {
-            if !isNearBottom(10) && animated {
-                Dispatcher.delay(200, closure: scroll)
-            } else {
-                scroll()
+        return indexPath
+    }
+    
+    private func scrollToRow(at indexPath: IndexPath, animated: Bool) {
+        let scrollPadding: CGFloat = 1.0
+        let indexRect = tableView.rectForRow(at: indexPath)
+        let targetScrollYOffset = indexRect.origin.y
+        guard fabs(tableView.contentOffset.y - targetScrollYOffset) > scrollPadding,
+              tableView.contentSize.height > tableView.bounds.height - tableView.contentInset.vertical else {
+            return
+        }
+        
+        tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+    }
+    
+    func scrollToBottomAnimated(_ animated: Bool) {
+        let scroll = { [weak self] in
+            guard let strongSelf = self,
+                  let indexPath = strongSelf.getLastIndexPath() else {
+                return
             }
-        } else {
+            
+            strongSelf.scrollToRow(at: indexPath, animated: animated)
+        }
+        
+        Dispatcher.performOnMainThread {
             scroll()
         }
     }
@@ -586,19 +598,7 @@ extension ChatMessagesView {
             }
         }
         
-        UIView.performWithoutAnimation {
-            self.tableView.beginUpdates()
-            if !rowsToReload.isEmpty {
-                self.tableView.reloadRows(at: rowsToReload, with: .none)
-            }
-            
-            if self.tableView.numberOfSections <= indexPath.section {
-                self.tableView.insertSections(IndexSet(integer: indexPath.section), with: .none)
-            } else {
-                self.tableView.insertRows(at: [indexPath], with: .none)
-            }
-            self.tableView.endUpdates()
-        }
+        tableView.reloadData()
         
         focusAccessibilityOnLastMessage()
         

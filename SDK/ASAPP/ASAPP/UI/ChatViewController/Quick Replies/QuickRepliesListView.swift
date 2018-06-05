@@ -87,11 +87,12 @@ class QuickRepliesListView: UIView {
     
     // MARK: - Display
     
-    func update(for message: ChatMessage?, animated: Bool) {
+    func update(for message: ChatMessage?, animated: Bool, completion: (() -> Void)? = nil) {
         self.message = message
         quickReplies = message?.quickReplies
         refresh(animated: animated) { [weak self] in
             self?.reset()
+            completion?()
         }
     }
     
@@ -120,9 +121,8 @@ class QuickRepliesListView: UIView {
     }
     
     private func setQuickReplyViewEnabled(at index: Int, enabled: Bool) {
-        guard index < quickReplies?.count ?? 0,
-            let quickReply = quickReplies?[index] else {
-                return
+        guard index < quickReplyViews.count else {
+            return
         }
         
         let view = quickReplyViews[index]
@@ -236,7 +236,7 @@ extension QuickRepliesListView {
             })
         }
         
-        Dispatcher.delay(1000 * getTotalAnimationDuration(delay: false, direction: .out)) { [weak self] in
+        Dispatcher.delay(.seconds(getTotalAnimationDuration(delay: false, direction: .out))) { [weak self] in
             self?.quickReplyViews = []
             self?.scrollView.setNeedsLayout()
             self?.scrollView.layoutIfNeeded()
@@ -308,7 +308,7 @@ extension QuickRepliesListView {
             return
         }
         
-        Dispatcher.delay(1000 * getTotalAnimationDuration(delay: shouldDelay, direction: .in)) {
+        Dispatcher.delay(.seconds(getTotalAnimationDuration(delay: shouldDelay, direction: .in))) {
             completion?()
         }
     }
@@ -364,7 +364,7 @@ extension QuickRepliesListView: UIScrollViewDelegate {
 extension QuickRepliesListView {
     func flashScrollIndicatorsIfNecessary() {
         if scrollView.contentSize.height > scrollView.bounds.height + 30 {
-            Dispatcher.delay(600) { [weak self] in
+            Dispatcher.delay(.defaultAnimationDuration * 2) { [weak self] in
                 self?.scrollView.flashScrollIndicators()
             }
         }

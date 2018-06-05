@@ -157,7 +157,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
                 return
             }
             
-            Dispatcher.delay(800, closure: {
+            Dispatcher.delay(.milliseconds(800), closure: {
                 self?.addMessage(message)
             })
         })
@@ -350,10 +350,10 @@ extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate
         
         if let text = data["text"] as? String,
             let name = data["classification"] as? String {
-            Dispatcher.delay(1500) {
+            Dispatcher.delay(.milliseconds(1500)) {
                 completion(APIActionResponse(type: .finish))
                 
-                Dispatcher.delay(500, closure: { [weak self] in
+                Dispatcher.delay(.milliseconds(500), closure: { [weak self] in
                     self?.getNextMessage(with: text, nextFileName: name)
                 })
             }

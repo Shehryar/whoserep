@@ -430,7 +430,7 @@ extension ConversationManager: SocketConnectionDelegate {
         // Message Event
         if let message = event.chatMessage {
             if message.metadata.isAutomatedMessage {
-                Dispatcher.delay(600, closure: { [weak self] in
+                Dispatcher.delay(.defaultAnimationDuration * 2, closure: { [weak self] in
                     guard let strongSelf = self else {
                         return
                     }

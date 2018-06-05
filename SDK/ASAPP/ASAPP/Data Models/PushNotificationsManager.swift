@@ -18,7 +18,7 @@ protocol PushNotificationsManagerProtocol {
     func deregister()
     func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler)
     func requestAuthorization()
-    func requestAuthorizationIfNeeded(after delay: TimeInterval)
+    func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval)
 }
 
 class PushNotificationsManager: PushNotificationsManagerProtocol {
@@ -205,9 +205,9 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    func requestAuthorizationIfNeeded(after delay: TimeInterval = 0) {
+    func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval = .seconds(0)) {
         func request() {
-            Dispatcher.delay(delay * 1000.0) { [weak self] in
+            Dispatcher.delay(delay) { [weak self] in
                 self?.requestAuthorization()
             }
         }

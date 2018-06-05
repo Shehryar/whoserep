@@ -102,7 +102,10 @@ class ChatMessagesViewSpec: QuickSpec {
                             events.append(createMessageEvent(text: "Message \(i)"))
                         }
                         view.reloadWithEvents(events)
-                        expect(view).to(haveValidSnapshot())
+                        waitUntil { done in
+                            expect(view).to(haveValidSnapshot())
+                            done()
+                        }
                     }
                 }
                 
@@ -113,7 +116,10 @@ class ChatMessagesViewSpec: QuickSpec {
                             events.append(createMessageEvent(text: "Message \(i)", isReply: true))
                         }
                         view.reloadWithEvents(events)
-                        expect(view).to(haveValidSnapshot())
+                        waitUntil { done in
+                            expect(view).to(haveValidSnapshot())
+                            done()
+                        }
                     }
                 }
                 
@@ -124,7 +130,10 @@ class ChatMessagesViewSpec: QuickSpec {
                             events.append(createMessageEvent(text: "Message \(i)", isReply: i % 2 == 0))
                         }
                         view.reloadWithEvents(events)
-                        expect(view).to(haveValidSnapshot())
+                        waitUntil { done in
+                            expect(view).to(haveValidSnapshot())
+                            done()
+                        }
                     }
                 }
                 
@@ -135,8 +144,11 @@ class ChatMessagesViewSpec: QuickSpec {
                             events.append(createMessageEvent(text: "Message \(i)", isReply: i % 2 == 0))
                         }
                         view.reloadWithEvents(events)
-                        view.toggleTimeStampForMessage(at: IndexPath(row: 20, section: 0))
-                        expect(view).to(haveValidSnapshot())
+                        waitUntil { done in
+                            view.toggleTimeStampForMessage(at: IndexPath(row: 20, section: 0))
+                            expect(view).to(haveValidSnapshot())
+                            done()
+                        }
                     }
                 }
                 
@@ -147,10 +159,13 @@ class ChatMessagesViewSpec: QuickSpec {
                             events.append(createMessageEvent(text: "Message \(i)", isReply: i % 2 == 0))
                         }
                         view.reloadWithEvents(events)
-                        view.toggleTimeStampForMessage(at: IndexPath(row: 20, section: 0))
-                        view.toggleTimeStampForMessage(at: IndexPath(row: 22, section: 0))
-                        view.toggleTimeStampForMessage(at: IndexPath(row: 23, section: 0))
-                        expect(view).to(haveValidSnapshot())
+                        waitUntil { done in
+                            view.toggleTimeStampForMessage(at: IndexPath(row: 20, section: 0))
+                            view.toggleTimeStampForMessage(at: IndexPath(row: 22, section: 0))
+                            view.toggleTimeStampForMessage(at: IndexPath(row: 23, section: 0))
+                            expect(view).to(haveValidSnapshot())
+                            done()
+                        }
                     }
                 }
                 
@@ -162,7 +177,10 @@ class ChatMessagesViewSpec: QuickSpec {
                         }
                         view.reloadWithEvents(events)
                         view.updateTypingStatus(true)
-                        expect(view).to(haveValidSnapshot())
+                        waitUntil { done in
+                            expect(view).to(haveValidSnapshot())
+                            done()
+                        }
                     }
                 }
                 
@@ -175,7 +193,10 @@ class ChatMessagesViewSpec: QuickSpec {
                         view.contentInsetTop = 80
                         view.contentInsetBottom = 80
                         view.reloadWithEvents(events)
-                        expect(view).to(haveValidSnapshot())
+                        waitUntil { done in
+                            expect(view).to(haveValidSnapshot())
+                            done()
+                        }
                     }
                 }
             }
