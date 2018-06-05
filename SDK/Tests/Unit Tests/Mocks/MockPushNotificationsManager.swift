@@ -56,7 +56,7 @@ class MockPushNotificationsManager: PushNotificationsManagerProtocol {
         calledRequestAuthorization = true
     }
     
-    func requestAuthorizationIfNeeded(after delay: TimeInterval) {
+    func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval) {
         calledRequestAuthorizaitonIfNeeded = true
     }
 }

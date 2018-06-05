@@ -145,7 +145,7 @@ class QuickReplyView: UIView {
     
     @objc func didPress(recognizer: UIGestureRecognizer) {
         let highlighted = ![.ended, .cancelled].contains(recognizer.state)
-        Dispatcher.delay(100) { [weak self] in
+        Dispatcher.delay(.milliseconds(100)) { [weak self] in
             let shouldStillHighlight = ![.ended, .cancelled].contains(recognizer.state)
             self?.setHighlighted(highlighted && shouldStillHighlight && (self?.canBeHighlighted ?? false), animated: true)
         }

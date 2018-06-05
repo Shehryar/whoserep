@@ -61,6 +61,7 @@ class ChatViewController: ASAPPViewController {
     private var shouldReloadOnUserUpdate = false
     private var nextAction: Action?
     private var isAppInForeground = true
+    private var scrollingCompletionTime: Date?
     
     // MARK: Properties: Autosuggest
     
@@ -294,7 +295,7 @@ class ChatViewController: ASAPPViewController {
             connectionStatus = .connecting
             delayedDisconnectTime = Date(timeIntervalSinceNow: disconnectedTimeThreshold)
             conversationManager.enterConversation()
-            Dispatcher.delay(1000 * disconnectedTimeThreshold + 300) { [weak self] in
+            Dispatcher.delay(.seconds(disconnectedTimeThreshold) + .defaultAnimationDuration) { [weak self] in
                 self?.updateFramesAnimated(false, scrollToBottomIfNearBottom: false)
             }
         }
@@ -422,7 +423,7 @@ extension ChatViewController {
         updateMoreButton()
         
         if isLiveChat {
-            Dispatcher.delay(300) { [weak self] in
+            Dispatcher.delay { [weak self] in
                 self?.chatInputView.needsToBecomeFirstResponder = true
                 self?.updateFramesAnimated()
             }
@@ -538,7 +539,6 @@ extension ChatViewController {
         chatInputView.alpha = showRestartButton || actionSheet != nil || (chatMessagesView.isEmpty && quickRepliesMessage == nil) ? 0 : 1
         
         var quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
-        var quickRepliesTop = view.bounds.height
         
         switch inputState {
         case .prechat, .chat:
@@ -547,19 +547,17 @@ extension ChatViewController {
             } else {
                 chatInputView.prepareForFocus()
             }
+            quickRepliesHeight = 0
             chatMessagesView.contentInsetBottom = ceil(keyboardRenderedHeight)
         case .both, .quickReplies, .conversationEnd:
             chatInputView.prepareForNormalState()
             let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
-            quickRepliesTop -= quickRepliesHeight + inputHeight
-            if inputHeight > 0 && quickRepliesTop + quickRepliesView.contentHeight >= view.bounds.height - inputHeight {
+            if inputHeight > 0 && inputHeight + quickRepliesView.contentHeight >= quickRepliesHeight {
                 quickRepliesView.contentInsetBottom = inputHeight
                 chatInputView.showBlur()
             } else {
                 if !quickRepliesView.isRestartButtonVisible && chatInputView.alpha == 0 && quickRepliesHeight > 0 {
-                    let extraPadding: CGFloat = 20
-                    quickRepliesHeight += extraPadding
-                    quickRepliesTop -= extraPadding
+                    quickRepliesHeight += 20
                 }
                 chatInputView.hideBlur()
             }
@@ -567,7 +565,7 @@ extension ChatViewController {
         }
         
         let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both ? chatInputView.frame.height : 0)
-        quickRepliesView.frame = CGRect(x: 0, y: quickRepliesTop, width: viewWidth, height: quickRepliesHeightWithChat)
+        quickRepliesView.frame = CGRect(x: 0, y: view.bounds.height - quickRepliesHeightWithChat, width: viewWidth, height: quickRepliesHeightWithChat)
         if previousInputState != inputState {
             quickRepliesView.updateFrames()
         }
@@ -597,16 +595,12 @@ extension ChatViewController {
             
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: { [weak self] in
                 self?.updateFrames()
-                
-                if wasNearBottom && scrollToBottomIfNearBottom {
-                    self?.chatMessagesView.scrollToBottomAnimated(false)
-                }
             }, completion: { [weak self] _ in
                 if wasNearBottom && scrollToBottomIfNearBottom {
                     self?.chatMessagesView.scrollToBottomAnimated(true)
                 }
                 
-                Dispatcher.delay(self?.quickRepliesView.initialAnimationDuration ?? 0) { [weak self] in
+                Dispatcher.delay(.seconds(self?.quickRepliesView.initialAnimationDuration ?? 0)) { [weak self] in
                     self?.chatInputView.hideSolidBackground()
                 }
                 
@@ -676,7 +670,7 @@ extension ChatViewController {
         }
         
         ASAPP.userLoginAction = nil
-        PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: 3)
+        PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: .seconds(3))
         
         let formData = message?.attachment?.template?.getData()
         
@@ -763,7 +757,7 @@ extension ChatViewController {
             
         case .treewalk:
             Dispatcher.performOnMainThread { [weak self] in
-                self?.chatMessagesView.scrollToBottomAnimated(true)
+                self?.scrollToBottomBeforeAddingNextMessage()
             }
             
             conversationManager.sendRequestForTreewalkAction(
@@ -827,13 +821,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {
-        if inputState == .prechat,
-           let previous = previousInputState,
-           previous != .prechat {
-            updateInputState(previous, animated: true)
-        } else {
-            chatInputView.resignFirstResponder()
-        }
+        didHideKeyboard()
     }
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
@@ -894,6 +882,15 @@ extension ChatViewController: ChatMessagesViewDelegate {
             strongSelf.updateViewForLiveChat(animated: true)
             
             strongSelf.fetchingAfter = nil
+        }
+    }
+    
+    func scrollToBottomBeforeAddingNextMessage() {
+        if !chatMessagesView.isNearBottom() {
+            scrollingCompletionTime = Date().addingTimeInterval(DispatchTimeInterval.defaultAnimationDuration.seconds * 2)
+            Dispatcher.performOnMainThread { [weak self] in
+                self?.chatMessagesView.scrollToBottomAnimated(true)
+            }
         }
     }
 }
@@ -1035,12 +1032,16 @@ extension ChatViewController: ChatInputViewDelegate {
         let nextState: InputState = (previousInputState == nil || inputState == .both) ? .prechat : .chat
         updateInputState(nextState, animated: true)
     }
+    
+    func chatInputViewDidEndEditing(_ chatInputView: ChatInputView) {
+        didHideKeyboard()
+    }
 }
 
 // MARK: - Showing/Hiding QuickRepliesView
 
 extension ChatViewController {
-    func updateInputState(_ state: InputState, animated: Bool = false) {
+    func updateInputState(_ state: InputState, animated: Bool = false, shouldScroll: Bool = false) {
         previousInputState = inputState
         inputState = state
         
@@ -1048,7 +1049,7 @@ extension ChatViewController {
             chatInputView.resignFirstResponder()
         }
         
-        updateFramesAnimated(animated)
+        updateFramesAnimated(animated, scrollToBottomIfNearBottom: shouldScroll)
     }
     
     // MARK: Showing
@@ -1081,9 +1082,9 @@ extension ChatViewController {
     func clearQuickRepliesView(animated: Bool = true, completion: (() -> Void)? = nil) {
         quickRepliesMessage = nil
         
-        quickRepliesView.clear(animated: animated)
-        
-        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
+        quickRepliesView.clear(animated: false) { [weak self] in
+            self?.updateFramesAnimated(animated, scrollToBottomIfNearBottom: true, completion: completion)
+        }
     }
     
     func showRestartButtonAlone(animated: Bool = true) {
@@ -1228,7 +1229,15 @@ extension ChatViewController: ConversationManagerDelegate {
                   message.notification == nil {
             hideNotificationBanner(completion: addMessage)
         } else {
-            addMessage()
+            if let remaining = scrollingCompletionTime?.timeIntervalSinceNow,
+               remaining > 0 {
+                let delay = max(remaining, DispatchTimeInterval.defaultAnimationDuration.seconds)
+                scrollingCompletionTime = Date().addingTimeInterval(delay + DispatchTimeInterval.defaultAnimationDuration.seconds * 3)
+                Dispatcher.delay(.seconds(delay), closure: addMessage)
+            } else {
+                addMessage()
+                scrollingCompletionTime = nil
+            }
         }
     }
     
@@ -1241,6 +1250,16 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         showNotificationBanner(notification)
+    }
+    
+    private func didHideKeyboard() {
+        if inputState == .prechat,
+            let previous = previousInputState,
+            previous != .prechat {
+            updateInputState(previous, animated: true)
+        } else {
+            chatInputView.resignFirstResponder()
+        }
     }
     
     private func updateStateForLastEvent() {
@@ -1260,24 +1279,20 @@ extension ChatViewController: ConversationManagerDelegate {
         
         let showChatInput = isLiveChat || message.userCanTypeResponse == true
         if showChatInput && message.hasQuickReplies {
-            updateInputState(.both, animated: false)
+            updateInputState(.both, animated: true)
         } else if message.hasQuickReplies {
             updateInputState(.quickReplies, animated: animated)
         } else if showChatInput && actionSheet == nil {
             updateInputState(.chat, animated: animated)
         } else {
-            updateInputState(.conversationEnd)
+            updateInputState(.conversationEnd, animated: true, shouldScroll: true)
         }
     }
     
     private func messageCompletionHandler(_ message: ChatMessage) {
         func update() {
-            Dispatcher.delay(300) { [weak self] in
+            Dispatcher.delay { [weak self] in
                 self?.quickRepliesView.hideRestartSpinner()
-            }
-            
-            if message.metadata.isReply {
-                updateState(for: message, animated: true)
             }
             
             if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType)
@@ -1287,6 +1302,10 @@ extension ChatViewController: ConversationManagerDelegate {
                 didReceiveMessageWithQuickReplies(message)
             } else if message.metadata.isReply {
                 clearQuickRepliesView(animated: true, completion: nil)
+            }
+            
+            if message.metadata.isReply {
+                updateState(for: message, animated: true)
             }
         }
         
@@ -1374,7 +1393,7 @@ extension ChatViewController: ConversationManagerDelegate {
         if authenticationFailed && isAppInForeground {
             gatekeeperView?.removeFromSuperview()
             // delay in case we reconnect immediately
-            Dispatcher.delay(300) { [weak self] in
+            Dispatcher.delay { [weak self] in
                 self?.showUnauthenticatedGatekeeperIfNecessary()
             }
             return
@@ -1389,7 +1408,7 @@ extension ChatViewController: ConversationManagerDelegate {
             delayedDisconnectTime = nil
         } else if delayedDisconnectTime == nil {
             delayedDisconnectTime = Date(timeIntervalSinceNow: disconnectedTimeThreshold)
-            Dispatcher.delay(1000 * disconnectedTimeThreshold + 300) { [weak self] in
+            Dispatcher.delay(.seconds(disconnectedTimeThreshold) + .defaultAnimationDuration) { [weak self] in
                 self?.updateFramesAnimated(true, scrollToBottomIfNearBottom: false)
             }
         }
@@ -1447,7 +1466,7 @@ extension ChatViewController: ConversationManagerDelegate {
             return
         }
         
-        let delay: Double = quickRepliesView.currentMessage?.hasQuickReplies == true ? 200 : 600
+        let delay: DispatchTimeInterval = .defaultAnimationDuration * (quickRepliesView.currentMessage?.hasQuickReplies == true ? 1 : 2)
         Dispatcher.delay(delay) { [weak self] in
             self?.showQuickRepliesView(with: message)
         }
@@ -1493,7 +1512,7 @@ extension ChatViewController {
     
     func sendMessage(with text: String, fromPrediction: Bool = false, autosuggestMetadata: AutosuggestMetadata? = nil) {
         if conversationManager.isConnected {
-            chatMessagesView.scrollToBottomAnimated(true)
+            scrollToBottomBeforeAddingNextMessage()
         }
         
         if isLiveChat {
@@ -1502,7 +1521,7 @@ extension ChatViewController {
             conversationManager.sendSRSQuery(text, isRequestFromPrediction: fromPrediction, autosuggestMetadata: autosuggestMetadata)
         }
         
-        PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: 3)
+        PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: .seconds(3))
     }
     
     func didFetchSuggestions(_ suggestions: [String], _ responseId: AutosuggestMetadata.ResponseId, query: String) {
@@ -1540,7 +1559,7 @@ extension ChatViewController {
             strongSelf.shouldFetchEarlier = fetchedEvents.count == numberToFetch
             strongSelf.clearQuickRepliesView(animated: false, completion: nil)
             
-            Dispatcher.delay(300) { [weak self] in
+            Dispatcher.delay { [weak self] in
                 guard let strongSelf = self else {
                     return
                 }

@@ -16,6 +16,7 @@ protocol ChatInputViewDelegate: class {
     func chatInputView(_ chatInputView: ChatInputView, didSelectSuggestion suggestion: String, at index: Int, count: Int, responseId: AutosuggestMetadata.ResponseId)
     func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView)
     func chatInputViewDidChangeContentSize(_ chatInputView: ChatInputView)
+    func chatInputViewDidEndEditing(_ chatInputView: ChatInputView)
 }
 
 class ChatInputView: UIView, TextViewAutoExpanding {
@@ -379,7 +380,7 @@ extension ChatInputView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             if textView.text.isEmpty {
-                textView.resignFirstResponder()
+                delegate?.chatInputViewDidEndEditing(self)
             } else {
                 didTapSendButton()
             }
@@ -387,7 +388,7 @@ extension ChatInputView: UITextViewDelegate {
         }
         
         if text == UIPasteboard.general.string {
-            Dispatcher.delay(100) {
+            Dispatcher.delay(.milliseconds(100)) {
                 textView.scrollRangeToVisible(NSRange(location: max(0, textView.text.count - 1), length: 1))
             }
         }
@@ -469,6 +470,7 @@ extension ChatInputView {
         } else {
             bubbleInset.bottom = 8
         }
+        layoutIfNeeded()
     }
     
     func prepareForNormalState() {
@@ -478,6 +480,7 @@ extension ChatInputView {
         textView.scrollRangeToVisible(NSRange(location: max(0, textView.text.count - 1), length: 1))
         displayBorderTop = false
         bubbleInset.bottom = 23
+        layoutIfNeeded()
     }
     
     func clearSuggestions() {

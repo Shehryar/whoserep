@@ -35,7 +35,7 @@ class ImageViewSpec: QuickSpec {
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     waitUntil(timeout: 1) { done in
-                        Dispatcher.delay(990) {
+                        Dispatcher.delay(.milliseconds(990)) {
                             expect(viewController.view).to(haveValidSnapshot())
                             done()
                         }
@@ -50,7 +50,7 @@ class ImageViewSpec: QuickSpec {
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
                     waitUntil(timeout: 1) { done in
-                        Dispatcher.delay(990) {
+                        Dispatcher.delay(.milliseconds(990)) {
                             expect(viewController.view).to(haveValidSnapshot())
                             done()
                         }

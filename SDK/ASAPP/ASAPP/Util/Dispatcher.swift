@@ -9,9 +9,8 @@
 import Foundation
 
 class Dispatcher {
-    class func delay(_ delayInMilliseconds: Double, closure: @escaping (() -> Void)) {
-        DispatchQueue.main.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(delayInMilliseconds * Double(NSEC_PER_MSEC))) / Double(NSEC_PER_SEC), execute: closure)
+    class func delay(_ delay: DispatchTimeInterval = .defaultAnimationDuration, closure: @escaping (() -> Void)) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: closure)
     }
     
     class func performOnMainThread(_ closure: @escaping (() -> Void)) {

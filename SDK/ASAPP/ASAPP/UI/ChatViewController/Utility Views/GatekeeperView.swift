@@ -111,7 +111,7 @@ class GatekeeperView: UIView {
             self?.activityIndicator?.alpha = 1
             self?.button.alpha = 0
         }, completion: { _ in
-            Dispatcher.delay(3000) { [weak self] in
+            Dispatcher.delay(.seconds(3)) { [weak self] in
                 self?.activityIndicator?.removeFromSuperview()
                 self?.button.alpha = 1
                 self?.button.isEnabled = true
