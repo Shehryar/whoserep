@@ -484,6 +484,8 @@ extension ChatViewController {
         alertController.addAction(UIAlertAction(title: ASAPP.strings.endChatTitle, style: .destructive, handler: { [weak self] _ in
             if self?.conversationManager.endLiveChat() != true {
                 self?.shakeConnectionStatusView()
+            } else {
+                self?.scrollToBottomBeforeAddingNextMessage()
             }
         }))
         
@@ -552,7 +554,7 @@ extension ChatViewController {
         case .both, .quickReplies, .conversationEnd:
             chatInputView.prepareForNormalState()
             let inputHeight = (inputState == .both) ? chatInputView.frame.height : 0
-            if inputHeight > 0 && inputHeight + quickRepliesView.contentHeight >= quickRepliesHeight {
+            if inputHeight > 0 && quickRepliesView.contentHeight >= quickRepliesHeight {
                 quickRepliesView.contentInsetBottom = inputHeight
                 chatInputView.showBlur()
             } else {
@@ -564,7 +566,7 @@ extension ChatViewController {
             chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight + inputHeight)
         }
         
-        let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both ? chatInputView.frame.height : 0)
+        let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both && chatInputView.alpha > 0 ? chatInputView.frame.height : 0)
         quickRepliesView.frame = CGRect(x: 0, y: view.bounds.height - quickRepliesHeightWithChat, width: viewWidth, height: quickRepliesHeightWithChat)
         if previousInputState != inputState {
             quickRepliesView.updateFrames()
@@ -583,12 +585,6 @@ extension ChatViewController {
     func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom()
         if animated {
-            if inputState == .both {
-                Dispatcher.performOnMainThread { [weak self] in
-                    self?.chatInputView.showSolidBackground()
-                }
-            }
-            
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottomAnimated(true)
             }
@@ -598,10 +594,6 @@ extension ChatViewController {
             }, completion: { [weak self] _ in
                 if wasNearBottom && scrollToBottomIfNearBottom {
                     self?.chatMessagesView.scrollToBottomAnimated(true)
-                }
-                
-                Dispatcher.delay(.seconds(self?.quickRepliesView.initialAnimationDuration ?? 0)) { [weak self] in
-                    self?.chatInputView.hideSolidBackground()
                 }
                 
                 completion?()
@@ -1029,8 +1021,9 @@ extension ChatViewController: ChatInputViewDelegate {
     }
     
     func chatInputViewDidBeginEditing(_ chatInputView: ChatInputView) {
-        let nextState: InputState = (previousInputState == nil || inputState == .both) ? .prechat : .chat
-        updateInputState(nextState, animated: true)
+        if previousInputState == nil || inputState == .both {
+            updateInputState(.prechat, animated: true)
+        }
     }
     
     func chatInputViewDidEndEditing(_ chatInputView: ChatInputView) {
@@ -1098,6 +1091,7 @@ extension ChatViewController {
 extension ChatViewController: QuickRepliesViewDelegate {
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {
         guard shouldConfirmRestart else {
+            scrollToBottomBeforeAddingNextMessage()
             quickRepliesView.showRestartSpinner()
             conversationManager.sendAskRequest { success in
                 guard !success else { return }
@@ -1269,6 +1263,9 @@ extension ChatViewController: ConversationManagerDelegate {
             .first(where: { $0.isReplyMessageEvent })?
             .chatMessage {
             updateState(for: message)
+        } else {
+            shouldConfirmRestart = false
+            updateInputState(.conversationEnd)
         }
     }
     

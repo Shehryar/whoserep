@@ -406,6 +406,13 @@ extension ChatInputView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         delegate?.chatInputViewDidBeginEditing(self)
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard window?.isKeyWindow == true else {
+            return
+        }
+        delegate?.chatInputViewDidEndEditing(self)
+    }
 }
 
 // MARK: - AutoExpandingTextView
@@ -448,16 +455,6 @@ extension ChatInputView {
     
     func showBlur() {
         blurredBackground.isHidden = false
-        setNeedsDisplay()
-    }
-    
-    func hideSolidBackground() {
-        backgroundColor = .clear
-        setNeedsDisplay()
-    }
-    
-    func showSolidBackground() {
-        backgroundColor = .white
         setNeedsDisplay()
     }
     
