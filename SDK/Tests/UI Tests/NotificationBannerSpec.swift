@@ -37,7 +37,7 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("without an icon or text") {
                     it("has a valid snapshot") {
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: nil, button: nil, icon: nil, expiration: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: nil, button: nil, icon: nil)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         expect(banner).to(haveValidSnapshot())
@@ -46,7 +46,7 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("without an icon and with text") {
                     it("has a valid snapshot") {
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: nil, expiration: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: nil)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         expect(banner).to(haveValidSnapshot())
@@ -55,7 +55,7 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("with an icon and without text") {
                     it("has a valid snapshot") {
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: nil, button: nil, icon: icon, expiration: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: nil, button: nil, icon: icon)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         expect(banner).to(haveValidSnapshot())
@@ -64,7 +64,7 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("with an icon and text") {
                     it("has a valid snapshot") {
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: icon, expiration: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: icon)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         expect(banner).to(haveValidSnapshot())
@@ -73,7 +73,7 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("expanded with text") {
                     it("has a valid snapshot") {
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: icon, expiration: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: icon)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         banner.layoutIfNeeded()
@@ -93,16 +93,8 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("expanded with text and a button") {
                     it("has a valid snapshot") {
-                        let button = ButtonItem(style: ComponentStyle(), content: [
-                            "title": "Test",
-                            "action": [
-                                "type": "web",
-                                "content": [
-                                    "url": "https://asapp.com/"
-                                ]
-                            ]
-                        ])
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: text, button: button, icon: icon, expiration: nil)
+                        let button = QuickReply(title: "Test", action: WebPageAction(content: ["url": "https://asapp.com/"])!, icon: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: button, icon: icon)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         banner.layoutIfNeeded()
@@ -122,15 +114,8 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("expanded with text and a button without a title") {
                     it("has a valid snapshot") {
-                        let button = ButtonItem(style: ComponentStyle(), content: [
-                            "action": [
-                                "type": "web",
-                                "content": [
-                                    "url": "https://asapp.com/"
-                                ]
-                            ]
-                        ])
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: text, button: button, icon: icon, expiration: nil)
+                        let button = QuickReply(title: "", action: WebPageAction(content: ["url": "https://asapp.com/"])!, icon: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: button, icon: icon)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         banner.layoutIfNeeded()
@@ -150,16 +135,8 @@ class NotificationBannerSpec: QuickSpec {
                 
                 context("expanded with a button and no text") {
                     it("has a valid snapshot") {
-                        let button = ButtonItem(style: ComponentStyle(), content: [
-                            "title": "Test",
-                            "action": [
-                                "type": "web",
-                                "content": [
-                                    "url": "https://asapp.com/"
-                                ]
-                            ]
-                        ])
-                        let notification = ChatMessageNotification(title: "Payment Due in 1 Day", text: nil, button: button, icon: icon, expiration: nil)
+                        let button = QuickReply(title: "Test", action: WebPageAction(content: ["url": "https://asapp.com/"])!, icon: nil)
+                        let notification = ChatNotification(title: "Payment Due in 1 Day", text: nil, button: button, icon: icon)
                         let banner = NotificationBanner(notification: notification)
                         banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
                         banner.layoutIfNeeded()

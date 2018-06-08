@@ -144,7 +144,6 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
                                      sendTime: Date())
         
         let userMessage = ChatMessage(text: messageText,
-                                      notification: nil,
                                       attachment: nil,
                                       buttons: nil,
                                       quickReplies: nil, 

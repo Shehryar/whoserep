@@ -91,6 +91,8 @@ extension Event {
             event.continuePrompt = getContinuePrompt(from: eventJSON)
         } else if event.ephemeralType == .typingStatus {
             event.typingStatus = getTypingStatus(from: eventJSON)
+        } else if event.ephemeralType == .notificationBanner {
+            event.notification = getNotification(from: eventJSON)
         } else if event.eventType == .switchChatToSRS {
             event.switchToSRSClassification = getSwitchChatToSRSIntent(from: eventJSON)
         } else {
@@ -142,6 +144,10 @@ extension Event {
         return ContinuePrompt.fromDict(dict ?? [:])
     }
     
+    private class func getNotification(from dict: [String: Any]?) -> ChatNotification? {
+        return ChatNotification.fromDict(dict ?? [:])
+    }
+    
     // MARK: Instance Methods
     
     private func getTextMessageText(from dict: [String: Any]?) -> String? {
@@ -184,7 +190,6 @@ extension Event {
         case .textMessage:
             let text = getTextMessageText(from: json)
             return ChatMessage(text: text,
-                               notification: nil,
                                attachment: nil,
                                buttons: nil,
                                quickReplies: nil,
@@ -194,7 +199,6 @@ extension Event {
             if let image = getChatMessageImageFromPictureMessage(json) {
                 let attachment = ChatMessageAttachment(content: image)
                 return ChatMessage(text: nil,
-                                   notification: nil,
                                    attachment: attachment,
                                    buttons: nil,
                                    quickReplies: nil,

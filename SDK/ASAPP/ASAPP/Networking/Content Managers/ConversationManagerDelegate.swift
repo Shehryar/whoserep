@@ -23,4 +23,6 @@ protocol ConversationManagerDelegate: class {
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authenticationFailed: Bool)
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReturnAfterInactivityWith: Event)
+    
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith: Event)
 }

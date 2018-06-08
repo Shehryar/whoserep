@@ -9,8 +9,9 @@
 import UIKit
 
 protocol ActionSheetDelegate: class {
-    func actionSheetDidTapHideButton(_ actionSheet: BaseActionSheet)
-    func actionSheetDidTapRestartButton(_ actionSheet: BaseActionSheet)
+    func actionSheetDidTapHide(_ actionSheet: BaseActionSheet)
+    func actionSheetDidTapConfirm(_ actionSheet: BaseActionSheet)
+    func actionSheetWillShow(_ actionSheet: BaseActionSheet)
 }
 
 class BaseActionSheet: UIView {
@@ -23,7 +24,7 @@ class BaseActionSheet: UIView {
     private let titleLabel = UILabel()
     private let bodyLabel = UILabel()
     private let hideButton = UIButton()
-    private let restartButton = UIButton()
+    private let confirmButton = UIButton()
     private var activityIndicator: UIActivityIndicatorView?
     
     private let sheetInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -64,16 +65,16 @@ class BaseActionSheet: UIView {
         contentView.addSubview(bodyLabel)
         
         let actionColors = ASAPP.styles.colors.actionButton
-        restartButton.addTarget(self, action: #selector(didTapRestartButton), for: .touchUpInside)
-        restartButton.updateText(restartButtonTitle, textStyle: ASAPP.styles.textStyles.actionButton, colors: actionColors)
-        restartButton.setTitleShadow(opacity: 0.18)
-        restartButton.contentEdgeInsets = buttonInsets
-        restartButton.clipsToBounds = true
-        restartButton.layer.shadowColor = UIColor.ASAPP.lakeMinnetonka.cgColor
-        restartButton.layer.shadowOffset = CGSize(width: 0, height: 1)
-        restartButton.layer.shadowRadius = 20
-        restartButton.layer.shadowOpacity = 0.25
-        contentView.addSubview(restartButton)
+        confirmButton.addTarget(self, action: #selector(didTapConfirmButton), for: .touchUpInside)
+        confirmButton.updateText(restartButtonTitle, textStyle: ASAPP.styles.textStyles.actionButton, colors: actionColors)
+        confirmButton.setTitleShadow(opacity: 0.18)
+        confirmButton.contentEdgeInsets = buttonInsets
+        confirmButton.clipsToBounds = true
+        confirmButton.layer.shadowColor = UIColor.ASAPP.lakeMinnetonka.cgColor
+        confirmButton.layer.shadowOffset = CGSize(width: 0, height: 1)
+        confirmButton.layer.shadowRadius = 20
+        confirmButton.layer.shadowOpacity = 0.25
+        contentView.addSubview(confirmButton)
         
         let inverseColors = ASAPPButtonColors(backgroundColor: actionColors.textNormal.withAlphaComponent(0.1), textColor: actionColors.backgroundNormal, border: actionColors.border)
         hideButton.addTarget(self, action: #selector(didTapHideButton), for: .touchUpInside)
@@ -106,12 +107,12 @@ class BaseActionSheet: UIView {
         let bodyLabelSize = bodyLabel.sizeThatFits(contentFitSize)
         bodyLabel.frame = CGRect(x: contentInsets.left, y: titleLabel.frame.maxY + bodyLabelPadding, width: contentFitSize.width, height: bodyLabelSize.height)
         
-        let restartButtonSize = restartButton.sizeThatFits(contentFitSize)
-        restartButton.frame = CGRect(x: contentWidth / 2 - restartButtonSize.width / 2, y: bodyLabel.frame.maxY + 36, width: restartButtonSize.width, height: restartButtonSize.height)
-        restartButton.layer.cornerRadius = restartButtonSize.height / 2
+        let restartButtonSize = confirmButton.sizeThatFits(contentFitSize)
+        confirmButton.frame = CGRect(x: contentWidth / 2 - restartButtonSize.width / 2, y: bodyLabel.frame.maxY + 36, width: restartButtonSize.width, height: restartButtonSize.height)
+        confirmButton.layer.cornerRadius = restartButtonSize.height / 2
         
         let hideButtonSize = hideButton.sizeThatFits(contentFitSize)
-        hideButton.frame = CGRect(x: contentWidth / 2 - hideButtonSize.width / 2, y: restartButton.frame.maxY + 10, width: hideButtonSize.width, height: hideButtonSize.height)
+        hideButton.frame = CGRect(x: contentWidth / 2 - hideButtonSize.width / 2, y: confirmButton.frame.maxY + 10, width: hideButtonSize.width, height: hideButtonSize.height)
         hideButton.layer.cornerRadius = hideButtonSize.height / 2
         
         let totalHeight = hideButton.frame.maxY + contentInsets.bottom
@@ -120,7 +121,7 @@ class BaseActionSheet: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touchesOutOfSheet(touches) {
-            delegate?.actionSheetDidTapHideButton(self)
+            delegate?.actionSheetDidTapHide(self)
         }
     }
  
@@ -134,14 +135,16 @@ class BaseActionSheet: UIView {
     }
     
     @objc func didTapHideButton() {
-        delegate?.actionSheetDidTapHideButton(self)
+        delegate?.actionSheetDidTapHide(self)
     }
     
-    @objc func didTapRestartButton() {
-        delegate?.actionSheetDidTapRestartButton(self)
+    @objc func didTapConfirmButton() {
+        delegate?.actionSheetDidTapConfirm(self)
     }
     
     func show(in parent: UIView, below other: UIView? = nil) {
+        delegate?.actionSheetWillShow(self)
+        
         if let other = other {
             parent.insertSubview(self, belowSubview: other)
         } else {
@@ -181,32 +184,32 @@ class BaseActionSheet: UIView {
     }
     
     func showSpinner() {
-        restartButton.isEnabled = false
+        confirmButton.isEnabled = false
         
-        activityIndicator = UIActivityIndicatorView(frame: restartButton.frame)
+        activityIndicator = UIActivityIndicatorView(frame: confirmButton.frame)
         if let spinner = activityIndicator {
             spinner.backgroundColor = .clear
             spinner.activityIndicatorViewStyle = .gray
-            spinner.frame = restartButton.frame
-            contentView.insertSubview(spinner, belowSubview: restartButton)
+            spinner.frame = confirmButton.frame
+            contentView.insertSubview(spinner, belowSubview: confirmButton)
             spinner.startAnimating()
             spinner.alpha = 0
         }
         
-        var finalButtonFrame = restartButton.frame
-        finalButtonFrame.size.width = restartButton.frame.size.height
-        finalButtonFrame.origin.x += (restartButton.frame.size.width - finalButtonFrame.size.width) / 2
+        var finalButtonFrame = confirmButton.frame
+        finalButtonFrame.size.width = confirmButton.frame.size.height
+        finalButtonFrame.origin.x += (confirmButton.frame.size.width - finalButtonFrame.size.width) / 2
         
         let rotation = CGAffineTransform(rotationAngle: .pi / -2)
         buttonAnimating = true
         
         UIView.animate(withDuration: buttonAnimationDuration / 3, delay: 0, options: .curveEaseIn, animations: {[weak self] in
-            guard let button = self?.restartButton else { return }
+            guard let button = self?.confirmButton else { return }
             button.frame = finalButtonFrame
         }, completion: nil)
         
         UIView.animate(withDuration: buttonAnimationDuration, animations: { [weak self] in
-            guard let button = self?.restartButton else { return }
+            guard let button = self?.confirmButton else { return }
             self?.activityIndicator?.alpha = 1
             button.transform = rotation
             button.alpha = 0
@@ -219,11 +222,11 @@ class BaseActionSheet: UIView {
     func hideSpinner() {
         func f() {
             activityIndicator?.removeFromSuperview()
-            restartButton.isEnabled = true
-            restartButton.titleLabel?.alpha = 1
-            restartButton.transform = .identity
-            restartButton.alpha = 1
-            restartButton.updateBackgroundColors(ASAPP.styles.colors.actionButton)
+            confirmButton.isEnabled = true
+            confirmButton.titleLabel?.alpha = 1
+            confirmButton.transform = .identity
+            confirmButton.alpha = 1
+            confirmButton.updateBackgroundColors(ASAPP.styles.colors.actionButton)
             setNeedsLayout()
             layoutIfNeeded()
         }
