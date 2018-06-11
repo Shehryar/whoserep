@@ -1246,14 +1246,24 @@ extension ChatViewController: ConversationManagerDelegate {
             }
         }
         
-        if let remaining = scrollingCompletionTime?.timeIntervalSinceNow,
-           remaining > 0 {
-            let delay = max(remaining, DispatchTimeInterval.defaultAnimationDuration.seconds)
-            scrollingCompletionTime = Date().addingTimeInterval(delay + DispatchTimeInterval.defaultAnimationDuration.seconds * 3)
-            Dispatcher.delay(.seconds(delay), closure: addMessage)
+        func scrollIfNeededBeforeAdding() {
+            if let remaining = scrollingCompletionTime?.timeIntervalSinceNow,
+                remaining > 0 {
+                let delay = max(remaining, DispatchTimeInterval.defaultAnimationDuration.seconds)
+                scrollingCompletionTime = Date().addingTimeInterval(delay + DispatchTimeInterval.defaultAnimationDuration.seconds * 3)
+                Dispatcher.delay(.seconds(delay), closure: addMessage)
+            } else {
+                addMessage()
+                scrollingCompletionTime = nil
+            }
+        }
+        
+        if let actionSheet = actionSheet, shouldHideActionSheetOnNextMessage {
+            clearQuickRepliesView(animated: false)
+            scrollToBottomBeforeAddingNextMessage()
+            hideActionSheet(actionSheet, completion: scrollIfNeededBeforeAdding)
         } else {
-            addMessage()
-            scrollingCompletionTime = nil
+            scrollIfNeededBeforeAdding()
         }
     }
     
@@ -1327,12 +1337,7 @@ extension ChatViewController: ConversationManagerDelegate {
             }
         }
         
-        if let actionSheet = actionSheet, shouldHideActionSheetOnNextMessage {
-            clearQuickRepliesView(animated: false)
-            hideActionSheet(actionSheet, completion: update)
-        } else {
-            update()
-        }
+        update()
     }
     
     // Welcome Back Action Sheet
