@@ -46,7 +46,7 @@ class NotificationBanner: UIView {
     private let expandIconSize = CGSize(width: 24, height: 24)
     private let exitIconSize = CGSize(width: 16, height: 16)
     
-    private let contentInsets = UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
+    private let contentInsets = UIEdgeInsets(top: 10, left: 22, bottom: 10, right: 22)
     private let expandButtonInsets = UIEdgeInsets(top: 6, left: 12, bottom: 4, right: 12)
     private let textButtonInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     
@@ -165,7 +165,7 @@ class NotificationBanner: UIView {
         }
         
         let availableHeight = bannerContainer.frame.height - contentInsets.top - contentInsets.bottom
-        expandIcon.frame = CGRect(x: bannerContainer.frame.width - contentInsets.right - expandIconSize.width, y: contentInsets.top, width: expandIconSize.width, height: expandIconSize.height)
+        expandIcon.frame = CGRect(x: bannerContainer.frame.width - contentInsets.right - expandIconSize.width + 5, y: ceil((bannerContainer.frame.height / 2) - (expandIconSize.height / 2)) + 1, width: expandIconSize.width, height: expandIconSize.height)
         
         titleLabel.frame = CGRect(x: titleLabelLeft, y: contentInsets.top, width: bannerContainer.frame.width - expandIcon.frame.width - contentInsets.right - contentInsets.left, height: availableHeight)
         
