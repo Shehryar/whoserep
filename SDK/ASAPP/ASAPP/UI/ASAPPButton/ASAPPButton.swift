@@ -218,6 +218,16 @@ extension ASAPPButton {
 
 extension ASAPPButton {
     func didTap() {
+        let testRequest = SocketConnection.createConnectionRequest(with: config)
+        guard testRequest.url != nil else {
+            let alert = UIAlertController(title: "API Host is invalid",
+                message: "Please make sure the API Host is a valid domain like example.asapp.com",
+                preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            presentingViewController.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, conversationManager: conversationManager, appCallbackHandler: appCallbackHandler)
         
