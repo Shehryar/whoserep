@@ -13,7 +13,6 @@ import UIKit
 class ChatMessage: NSObject {
     
     let text: String?
-    let notification: ChatMessageNotification?
     let attachment: ChatMessageAttachment?
     let quickReplies: [QuickReply]?
     let buttons: [QuickReply]?
@@ -33,7 +32,6 @@ class ChatMessage: NSObject {
     // MARK: Init
     
     init?(text: String?,
-          notification: ChatMessageNotification?,
           attachment: ChatMessageAttachment?,
           buttons: [QuickReply]?,
           quickReplies: [QuickReply]?,
@@ -46,7 +44,6 @@ class ChatMessage: NSObject {
         }
         
         self.text = text
-        self.notification = notification
         self.attachment = attachment
         
         let (filteredMessageActions, filteredQuickReplies) = quickReplies?.separate { quickReply -> Bool in
@@ -78,7 +75,6 @@ extension ChatMessage {
         case buttons
         case clientMessage = "ClientMessage"
         case hideNewQuestionButton
-        case notification
         case quickReplies
         case suppressNewQuestionConfirmation
         case text
@@ -98,13 +94,6 @@ extension ChatMessage {
         }
         
         let text = messageDict.string(for: JSONKey.text.rawValue)
-        
-        let notification: ChatMessageNotification?
-        if let notificationDict = messageDict[JSONKey.notification.rawValue] as? [String: Any] {
-            notification = ChatMessageNotification.fromDict(notificationDict)
-        } else {
-            notification = nil
-        }
         
         let attachment = ChatMessageAttachment.fromJSON(messageDict[JSONKey.attachment.rawValue])
         
@@ -131,7 +120,6 @@ extension ChatMessage {
         
         return ChatMessage(
             text: text,
-            notification: notification,
             attachment: attachment,
             buttons: buttons,
             quickReplies: quickReplies,

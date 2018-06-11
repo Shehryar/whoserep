@@ -102,9 +102,9 @@ public class ASAPPColors: NSObject {
     
     // MARK: - Chat: Messages
     
-    internal let messagesListGradientColors = [UIColor(red: 0.988, green: 0.988, blue: 0.988, alpha: 1), UIColor(red: 0.965, green: 0.965, blue: 0.973, alpha: 1)]
+    internal let messagesListGradientColors = [UIColor.ASAPP.snow, UIColor.ASAPP.ash]
     
-    internal let attachmentGradientColors = [UIColor(red: 0.988, green: 0.988, blue: 0.988, alpha: 1), UIColor(red: 0.965, green: 0.965, blue: 0.973, alpha: 1)]
+    internal let attachmentGradientColors = [UIColor.ASAPP.snow, UIColor.ASAPP.ash]
     
     internal let messageButtonBackground = UIColor(red: 0.976, green: 0.976, blue: 0.98, alpha: 1)
     

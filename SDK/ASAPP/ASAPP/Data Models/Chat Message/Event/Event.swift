@@ -39,6 +39,7 @@ class Event: NSObject {
     var typingStatus: Bool?
     var switchToSRSClassification: String?
     var continuePrompt: ContinuePrompt?
+    var notification: ChatNotification?
     
     // MARK: - Init
     

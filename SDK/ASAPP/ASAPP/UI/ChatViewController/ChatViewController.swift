@@ -60,6 +60,7 @@ class ChatViewController: ASAPPViewController {
     private var shouldFetchEarlier = true
     private var shouldReloadOnUserUpdate = false
     private var nextAction: Action?
+    private var actionSheetButton: QuickReply?
     private var isAppInForeground = true
     private var scrollingCompletionTime: Date?
     
@@ -758,8 +759,11 @@ extension ChatViewController {
                 parentMessage: message,
                 completion: { [weak self] success in
                     Dispatcher.performOnMainThread { [weak self] in
-                        if !success {
+                        if success {
+                            self?.actionSheetButton = nil
+                        } else {
                             self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                            self?.actionSheet?.hideSpinner()
                         }
                     }
             })
@@ -1129,36 +1133,58 @@ extension ChatViewController: ActionSheetDelegate {
         }
     }
     
-    func actionSheetDidTapHideButton(_ actionSheet: BaseActionSheet) {
+    func actionSheetDidTapHide(_ actionSheet: BaseActionSheet) {
         reconnect()
         
         hideActionSheet(actionSheet) { [weak self] in
             if self?.conversationManager.events.isEmpty == false {
                 self?.updateStateForLastEvent()
-                self?.showNotificationBannerIfNecessary()
             } else {
                 self?.updateFrames()
             }
         }
     }
     
-    func actionSheetDidTapRestartButton(_ actionSheet: BaseActionSheet) {
+    func actionSheetDidTapConfirm(_ actionSheet: BaseActionSheet) {
         shouldHideActionSheetOnNextMessage = true
         actionSheet.showSpinner()
         
-        conversationManager.sendAskRequest { success in
-            guard !success else { return }
-            Dispatcher.performOnMainThread { [weak self] in
-                actionSheet.hideSpinner()
-                self?.reconnect()
+        if let button = actionSheetButton {
+            hideNotificationBanner(animated: false)
+            performAction(button.action, quickReply: button)
+        } else {
+            conversationManager.sendAskRequest { success in
+                guard !success else { return }
+                Dispatcher.performOnMainThread { [weak self] in
+                    actionSheet.hideSpinner()
+                    self?.reconnect()
+                }
             }
         }
+    }
+    
+    func actionSheetWillShow(_ actionSheet: BaseActionSheet) {
+        chatInputView.alpha = 0
     }
 }
 
 extension ChatViewController: NotificationBannerDelegate {
-    func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, action: Action) {
-        performAction(action, buttonItem: notificationBanner.notification.button)
+    func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, button: QuickReply) {
+        guard button.action.type == .treewalk else {
+            performAction(button.action, quickReply: button)
+            return
+        }
+        
+        let confirmationSheet = BaseActionSheet(title: ASAPP.strings.proactiveMessageActionConfirmationTitle, body: ASAPP.strings.proactiveMessageActionConfirmationBody, hideButtonTitle: ASAPP.strings.proactiveMessageActionConfirmationCancel, restartButtonTitle: button.title)
+        confirmationSheet.delegate = self
+        actionSheet = confirmationSheet
+        guard let actionSheet = actionSheet else {
+            return
+        }
+        
+        actionSheetButton = button
+        self.actionSheet = actionSheet
+        actionSheet.show(in: view, below: connectionStatusView)
     }
     
     func notificationBannerDidTapCollapse(_ notificationBanner: NotificationBanner) {
@@ -1171,7 +1197,11 @@ extension ChatViewController: NotificationBannerDelegate {
         updateFramesAnimated()
     }
     
-    func showNotificationBanner(_ notification: ChatMessageNotification, animated: Bool = false, completion: (() -> Void)? = nil) {
+    func notificationBannerDidTapDismiss(_ notificationBanner: NotificationBanner) {
+        hideNotificationBanner()
+    }
+    
+    func showNotificationBanner(_ notification: ChatNotification, animated: Bool = false, completion: (() -> Void)? = nil) {
         let banner = NotificationBanner(notification: notification)
         banner.delegate = self
         notificationBanner?.removeFromSuperview()
@@ -1186,9 +1216,10 @@ extension ChatViewController: NotificationBannerDelegate {
         }
     }
     
-    func hideNotificationBanner(completion: (() -> Void)? = nil) {
+    func hideNotificationBanner(animated: Bool = true, completion: (() -> Void)? = nil) {
         notificationBanner?.shouldHide = true
-        updateFramesAnimated(true, scrollToBottomIfNearBottom: true) { [weak self] in
+        
+        updateFramesAnimated(animated, scrollToBottomIfNearBottom: true) { [weak self] in
             self?.notificationBanner?.removeFromSuperview()
             self?.notificationBanner = nil
             self?.updateShadows()
@@ -1215,16 +1246,9 @@ extension ChatViewController: ConversationManagerDelegate {
             }
         }
         
-        if let notification = message.notification,
-           notification.expiration?.compare(Date()) != .orderedDescending {
-            showNotificationBanner(notification, animated: true, completion: addMessage)
-        } else if let banner = notificationBanner,
-                  banner.notification.expiration?.compare(Date()) == .orderedDescending ||
-                  message.notification == nil {
-            hideNotificationBanner(completion: addMessage)
-        } else {
+        func scrollIfNeededBeforeAdding() {
             if let remaining = scrollingCompletionTime?.timeIntervalSinceNow,
-               remaining > 0 {
+                remaining > 0 {
                 let delay = max(remaining, DispatchTimeInterval.defaultAnimationDuration.seconds)
                 scrollingCompletionTime = Date().addingTimeInterval(delay + DispatchTimeInterval.defaultAnimationDuration.seconds * 3)
                 Dispatcher.delay(.seconds(delay), closure: addMessage)
@@ -1233,12 +1257,19 @@ extension ChatViewController: ConversationManagerDelegate {
                 scrollingCompletionTime = nil
             }
         }
+        
+        if let actionSheet = actionSheet, shouldHideActionSheetOnNextMessage {
+            clearQuickRepliesView(animated: false)
+            scrollToBottomBeforeAddingNextMessage()
+            hideActionSheet(actionSheet, completion: scrollIfNeededBeforeAdding)
+        } else {
+            scrollIfNeededBeforeAdding()
+        }
     }
     
-    private func showNotificationBannerIfNecessary() {
-        guard let notification = conversationManager.events.last?.chatMessage?.notification,
-              actionSheet == nil,
-              notification.expiration?.compare(Date()) != .orderedDescending else {
+    private func showNotificationBannerIfNecessary(_ notification: ChatNotification?) {
+        guard let notification = notification,
+              actionSheet == nil else {
             updateFrames()
             return
         }
@@ -1306,12 +1337,7 @@ extension ChatViewController: ConversationManagerDelegate {
             }
         }
         
-        if let actionSheet = actionSheet, shouldHideActionSheetOnNextMessage {
-            clearQuickRepliesView(animated: false)
-            hideActionSheet(actionSheet, completion: update)
-        } else {
-            update()
-        }
+        update()
     }
     
     // Welcome Back Action Sheet
@@ -1359,6 +1385,14 @@ extension ChatViewController: ConversationManagerDelegate {
     // Typing Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool) {
         chatMessagesView.updateTypingStatus(isTyping)
+    }
+    
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith event: Event) {
+        guard let notification = event.notification else {
+            return
+        }
+        
+        showNotificationBannerIfNecessary(notification)
     }
     
     // Live Chat Status
@@ -1561,7 +1595,6 @@ extension ChatViewController {
                     return
                 }
                 
-                strongSelf.showNotificationBannerIfNecessary()
                 strongSelf.chatMessagesView.shouldShowLoadingHeader = strongSelf.shouldFetchEarlier
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.spinner.alpha = strongSelf.chatMessagesView.isEmpty == true ? 1 : 0

@@ -57,6 +57,9 @@ public class ASAPPStrings: NSObject {
     /// The text for the restart button in the quick replies view.
     public var quickRepliesRestartButton = ASAPPLocalizedString("New Question")
     
+    /// The text for the dismiss button in the notification banner.
+    public var notificationBannerDismissButton = ASAPPLocalizedString("Dismiss")
+    
     // MARK: Generic
     
     /// The text displayed when the screen contents are hidden.
@@ -95,7 +98,16 @@ public class ASAPPStrings: NSObject {
     public var restartConfirmationRestartButton = ASAPPLocalizedString("I want to ask a new question")
     
     /// The text for the cancel button of the end chat alert.
-    public var restartConfirmationHideButton = ASAPPLocalizedString("Nevermind, I'll continue")
+    public var restartConfirmationHideButton = ASAPPLocalizedString("Never mind, I'll continue")
+    
+    /// The text for the title of the confirmation alert shown when the action button of a proactive message banner is tapped.
+    public var proactiveMessageActionConfirmationTitle = ASAPPLocalizedString("Are you sure?")
+    
+    /// The text for the body of the confirmation alert shown when the action button of a proactive message banner is tapped.
+    public var proactiveMessageActionConfirmationBody = ASAPPLocalizedString("It looks like you're in the middle of another conversation. Are you sure you want to continue?")
+    
+    /// The text for the cancel button of the confirmation alert shown when the action button of a proactive message banner is tapped.
+    public var proactiveMessageActionConfirmationCancel = ASAPPLocalizedString("Never mind")
     
     // MARK: Modal View: Feedback
     

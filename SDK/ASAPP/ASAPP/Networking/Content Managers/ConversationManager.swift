@@ -427,6 +427,11 @@ extension ConversationManager: SocketConnectionDelegate {
             delegate?.conversationManager(self, didReturnAfterInactivityWith: event)
         }
         
+        // Notification Banner Event
+        if event.ephemeralType == .notificationBanner {
+            delegate?.conversationManager(self, didReceiveNotificationWith: event)
+        }
+        
         // Message Event
         if let message = event.chatMessage {
             if message.metadata.isAutomatedMessage {

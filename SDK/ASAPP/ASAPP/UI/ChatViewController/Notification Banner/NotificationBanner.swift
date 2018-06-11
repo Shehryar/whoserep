@@ -11,13 +11,14 @@ import UIKit
 protocol NotificationBannerDelegate: class {
     func notificationBannerDidTapExpand(_ notificationBanner: NotificationBanner)
     func notificationBannerDidTapCollapse(_ notificationBanner: NotificationBanner)
-    func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, action: Action)
+    func notificationBannerDidTapDismiss(_ notificationBanner: NotificationBanner)
+    func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, button: QuickReply)
 }
 
 class NotificationBanner: UIView {
     weak var delegate: NotificationBannerDelegate?
     
-    let notification: ChatMessageNotification
+    let notification: ChatNotification
     let bannerContainerHeight: CGFloat = 44
     var shouldHide = false {
         didSet {
@@ -38,23 +39,25 @@ class NotificationBanner: UIView {
     private let expandedContainer = UIView()
     private let separator = UIView()
     private let bodyLabel = UILabel()
+    private let dismissButton = UIButton()
+    private let buttonSeparator = UIView()
     private let actionButton = UIButton()
     
     private let expandIconSize = CGSize(width: 24, height: 24)
     private let exitIconSize = CGSize(width: 16, height: 16)
     
-    private let contentInsets = UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
+    private let contentInsets = UIEdgeInsets(top: 10, left: 22, bottom: 10, right: 22)
     private let expandButtonInsets = UIEdgeInsets(top: 6, left: 12, bottom: 4, right: 12)
-    private let actionButtonInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    private let textButtonInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     
-    init(notification: ChatMessageNotification) {
+    init(notification: ChatNotification) {
         self.notification = notification
         
         super.init(frame: .zero)
         
-        backgroundColor = .white
+        backgroundColor = UIColor.ASAPP.snow
         
-        bannerContainer.backgroundColor = .white
+        bannerContainer.backgroundColor = UIColor.ASAPP.snow
         addSubview(bannerContainer)
         
         bottomBorder.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
@@ -73,7 +76,7 @@ class NotificationBanner: UIView {
         bannerContainer.addSubview(titleLabel)
         
         if notification.text != nil || notification.button != nil {
-            expandIcon.image = Images.getImage(.iconChevron)?.tinted(ASAPP.styles.colors.primary)
+            expandIcon.image = Images.getImage(.iconChevron)?.tinted(ASAPP.styles.colors.dark)
             updateExpandIcon()
             bannerContainer.addSubview(expandIcon)
             addSubview(overlayButton)
@@ -91,31 +94,51 @@ class NotificationBanner: UIView {
             expandedContainer.addSubview(bodyLabel)
         }
         
-        if let button = notification.button,
-           let buttonTitle = button.title,
-           !buttonTitle.isEmpty,
-           let titleLabel = actionButton.titleLabel {
-            actionButton.contentHorizontalAlignment = .left
-            actionButton.updateText(buttonTitle, textStyle: ASAPP.styles.textStyles.body, colors: ASAPP.styles.colors.textButtonPrimary)
-            titleLabel.layer.shadowColor = ASAPP.styles.colors.textButtonPrimary.textNormal.withAlphaComponent(0.15).cgColor
-            titleLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
-            titleLabel.layer.shadowOpacity = 1
-            titleLabel.layer.shadowRadius = 3
-            if button.action.willExitASAPP {
-                actionButton.imageEdgeInsets.right = -6
-                actionButton.imageEdgeInsets.left = 6
-                actionButton.setImage(Images.getImage(.iconExitLink)?.tinted(ASAPP.styles.colors.textButtonPrimary.textNormal), for: .normal)
-                actionButton.semanticContentAttribute = .forceRightToLeft
-                actionButton.imageView?.layer.shadowColor = titleLabel.layer.shadowColor
-                actionButton.imageView?.layer.shadowOffset = titleLabel.layer.shadowOffset
-                actionButton.imageView?.layer.shadowOpacity = titleLabel.layer.shadowOpacity
-                actionButton.imageView?.layer.shadowRadius = titleLabel.layer.shadowRadius
-            }
-            actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
-            actionButton.contentEdgeInsets = actionButtonInsets
-            actionButton.clipsToBounds = true
-            expandedContainer.addSubview(actionButton)
+        dismissButton.updateText(ASAPP.strings.notificationBannerDismissButton, textStyle: ASAPP.styles.textStyles.body2, colors: ASAPP.styles.colors.textButtonPrimary)
+        configureButton(dismissButton)
+        dismissButton.addTarget(self, action: #selector(didTapDismissButton), for: .touchUpInside)
+        expandedContainer.addSubview(dismissButton)
+        
+        guard let button = notification.button,
+              !button.title.isEmpty,
+              let titleLabel = actionButton.titleLabel else {
+            return
         }
+        
+        buttonSeparator.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
+        expandedContainer.addSubview(buttonSeparator)
+        
+        actionButton.updateText(button.title, textStyle: ASAPP.styles.textStyles.body2, colors: ASAPP.styles.colors.textButtonPrimary)
+        configureButton(actionButton)
+        if button.action.willExitASAPP {
+            let imageInset: CGFloat = 8
+            actionButton.imageEdgeInsets.right = -imageInset
+            actionButton.imageEdgeInsets.left = imageInset
+            actionButton.contentEdgeInsets.right += imageInset
+            actionButton.setImage(Images.getImage(.iconExitLink)?.tinted(ASAPP.styles.colors.textButtonPrimary.textNormal), for: .normal)
+            actionButton.semanticContentAttribute = .forceRightToLeft
+            actionButton.imageView?.layer.shadowColor = titleLabel.layer.shadowColor
+            actionButton.imageView?.layer.shadowOffset = titleLabel.layer.shadowOffset
+            actionButton.imageView?.layer.shadowOpacity = titleLabel.layer.shadowOpacity
+            actionButton.imageView?.layer.shadowRadius = titleLabel.layer.shadowRadius
+        }
+        actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
+        expandedContainer.addSubview(actionButton)
+    }
+    
+    private func configureButton(_ button: UIButton) {
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = textButtonInsets
+        button.clipsToBounds = true
+        
+        guard let titleLabel = button.titleLabel else {
+            return
+        }
+        
+        titleLabel.layer.shadowColor = ASAPP.styles.colors.textButtonPrimary.textNormal.withAlphaComponent(0.15).cgColor
+        titleLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
+        titleLabel.layer.shadowOpacity = 1
+        titleLabel.layer.shadowRadius = 3
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -142,20 +165,31 @@ class NotificationBanner: UIView {
         }
         
         let availableHeight = bannerContainer.frame.height - contentInsets.top - contentInsets.bottom
-        expandIcon.frame = CGRect(x: bannerContainer.frame.width - contentInsets.right - expandIconSize.width, y: contentInsets.top, width: expandIconSize.width, height: expandIconSize.height)
+        expandIcon.frame = CGRect(x: bannerContainer.frame.width - contentInsets.right - expandIconSize.width + 5, y: ceil((bannerContainer.frame.height / 2) - (expandIconSize.height / 2)) + 1, width: expandIconSize.width, height: expandIconSize.height)
         
         titleLabel.frame = CGRect(x: titleLabelLeft, y: contentInsets.top, width: bannerContainer.frame.width - expandIcon.frame.width - contentInsets.right - contentInsets.left, height: availableHeight)
         
         // expanded container
         
-        separator.frame = CGRect(x: contentInsets.left, y: 0, width: bounds.width - contentInsets.left - contentInsets.right, height: 1)
+        separator.frame = CGRect(x: contentInsets.left, y: 0, width: bounds.width - contentInsets.horizontal, height: 1)
         
-        let bodyLabelSize = bodyLabel.sizeThatFits(CGSize(width: bounds.width - contentInsets.left - contentInsets.right - 16, height: 0))
+        let bodyLabelSize = bodyLabel.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal - 16, height: 0))
         bodyLabel.frame = CGRect(x: contentInsets.left + 8, y: 26, width: bodyLabelSize.width, height: bodyLabelSize.height)
         
         let buttonPadding: CGFloat = bodyLabel.superview != nil ? 24 : 0
-        let actionButtonSize = actionButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.left - contentInsets.right, height: 0))
-        actionButton.frame = CGRect(x: bodyLabel.frame.minX - actionButtonInsets.left, y: bodyLabel.frame.maxY + buttonPadding, width: actionButtonSize.width, height: actionButtonSize.height)
+        let buttonTop = bodyLabel.frame.maxY + buttonPadding
+        let actionButtonSize = actionButton.superview == nil ? .zero : actionButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal, height: .greatestFiniteMagnitude))
+        let actionButtonWidth = actionButton.titleLabel?.text?.isEmpty ?? true ? 0 : actionButtonSize.width
+        actionButton.frame = CGRect(x: expandedContainer.frame.maxX - contentInsets.right - actionButtonSize.width + textButtonInsets.right, y: buttonTop, width: actionButtonWidth, height: actionButtonSize.height)
+        
+        let buttonSpace: CGFloat = actionButtonWidth == 0 ? 0 : 22 - textButtonInsets.horizontal
+        let buttonSeparatorHeight: CGFloat = 20
+        let buttonSeparatorWidth: CGFloat = buttonSpace == 0 ? 0 : 1
+        buttonSeparator.frame = CGRect(x: actionButton.frame.minX - (buttonSpace / 2), y: buttonTop + ((actionButton.frame.height / 2) - (buttonSeparatorHeight / 2)), width: buttonSeparatorWidth, height: buttonSeparatorHeight)
+        
+        let dismissButtonSize = dismissButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal - actionButtonSize.width - buttonSpace, height: .greatestFiniteMagnitude))
+        let dismissButtonLeft = buttonSeparator.frame.minX - dismissButtonSize.width - (buttonSpace / 2)
+        dismissButton.frame = CGRect(x: dismissButtonLeft, y: buttonTop, width: dismissButtonSize.width, height: dismissButtonSize.height)
         
         let expandedHeight = calculateExpandedContainerHeight()
         expandedContainer.frame = CGRect(x: 0, y: bannerContainer.frame.maxY - (isExpanded ? 0 : expandedHeight), width: bounds.width, height: expandedHeight)
@@ -167,10 +201,8 @@ class NotificationBanner: UIView {
     private func calculateExpandedContainerHeight() -> CGFloat {
         let hasBodyLabel = bodyLabel.superview != nil
         let bodyLabelHeight = hasBodyLabel ? bodyLabel.sizeThatFits(CGSize(width: bounds.width - contentInsets.left - contentInsets.right - 16, height: 0)).height : 0
-        let actionButtonHeight = actionButton.superview != nil
-            ? (hasBodyLabel ? 24 : 0) + actionButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.left - contentInsets.right, height: 0)).height
-            : 0
-        return 26 + bodyLabelHeight + actionButtonHeight + 24
+        let buttonHeight = (hasBodyLabel ? 24 : 0) + dismissButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal, height: 0)).height
+        return 26 + bodyLabelHeight + buttonHeight + 11
     }
     
     private func updateExpandIcon() {
@@ -201,9 +233,15 @@ class NotificationBanner: UIView {
         delegate?.notificationBannerDidTapCollapse(self)
     }
     
+    @objc func didTapDismissButton() {
+        delegate?.notificationBannerDidTapDismiss(self)
+    }
+    
     @objc func didTapActionButton() {
-        guard let action = notification.button?.action else { return }
-        delegate?.notificationBannerDidTapActionButton(self, action: action)
+        guard let button = notification.button else {
+            return
+        }
+        delegate?.notificationBannerDidTapActionButton(self, button: button)
     }
     
     func preferredDisplayHeight() -> CGFloat {
