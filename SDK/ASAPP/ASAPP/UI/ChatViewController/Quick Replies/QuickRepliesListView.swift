@@ -36,10 +36,6 @@ class QuickRepliesListView: UIView {
         return scrollView.contentInset.top
     }
     
-    var contentHeight: CGFloat {
-        return scrollView.contentSize.height
-    }
-    
     var isEmpty: Bool {
         return quickReplies?.isEmpty ?? true
     }
@@ -168,13 +164,26 @@ class QuickRepliesListView: UIView {
             updateDisplay()
         }
     }
+    
+    func getTotalHeight() -> CGFloat {
+        var total: CGFloat = 0
+        
+        for quickReply in quickReplies ?? [] {
+            let view = QuickReplyView(frame: .zero)
+            view.update(for: quickReply, enabled: true)
+            let size = view.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude))
+            total += size.height
+        }
+        
+        return total
+    }
 }
 
 extension QuickRepliesListView {
     // MARK: - Animations
     
     func getTotalAnimationDuration(delay shouldDelay: Bool, direction: AnimationDirection) -> TimeInterval {
-        let lastIndex = (quickReplies?.count ?? 1) - 1
+        let lastIndex = (quickReplyViews.count) - 1
         let delay = getDelay(initial: shouldDelay, at: lastIndex)
         let translationDuration = getTranslationDuration(direction: direction)
         return delay + translationDuration
