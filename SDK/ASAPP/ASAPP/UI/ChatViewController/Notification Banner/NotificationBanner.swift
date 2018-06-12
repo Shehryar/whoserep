@@ -57,6 +57,11 @@ class NotificationBanner: UIView {
         
         backgroundColor = UIColor.ASAPP.snow
         
+        let mask = CALayer()
+        mask.backgroundColor = UIColor.black.cgColor
+        mask.frame = CGRect(x: 0, y: 0, width: superview?.frame.width ?? 1000, height: superview?.frame.height ?? 1000)
+        layer.mask = mask
+        
         bannerContainer.backgroundColor = UIColor.ASAPP.snow
         addSubview(bannerContainer)
         
@@ -221,9 +226,13 @@ class NotificationBanner: UIView {
         }
     }
     
-    @objc func didTapExpand() {
+    func expand() {
         isExpanded = true
         updateExpandIcon()
+    }
+    
+    @objc func didTapExpand() {
+        expand()
         delegate?.notificationBannerDidTapExpand(self)
     }
     

@@ -375,7 +375,7 @@ extension ChatViewController {
         
         if let banner = notificationBanner {
             banner.layer.shadowOffset = CGSize(width: 0, height: 2)
-            banner.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.07).cgColor
+            banner.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.01).cgColor
             banner.layer.shadowOpacity = 1
             banner.layer.shadowRadius = 10
         }
@@ -1211,6 +1211,12 @@ extension ChatViewController: NotificationBannerDelegate {
         updateFrames()
         updateShadows()
         banner.shouldHide = false
+        
+        if notification.showExpanded {
+            banner.expand()
+            banner.layoutIfNeeded()
+        }
+        
         updateFramesAnimated(animated) {
             completion?()
         }
