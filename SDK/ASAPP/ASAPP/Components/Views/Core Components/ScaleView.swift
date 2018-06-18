@@ -134,25 +134,27 @@ class ScaleView: BaseComponentView {
         maxContentSize.height -= padding.top + padding.bottom
         
         var buttonFrames: [CGRect] = []
-        let buttonSize: CGSize
-        
-        let buttonSpacing: CGFloat
-        switch scaleType {
-        case .fiveNumber:
-            buttonSpacing = 15
-        case .fiveStar:
-            buttonSpacing = 20
-        }
-        
-        let maxButtonWidth = (maxContentSize.width - buttonSpacing * CGFloat(numButtons - 1)) / CGFloat(numButtons)
-        
         let originalSize = buttonsByValue.first?.value.preferredSize ?? .zero
+        let originalAspectRatio = originalSize.height / originalSize.width
+        let buttonWidth: CGFloat
+        let buttonSize: CGSize
+        let buttonSpacing: CGFloat
         
-        if originalSize.width > maxButtonWidth {
-            buttonSize = CGSize(width: maxButtonWidth, height: (originalSize.height / originalSize.width) * maxButtonWidth)
+        if scaleItem.style.alignment == .fill {
+            buttonWidth = originalSize.width
+            buttonSpacing = (maxContentSize.width - CGFloat(numButtons) * buttonWidth) / CGFloat(numButtons - 1)
         } else {
-            buttonSize = originalSize
+            switch scaleType {
+            case .fiveNumber:
+                buttonSpacing = 15
+            case .fiveStar:
+                buttonSpacing = 20
+            }
+            let maxButtonWidth = (maxContentSize.width - CGFloat(numButtons - 1) * buttonSpacing) / CGFloat(numButtons)
+            buttonWidth = min(maxButtonWidth, originalSize.width)
         }
+        
+        buttonSize = CGSize(width: buttonWidth, height: originalAspectRatio * buttonWidth)
         
         for i in 1...numButtons {
             let left = padding.left + CGFloat(i - 1) * (buttonSize.width + buttonSpacing)

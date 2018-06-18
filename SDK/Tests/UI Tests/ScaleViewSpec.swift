@@ -29,29 +29,52 @@ class ScaleViewSpec: QuickSpec {
             context("on its own") {
                 var style: ComponentStyle!
                 
+                func getView(with style: ComponentStyle, type scaleType: ScaleItem.ScaleType) -> ScaleView {
+                    let scaleItem = ScaleItem(style: style, content: ["scaleType": scaleType.rawValue])
+                    let scale = ScaleView(frame: CGRect(x: 0, y: 0, width: 375, height: CGFloat.greatestFiniteMagnitude))
+                    scale.component = scaleItem
+                    let size = scale.sizeThatFits(scale.frame.size)
+                    scale.frame = CGRect(x: 0, y: 0, width: scale.frame.width, height: size.height)
+                    return scale
+                }
+                
                 beforeEach {
                     style = TestUtil.createStyle()
                 }
                 
                 context("five number") {
-                    it("has a valid snapshot") {
-                        let scaleItem = ScaleItem(style: style)
-                        let scale = ScaleView(frame: CGRect(x: 0, y: 0, width: 282, height: 80))
-                        scale.component = scaleItem
-                        let size = scale.sizeThatFits(CGSize(width: 282, height: CGFloat.greatestFiniteMagnitude))
-                        scale.frame = CGRect(x: 0, y: 0, width: scale.frame.width, height: size.height)
-                        expect(scale).to(haveValidSnapshot())
+                    context("left alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .left
+                            let scale = getView(with: style, type: .fiveNumber)
+                            expect(scale).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("fill alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .fill
+                            let scale = getView(with: style, type: .fiveNumber)
+                            expect(scale).to(haveValidSnapshot())
+                        }
                     }
                 }
                 
                 context("five star") {
-                    it("has a valid snapshot") {
-                        let scaleItem = ScaleItem(style: style, content: ["scaleType": "fiveStar"])
-                        let scale = ScaleView(frame: CGRect(x: 0, y: 0, width: 282, height: 80))
-                        scale.component = scaleItem
-                        let size = scale.sizeThatFits(CGSize(width: 282, height: CGFloat.greatestFiniteMagnitude))
-                        scale.frame = CGRect(x: 0, y: 0, width: scale.frame.width, height: size.height)
-                        expect(scale).to(haveValidSnapshot())
+                    context("left alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .left
+                            let scale = getView(with: style, type: .fiveStar)
+                            expect(scale).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("fill alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .fill
+                            let scale = getView(with: style, type: .fiveStar)
+                            expect(scale).to(haveValidSnapshot())
+                        }
                     }
                 }
             }
