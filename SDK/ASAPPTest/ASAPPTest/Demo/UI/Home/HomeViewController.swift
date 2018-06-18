@@ -143,23 +143,16 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController: ASAPPDelegate {
     func chatViewControllerDidTapUserLoginButton() {
-        let loginViewController = LoginViewController()
-        loginViewController.dismissOnUserSelection = false
-        
-        let navController = NavigationController(rootViewController: loginViewController)
-        
-        loginViewController.onUserSelection = { [weak self] (customerId) in
+        let authViewController = AuthenticationViewController()
+        let navController = NavigationController(rootViewController: authViewController)
+        authViewController.showLogInButton = true
+        authViewController.onSuccess = { [weak self] in
             guard let strongSelf = self else {
                 return
             }
-            
-            let authTokenVC = AuthTokenViewController()
-            authTokenVC.addNextButton(title: "Log in", onTapNext: {
-                let user = strongSelf.createASAPPUser(customerIdentifier: AppSettings.shared.customerIdentifier)
-                ASAPP.user = user
-                navController.dismiss(animated: true, completion: nil)
-            })
-            navController.pushViewController(authTokenVC, animated: true)
+            let user = strongSelf.createASAPPUser(customerIdentifier: AppSettings.shared.customerIdentifier)
+            ASAPP.user = user
+            authViewController.dismiss(animated: true, completion: nil)
         }
         
         (presentedViewController ?? self).present(navController, animated: true, completion: nil)
@@ -235,6 +228,52 @@ extension HomeViewController {
 // MARK: - HomeTableViewDelegate
 
 extension HomeViewController: HomeTableViewDelegate {
+    fileprivate func updateAuth(completion: (() -> Void)? = nil) {
+        guard let account = AppSettings.getMostRecentAccount(appId: AppSettings.shared.appId, apiHostName: AppSettings.shared.apiHostName) else {
+            return
+        }
+        
+        AppSettings.saveObject(account.username, forKey: .customerIdentifier)
+        
+        func flashAuthRow() {
+            let indexPath = IndexPath(row: HomeTableView.SettingsRow.authentication.rawValue, section: HomeTableView.Section.settings.rawValue)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) { [homeTableView] in
+                homeTableView.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                homeTableView.tableView.deselectRow(at: indexPath, animated: true)
+            }
+        }
+        
+        func showAuthTokenFetchError() {
+            let alert = UIAlertController(title: "Could not fetch auth token for most recently used account",
+                                          message: "Please check that the API Host and App Id are still correct.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .cancel,
+                                          handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        
+        guard let password = account.password else {
+            AppSettings.deleteObject(forKey: .authToken)
+            flashAuthRow()
+            completion?()
+            return
+        }
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        AuthenticationAPI.requestAuthToken(apiHostName: AppSettings.shared.apiHostName, appId: AppSettings.shared.appId, userId: account.username, password: password) { (authToken, _) in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            guard let authToken = authToken else {
+                showAuthTokenFetchError()
+                return
+            }
+            
+            AppSettings.saveObject(authToken, forKey: .authToken)
+            flashAuthRow()
+            completion?()
+        }
+    }
+    
     func homeTableViewDidTapUserName(_ homeTableView: HomeTableView) {
         let viewController = AccountViewController()
         navigationController?.pushViewController(viewController, animated: true)
@@ -247,6 +286,7 @@ extension HomeViewController: HomeTableViewDelegate {
                          optionsListKey: AppSettings.Key.appIdList)
         optionsVC.onSelection = { [weak self] (_) in
             ASAPP.clearSavedSession()
+            self?.updateAuth(completion: self?.reloadViewForUpdatedSettings)
             if let strongSelf = self {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
@@ -262,6 +302,7 @@ extension HomeViewController: HomeTableViewDelegate {
                          optionsListKey: AppSettings.Key.apiHostNameList)
         optionsVC.onSelection = { [weak self] (_) in
             ASAPP.clearSavedSession()
+            self?.updateAuth(completion: self?.reloadViewForUpdatedSettings)
             if let strongSelf = self {
                 strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
             }
@@ -285,22 +326,19 @@ extension HomeViewController: HomeTableViewDelegate {
         navigationController?.pushViewController(optionsVC, animated: true)
     }
     
-    func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView) {
-        let customerIdVC = CustomerIdViewController()
-        customerIdVC.onSelection = { [weak self] (customerIdentifier) in
-            if let strongSelf = self {
-                strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+    func homeTableViewDidTapAuthentication(_ homeTableView: HomeTableView) {
+        let authVC = AuthenticationViewController()
+        authVC.onSuccess = { [weak self] in
+            guard let strongSelf = self else {
+                return
             }
+            
+            strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
         }
-        customerIdVC.onTapClearSavedSession = {
+        authVC.onTapClearSavedSession = {
             ASAPP.clearSavedSession()
         }
-        navigationController?.pushViewController(customerIdVC, animated: true)
-    }
-    
-    func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView) {
-        let viewController = AuthTokenViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(authVC, animated: true)
     }
     
     func homeTableViewDidTapAppearance(_ homeTableView: HomeTableView) {
