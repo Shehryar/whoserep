@@ -55,6 +55,8 @@ protocol ConversationManagerProtocol: class {
     func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion)
     func getSuggestions(for: String, completion: @escaping AutosuggestCompletion)
     func sendEnterChatRequest(_ completion: (() -> Void)?)
+    func sendAcceptRequest(action: Action)
+    func sendDismissRequest(action: Action)
     func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler)
     func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String)
     func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClient.DictCompletionHandler)

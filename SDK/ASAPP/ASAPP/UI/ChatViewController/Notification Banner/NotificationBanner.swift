@@ -11,7 +11,7 @@ import UIKit
 protocol NotificationBannerDelegate: class {
     func notificationBannerDidTapExpand(_ notificationBanner: NotificationBanner)
     func notificationBannerDidTapCollapse(_ notificationBanner: NotificationBanner)
-    func notificationBannerDidTapDismiss(_ notificationBanner: NotificationBanner)
+    func notificationBannerDidTapDismiss(_ notificationBanner: NotificationBanner, button: QuickReply)
     func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, button: QuickReply)
 }
 
@@ -243,7 +243,10 @@ class NotificationBanner: UIView {
     }
     
     @objc func didTapDismissButton() {
-        delegate?.notificationBannerDidTapDismiss(self)
+        guard let button = notification.button else {
+            return
+        }
+        delegate?.notificationBannerDidTapDismiss(self, button: button)
     }
     
     @objc func didTapActionButton() {
