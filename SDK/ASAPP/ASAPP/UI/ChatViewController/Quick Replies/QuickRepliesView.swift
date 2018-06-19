@@ -48,7 +48,7 @@ class QuickRepliesView: UIView {
     }
     
     var contentHeight: CGFloat {
-        return listView.contentInsetTop + listView.contentHeight
+        return listView.contentInsetTop + listView.getTotalHeight()
     }
     
     var contentInsetBottom: CGFloat = 0 {
@@ -129,7 +129,7 @@ class QuickRepliesView: UIView {
     func updateRestartButtonDisplay() {
         if isRestartButtonVisible,
             !listView.isEmpty,
-            listView.contentHeight > containerView.frame.height - restartButton.defaultHeight {
+            listView.getTotalHeight() > containerView.frame.height - restartButton.defaultHeight {
             restartButton.showBlur()
         } else {
             restartButton.hideBlur()

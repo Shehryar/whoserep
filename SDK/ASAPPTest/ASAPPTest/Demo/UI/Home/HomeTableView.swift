@@ -14,8 +14,7 @@ protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapAppId(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAPIHostName(_ homeTableView: HomeTableView)
     func homeTableViewDidTapRegionCode(_ homeTableView: HomeTableView)
-    func homeTableViewDidTapCustomerIdentifier(_ homeTableView: HomeTableView)
-    func homeTableViewDidTapAuthToken(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapAuthentication(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAppearance(_ homeTableView: HomeTableView)
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
@@ -25,23 +24,22 @@ protocol HomeTableViewDelegate: class {
 
 class HomeTableView: UIView {
     
-    fileprivate enum Section: Int, CountableEnum {
+    enum Section: Int, CountableEnum {
         case user
         case settings
         case billing
         case other
     }
     
-    fileprivate enum SettingsRow: Int, CountableEnum {
+    enum SettingsRow: Int, CountableEnum {
         case apiHostName
         case appId
         case regionCode
-        case customerIdentifier
-        case authToken
+        case authentication
         case appearance
     }
     
-    fileprivate enum OtherRow: Int, CountableEnum {
+    enum OtherRow: Int, CountableEnum {
         case paymentMethods
         case usage
         case invite
@@ -176,17 +174,13 @@ extension HomeTableView {
                 title = "App Id"
                 value = AppSettings.shared.appId
                 
-            case .some(.customerIdentifier):
-                title = "Customer Id"
+            case .some(.authentication):
+                title = "Auth"
                 if let customerIdentifier = AppSettings.shared.customerIdentifier {
                     value = customerIdentifier
                 } else {
                     value = "Anonymous User"
                 }
-                
-            case .some(.authToken):
-                title = "Auth Token"
-                value = AppSettings.shared.authToken
                 
             case .some(.regionCode):
                 title = "Region Code"
@@ -393,11 +387,8 @@ extension HomeTableView: UITableViewDelegate {
             case .some(.regionCode):
                 delegate?.homeTableViewDidTapRegionCode(self)
                 
-            case .some(.customerIdentifier):
-                delegate?.homeTableViewDidTapCustomerIdentifier(self)
-             
-            case .some(.authToken):
-                delegate?.homeTableViewDidTapAuthToken(self)
+            case .some(.authentication):
+                delegate?.homeTableViewDidTapAuthentication(self)
                 
             case .some(.appearance):
                 delegate?.homeTableViewDidTapAppearance(self)

@@ -12,7 +12,7 @@ class TextInputCell: TableViewCell {
 
     var onTextChange: ((_ text: String) -> Void)?
     
-    var onReturnKey: (() -> Void)?
+    var onReturnKey: ((_ text: String) -> Void)?
     
     var dismissKeyboardOnReturn: Bool = false
     
@@ -180,7 +180,7 @@ extension TextInputCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.textField {
-            onReturnKey?()
+            onReturnKey?(textField.text ?? "")
             if dismissKeyboardOnReturn {
                 self.textField.resignFirstResponder()
             }

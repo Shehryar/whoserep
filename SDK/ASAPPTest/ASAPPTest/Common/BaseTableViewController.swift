@@ -128,6 +128,15 @@ class BaseTableViewController: BaseViewController {
     }
 }
 
+// MARK: - Convenience
+
+extension BaseTableViewController {
+    func focusOnCell(at indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.becomeFirstResponder()
+        tableView.scrollToRow(at: indexPath, at: .none, animated: true)
+    }
+}
+
 // MARK: - Keyboard
 
 extension BaseTableViewController {
@@ -276,7 +285,8 @@ extension BaseTableViewController {
                        labelText: String? = nil,
                        autocapitalizationType: UITextAutocapitalizationType = .none,
                        isSecureTextEntry: Bool = false,
-                       onTextChange: ((_ text: String) -> Void)?,
+                       onTextChange: ((_ text: String) -> Void)? = nil,
+                       onReturnKey: ((_ text: String) -> Void)? = nil,
                        for indexPath: IndexPath,
                        sizingOnly: Bool) -> TextInputCell {
         
@@ -294,12 +304,14 @@ extension BaseTableViewController {
         cell?.textField.isSecureTextEntry = isSecureTextEntry
         cell?.dismissKeyboardOnReturn = true
         cell?.onTextChange = onTextChange
+        cell?.onReturnKey = onReturnKey
         
         return cell ?? TextInputCell()
     }
     
     func titleCheckMarkCell(title: String?,
                             isChecked: Bool,
+                            loading: Bool = false,
                             for indexPath: IndexPath,
                             sizingOnly: Bool) -> UITableViewCell {
         let cell = sizingOnly
@@ -309,6 +321,7 @@ extension BaseTableViewController {
         cell?.appSettings = AppSettings.shared
         cell?.title = title
         cell?.isChecked = isChecked
+        cell?.loading = loading
         
         return cell ?? UITableViewCell()
     }

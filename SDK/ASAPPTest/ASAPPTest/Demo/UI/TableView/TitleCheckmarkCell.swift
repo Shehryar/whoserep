@@ -23,6 +23,25 @@ class TitleCheckmarkCell: TableViewCell {
         }
     }
     
+    var loading: Bool = false {
+        didSet {
+            guard loading != oldValue else {
+                return
+            }
+            
+            if loading {
+                spinner.startAnimating()
+                titleLabel.alpha = 0.25
+                selectionStyle = .none
+            } else {
+                spinner.stopAnimating()
+                titleLabel.alpha = 1
+                selectionStyle = .default
+            }
+            applyAppSettings()
+        }
+    }
+    
     var checkmarkSize: CGFloat = 20 {
         didSet {
             setNeedsLayout()
@@ -45,6 +64,8 @@ class TitleCheckmarkCell: TableViewCell {
     
     let checkmarkView = UIImageView()
     
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    
     // MARK: Init
     
     override func commonInit() {
@@ -59,6 +80,19 @@ class TitleCheckmarkCell: TableViewCell {
         checkmarkView.contentMode = .scaleAspectFit
         checkmarkView.clipsToBounds = true
         contentView.addSubview(checkmarkView)
+        
+        spinner.hidesWhenStopped = true
+        contentView.addSubview(spinner)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        
+        if loading {
+            spinner.startAnimating()
+        }
     }
     
     // MARK: Styling
@@ -99,6 +133,9 @@ class TitleCheckmarkCell: TableViewCell {
         let (labelFrame, checkmarkFrame) = framesThatFit(bounds.size)
         titleLabel.frame = labelFrame
         checkmarkView.frame = checkmarkFrame
+        
+        spinner.sizeToFit()
+        spinner.center = checkmarkView.center
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

@@ -18,6 +18,8 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledGetEventWithLimit = false
     private(set) var calledGetSuggestions = false
     private(set) var calledSendEnterChatRequest = false
+    private(set) var calledSendAcceptRequest = false
+    private(set) var calledSendDismissRequest = false
     private(set) var calledSendRequestForAPIAction = false
     private(set) var calledSendRequestForDeepLinkAction = false
     private(set) var calledSendRequestForHTTPAction = false
@@ -82,6 +84,14 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendEnterChatRequest = true
     }
     
+    func sendAcceptRequest(action: Action) {
+        calledSendAcceptRequest = true
+    }
+    
+    func sendDismissRequest(action: Action) {
+        calledSendDismissRequest = true
+    }
+    
     func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler) {
         calledSendRequestForAPIAction = true
     }
@@ -137,6 +147,8 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetEventWithLimit = false
         calledGetSuggestions = false
         calledSendEnterChatRequest = false
+        calledSendAcceptRequest = false
+        calledSendDismissRequest = false
         calledSendRequestForAPIAction = false
         calledSendRequestForDeepLinkAction = false
         calledSendRequestForHTTPAction = false

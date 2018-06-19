@@ -11,7 +11,7 @@ import UIKit
 protocol NotificationBannerDelegate: class {
     func notificationBannerDidTapExpand(_ notificationBanner: NotificationBanner)
     func notificationBannerDidTapCollapse(_ notificationBanner: NotificationBanner)
-    func notificationBannerDidTapDismiss(_ notificationBanner: NotificationBanner)
+    func notificationBannerDidTapDismiss(_ notificationBanner: NotificationBanner, button: QuickReply)
     func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, button: QuickReply)
 }
 
@@ -56,6 +56,11 @@ class NotificationBanner: UIView {
         super.init(frame: .zero)
         
         backgroundColor = UIColor.ASAPP.snow
+        
+        let mask = CALayer()
+        mask.backgroundColor = UIColor.black.cgColor
+        mask.frame = CGRect(x: 0, y: 0, width: superview?.frame.width ?? 1000, height: superview?.frame.height ?? 1000)
+        layer.mask = mask
         
         bannerContainer.backgroundColor = UIColor.ASAPP.snow
         addSubview(bannerContainer)
@@ -221,9 +226,13 @@ class NotificationBanner: UIView {
         }
     }
     
-    @objc func didTapExpand() {
+    func expand() {
         isExpanded = true
         updateExpandIcon()
+    }
+    
+    @objc func didTapExpand() {
+        expand()
         delegate?.notificationBannerDidTapExpand(self)
     }
     
@@ -234,7 +243,10 @@ class NotificationBanner: UIView {
     }
     
     @objc func didTapDismissButton() {
-        delegate?.notificationBannerDidTapDismiss(self)
+        guard let button = notification.button else {
+            return
+        }
+        delegate?.notificationBannerDidTapDismiss(self, button: button)
     }
     
     @objc func didTapActionButton() {

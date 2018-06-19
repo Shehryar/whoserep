@@ -94,3 +94,33 @@ extension ConversationManager {
         sendRequest(path: path, params: params)
     }
 }
+
+// MARK: - Proactive Messaging
+
+extension ConversationManager {
+    func sendAcceptRequest(action: Action) {
+        guard
+            let data = action.data,
+            let triggerUuid = data.string(for: "triggerUuid")
+        else {
+            return
+        }
+        
+        let params = ["ProactiveTriggerUuid": triggerUuid]
+        
+        sendRequest(path: "customer/proactive/AcceptOfferedMessage", params: params)
+    }
+    
+    func sendDismissRequest(action: Action) {
+        guard
+            let data = action.data,
+            let triggerUuid = data.string(for: "triggerUuid")
+        else {
+            return
+        }
+        
+        let params = ["ProactiveTriggerUuid": triggerUuid]
+        
+        sendRequest(path: "customer/proactive/DismissOfferedMessage", params: params)
+    }
+}

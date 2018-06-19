@@ -15,6 +15,8 @@ import Nimble_Snapshots
 class ImageViewSpec: QuickSpec {
     override func spec() {
         describe("ImageView") {
+            let timeout: TimeInterval = 2
+            
             beforeSuite {
                 FBSnapshotTest.setReferenceImagesDirectory(
                     ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
@@ -34,8 +36,8 @@ class ImageViewSpec: QuickSpec {
                     let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
-                    waitUntil(timeout: 1) { done in
-                        Dispatcher.delay(.milliseconds(990)) {
+                    waitUntil(timeout: timeout) { done in
+                        Dispatcher.delay(.seconds(timeout - 0.1)) {
                             expect(viewController.view).to(haveValidSnapshot())
                             done()
                         }
@@ -49,8 +51,8 @@ class ImageViewSpec: QuickSpec {
                     let container = ComponentViewContainer.from(dict)
                     let viewController = ComponentViewController()
                     viewController.componentViewContainer = container
-                    waitUntil(timeout: 1) { done in
-                        Dispatcher.delay(.milliseconds(990)) {
+                    waitUntil(timeout: timeout) { done in
+                        Dispatcher.delay(.seconds(timeout - 0.1)) {
                             expect(viewController.view).to(haveValidSnapshot())
                             done()
                         }

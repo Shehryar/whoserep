@@ -13,19 +13,22 @@ class ChatNotification {
     let text: String?
     let button: QuickReply?
     let icon: IconItem?
+    let showExpanded: Bool
     
     enum JSONKey: String {
         case title
         case text
         case button
         case icon
+        case showExpanded
     }
     
-    init(title: String, text: String?, button: QuickReply?, icon: IconItem?) {
+    init(title: String, text: String?, button: QuickReply?, icon: IconItem?, showExpanded: Bool = false) {
         self.title = title
         self.text = text
         self.button = button
         self.icon = icon
+        self.showExpanded = showExpanded
     }
     
     class func fromDict(_ dict: [String: Any]) -> ChatNotification {
@@ -43,6 +46,8 @@ class ChatNotification {
             icon = ComponentFactory.component(with: iconName, styles: nil) as? IconItem
         }
         
-        return ChatNotification(title: title, text: text, button: button, icon: icon)
+        let showExpanded = dict.bool(for: JSONKey.showExpanded.rawValue) ?? false
+        
+        return ChatNotification(title: title, text: text, button: button, icon: icon, showExpanded: showExpanded)
     }
 }

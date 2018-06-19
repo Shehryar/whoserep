@@ -24,14 +24,9 @@ class AppSettings: NSObject {
         case apiHostNameList = "asapp_api_host_name_list"
         case appIdList = "asapp_app_id_list"
         case regionCodeList = "asapp_region_code_list"
-        case customerIdentifierList = "asapp_customer_identifier_list"
+        case accountList = "asapp_account_list"
         case appearanceConfigList = "asapp_appearance_config_list"
-        
-        case spearPin = "asapp_spear_pin"
-        case spearEnvironment = "asapp_spear_environment"
-        
-        case tetrisPassword = "asapp_tetris_password"
-        case tetrisEnvironment = "asapp_tetris_environment"
+        case mostRecentAccountPerApiHostNameAndAppId = "asapp_most_recent_account_dict"
     }
     
     // MARK: Shared Instance
@@ -57,7 +52,7 @@ class AppSettings: NSObject {
     }
     
     var authToken: String {
-        return AppSettings.getString(forKey: .authToken, defaultValue: "asapp_ios_fake_access_token")
+        return AppSettings.getString(forKey: .authToken, defaultValue: AppSettings.fakeToken)
     }
     
     var branding = Branding(appearanceConfig: AppSettings.defaultAppearanceConfig)
@@ -83,30 +78,6 @@ class AppSettings: NSObject {
     
     var userImageNames: [String] {
         return AppSettings.defaultImageNames
-    }
-    
-    var spearPin: String? {
-        return AppSettings.getString(forKey: .spearPin)
-    }
-    
-    var spearEnvironment: SpearEnvironment {
-        if let savedValue = AppSettings.getString(forKey: .spearEnvironment),
-            let savedEnvironment = SpearEnvironment(rawValue: savedValue) {
-            return savedEnvironment
-        }
-        return SpearEnvironment.defaultValue
-    }
-    
-    var tetrisPassword: String? {
-        return AppSettings.getString(forKey: .tetrisPassword)
-    }
-    
-    var tetrisEnvironment: TetrisEnvironment {
-        if let savedValue = AppSettings.getString(forKey: .tetrisEnvironment),
-            let savedEnvironment = TetrisEnvironment(rawValue: savedValue) {
-            return savedEnvironment
-        }
-        return TetrisEnvironment.defaultValue
     }
     
     let versionString: String
@@ -138,6 +109,8 @@ extension AppSettings {
     
     static let defaultAuthToken = ""
     
+    static let fakeToken = "asapp_ios_fake_access_token"
+    
     static let defaultUserName = "Jessie"
     
     static let defaultUserImageName = "user-anonymous"
@@ -155,7 +128,8 @@ extension AppSettings {
         return [
             "asapp",
             "boost",
-            "tetris",
+            "fios",
+            "spectrum-cable",
             "company1",
             "company2",
             "company3",
@@ -170,31 +144,30 @@ extension AppSettings {
     
     class var defaultRegionCodes: [String] {
         return [
-            "US",
-            "AU"
+            "US"
         ]
     }
     
-    class var defaultCustomerIdentifiers: [String] {
+    class var defaultAccounts: [Account] {
         return [
-            "test_customer_1",
-            "test_customer_2",
-            "outage_soon",
-            "appointment_soon",
-            "new_customer",
-            "+13126089137",
-            "+13473040637",
-            "+19179911056",
-            "+19176646758",
-            "+19084337447",
-            "+19173708897",
-            "+19173241544",
-            "+17038638070",
-            "+19134818010",
-            "+16173317845",
-            "+12152065821",
-            "+12122561114",
-            "+14167622262"
+            Account(username: "test_customer_1", password: nil),
+            Account(username: "test_customer_2", password: nil),
+            Account(username: "outage_soon", password: nil),
+            Account(username: "appointment_soon", password: nil),
+            Account(username: "new_customer", password: nil),
+            Account(username: "+13126089137", password: nil),
+            Account(username: "+13473040637", password: nil),
+            Account(username: "+19179911056", password: nil),
+            Account(username: "+19176646758", password: nil),
+            Account(username: "+19084337447", password: nil),
+            Account(username: "+19173708897", password: nil),
+            Account(username: "+19173241544", password: nil),
+            Account(username: "+17038638070", password: nil),
+            Account(username: "+19134818010", password: nil),
+            Account(username: "+16173317845", password: nil),
+            Account(username: "+12152065821", password: nil),
+            Account(username: "+12122561114", password: nil),
+            Account(username: "+14167622262", password: nil)
         ]
     }
     
@@ -284,6 +257,9 @@ extension AppSettings {
     
     class func addStringToArray(_ stringValue: String, forKey key: Key) {
         var stringArray = getStringArray(forKey: key) ?? [String]()
+        guard !stringArray.contains(stringValue) else {
+            return
+        }
         stringArray.append(stringValue)
         saveObject(stringArray, forKey: key)
     }
@@ -329,58 +305,81 @@ extension AppSettings {
         case .apiHostNameList: return defaultAPIHostNames
         case .appIdList: return defaultAppIds
         case .regionCodeList: return defaultRegionCodes
-        case .customerIdentifierList: return defaultCustomerIdentifiers
+        case .accountList: return defaultAccounts.map {
+            let encoder = JSONEncoder()
+            guard let data = try? encoder.encode($0) else {
+                return nil
+            }
+            return String.init(data: data, encoding: .utf8)
+        }.compactMap { $0 }
         default: return nil
         }
     }
 }
 
-// MARK: - Appearance Config Storage
+// MARK: - Generic Codable storage
 
 extension AppSettings {
-    class func getAppearanceConfigArray() -> [AppearanceConfig] {
-        let stringArray = UserDefaults.standard.stringArray(forKey: AppSettings.Key.appearanceConfigList.rawValue)
+    class func addCodableToArray<T: Codable>(_ codable: T, key: Key) {
+        let encoder = JSONEncoder()
+        guard
+            let data = try? encoder.encode(codable),
+            let string = String.init(data: data, encoding: .utf8)
+        else {
+            return
+        }
+        addStringToArray(string, forKey: key)
+    }
+    
+    class func getCodableArray<T: Codable>(key: Key, defaults: [T]) -> [T] {
+        let stringArray = UserDefaults.standard.stringArray(forKey: key.rawValue)
         
-        let appearanceConfigArray = try? (stringArray?.map { (string: String) -> AppearanceConfig? in
+        let codableArray = try? (stringArray?.map { (string: String) -> T? in
             let decoder = JSONDecoder()
             guard let data = string.data(using: .utf8) else {
                 return nil
             }
-            let config = try decoder.decode(AppearanceConfig.self, from: data)
-            return config.isValid ? config : nil
+            return try decoder.decode(T.self, from: data)
         } ?? []).flatMap { $0 }
         
-        return defaultAppearanceConfigs.union(appearanceConfigArray ?? [])
+        return defaults.union(codableArray ?? [])
     }
     
-    class func addAppearanceConfigToArray(_ appearanceConfig: AppearanceConfig) {
+    class func saveCodable<T: Codable>(_ codable: T, key: Key) {
         let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(appearanceConfig),
-              let string = String.init(data: data, encoding: .utf8) else {
+        guard
+            let data = try? encoder.encode(codable),
+            let string = String.init(data: data, encoding: .utf8)
+        else {
             return
         }
-        addStringToArray(string, forKey: .appearanceConfigList)
+        saveObject(string, forKey: key)
     }
     
-    class func removeAppearanceConfigFromArray(_ appearanceConfig: AppearanceConfig) {
-        let key = AppSettings.Key.appearanceConfigList
+    class func clearCodableArray(key: Key) {
+        saveObject("", forKey: key)
+    }
+    
+    class func removeCodableFromArray<T: Codable & Equatable>(_ codable: T, key: Key) {
         guard let stringArray = UserDefaults.standard.stringArray(forKey: key.rawValue) else {
             return
         }
         
-        let appearanceConfigArray = try? stringArray.map { (string: String) -> AppearanceConfig? in
+        let codableArray = try? stringArray.map { (string: String) -> T? in
             let decoder = JSONDecoder()
             guard let data = string.data(using: .utf8) else {
                 return nil
             }
-            return try decoder.decode(AppearanceConfig.self, from: data)
+            return try decoder.decode(T.self, from: data)
         }.flatMap { $0 }
         
-        let filteredArray = appearanceConfigArray?.filter { $0 != appearanceConfig }
+        let filteredArray = codableArray?.filter { $0 != codable }
         let encoder = JSONEncoder()
         let encodedArray: [String] = (filteredArray?.map { config in
-            guard let data = try? encoder.encode(config),
-                  let string = String.init(data: data, encoding: .utf8) else {
+            guard
+                let data = try? encoder.encode(config),
+                let string = String.init(data: data, encoding: .utf8)
+            else {
                 return ""
             }
             return string
@@ -388,20 +387,51 @@ extension AppSettings {
         
         saveObject(encodedArray, forKey: key)
     }
-    
-    class func saveAppearanceConfig(_ appearanceConfig: AppearanceConfig) {
-        let encoder = JSONEncoder()
-        guard appearanceConfig.isValid,
-              let data = try? encoder.encode(appearanceConfig),
-              let string = String.init(data: data, encoding: .utf8) else {
-            return
+}
+
+// MARK: - Appearance Config storage
+
+extension AppSettings {
+    class func getAppearanceConfigArray() -> [AppearanceConfig] {
+        return getCodableArray(key: .appearanceConfigList, defaults: defaultAppearanceConfigs).filter {
+            $0.isValid
         }
-        saveObject(string, forKey: .appearanceConfig)
     }
     
     class func clearAppearanceConfigArray() {
-        let key = AppSettings.Key.appearanceConfigList
-        saveObject("", forKey: key)
+        clearCodableArray(key: .appearanceConfigList)
+    }
+    
+    class func addAppearanceConfigToArray(_ appearanceConfig: AppearanceConfig) {
+        addCodableToArray(appearanceConfig, key: .appearanceConfigList)
+    }
+    
+    class func removeAppearanceConfigFromArray(_ appearanceConfig: AppearanceConfig) {
+        removeCodableFromArray(appearanceConfig, key: .appearanceConfigList)
+    }
+    
+    class func saveAppearanceConfig(_ appearanceConfig: AppearanceConfig) {
+        saveCodable(appearanceConfig, key: .appearanceConfig)
+    }
+}
+
+// MARK: - Account storage
+
+extension AppSettings {
+    class func getAccountArray() -> [Account] {
+        return getCodableArray(key: .accountList, defaults: defaultAccounts)
+    }
+    
+    class func clearAccountArray() {
+        clearCodableArray(key: .accountList)
+    }
+    
+    class func addAccountToArray(_ account: Account) {
+        addCodableToArray(account, key: .accountList)
+    }
+    
+    class func removeAccountFromArray(_ account: Account) {
+        removeCodableFromArray(account, key: .accountList)
     }
 }
 
@@ -421,12 +451,71 @@ extension AppSettings {
         AppSettings.addStringToArray(value, forKey: .regionCodeList)
     }
     
-    func addCustomerIdentifier(_ value: String) {
-        AppSettings.addStringToArray(value, forKey: .customerIdentifierList)
-    }
-    
     class func getRandomCustomerIdentifier() -> String {
         return "test-token-\(Int(Date().timeIntervalSince1970))"
+    }
+}
+
+// MARK: - Most Recent Account storage
+
+extension AppSettings {
+    private static func mostRecentAccountKey(appId: String, apiHostName: String) -> String {
+        return [appId, apiHostName].joined(separator: ",")
+    }
+    
+    class func setMostRecentAccount(_ account: Account, appId: String, apiHostName: String) {
+        let key = Key.mostRecentAccountPerApiHostNameAndAppId
+        let accountKey = mostRecentAccountKey(appId: appId, apiHostName: apiHostName)
+        let dict = UserDefaults.standard.dictionary(forKey: key.rawValue) as? [String: String]
+        let newDict: [String: String]
+        
+        let encoder = JSONEncoder()
+        guard
+            let data = try? encoder.encode(account),
+            let string = String.init(data: data, encoding: .utf8)
+        else {
+            return
+        }
+        
+        if var dict = dict {
+            dict[accountKey] = string
+            newDict = dict
+        } else {
+            newDict = [accountKey: string]
+        }
+        
+        saveObject(newDict, forKey: key)
+    }
+    
+    class func getMostRecentAccount(appId: String, apiHostName: String) -> Account? {
+        guard
+            let dict = UserDefaults.standard.dictionary(forKey: Key.mostRecentAccountPerApiHostNameAndAppId.rawValue),
+            let string = dict[mostRecentAccountKey(appId: appId, apiHostName: apiHostName)] as? String
+        else {
+            return nil
+        }
+        
+        let decoder = JSONDecoder()
+        guard let data = string.data(using: .utf8) else {
+            return nil
+        }
+        return try? decoder.decode(Account.self, from: data)
+    }
+    
+    class func clearMostRecentAccount(appId: String, apiHostName: String) {
+        let key = Key.mostRecentAccountPerApiHostNameAndAppId
+        let accountKey = mostRecentAccountKey(appId: appId, apiHostName: apiHostName)
+        let dict = UserDefaults.standard.dictionary(forKey: key.rawValue) as? [String: String]
+        let newDict: [String: String]
+        
+        if var dict = dict {
+            dict.removeValue(forKey: accountKey)
+            newDict = dict
+        } else {
+            newDict = [:]
+        }
+        
+        saveObject(newDict, forKey: key)
     }
 }
 
