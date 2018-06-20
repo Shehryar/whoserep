@@ -101,6 +101,7 @@ extension SocketConnection {
         connectionRequest.url = URL(string: "wss://\(config.apiHostName)/api/websocket")
         connectionRequest.addValue(ASAPP.clientType, forHTTPHeaderField: ASAPP.clientTypeKey)
         connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.clientVersionKey)
+        connectionRequest.addValue(ASAPP.partnerAppVersion, forHTTPHeaderField: ASAPP.partnerAppVersionKey)
         connectionRequest.addValue(config.clientSecret, forHTTPHeaderField: ASAPP.clientSecretKey)
         
         return connectionRequest as URLRequest

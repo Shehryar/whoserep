@@ -747,6 +747,16 @@ extension ChatViewController {
                 })
             }
             
+        case .link:
+            if let linkAction = action as? LinkAction {
+                LinkResolver.shared.resolve(linkAction: linkAction) { [weak self] resolvedAction in
+                    guard let action = resolvedAction else {
+                        return
+                    }
+                    self?.performAction(action)
+                }
+            }
+            
         case .treewalk:
             Dispatcher.performOnMainThread { [weak self] in
                 self?.scrollToBottomBeforeAddingNextMessage()

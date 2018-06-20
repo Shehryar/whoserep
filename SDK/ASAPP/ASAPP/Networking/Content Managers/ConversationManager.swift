@@ -212,7 +212,8 @@ extension ConversationManager {
         
         var requestParams: [String: Any] = [
             ASAPP.clientTypeKey: ASAPP.clientType,
-            ASAPP.clientVersionKey: ASAPP.clientVersion
+            ASAPP.clientVersionKey: ASAPP.clientVersion,
+            ASAPP.partnerAppVersionKey: ASAPP.partnerAppVersion
         ].with(params)
         
         if requiresContext {

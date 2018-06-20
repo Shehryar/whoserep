@@ -39,6 +39,7 @@ class HTTPClientSpec: QuickSpec {
         describe("HTTPClient") {
             let clientTypeQueryItem = URLQueryItem(name: ASAPP.clientTypeKey, value: ASAPP.clientType)
             let clientVersionQueryItem = URLQueryItem(name: ASAPP.clientVersionKey, value: ASAPP.clientVersion)
+            let partnerAppVersionQueryItem = URLQueryItem(name: ASAPP.partnerAppVersionKey, value: ASAPP.partnerAppVersion)
             
             context(".sendRequest(...)") {
                 /*
@@ -57,7 +58,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
-                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, partnerAppVersionQueryItem])))
                         expect(urlSession.lastRequest?.httpMethod).to(equal(HTTPMethod.POST.rawValue))
                         expect(task.resumeWasCalled).to(equal(true))
                     }
@@ -72,7 +73,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
-                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, partnerAppVersionQueryItem])))
                     }
                 }
                 
@@ -85,7 +86,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
-                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, URLQueryItem(name: "foo", value: "9001"), URLQueryItem(name: "bar", value: "9002")])))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, partnerAppVersionQueryItem, URLQueryItem(name: "foo", value: "9001"), URLQueryItem(name: "bar", value: "9002")])))
                     }
                 }
                 
@@ -98,7 +99,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
-                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, partnerAppVersionQueryItem])))
                         expect(urlSession.lastRequest?.httpBody).toNot(beNil())
                         let body = urlSession.lastRequest!.httpBody!
                         let dict = try? JSONSerialization.jsonObject(with: body, options: []) as! [String: Any]
@@ -120,7 +121,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
-                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, partnerAppVersionQueryItem])))
                     }
                 }
                 
@@ -138,7 +139,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
-                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, partnerAppVersionQueryItem])))
                     }
                 }
                 
@@ -151,7 +152,7 @@ class HTTPClientSpec: QuickSpec {
                         let urlComponents = URLComponents(string: urlSession.lastRequest!.url!.absoluteString)
                         expect(urlComponents?.scheme).to(equal("http"))
                         expect(urlComponents?.host).to(equal("example.com"))
-                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem])))
+                        expect(Set(urlComponents!.queryItems!)).to(equal(Set([clientTypeQueryItem, clientVersionQueryItem, partnerAppVersionQueryItem])))
                         expect(urlSession.lastRequest?.allHTTPHeaderFields?["foo"]).to(equal("bar"))
                         expect(urlSession.lastRequest?.allHTTPHeaderFields?["baz"]).to(equal("alpha"))
                     }

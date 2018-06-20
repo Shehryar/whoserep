@@ -16,6 +16,7 @@ enum ActionType: String {
     case deepLink
     case finish
     case http
+    case link
     case treewalk
     case userLogin
     case web
@@ -42,6 +43,7 @@ extension ActionType {
         case .deepLink: return DeepLinkAction.self
         case .finish: return FinishAction.self
         case .http: return HTTPAction.self
+        case .link: return LinkAction.self
         case .treewalk: return TreewalkAction.self
         case .userLogin: return UserLoginAction.self
         case .web: return WebPageAction.self
@@ -61,6 +63,7 @@ extension Action {
         case is DeepLinkAction: return .deepLink
         case is FinishAction: return .finish
         case is HTTPAction: return .http
+        case is LinkAction: return .link
         case is TreewalkAction: return .treewalk
         case is UserLoginAction: return .userLogin
         case is WebPageAction: return .web
@@ -72,6 +75,7 @@ extension Action {
         switch self {
         case is ComponentViewAction,
              is DeepLinkAction,
+             is LinkAction,
              is UserLoginAction,
              is WebPageAction:
             return true
@@ -89,6 +93,7 @@ extension Action {
     var willExitASAPP: Bool {
         switch self {
         case is DeepLinkAction,
+             is LinkAction,
              is UserLoginAction,
              is WebPageAction:
             return true
@@ -114,6 +119,7 @@ extension Action {
         case is ComponentViewAction,
              is DeepLinkAction,
              is FinishAction,
+             is LinkAction,
              is UserLoginAction,
              is WebPageAction:
             return false
