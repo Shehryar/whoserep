@@ -11,8 +11,6 @@ import UIKit
 class ComponentCardView: BubbleView, MessageButtonsViewContainer {
     weak var delegate: MessageButtonsViewContainerDelegate?
     
-    var backgroundLayer: CALayer?
-    
     var component: Component? {
         didSet {
             componentView = component?.createView(contentHandler: contentHandler)
@@ -59,7 +57,7 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer {
     
     func commonInit() {
         super.commonInit()
-        fillColor = .clear
+        fillColor = .white
         strokeColor = ASAPP.styles.colors.replyMessageBorder
         strokeLineWidth = 1
     }
@@ -76,19 +74,6 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer {
 
     deinit {
         componentView?.interactionHandler = nil
-    }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        backgroundLayer = setLinearGradient(degrees: 25, colors: ASAPP.styles.colors.attachmentGradientColors)
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        backgroundLayer?.removeAllAnimations()
-        backgroundLayer?.removeFromSuperlayer()
     }
     
     // MARK: Layout

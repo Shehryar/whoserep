@@ -29,9 +29,11 @@ class ChatMessageAttachment: NSObject {
     let image: ChatMessageImage?
     let template: Component?
     
+    let shouldAnimate: Bool
+    
     // MARK: - Init
     
-    init(content: Any) {
+    init(content: Any, shouldAnimate: Bool = false) {
         var type = AttachmentType.none
         var image: ChatMessageImage?
         var template: Component?
@@ -54,6 +56,7 @@ class ChatMessageAttachment: NSObject {
         self.image = image
         self.template = template
         self.carousel = carousel
+        self.shouldAnimate = shouldAnimate
         super.init()
     }
 }
@@ -93,7 +96,8 @@ extension ChatMessageAttachment {
             
         case .template:
             if let componentViewContainer = ComponentViewContainer.from(payload) {
-                return ChatMessageAttachment(content: componentViewContainer.root)
+                let shouldAnimate = json["shouldAnimate"] as? Bool ?? false
+                return ChatMessageAttachment(content: componentViewContainer.root, shouldAnimate: shouldAnimate)
             }
             
         case .none:

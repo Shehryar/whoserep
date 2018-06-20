@@ -210,6 +210,10 @@ extension ChatMessagesView {
     private func shouldShowTransientButtons(for message: ChatMessage) -> Bool {
         return message == lastMessage && !hideTransientMessageButtons
     }
+    
+    private func shouldAnimateAttachment(for message: ChatMessage) -> Bool {
+        return message == lastMessage && message.attachment?.shouldAnimate ?? false
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -254,6 +258,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
             listPosition: messageListPositionForIndexPath(indexPath),
             detailsVisible: message == showTimeStampForMessage,
             transientButtonsVisible: shouldShowTransientButtons(for: message),
+            shouldAnimate: shouldAnimateAttachment(for: message),
             atIndexPath: indexPath,
             delegate: self)
         
