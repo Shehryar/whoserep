@@ -114,6 +114,7 @@ extension ChatMessagesViewCellMaster {
                                    listPosition: MessageListPosition,
                                    detailsVisible: Bool,
                                    transientButtonsVisible: Bool,
+                                   shouldAnimate: Bool = false,
                                    delegate: ChatMessageCellDelegate? = nil) {
         cell?.messagePosition = listPosition
         cell?.delegate = delegate
@@ -125,6 +126,9 @@ extension ChatMessagesViewCellMaster {
         cell?.isAccessibilityElement = true
         cell?.accessibilityLabel = message.text
         cell?.isTimeLabelVisible = detailsVisible
+        if let componentViewCell = cell as? ChatComponentViewMessageCell {
+            componentViewCell.shouldAnimate = shouldAnimate
+        }
     }
 }
 
@@ -177,6 +181,7 @@ extension ChatMessagesViewCellMaster {
                         listPosition: MessageListPosition,
                         detailsVisible: Bool,
                         transientButtonsVisible: Bool,
+                        shouldAnimate: Bool,
                         atIndexPath indexPath: IndexPath,
                         delegate: ChatMessageCellDelegate?) -> ChatMessageCell? {
         let reuseId = getCellReuseId(for: message.attachment?.type)
@@ -187,6 +192,7 @@ extension ChatMessagesViewCellMaster {
                 listPosition: listPosition,
                 detailsVisible: detailsVisible,
                 transientButtonsVisible: transientButtonsVisible,
+                shouldAnimate: shouldAnimate,
                 delegate: delegate)
             return cell
         }

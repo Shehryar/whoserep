@@ -111,6 +111,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "formWithScale"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:cancelled-auto-pay"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

@@ -88,6 +88,14 @@ class StackView: BaseComponentView {
         return (layoutInfo.frames, contentSize)
     }
     
+    override func willUpdateFrames() {
+        for subview in subviews {
+            if let updatableFramesView = subview as? UpdatableFrames {
+                updatableFramesView.willUpdateFrames()
+            }
+        }
+    }
+    
     override func updateFrames() {
         let (frames, _) = getFramesAndContentSize(for: bounds.size)
         if frames.count == subviews.count {
@@ -99,7 +107,14 @@ class StackView: BaseComponentView {
                 }
             }
         }
-
+    }
+    
+    override func didUpdateFrames() {
+        for subview in subviews {
+            if let updatableFramesView = subview as? UpdatableFrames {
+                updatableFramesView.didUpdateFrames()
+            }
+        }
     }
     
     override func layoutSubviews() {

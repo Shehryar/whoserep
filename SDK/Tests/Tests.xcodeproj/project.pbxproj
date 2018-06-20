@@ -199,6 +199,13 @@
 		3AED18F61FA0FC18005955DA /* change-pin-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AED18F51FA0FC18005955DA /* change-pin-form.json */; };
 		3AED18F71FA0FC18005955DA /* change-pin-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AED18F51FA0FC18005955DA /* change-pin-form.json */; };
 		3AED18F91FA0FD1C005955DA /* RequiredComponentsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */; };
+		3AF5C39120D85B410013A616 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */; };
+		3AF5C39220D85B480013A616 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */; };
+		3AF5C39320D85B490013A616 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */; };
+		3AF5C39520D85F4B0013A616 /* cancelled-auto-pay.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */; };
+		3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */; };
+		3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */; };
+		3AF5C39820D85F4B0013A616 /* cancelled-auto-pay.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -390,6 +397,8 @@
 		3AED18F21FA0FA02005955DA /* change-pin-form-no-required.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "change-pin-form-no-required.json"; sourceTree = "<group>"; };
 		3AED18F51FA0FC18005955DA /* change-pin-form.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "change-pin-form.json"; sourceTree = "<group>"; };
 		3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredComponentsSpec.swift; sourceTree = "<group>"; };
+		3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMessageViewController.swift; sourceTree = "<group>"; };
+		3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "cancelled-auto-pay.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -448,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				3A0429311F97C1E30031CD78 /* add-credit-card.json */,
+				3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */,
 				3A8790FE20B3559E00AD81E5 /* carousel-uneven.json */,
 				3AED18F51FA0FC18005955DA /* change-pin-form.json */,
 				3AED18F21FA0FA02005955DA /* change-pin-form-no-required.json */,
@@ -509,6 +519,7 @@
 				3A797B6D1F97A29D00883ABF /* AppDelegate.swift */,
 				3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */,
 				3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */,
+				3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */,
 				3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */,
 				3A7B8ED420ACDDCB00DC5EAE /* ImageLayout.swift */,
 				3A391B371FA14E080085C2DA /* FormValidation.swift */,
@@ -763,6 +774,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A391B3D1FA14EB20085C2DA /* change-pin-form-no-required.json in Resources */,
+				3AF5C39520D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A391B3E1FA14EB20085C2DA /* live-chat-begin.json in Resources */,
 				3A8790FF20B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */,
@@ -793,6 +805,7 @@
 				3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A04293D1F97C24C0031CD78 /* add-credit-card.json in Resources */,
+				3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3A04293F1F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
 				3A87910020B3559E00AD81E5 /* carousel-uneven.json in Resources */,
@@ -816,6 +829,7 @@
 				3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A0429421F97C24C0031CD78 /* add-credit-card.json in Resources */,
+				3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3A0429441F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
 				3A87910120B3559E00AD81E5 /* carousel-uneven.json in Resources */,
@@ -840,6 +854,7 @@
 				3AA0D3FF20AA448100A04206 /* phone-plan-upgrade.json in Resources */,
 				3A7B8ED220ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AA0D40020AA448100A04206 /* security-pin.json in Resources */,
+				3AF5C39820D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3AA0D40120AA448100A04206 /* live-chat-begin.json in Resources */,
 				3AA0D40220AA448100A04206 /* event-list.json in Resources */,
 				3AA0D40320AA448100A04206 /* change-pin-form.json in Resources */,
@@ -893,6 +908,7 @@
 				3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */,
 				3A621FD5208E93E800CB11D6 /* FormWithScale.swift in Sources */,
+				3AF5C39120D85B410013A616 /* SingleMessageViewController.swift in Sources */,
 				3A7B8ED520ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
 				3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
@@ -970,6 +986,7 @@
 				3A26997C206063C9007C0EC6 /* ChatInputViewTestCase.swift in Sources */,
 				3A621FC1208E79EC00CB11D6 /* GatekeeperViewSpec.swift in Sources */,
 				3AE183AB2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift in Sources */,
+				3AF5C39220D85B480013A616 /* SingleMessageViewController.swift in Sources */,
 				3A05216A1F9937630072D089 /* QuickReplyViewSpec.swift in Sources */,
 				3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */,
 				3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */,
@@ -1010,6 +1027,7 @@
 				3AA0D3ED20AA448100A04206 /* TextInputMaxLength.swift in Sources */,
 				3AA0D3EF20AA448100A04206 /* TextAreaViewTestCase.swift in Sources */,
 				3AA0D3F120AA448100A04206 /* FormWithScale.swift in Sources */,
+				3AF5C39320D85B490013A616 /* SingleMessageViewController.swift in Sources */,
 				3A7B8ED720ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3AA0D3F220AA448100A04206 /* FormValidationTestCase.swift in Sources */,
 				3AA0D3F320AA448100A04206 /* Dropdown.swift in Sources */,

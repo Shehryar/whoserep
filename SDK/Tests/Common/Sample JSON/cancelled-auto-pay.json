@@ -1,0 +1,63 @@
+{
+  "attachment": {
+    "type": "componentView",
+    "shouldAnimate": true,
+    "content": {
+      "root": {
+        "content": {
+          "items": [
+            {
+              "content": {
+                "icon": "moneyCardCancel"
+              },
+              "style": {
+                "gravity": "top",
+                "height": 30,
+                "marginRight": 20,
+                "weight": 0,
+                "width": 30
+              },
+              "type": "icon"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Canceled Auto-Pay"
+                    },
+                    "style": {
+                      "textType": "bodyBold"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "You’ve successfully removed automatic payments from your account."
+                    },
+                    "style": {
+                      "marginBottom": 8,
+                      "marginTop": 12,
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  }
+                ]
+              },
+              "style": {
+                "gravity": "top"
+              },
+              "type": "stackView"
+            }
+          ],
+          "orientation": "horizontal"
+        },
+        "style": {
+          "align": "fill",
+          "padding": 20
+        },
+        "type": "stackView",
+      }
+    }
+  }
+}

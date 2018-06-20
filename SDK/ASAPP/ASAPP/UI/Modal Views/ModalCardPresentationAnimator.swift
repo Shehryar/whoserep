@@ -9,7 +9,9 @@
 import UIKit
 
 protocol UpdatableFrames {
+    func willUpdateFrames()
     func updateFrames()
+    func didUpdateFrames()
 }
 
 protocol ResizableModalCardViewController: UpdatableFrames {

@@ -155,6 +155,8 @@ class ButtonView: UIButton, ComponentView {
         return (titleLabelFrame, imageViewFrame)
     }
     
+    func willUpdateFrames() {}
+    
     func updateFrames() {
         let (titleLabelFrame, imageViewFrame) = getFramesThatFit(bounds.size)
         titleLabel?.frame = titleLabelFrame
@@ -167,6 +169,8 @@ class ButtonView: UIButton, ComponentView {
             spinnerView.center = CGPoint(x: titleLabelFrame.midX, y: titleLabelFrame.midY)
         }
     }
+    
+    func didUpdateFrames() {}
     
     override func layoutSubviews() {
         super.layoutSubviews()

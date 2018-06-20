@@ -9,6 +9,11 @@
 import UIKit
 
 class ChatComponentViewMessageCell: ChatMessageCell {
+    var shouldAnimate: Bool = false {
+        didSet {
+            cardView.shouldAnimate = shouldAnimate
+        }
+    }
     
     override var message: ChatMessage? {
         didSet {

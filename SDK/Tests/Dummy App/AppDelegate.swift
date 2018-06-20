@@ -41,7 +41,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let testCaseName = CommandLine.arguments[1]
         var viewController: UIViewController
-        if let testCaseViewControllerClass = classesByIdentifier[testCaseName] {
+        let messagePrefix = "message:"
+        
+        if testCaseName.hasPrefix(messagePrefix) {
+            let fileName = testCaseName.dropFirst(messagePrefix.count)
+            let singleMessage = SingleMessageViewController()
+            viewController = singleMessage
+            singleMessage.showMessage(fileName: String(fileName))
+        } else if let testCaseViewControllerClass = classesByIdentifier[testCaseName] {
             viewController = testCaseViewControllerClass.init()
         } else {
             viewController = UIViewController()

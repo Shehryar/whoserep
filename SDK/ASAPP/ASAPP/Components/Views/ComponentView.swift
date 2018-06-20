@@ -38,7 +38,6 @@ protocol ComponentView: UpdatableFrames {
 }
 
 extension ComponentView where Self: UIView {
-        
     var view: UIView {
         return self
     }
