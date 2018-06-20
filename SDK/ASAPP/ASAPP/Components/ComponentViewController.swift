@@ -191,6 +191,10 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         updateFrames()
     }
     
+    func willUpdateFrames() {
+        rootView?.willUpdateFrames()
+    }
+    
     func updateFrames() {
         var top: CGFloat = 0
         if let navigationBar = navigationController?.navigationBar,
@@ -223,6 +227,10 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
         
         spinnerView.sizeToFit()
         spinnerView.center = CGPoint(x: view.bounds.midX, y: top + floor(height / 2.0))
+    }
+    
+    func didUpdateFrames() {
+        rootView?.didUpdateFrames()
     }
     
     // MARK: Instance Methods

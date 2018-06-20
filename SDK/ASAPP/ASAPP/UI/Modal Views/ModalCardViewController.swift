@@ -189,6 +189,8 @@ extension ModalCardViewController: ResizableModalCardViewController {
     
     // MARK: Public API
     
+    func willUpdateFrames() {}
+    
     @objc func updateFrames() {
         
         // Error View
@@ -224,6 +226,8 @@ extension ModalCardViewController: ResizableModalCardViewController {
         successView.alpha = isShowingSuccessView ? 1.0 : 0.0
         contentView?.alpha = isShowingSuccessView ? 0.0 : 1.0
     }
+    
+    func didUpdateFrames() {}
     
     func viewSizeThatFits(_ size: CGSize) -> CGSize {
         let maxHeight: CGFloat = size.height > 0 ? size.height : CGFloat.greatestFiniteMagnitude

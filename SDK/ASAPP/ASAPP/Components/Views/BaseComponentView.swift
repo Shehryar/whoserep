@@ -56,7 +56,15 @@ class BaseComponentView: UIView, ComponentView, ComponentStyleable {
     
     // MARK: UpdatableFrames
     
+    func willUpdateFrames() {
+        // Subviews should override
+    }
+    
     func updateFrames() {
+        // Subviews should override
+    }
+    
+    func didUpdateFrames() {
         // Subviews should override
     }
     

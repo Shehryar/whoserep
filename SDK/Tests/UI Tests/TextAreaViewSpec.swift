@@ -168,6 +168,18 @@ class TextAreaViewSpec: QuickSpec {
                     stackView = StackView(frame: CGRect(x: 0, y: 0, width: 320, height: 568))
                 }
                 
+                context("with no inputted text") {
+                    it("has a valid snapshot") {
+                        let content: [String: Any] = [
+                            "placeholder": "Type your message",
+                            "numberOfLines": 3
+                        ]
+                        let textAreaItem = TextAreaItem(isRequired: true, style: itemStyle, content: content)!
+                        stackView.component = StackViewItem(orientation: .vertical, items: [textAreaItem], style: style)
+                        expect(stackView).to(haveValidSnapshot())
+                    }
+                }
+                
                 context("with three lines of text") {
                     it("has a valid snapshot") {
                         let content: [String: Any] = [

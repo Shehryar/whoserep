@@ -57,10 +57,26 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
     
     // MARK: - UpdatableFrames
     
+    func willUpdateFrames() {
+        for viewController in viewControllers {
+            if let updatableFramesVC = viewController as? UpdatableFrames {
+                updatableFramesVC.willUpdateFrames()
+            }
+        }
+    }
+    
     func updateFrames() {
         for viewController in viewControllers {
             if let updatableFramesVC = viewController as? UpdatableFrames {
                 updatableFramesVC.updateFrames()
+            }
+        }
+    }
+    
+    func didUpdateFrames() {
+        for viewController in viewControllers {
+            if let updatableFramesVC = viewController as? UpdatableFrames {
+                updatableFramesVC.didUpdateFrames()
             }
         }
     }
@@ -78,18 +94,22 @@ extension ComponentNavigationController: KeyboardObserverDelegate {
            let view = visibleViewController?.view {
             let newHeight = view.bounds.height - keyboardHeight
             
+            updatableFramesVC.willUpdateFrames()
             UIView.animate(
                 withDuration: duration,
                 delay: 0,
                 options: animationCurve,
-                animations: {
-                    updatableFramesVC.updateFrames()
-                    
-                    var frame = view.frame
-                    frame.size.height = newHeight
-                    view.frame = frame
-                    view.layoutIfNeeded()
-                }, completion: nil)
+                animations:
+            {
+                updatableFramesVC.updateFrames()
+                
+                var frame = view.frame
+                frame.size.height = newHeight
+                view.frame = frame
+                view.layoutIfNeeded()
+                
+                updatableFramesVC.didUpdateFrames()
+            })
         }
     }
 }

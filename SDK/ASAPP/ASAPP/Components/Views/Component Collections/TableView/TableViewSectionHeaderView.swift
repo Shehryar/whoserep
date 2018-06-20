@@ -59,10 +59,14 @@ class TableViewSectionHeaderView: UIView, ComponentView {
     
     // MARK: Layout
     
+    func willUpdateFrames() {}
+    
     func updateFrames() {
         let margin = component?.style.margin ?? .zero
         componentView?.view.frame = UIEdgeInsetsInsetRect(bounds, margin)
     }
+    
+    func didUpdateFrames() {}
     
     override func layoutSubviews() {
         super.layoutSubviews()
