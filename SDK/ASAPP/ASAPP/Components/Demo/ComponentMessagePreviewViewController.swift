@@ -236,13 +236,17 @@ extension ComponentMessagePreviewViewController: QuickRepliesViewDelegate {
             message = "Unknown"
             
         case .deepLink:
-            title = "Link"
+            title = "Deep Link"
             
         case .finish:
             title = "Finish"
             
         case .http:
             title = "HTTP"
+        
+        case .link:
+            title = "Link"
+            message = (quickReply.action as? LinkAction)?.link ?? "nil"
             
         case .treewalk:
             if let treewalkAction = quickReply.action as? TreewalkAction {

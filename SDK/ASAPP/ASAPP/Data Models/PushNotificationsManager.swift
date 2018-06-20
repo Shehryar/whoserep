@@ -36,7 +36,8 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     
     private let defaultParams: [String: Any] = [
         ASAPP.clientTypeKey: ASAPP.clientType,
-        ASAPP.clientVersionKey: ASAPP.clientVersion
+        ASAPP.clientVersionKey: ASAPP.clientVersion,
+        ASAPP.partnerAppVersionKey: ASAPP.partnerAppVersion
     ]
     
     var session: Session? {

@@ -64,7 +64,8 @@ class HTTPClient: NSObject, HTTPClientProtocol {
     
     static let defaultParams: [String: String] = [
         ASAPP.clientTypeKey: ASAPP.clientType,
-        ASAPP.clientVersionKey: ASAPP.clientVersion
+        ASAPP.clientVersionKey: ASAPP.clientVersion,
+        ASAPP.partnerAppVersionKey: ASAPP.partnerAppVersion
     ]
     
     func config(_ config: ASAPPConfig) {
@@ -72,6 +73,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         defaultHeaders[ASAPP.clientTypeKey] = ASAPP.clientType
         defaultHeaders[ASAPP.clientVersionKey] = ASAPP.clientVersion
         defaultHeaders[ASAPP.clientSecretKey] = config.clientSecret
+        defaultHeaders[ASAPP.partnerAppVersionKey] = ASAPP.partnerAppVersion
     }
     
     func getHeaders(for session: Session) -> [String: String]? {

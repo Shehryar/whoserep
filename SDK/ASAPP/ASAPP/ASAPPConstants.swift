@@ -54,4 +54,6 @@ internal extension ASAPP {
     internal static let clientVersionKey = "ASAPP-ClientVersion"
     
     internal static let clientSecretKey = "ASAPP-ClientSecret"
+    
+    internal static let partnerAppVersionKey = "ASAPP-PartnerAppVersion"
 }
