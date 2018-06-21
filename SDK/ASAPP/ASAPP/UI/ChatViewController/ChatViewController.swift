@@ -1013,6 +1013,7 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
         if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+            quickRepliesView.disableCurrentButtons()
             selectedSuggestionMetadata?.keystrokesBeforeSelection = keystrokesBeforeSelection
             selectedSuggestionMetadata?.keystrokesAfterSelection = keystrokesAfterSelection
             chatInputView.clear()
