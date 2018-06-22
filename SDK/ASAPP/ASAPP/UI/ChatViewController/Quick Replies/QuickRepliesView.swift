@@ -156,8 +156,10 @@ extension QuickRepliesView {
         let containerTop = separatorTopView.frame.maxY
         let containerHeight = bounds.height - containerTop
         containerView.frame = CGRect(x: 0, y: containerTop, width: bounds.width, height: containerHeight)
-        blurredBackground.frame = containerView.frame
         listView.frame = containerView.bounds
+        
+        // the blur effect looks bad when growing from nothing. make it larger than necessary while the container is short.
+        blurredBackground.frame = containerView.frame.height > 5 ? containerView.frame : CGRect(x: containerView.frame.minX, y: -restartButton.defaultHeight, width: containerView.frame.width, height: restartButton.defaultHeight)
         
         restartButton.frame = CGRect(x: 0, y: containerView.frame.maxY - restartButton.defaultHeight, width: bounds.width, height: restartButton.defaultHeight)
     }
