@@ -64,7 +64,18 @@ SDK Usage
 
     ASAPP.initialize(with: config)
 
-### Set [User](Classes/ASAPPUser.html)
+### Create a [context provider](Typealiases.html#/s:5ASAPP27ASAPPRequestContextProvidera)
+
+You can include `ASAPP.authTokenKey`, `ASAPP.analyticsKey`, and/or any other keys required by the environment.
+
+    let requestContextProvider = {
+        return [
+            ASAPP.authTokenKey: "<user's authentication token>",
+            ASAPP.analyticsKey: ["<arbitrary>": "<data>"]
+        ]
+    }
+
+### Set the [User](Classes/ASAPPUser.html)
 
     let user = ASAPPUser(userIdentifier: userIdentifier,
                          requestContextProvider: requestContextProvider)

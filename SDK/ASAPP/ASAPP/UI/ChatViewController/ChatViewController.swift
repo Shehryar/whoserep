@@ -583,7 +583,7 @@ extension ChatViewController {
     }
     
     func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
-        let wasNearBottom = chatMessagesView.isNearBottom()
+        let wasNearBottom = chatMessagesView.isNearBottom() || chatMessagesView.isHidden
         if animated {
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottomAnimated(true)
@@ -1013,6 +1013,7 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
         if conversationManager.isConnected(retryConnectionIfNeeded: true) {
+            quickRepliesView.disableCurrentButtons()
             selectedSuggestionMetadata?.keystrokesBeforeSelection = keystrokesBeforeSelection
             selectedSuggestionMetadata?.keystrokesAfterSelection = keystrokesAfterSelection
             chatInputView.clear()
@@ -1602,6 +1603,7 @@ extension ChatViewController {
     
     func reloadMessageEvents() {
         let numberToFetch = chatMessagesView.pageSize
+        chatMessagesView.isHidden = true
         conversationManager.getEvents(limit: numberToFetch) { [weak self] (fetchedEvents, _) in
             guard let strongSelf = self, let fetchedEvents = fetchedEvents else {
                 return
@@ -1617,10 +1619,14 @@ extension ChatViewController {
                 
                 strongSelf.chatMessagesView.shouldShowLoadingHeader = strongSelf.shouldFetchEarlier
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
-                strongSelf.spinner.alpha = strongSelf.chatMessagesView.isEmpty == true ? 1 : 0
                 strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
                 strongSelf.updateStateForLastEvent()
                 strongSelf.showQuickRepliesViewIfNecessary(animated: true)
+                
+                Dispatcher.delay { [weak self] in
+                    self?.spinner.alpha = self?.chatMessagesView.isEmpty == true ? 1 : 0
+                    self?.chatMessagesView.isHidden = false
+                }
                 
                 if strongSelf.isLiveChat && !strongSelf.chatInputView.isFirstResponder {
                     strongSelf.updateViewForLiveChat(animated: false)
