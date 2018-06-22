@@ -26,8 +26,11 @@ public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData:
 public class ASAPP: NSObject {
     // MARK: - Constants
     
-    /// The key for referencing an auth token in a request context dictionary.
+    /// The key for referencing the auth token in a request context dictionary.
     public static let authTokenKey = "access_token"
+    
+    /// The key for referencing the analytics dictionary in a request context dictionary.
+    public static let analyticsKey = "partnerAnalytics"
     
     /// A `String` representing the SDK version in x.y.z format.
     public static var clientVersion: String {
