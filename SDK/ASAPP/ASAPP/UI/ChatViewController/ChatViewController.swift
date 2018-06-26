@@ -1603,7 +1603,10 @@ extension ChatViewController {
     
     func reloadMessageEvents() {
         let numberToFetch = chatMessagesView.pageSize
+
+        conversationManager.getSettings()
         chatMessagesView.isHidden = true
+
         conversationManager.getEvents(limit: numberToFetch) { [weak self] (fetchedEvents, _) in
             guard let strongSelf = self, let fetchedEvents = fetchedEvents else {
                 return

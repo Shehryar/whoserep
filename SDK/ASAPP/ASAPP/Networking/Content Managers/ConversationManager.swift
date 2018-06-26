@@ -54,6 +54,7 @@ protocol ConversationManagerProtocol: class {
     func getEvents(after lastEvent: Event, completion: @escaping FetchedEventsCompletion)
     func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion)
     func getSuggestions(for: String, completion: @escaping AutosuggestCompletion)
+    func getSettings(completion: @escaping (() -> Void))
     func sendEnterChatRequest(_ completion: (() -> Void)?)
     func sendAcceptRequest(action: Action)
     func sendDismissRequest(action: Action)
@@ -81,6 +82,10 @@ extension ConversationManagerProtocol {
     
     func sendTextMessage(_ message: String) {
         return sendTextMessage(message, completion: nil)
+    }
+    
+    func getSettings() {
+        return getSettings(completion: {})
     }
 }
 
@@ -115,6 +120,8 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     private let simpleStore: ChatSimpleStore
     
     private(set) var events: [Event] = []
+    
+    private var censor: CensorProtocol?
     
     private(set) var isLiveChat: Bool = false
     
@@ -206,7 +213,6 @@ extension ConversationManager {
     
     func getRequestParameters(with params: [String: Any]?,
                               requiresContext: Bool = true,
-                              insertContextAsString: Bool = true,
                               contextKey: String = "Context",
                               completion: @escaping (_ params: [String: Any]) -> Void) {
         
@@ -224,10 +230,8 @@ extension ConversationManager {
                         updatedContext[strongSelf.config.identifierType] = strongSelf.user.userIdentifier
                     }
                     
-                    if !insertContextAsString {
-                        requestParams[contextKey] =  updatedContext
-                    } else if insertContextAsString, let contextString = JSONUtil.stringify(updatedContext) {
-                        requestParams[contextKey] =  contextString
+                    if let contextString = JSONUtil.stringify(updatedContext) {
+                        requestParams[contextKey] = contextString
                     }
                 }
                 if let authToken = authToken {
@@ -335,21 +339,53 @@ extension ConversationManager {
 extension ConversationManager {
     func getSuggestions(for text: String, completion: @escaping ConversationManagerProtocol.AutosuggestCompletion) {
         let path = "customer/autocomplete"
-        let params = ["Text": text]
+        var text = text
         
-        httpClient.sendRequest(method: .POST, path: path, params: params) { (data: [String: Any]?, _, error) in
+        Dispatcher.performOnBackgroundThread { [weak self] in
+            if let censor = self?.censor {
+                text = censor.process(text, type: .fragment)
+            }
+            let params = ["Text": text]
+            
+            self?.httpClient.sendRequest(method: .POST, path: path, params: params) { (data: [String: Any]?, _, error) in
+                guard let data = data,
+                      error == nil else {
+                    completion([], "", "Error fetching suggestions.")
+                    return
+                }
+                
+                let suggestions = data["Suggestions"] as? [String] ?? []
+                let responseId = data["ResponseId"] as? String ?? ""
+                
+                Dispatcher.performOnMainThread {
+                    completion(suggestions, responseId, nil)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Settings
+
+extension ConversationManager {
+    func getSettings(completion: @escaping (() -> Void) = {}) {
+        let path = "customer/getsdksettings"
+        
+        httpClient.sendRequest(method: .POST, path: path) { [weak self] (data: Data?, _, error) in
             guard let data = data,
                   error == nil else {
-                completion([], "", "Error fetching suggestions.")
+                DebugLog.e(caller: self, "Could not fetch SDK settings")
                 return
             }
             
-            let suggestions = data["Suggestions"] as? [String] ?? []
-            let responseId = data["ResponseId"] as? String ?? ""
-            
-            Dispatcher.performOnMainThread {
-                completion(suggestions, responseId, nil)
+            let decoder = JSONDecoder()
+            guard let settings = try? decoder.decode(Settings.self, from: data) else {
+                return
             }
+            
+            let censor = Censor()
+            censor.rules = settings.redactionRules
+            self?.censor = censor
         }
     }
 }
@@ -368,6 +404,61 @@ extension ConversationManager {
         }
         
         return nil
+    }
+}
+
+// MARK: - Chat
+
+extension ConversationManager {
+    func sendUserTypingStatus(isTyping: Bool, with text: String?) {
+        let path = "customer/NotifyTypingPreview"
+        var text = text ?? ""
+        Dispatcher.performOnBackgroundThread { [weak self] in
+            if let censor = self?.censor {
+                text = censor.process(text, type: .fragment)
+            }
+            let params = [ "Text": text]
+            self?.sendRequest(path: path, params: params, requiresContext: false, completion: nil)
+        }
+    }
+    
+    func sendTextMessage(_ message: String, completion: RequestResponseHandler? = nil) {
+        let path = "customer/SendTextMessage"
+        var message = message
+        Dispatcher.performOnBackgroundThread { [weak self] in
+            if let censor = self?.censor {
+                message = censor.process(message)
+            }
+            let params = ["Text": message]
+            self?.sendRequest(path: path, params: params, completion: completion)
+        }
+    }
+    
+    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false, autosuggestMetadata: AutosuggestMetadata?) {
+        if ASAPP.isDemoContentEnabled(), let demoResponse = Event.demoResponseForQuery(query) {
+            echoMessageResponse(withJSONString: demoResponse)
+            return
+        }
+        
+        let path = "srs/SendTextMessageAndHierAndTreewalk"
+        var query = query
+        
+        Dispatcher.performOnBackgroundThread { [weak self] in
+            if let censor = self?.censor {
+                query = censor.process(query)
+            }
+            var params: [String: Any] = [
+                "Text": query,
+                "SearchQuery": query
+            ]
+            
+            if let data = try? JSONEncoder().encode(autosuggestMetadata),
+                let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                params["CustAutoCompleteAnalytics"] = dict
+            }
+            
+            self?.sendRequest(path: path, params: params)
+        }
     }
 }
 

@@ -1,0 +1,49 @@
+{
+  "cases": [
+    {
+      "name": "basic",
+      "input": "My alien registration number is 1234567.",
+      "expected": "My alien registration number is {digits7:#######}."
+    },
+    {
+      "name": "spaces",
+      "input": "My alien registration number is 1 2 3 4 5 6 7.",
+      "expected": "My alien registration number is {digits7:# # # # # # #}."
+    },
+    {
+      "name": "don't check for word boundaries",
+      "input": "My alien registration number is A1234567.",
+      "expected": "My alien registration number is A{digits7:#######}."
+    },
+    {
+      "name": "lots of separators",
+      "input": "My alien registration number is 1  -.2...3     4-.-.-.5 6 7.",
+      "expected": "My alien registration number is {digits7:#  -.#...#     #-.-.-.# # #}."
+    },
+    {
+      "name": "letters should cause the match to fail",
+      "input": "My alien registration number is 1  -.2...3   f  4-.-.-.5 6 7.",
+      "expected": "My alien registration number is 1  -.2...3   f  4-.-.-.5 6 7."
+    },
+    {
+      "name": "8 digit-numbers should fail to match",
+      "input": "My alien registration number is 12345678.",
+      "expected": "My alien registration number is 12345678."
+    },
+    {
+      "name": "8 digit-numbers should fail to match",
+      "input": "My alien registration number is 1234567 8.",
+      "expected": "My alien registration number is 1234567 8."
+    },
+    {
+      "name": "8 digit-numbers should fail to match",
+      "input": "My alien registration number is 1234567. 8.",
+      "expected": "My alien registration number is 1234567. 8."
+    },
+    {
+      "name": "8 digit-numbers should fail to match",
+      "input": "My alien registration number is 1 2 3 4 5 6 7 8.",
+      "expected": "My alien registration number is 1 2 3 4 5 6 7 8."
+    }
+  ]
+}

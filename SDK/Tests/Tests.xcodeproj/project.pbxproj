@@ -112,6 +112,9 @@
 		3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F2D820AD06EA00885C94 /* feedback-form-image.json */; };
 		3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F2D820AD06EA00885C94 /* feedback-form-image.json */; };
 		3A95F2DC20AD06EA00885C94 /* feedback-form-image.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A95F2D820AD06EA00885C94 /* feedback-form-image.json */; };
+		3A99523020DDD49600343D10 /* censor-date.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A99522E20DDD19C00343D10 /* censor-date.json */; };
+		3A99523420DDDA7700343D10 /* censor-password.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A99523320DDDA7700343D10 /* censor-password.json */; };
+		3A99523620DDDF2700343D10 /* censor-digits7.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A99523520DDDF2700343D10 /* censor-digits7.json */; };
 		3A9EF228202A60510092A1AA /* NotificationBannerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */; };
 		3A9F51C11FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3A9F51C21FB122F3009C68AE /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
@@ -165,6 +168,8 @@
 		3AA1E4FC1FFC766600548E3D /* MockPushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4FB1FFC766600548E3D /* MockPushNotificationsManager.swift */; };
 		3AA1E4FE1FFC769800548E3D /* MockOutgoingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4FD1FFC769800548E3D /* MockOutgoingMessageSerializer.swift */; };
 		3AA1E5001FFDBD9600548E3D /* MockSRWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4FF1FFDBD9600548E3D /* MockSRWebSocket.swift */; };
+		3AA8DAEF20DD81900062A370 /* CensorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8DAEE20DD81900062A370 /* CensorSpec.swift */; };
+		3AA8DAF120DD84400062A370 /* censor-email.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8DAF020DD84400062A370 /* censor-email.json */; };
 		3AB92C7F1FED8B25000AE21A /* EventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C7E1FED8B25000AE21A /* EventSpec.swift */; };
 		3AB92C811FF192FD000AE21A /* HTTPClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C801FF192FD000AE21A /* HTTPClientSpec.swift */; };
 		3AB92C831FF1BC74000AE21A /* TabViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */; };
@@ -355,6 +360,9 @@
 		3A889FE31FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializerSpec.swift; sourceTree = "<group>"; };
 		3A95F2D620AD03BD00885C94 /* ImageViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewSpec.swift; sourceTree = "<group>"; };
 		3A95F2D820AD06EA00885C94 /* feedback-form-image.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form-image.json"; sourceTree = "<group>"; };
+		3A99522E20DDD19C00343D10 /* censor-date.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "censor-date.json"; sourceTree = "<group>"; };
+		3A99523320DDDA7700343D10 /* censor-password.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "censor-password.json"; sourceTree = "<group>"; };
+		3A99523520DDDF2700343D10 /* censor-digits7.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "censor-digits7.json"; sourceTree = "<group>"; };
 		3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerSpec.swift; sourceTree = "<group>"; };
 		3A9F51C01FB122F3009C68AE /* event-list.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "event-list.json"; sourceTree = "<group>"; };
 		3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form-radio.json"; sourceTree = "<group>"; };
@@ -371,6 +379,8 @@
 		3AA1E4FB1FFC766600548E3D /* MockPushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPushNotificationsManager.swift; sourceTree = "<group>"; };
 		3AA1E4FD1FFC769800548E3D /* MockOutgoingMessageSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOutgoingMessageSerializer.swift; sourceTree = "<group>"; };
 		3AA1E4FF1FFDBD9600548E3D /* MockSRWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSRWebSocket.swift; sourceTree = "<group>"; };
+		3AA8DAEE20DD81900062A370 /* CensorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorSpec.swift; sourceTree = "<group>"; };
+		3AA8DAF020DD84400062A370 /* censor-email.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "censor-email.json"; sourceTree = "<group>"; };
 		3AB92C7E1FED8B25000AE21A /* EventSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSpec.swift; sourceTree = "<group>"; };
 		3AB92C801FF192FD000AE21A /* HTTPClientSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpec.swift; sourceTree = "<group>"; };
 		3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewSpec.swift; sourceTree = "<group>"; };
@@ -459,6 +469,10 @@
 				3A0429311F97C1E30031CD78 /* add-credit-card.json */,
 				3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */,
 				3A8790FE20B3559E00AD81E5 /* carousel-uneven.json */,
+				3A99522E20DDD19C00343D10 /* censor-date.json */,
+				3A99523520DDDF2700343D10 /* censor-digits7.json */,
+				3AA8DAF020DD84400062A370 /* censor-email.json */,
+				3A99523320DDDA7700343D10 /* censor-password.json */,
 				3AED18F51FA0FC18005955DA /* change-pin-form.json */,
 				3AED18F21FA0FA02005955DA /* change-pin-form-no-required.json */,
 				3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */,
@@ -541,6 +555,7 @@
 				3A0F04AF200F057E0064E76F /* APIActionErrorSpec.swift */,
 				3A0F04AD200955C30064E76F /* APIActionResponseSpec.swift */,
 				3A0429391F97C23C0031CD78 /* ASAPPSpec.swift */,
+				3AA8DAEE20DD81900062A370 /* CensorSpec.swift */,
 				3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */,
 				3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */,
 				3A304C45207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift */,
@@ -802,11 +817,15 @@
 				3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3A7B8ED020ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AED18F31FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
+				3A99523620DDDF2700343D10 /* censor-digits7.json in Resources */,
 				3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A04293D1F97C24C0031CD78 /* add-credit-card.json in Resources */,
+				3AA8DAF120DD84400062A370 /* censor-email.json in Resources */,
 				3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
+				3A99523020DDD49600343D10 /* censor-date.json in Resources */,
 				3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
+				3A99523420DDDA7700343D10 /* censor-password.json in Resources */,
 				3A04293F1F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
 				3A87910020B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A0429411F97C24C0031CD78 /* security-pin.json in Resources */,
@@ -938,6 +957,7 @@
 				3A304C46207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift in Sources */,
 				3AA1E4FE1FFC769800548E3D /* MockOutgoingMessageSerializer.swift in Sources */,
 				3AD60A9C204F3CE100C0F2C2 /* MockFileManager.swift in Sources */,
+				3AA8DAEF20DD81900062A370 /* CensorSpec.swift in Sources */,
 				3A0521711F9A976B0072D089 /* ChatMessageAttachmentSpec.swift in Sources */,
 				3A33A5AF1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift in Sources */,
 				3AD60A9E204F41ED00C0F2C2 /* CodableStorageSpec.swift in Sources */,

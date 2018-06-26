@@ -12,18 +12,6 @@ import UIKit
 
 extension ConversationManager {
     
-    func sendUserTypingStatus(isTyping: Bool, with text: String?) {
-        let path = "customer/NotifyTypingPreview"
-        let params = [ "Text": text ?? "" ]
-        sendRequest(path: path, params: params, requiresContext: false, completion: nil)
-    }
-    
-    func sendTextMessage(_ message: String, completion: RequestResponseHandler? = nil) {
-        let path = "customer/SendTextMessage"
-        let params = ["Text": message]
-        sendRequest(path: path, params: params, completion: completion)
-    }
-    
     func sendPictureMessage(_ image: UIImage, completion: (() -> Void)? = nil) {
         let path = "customer/SendPictureMessage"
         
@@ -72,26 +60,6 @@ extension ConversationManager {
             completion?(success)
         }
         sendRequest(path: "customer/ask", completion: handler)
-    }
-    
-    func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool = false, autosuggestMetadata: AutosuggestMetadata?) {
-        if ASAPP.isDemoContentEnabled(), let demoResponse = Event.demoResponseForQuery(query) {
-            echoMessageResponse(withJSONString: demoResponse)
-            return
-        }
-        
-        let path = "srs/SendTextMessageAndHierAndTreewalk"
-        var params: [String: Any] = [
-            "Text": query,
-            "SearchQuery": query
-        ]
-        
-        if let data = try? JSONEncoder().encode(autosuggestMetadata),
-           let dict = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-            params["CustAutoCompleteAnalytics"] = dict
-        }
-        
-        sendRequest(path: path, params: params)
     }
 }
 

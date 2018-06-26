@@ -1,0 +1,129 @@
+{
+  "cases": [
+    {
+      "name": "basic",
+      "input": "My email address is name@domain.com.",
+      "expected": "My email address is {email:XXXX@XXXXXX.XXX}."
+    },
+    {
+      "name": "ignore scrubbed parts",
+      "input": "My email address is {ignore:name@domain.com}.",
+      "expected": "My email address is {ignore:name@domain.com}."
+    },
+    {
+      "name": "subdomain",
+      "input": "My email address is name@sub.domain.com.",
+      "expected": "My email address is {email:XXXX@XXX.XXXXXX.XXX}."
+    },
+    {
+      "name": ".com missing dot",
+      "input": "My email address is name@domaincom.",
+      "expected": "My email address is {email:XXXX@XXXXXXXXX}."
+    },
+    {
+      "name": ".net missing dot",
+      "input": "My email address is name@domainnet.",
+      "expected": "My email address is {email:XXXX@XXXXXXXXX}."
+    },
+    {
+      "name": ".gov missing dot",
+      "input": "My email address is name@domaingov.",
+      "expected": "My email address is {email:XXXX@XXXXXXXXX}."
+    },
+    {
+      "name": ".edu missing dot",
+      "input": "My email address is name@domainedu.",
+      "expected": "My email address is {email:XXXX@XXXXXXXXX}."
+    },
+    {
+      "name": "uncommon TLD",
+      "input": "My email address is name@domain.fake.",
+      "expected": "My email address is {email:XXXX@XXXXXX.XXXX}."
+    },
+    {
+      "name": "uncommon TLDs with missing dots should fail to match",
+      "input": "My email address is name@domainfake.",
+      "expected": "My email address is name@domainfake."
+    },
+    {
+      "name": "local part with dot",
+      "input": "My email address is name.name@domain.com.",
+      "expected": "My email address is {email:XXXX.XXXX@XXXXXX.XXX}."
+    },
+    {
+      "name": "local part with plus",
+      "input": "My email address is name+name@domain.com.",
+      "expected": "My email address is {email:XXXX+XXXX@XXXXXX.XXX}."
+    },
+    {
+      "name": "local part with hyphen",
+      "input": "My email address is name-name@domain.com.",
+      "expected": "My email address is {email:XXXX-XXXX@XXXXXX.XXX}."
+    },
+    {
+      "name": "local part with underscore",
+      "input": "My email address is name_name@domain.com.",
+      "expected": "My email address is {email:XXXX_XXXX@XXXXXX.XXX}."
+    },
+    {
+      "name": "local part containing @ should match after illegal @",
+      "input": "My email address is name@name@domain.com.",
+      "expected": "My email address is name@{email:XXXX@XXXXXX.XXX}."
+    },
+    {
+      "name": "hotmail",
+      "input": "My email address is name@hotmail.com",
+      "expected": "My email address is {email:XXXX@XXXXXXX.XXX}"
+    },
+    {
+      "name": "hotmail without .com",
+      "input": "My email address is name@hotmail.",
+      "expected": "My email address is {email:XXXX@XXXXXXX}."
+    },
+    {
+      "name": "gmail without .com",
+      "input": "My email address is name@gmail.",
+      "expected": "My email address is {email:XXXX@XXXXX}."
+    },
+    {
+      "name": "yahoo without .com",
+      "input": "My email address is name@yahoo.",
+      "expected": "My email address is {email:XXXX@XXXXX}."
+    },
+    {
+      "name": "verizon without .com",
+      "input": "My email address is name@verizon.",
+      "expected": "My email address is {email:XXXX@XXXXXXX}."
+    },
+    {
+      "name": "outlook without .com",
+      "input": "My email address is name@outlook.",
+      "expected": "My email address is {email:XXXX@XXXXXXX}."
+    },
+    {
+      "name": "inbox without .com",
+      "input": "My email address is name@inbox.",
+      "expected": "My email address is {email:XXXX@XXXXX}."
+    },
+    {
+      "name": "icloud without .com",
+      "input": "My email address is name@icloud.",
+      "expected": "My email address is {email:XXXX@XXXXXX}."
+    },
+    {
+      "name": "live without .com",
+      "input": "My email address is name@live.",
+      "expected": "My email address is {email:XXXX@XXXX}."
+    },
+    {
+      "name": "comcast without .com",
+      "input": "My email address is name@comcast.",
+      "expected": "My email address is {email:XXXX@XXXXXXX}."
+    },
+    {
+      "name": "numbers should mask with #",
+      "input": "My email address is 123abc@123abc.com.",
+      "expected": "My email address is {email:###XXX@###XXX.XXX}."
+    }
+  ]
+}

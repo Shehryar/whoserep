@@ -115,7 +115,7 @@ extension OutgoingMessageSerializer {
                     }
                     
                     if let context = context {
-                        params["Context"] = context
+                        params["Context"] = JSONUtil.stringify(context)
                     }
                     
                     completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
