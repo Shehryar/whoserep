@@ -1,0 +1,244 @@
+{
+  "cases": [
+    {
+      "name": "m/d/y",
+      "input": "I'll see you before 2/10/18.",
+      "expected": "I'll see you before {date:#/##/##}."
+    },
+    {
+      "name": "d.m.Y",
+      "input": "I'll see you before 2.9.2018.",
+      "expected": "I'll see you before {date:#.#.####}."
+    },
+    {
+      "name": "D-Y-M",
+      "input": "I'll see you before 31-2018-12.",
+      "expected": "I'll see you before 31-2018-12."
+    },
+    {
+      "name": "41st of Novmember should not match",
+      "input": "I'll see you before 2018 11 41.",
+      "expected": "I'll see you before 2018 11 41."
+    },
+    {
+      "name": "weird digit clusters",
+      "input": "My random 2-digits numbers are 15 09 20 08 50 72.",
+      "expected": "My random 2-digits numbers are {date:## ## ##} 08 50 72."
+    },
+    {
+      "name": "December 31st of 2020",
+      "input": "I'll see you before December 31st of 2020.",
+      "expected": "I'll see you before {date:XXXXXXXX ##XX XX ####}."
+    },
+    {
+      "name": "Dec 31nd of 2020",
+      "input": "I'll see you before Dec 31nd of 2020.",
+      "expected": "I'll see you before {date:XXX ##XX XX ####}."
+    },
+    {
+      "name": "January 1, 2020",
+      "input": "I'll see you before January 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXX #, ####}."
+    },
+    {
+      "name": "Jan. 1st, 2020",
+      "input": "I'll see you before Jan. 1st, 2020.",
+      "expected": "I'll see you before {date:XXX. #XX, ####}."
+    },
+    {
+      "name": "ene 1, 2020",
+      "input": "I'll see you before ene 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "February 1, 2020",
+      "input": "I'll see you before February 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXX #, ####}."
+    },
+    {
+      "name": "Febrero 1, 2020",
+      "input": "I'll see you before Febrero 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXX #, ####}."
+    },
+    {
+      "name": "Feb 1, 2020",
+      "input": "I'll see you before Feb 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "March 1, 2020",
+      "input": "I'll see you before March 1, 2020.",
+      "expected": "I'll see you before {date:XXXXX #, ####}."
+    },
+    {
+      "name": "Mar 1, 2020",
+      "input": "I'll see you before Mar 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "marzo 1, 2020",
+      "input": "I'll see you before marzo 1, 2020.",
+      "expected": "I'll see you before {date:XXXXX #, ####}."
+    },
+    {
+      "name": "April 1, 2020",
+      "input": "I'll see you before April 1, 2020.",
+      "expected": "I'll see you before {date:XXXXX #, ####}."
+    },
+    {
+      "name": "apr 1, 2020",
+      "input": "I'll see you before apr 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "abril 1, 2020",
+      "input": "I'll see you before abril 1, 2020.",
+      "expected": "I'll see you before {date:XXXXX #, ####}."
+    },
+    {
+      "name": "abr 1, 2020",
+      "input": "I'll see you before abr 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "May 1, 2020",
+      "input": "I'll see you before May 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "mayo 1, 2020",
+      "input": "I'll see you before mayo 1, 2020.",
+      "expected": "I'll see you before {date:XXXX #, ####}."
+    },
+    {
+      "name": "June 1, 2020",
+      "input": "I'll see you before June 1, 2020.",
+      "expected": "I'll see you before {date:XXXX #, ####}."
+    },
+    {
+      "name": "Jun. 1, 2020",
+      "input": "I'll see you before Jun. 1, 2020.",
+      "expected": "I'll see you before {date:XXX. #, ####}."
+    },
+    {
+      "name": "junio 1, 2020",
+      "input": "I'll see you before junio 1, 2020.",
+      "expected": "I'll see you before {date:XXXXX #, ####}."
+    },
+    {
+      "name": "July 1, 2020",
+      "input": "I'll see you before July 1, 2020.",
+      "expected": "I'll see you before {date:XXXX #, ####}."
+    },
+    {
+      "name": "Jul. 1, 2020",
+      "input": "I'll see you before Jul. 1, 2020.",
+      "expected": "I'll see you before {date:XXX. #, ####}."
+    },
+    {
+      "name": "julio 1, 2020",
+      "input": "I'll see you before julio 1, 2020.",
+      "expected": "I'll see you before {date:XXXXX #, ####}."
+    },
+    {
+      "name": "August 1, 2020",
+      "input": "I'll see you before July 1, 2020.",
+      "expected": "I'll see you before {date:XXXX #, ####}."
+    },
+    {
+      "name": "Aug 1, 2020",
+      "input": "I'll see you before Aug 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "agosto 1, 2020",
+      "input": "I'll see you before agosto 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXX #, ####}."
+    },
+    {
+      "name": "ago. 1, 2020",
+      "input": "I'll see you before ago. 1, 2020.",
+      "expected": "I'll see you before {date:XXX. #, ####}."
+    },
+    {
+      "name": "September 1, 2020",
+      "input": "I'll see you before September 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXXX #, ####}."
+    },
+    {
+      "name": "Sept 1, 2020",
+      "input": "I'll see you before Sept 1, 2020.",
+      "expected": "I'll see you before {date:XXXX #, ####}."
+    },
+    {
+      "name": "Sep 1, 2020",
+      "input": "I'll see you before Sep 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "septiembre 1, 2020",
+      "input": "I'll see you before septiembre 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXXXX #, ####}."
+    },
+    {
+      "name": "setiembre 1, 2020",
+      "input": "I'll see you before setiembre 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXXX #, ####}."
+    },
+    {
+      "name": "set 1, 2020",
+      "input": "I'll see you before set 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "October 1, 2020",
+      "input": "I'll see you before October 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXX #, ####}."
+    },
+    {
+      "name": "Oct 1, 2020",
+      "input": "I'll see you before Oct 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "Octubre 1, 2020",
+      "input": "I'll see you before Octubre 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXX #, ####}."
+    },
+    {
+      "name": "November 1, 2020",
+      "input": "I'll see you before November 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXX #, ####}."
+    },
+    {
+      "name": "Nov. 1, 2020",
+      "input": "I'll see you before Nov. 1, 2020.",
+      "expected": "I'll see you before {date:XXX. #, ####}."
+    },
+    {
+      "name": "noviembre 1, 2020",
+      "input": "I'll see you before noviembre 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXXX #, ####}."
+    },
+    {
+      "name": "December 1, 2020",
+      "input": "I'll see you before December 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXX #, ####}."
+    },
+    {
+      "name": "Dec 1, 2020",
+      "input": "I'll see you before Dec 1, 2020.",
+      "expected": "I'll see you before {date:XXX #, ####}."
+    },
+    {
+      "name": "diciembre 1, 2020",
+      "input": "I'll see you before diciembre 1, 2020.",
+      "expected": "I'll see you before {date:XXXXXXXXX #, ####}."
+    },
+    {
+      "name": "dic. 1, 2020",
+      "input": "I'll see you before dic. 1, 2020.",
+      "expected": "I'll see you before {date:XXX. #, ####}."
+    }
+  ]
+}

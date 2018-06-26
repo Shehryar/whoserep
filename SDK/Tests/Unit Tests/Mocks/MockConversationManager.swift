@@ -17,6 +17,7 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledGetEventsAfter = false
     private(set) var calledGetEventWithLimit = false
     private(set) var calledGetSuggestions = false
+    private(set) var calledGetSettings = false
     private(set) var calledSendEnterChatRequest = false
     private(set) var calledSendAcceptRequest = false
     private(set) var calledSendDismissRequest = false
@@ -78,6 +79,10 @@ class MockConversationManager: ConversationManagerProtocol {
     
     func getSuggestions(for: String, completion: @escaping ConversationManagerProtocol.AutosuggestCompletion) {
         calledGetSuggestions = true
+    }
+    
+    func getSettings(completion: @escaping (() -> Void)) {
+        calledGetSettings = true
     }
     
     func sendEnterChatRequest(_ completion: (() -> Void)?) {
@@ -146,6 +151,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetEventsAfter = false
         calledGetEventWithLimit = false
         calledGetSuggestions = false
+        calledGetSettings = false
         calledSendEnterChatRequest = false
         calledSendAcceptRequest = false
         calledSendDismissRequest = false
