@@ -206,7 +206,6 @@ extension ConversationManager {
     
     func getRequestParameters(with params: [String: Any]?,
                               requiresContext: Bool = true,
-                              insertContextAsString: Bool = true,
                               contextKey: String = "Context",
                               completion: @escaping (_ params: [String: Any]) -> Void) {
         
@@ -224,10 +223,8 @@ extension ConversationManager {
                         updatedContext[strongSelf.config.identifierType] = strongSelf.user.userIdentifier
                     }
                     
-                    if !insertContextAsString {
-                        requestParams[contextKey] =  updatedContext
-                    } else if insertContextAsString, let contextString = JSONUtil.stringify(updatedContext) {
-                        requestParams[contextKey] =  contextString
+                    if let contextString = JSONUtil.stringify(updatedContext) {
+                        requestParams[contextKey] = contextString
                     }
                 }
                 if let authToken = authToken {
