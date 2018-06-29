@@ -104,6 +104,14 @@ class Event: NSObject {
         return true
     }
     
+    var isLiveChatEvent: Bool {
+        return [.switchSRSToChat, .newRep].contains(eventType)
+    }
+    
+    var isSRSEvent: Bool {
+        return [.conversationEnd, .switchChatToSRS].contains(eventType)
+    }
+    
     // MARK: - Metadata
     
     func makeMetadata() -> EventMetadata {

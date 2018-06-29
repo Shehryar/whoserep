@@ -281,6 +281,24 @@ extension ConversationManager {
         getEvents(before: nil, after: nil, limit: limit, completion: completion)
     }
     
+    private func detectIsLiveChat(flag: Bool, events: IncomingMessage.Events) -> Bool {
+        if flag {
+            return true
+        }
+        
+        for event in events.reversed() {
+            if event.isLiveChatEvent {
+                return true
+            }
+            
+            if event.isSRSEvent {
+                return false
+            }
+        }
+        
+        return false
+    }
+    
     private func getEvents(before firstEvent: Event?, after lastEvent: Event?, limit: Int?, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
         let path = "customer/events"
         let shouldInsert = firstEvent != nil
@@ -315,7 +333,7 @@ extension ConversationManager {
                 
                 let parsedEvents = message.parseEvents()
                 if let events = parsedEvents.events {
-                    strongSelf.isLiveChat = data["IsLiveChat"] as? Bool ?? false
+                    strongSelf.isLiveChat = strongSelf.detectIsLiveChat(flag: data["IsLiveChat"] as? Bool ?? false, events: events)
                     
                     if shouldInsert {
                         strongSelf.events.insert(contentsOf: events, at: 0)
