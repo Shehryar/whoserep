@@ -19,8 +19,8 @@ protocol HTTPClientProtocol: class {
     
     func config(_ config: ASAPPConfig)
     // swiftlint:disable:next function_parameter_count
-    func sendRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any]?, data: Data?, completion: @escaping HTTPClient.DataCompletionHandler)
-    func sendRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any]?, completion: @escaping HTTPClient.DictCompletionHandler)
+    func sendRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any], data: Data?, completion: @escaping HTTPClient.DataCompletionHandler)
+    func sendRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any], completion: @escaping HTTPClient.DictCompletionHandler)
 }
 
 extension HTTPClientProtocol {
@@ -28,7 +28,7 @@ extension HTTPClientProtocol {
         method: HTTPMethod = .POST,
         path: String,
         headers: [String: String]? = nil,
-        params: [String: Any]? = nil,
+        params: [String: Any] = [:],
         data: Data? = nil,
         completion: @escaping HTTPClient.DataCompletionHandler) {
         return sendRequest(method: method, path: path, headers: headers, params: params, data: data, completion: completion)
@@ -38,7 +38,7 @@ extension HTTPClientProtocol {
         method: HTTPMethod = .GET,
         path: String,
         headers: [String: String]? = nil,
-        params: [String: Any]? = nil,
+        params: [String: Any] = [:],
         completion: @escaping HTTPClient.DictCompletionHandler) {
         return sendRequest(method: method, path: path, headers: headers, params: params, completion: completion)
     }
@@ -99,12 +99,12 @@ class HTTPClient: NSObject, HTTPClientProtocol {
     
     // MARK: Sending Requests
     
-    private func createRequest(method: HTTPMethod, url: URL, headers: [String: String]?, params: [String: Any]?, context: [String: Any]? = nil, data: Data? = nil) -> URLRequest? {
+    private func createRequest(method: HTTPMethod, url: URL, headers: [String: String]?, params: [String: Any], context: [String: Any]? = nil, data: Data? = nil) -> URLRequest? {
         var urlParams = HTTPClient.defaultParams
         if method == .GET {
             if let stringyParams = params as? [String: String] {
                 urlParams.add(stringyParams)
-            } else if params != nil {
+            } else {
                 DebugLog.w(caller: self, "GET params must be String values: \(String(describing: params))")
             }
         }
@@ -125,8 +125,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         
         let contextParams = context ?? getContext(for: session)
         
-        if method != .GET,
-           let params = params {
+        if method != .GET {
             var dict = [
                 "params": params,
                 "ctxParams": contextParams
@@ -147,7 +146,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         return request
     }
     
-    private func createRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any]?, data: Data? = nil) -> URLRequest? {
+    private func createRequest(method: HTTPMethod, path: String, headers: [String: String]?, params: [String: Any], data: Data? = nil) -> URLRequest? {
         
         guard let url = baseUrl?.appendingPathComponent(path) else {
                 DebugLog.w(caller: self, "Failed to construct requestURL.")
@@ -178,7 +177,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         }.resume()
     }
     
-    func sendRequest(method: HTTPMethod = .POST, url: URL, headers: [String: String]? = nil, params: [String: Any]? = nil, completion: @escaping DictCompletionHandler) {
+    func sendRequest(method: HTTPMethod = .POST, url: URL, headers: [String: String]? = nil, params: [String: Any] = [:], completion: @escaping DictCompletionHandler) {
         guard let request = createRequest(method: method, url: url, headers: headers, params: params) else {
             return
         }
@@ -186,7 +185,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         resumeDataTask(with: request, completion: completion)
     }
     
-    func sendRequest(method: HTTPMethod = .POST, path: String, headers: [String: String]? = nil, params: [String: Any]? = nil, completion: @escaping DictCompletionHandler) {
+    func sendRequest(method: HTTPMethod = .POST, path: String, headers: [String: String]? = nil, params: [String: Any] = [:], completion: @escaping DictCompletionHandler) {
         guard let request = createRequest(method: method, path: path, headers: headers, params: params) else {
             return
         }
@@ -194,7 +193,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         resumeDataTask(with: request, completion: completion)
     }
     
-    func sendRequest(method: HTTPMethod = .POST, path: String, headers: [String: String]? = nil, params: [String: Any]? = nil, data: Data? = nil, completion: @escaping DataCompletionHandler) {
+    func sendRequest(method: HTTPMethod = .POST, path: String, headers: [String: String]? = nil, params: [String: Any] = [:], data: Data? = nil, completion: @escaping DataCompletionHandler) {
         guard let request = createRequest(method: method, path: path, headers: headers, params: params, data: data) else {
             return
         }
