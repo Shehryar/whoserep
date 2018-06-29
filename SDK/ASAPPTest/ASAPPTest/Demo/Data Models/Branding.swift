@@ -117,6 +117,8 @@ extension Branding {
         
         // Verizon special cases
         
+        styles.primaryButtonsRounded = true
+        
         styles.colors.iconTint = config.getUIColor(.dark)
         
         styles.textStyles.header2 = ASAPPTextStyle(font: config.fontFamily.bold, size: 22, letterSpacing: 0.5, color: .black)
