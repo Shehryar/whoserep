@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MessageButtonsViewDelegate: class {
-    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTapButtonWith action: Action)
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTap button: QuickReply)
 }
 
 class MessageButtonsView: UIView {
@@ -96,8 +96,8 @@ class MessageButtonsView: UIView {
     }
     
     @objc func didTapButton(_ sender: UIButton) {
-        let action = actions[sender.tag]
-        delegate?.messageButtonsView(self, didTapButtonWith: action)
+        let button = messageButtons[sender.tag]
+        delegate?.messageButtonsView(self, didTap: button)
     }
     
     private struct CalculatedLayout {

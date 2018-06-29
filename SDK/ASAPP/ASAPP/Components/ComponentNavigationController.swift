@@ -9,7 +9,7 @@
 import UIKit
 
 class ComponentNavigationController: UINavigationController, UpdatableFrames {
-
+    
     let presentationAnimator = ModalCardPresentationAnimator()
     
     private var keyboardObserver: KeyboardObserver?

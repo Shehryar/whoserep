@@ -39,7 +39,7 @@ extension String {
         var jsonObject: [String: Any]?
         if let stringData = data(using: String.Encoding.utf8) {
             do {
-                jsonObject =  try JSONSerialization.jsonObject(with: stringData, options: []) as? [String: Any]
+                jsonObject = try JSONSerialization.jsonObject(with: stringData, options: []) as? [String: Any]
             } catch {
                 DebugLog.d("Unable to deserialize string as json: \(self)")
             }
@@ -70,6 +70,17 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
         }
         
         return array.map { $0 as? [String: Any] }.compactMap { $0 }
+    }
+    
+    func codableDict<T: Codable>(for key: String, type: T.Type) -> T? {
+        guard
+            let dict = jsonObject(for: key),
+            let data = try? JSONSerialization.data(withJSONObject: dict, options: [])
+        else {
+            return nil
+        }
+        
+        return try? JSONDecoder().decode(type, from: data)
     }
     
     // MARK: Boolean

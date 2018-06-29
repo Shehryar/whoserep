@@ -828,14 +828,31 @@ extension ChatViewController: ChatMessagesViewDelegate {
         didHideKeyboard()
     }
     
+    private func recordLinkActionSelected(action: LinkAction, title: String) {
+        AnalyticsClient.shared.record(event: AnalyticsEvent(
+            name: .actionLinkSelected,
+            attributes: [:],
+            metadata: action.metadata
+        ))
+    }
+    
     func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage) {
+        if let linkAction = buttonItem.action as? LinkAction {
+            recordLinkActionSelected(action: linkAction, title: buttonItem.title ?? "")
+        }
+        
         performAction(buttonItem.action, fromMessage: message, buttonItem: buttonItem)
     }
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapButtonWith action: Action) {
-        performAction(action)
+    func chatMessagesView(_ messagesView: ChatMessagesView,
+                          didTap button: QuickReply) {
+        if let linkAction = button.action as? LinkAction {
+            recordLinkActionSelected(action: linkAction, title: button.title)
+        }
+        
+        performAction(button.action)
     }
     
     private func fetchEarlierIfNeeded() {
@@ -903,7 +920,13 @@ extension ChatViewController: ChatMessagesViewDelegate {
 
 extension ChatViewController: ComponentViewControllerDelegate {
     
-    func componentViewControllerDidFinish(with action: FinishAction?) {
+    func componentViewControllerDidFinish(with action: FinishAction?, container: ComponentViewContainer?) {
+        AnalyticsClient.shared.record(event: AnalyticsEvent(
+            name: .viewDismissed,
+            attributes: [:],
+            metadata: container?.metadata
+        ))
+        
         if let nextAction = action?.nextAction {
             quickRepliesView.disableCurrentButtons()
             performAction(nextAction)
@@ -1129,6 +1152,13 @@ extension ChatViewController: QuickRepliesViewDelegate {
     
     func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
         updateInputState(.quickReplies, animated: true)
+        
+        let attributes = ["quickReplyText": AnyEncodable(quickReply.title)]
+        AnalyticsClient.shared.record(event: AnalyticsEvent(
+            name: .quickReplySelected,
+            attributes: attributes,
+            metadata: message.messageMetadata))
+        
         return performAction(quickReply.action, fromMessage: message, quickReply: quickReply)
     }
 }

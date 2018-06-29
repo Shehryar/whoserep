@@ -213,7 +213,7 @@ extension ComponentMessagePreviewViewController: ChatMessagesViewDelegate {
         quickRepliesView.reloadButtons(for: message)
     }
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
-    func chatMessagesView(_ messagesView: ChatMessagesView, didTapButtonWith action: Action) {}
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTap button: QuickReply) {}
     func chatMessagesViewDidScrollNearBeginning(_ messagesView: ChatMessagesView) {}
 }
 
@@ -317,7 +317,7 @@ extension ComponentMessagePreviewViewController {
 
 extension ComponentMessagePreviewViewController: ComponentViewControllerDelegate {
     
-    func componentViewControllerDidFinish(with action: FinishAction?) {
+    func componentViewControllerDidFinish(with action: FinishAction?, container: ComponentViewContainer?) {
         dismiss(animated: true) { [weak self] in
             if let nextAction = action?.nextAction {
                 let alert = UIAlertController(title: "Next Action: \(nextAction)", message: nil, preferredStyle: .alert)

@@ -9,19 +9,24 @@
 import UIKit
 
 class ComponentViewContainer: NSObject {
+    typealias Metadata = [String: AnyCodable]
+    
     let root: Component
     let title: String?
     let styles: [String: Any]?
     let buttons: [QuickReply]?
+    let metadata: Metadata?
     
     init(root: Component,
          title: String?,
          styles: [String: Any]?,
-         buttons: [QuickReply]? = nil) {
+         buttons: [QuickReply]? = nil,
+         metadata: Metadata? = nil) {
         self.root = root
         self.title = title
         self.styles = styles
         self.buttons = buttons
+        self.metadata = metadata
         super.init()
     }
     
@@ -36,6 +41,7 @@ extension ComponentViewContainer {
         case styles
         case title
         case buttons
+        case metadata
     }
     
     static func from(_ dict: [String: Any]?) -> ComponentViewContainer? {
@@ -54,6 +60,8 @@ extension ComponentViewContainer {
             buttons = QuickReply.arrayFromJSON(buttonDicts)
         }
         
-        return ComponentViewContainer(root: root, title: title, styles: styles, buttons: buttons)
+        let metadata = dict.codableDict(for: JSONKey.metadata.rawValue, type: Metadata.self)
+        
+        return ComponentViewContainer(root: root, title: title, styles: styles, buttons: buttons, metadata: metadata)
     }
 }

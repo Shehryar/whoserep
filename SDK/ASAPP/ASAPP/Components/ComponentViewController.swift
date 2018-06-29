@@ -27,7 +27,7 @@ protocol ComponentViewControllerDelegate: class {
                                  withData data: [String: Any]?,
                                  completion: @escaping ((ComponentViewContainer?, /* error */String?) -> Void))
     
-    func componentViewControllerDidFinish(with action: FinishAction?)
+    func componentViewControllerDidFinish(with action: FinishAction?, container: ComponentViewContainer?)
 }
 
 // MARK: - ComponentViewController
@@ -269,7 +269,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     func finish(with action: FinishAction?) {
         if let delegate = delegate {
-            delegate.componentViewControllerDidFinish(with: action)
+            delegate.componentViewControllerDidFinish(with: action, container: componentViewContainer)
         } else {
             dismiss(animated: true, completion: nil)
         }

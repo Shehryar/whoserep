@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MessageButtonsViewContainerDelegate: class {
-    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTapButtonWith action: Action)
+    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTap button: QuickReply)
 }
 
 protocol MessageButtonsViewContainer: class {
@@ -359,7 +359,7 @@ extension ChatTextBubbleView {
 }
 
 extension ChatTextBubbleView: MessageButtonsViewDelegate {
-    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTapButtonWith action: Action) {
-        delegate?.messageButtonsViewContainer(self, didTapButtonWith: action)
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTap button: QuickReply) {
+        delegate?.messageButtonsViewContainer(self, didTap: button)
     }
 }

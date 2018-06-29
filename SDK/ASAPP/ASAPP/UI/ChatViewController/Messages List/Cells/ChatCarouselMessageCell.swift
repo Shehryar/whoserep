@@ -83,7 +83,7 @@ extension ChatCarouselMessageCell: ChatCarouselViewDelegate {
         carouselDelegate?.chatCarouselMessageCell(self, didChangeCurrentPage: page, message: message)
     }
     
-    func chatCarouselView(_ view: ChatCarouselView, didTapButtonWith action: Action) {
-        delegate?.chatMessageCell(self, didTapButtonWith: action)
+    func chatCarouselView(_ view: ChatCarouselView, didTap button: QuickReply) {
+        delegate?.chatMessageCell(self, didTap: button)
     }
 }

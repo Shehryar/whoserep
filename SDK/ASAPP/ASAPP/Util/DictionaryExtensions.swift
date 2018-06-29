@@ -19,6 +19,20 @@ extension Dictionary {
         }
     }
     
+    func adding(_ other: Dictionary?) -> Dictionary {
+        var result = self
+        
+        guard let other = other else {
+            return result
+        }
+        
+        for (key, value) in other {
+            result.updateValue(value, forKey: key)
+        }
+        
+        return result
+    }
+    
     func with(_ other: Dictionary?) -> Dictionary {
         var dict = Dictionary()
         for (key, value) in self {
