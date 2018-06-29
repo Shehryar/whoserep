@@ -1622,17 +1622,18 @@ extension ChatViewController {
                 
                 strongSelf.chatMessagesView.shouldShowLoadingHeader = strongSelf.shouldFetchEarlier
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
-                strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
                 strongSelf.updateStateForLastEvent()
                 strongSelf.showQuickRepliesViewIfNecessary(animated: true)
+                
+                let isLive = strongSelf.conversationManager.isLiveChat
+                if isLive && !strongSelf.chatInputView.isFirstResponder {
+                    strongSelf.updateInputState(.chat, animated: true)
+                }
+                strongSelf.isLiveChat = isLive
                 
                 Dispatcher.delay { [weak self] in
                     self?.spinner.alpha = self?.chatMessagesView.isEmpty == true ? 1 : 0
                     self?.chatMessagesView.isHidden = false
-                }
-                
-                if strongSelf.isLiveChat && !strongSelf.chatInputView.isFirstResponder {
-                    strongSelf.updateViewForLiveChat(animated: false)
                 }
                 
                 if let nextAction = strongSelf.nextAction {
