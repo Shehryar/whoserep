@@ -45,7 +45,7 @@ extension FormWithRadio: ComponentViewControllerDelegate {
         return
     }
     
-    func componentViewControllerDidFinish(with action: FinishAction?) {
+    func componentViewControllerDidFinish(with action: FinishAction?, container: ComponentViewContainer?) {
         return
     }
 }

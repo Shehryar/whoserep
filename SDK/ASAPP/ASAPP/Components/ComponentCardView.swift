@@ -105,7 +105,7 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer {
 }
 
 extension ComponentCardView: MessageButtonsViewDelegate {
-    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTapButtonWith action: Action) {
-        delegate?.messageButtonsViewContainer(self, didTapButtonWith: action)
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTap button: QuickReply) {
+        delegate?.messageButtonsViewContainer(self, didTap: button)
     }
 }

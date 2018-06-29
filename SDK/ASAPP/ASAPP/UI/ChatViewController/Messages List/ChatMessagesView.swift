@@ -23,7 +23,7 @@ protocol ChatMessagesViewDelegate: class {
                           from message: ChatMessage)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didTapButtonWith action: Action)
+                          didTap button: QuickReply)
     
     func chatMessagesViewDidScrollNearBeginning(_ messagesView: ChatMessagesView)
 }
@@ -429,8 +429,8 @@ extension ChatMessagesView: ChatMessageCellDelegate {
         delegate?.chatMessagesView(self, didTap: buttonItem, from: message)
     }
     
-    func chatMessageCell(_ cell: ChatMessageCell, didTapButtonWith action: Action) {
-        delegate?.chatMessagesView(self, didTapButtonWith: action)
+    func chatMessageCell(_ cell: ChatMessageCell, didTap button: QuickReply) {
+        delegate?.chatMessagesView(self, didTap: button)
     }
     
     func chatMessageCell(_ cell: ChatMessageCell, didChangeHeightWith message: ChatMessage) {

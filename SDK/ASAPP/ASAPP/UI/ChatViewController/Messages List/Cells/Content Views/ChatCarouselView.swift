@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ChatCarouselViewDelegate: class {
-    func chatCarouselView(_ view: ChatCarouselView, didTapButtonWith action: Action)
+    func chatCarouselView(_ view: ChatCarouselView, didTap button: QuickReply)
     func chatCarouselView(_ view: ChatCarouselView, didChangeCurrentPage page: Int)
 }
 
@@ -271,7 +271,7 @@ extension ChatCarouselView: UIScrollViewDelegate {
 }
 
 extension ChatCarouselView: MessageButtonsViewContainerDelegate {
-    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTapButtonWith action: Action) {
-        delegate?.chatCarouselView(self, didTapButtonWith: action)
+    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTap button: QuickReply) {
+        delegate?.chatCarouselView(self, didTap: button)
     }
 }

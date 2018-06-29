@@ -14,7 +14,7 @@ protocol ChatMessageCellDelegate: class {
                          from message: ChatMessage)
     
     func chatMessageCell(_ cell: ChatMessageCell,
-                         didTapButtonWith action: Action)
+                         didTap button: QuickReply)
     
     func chatMessageCell(_ cell: ChatMessageCell,
                          didChangeHeightWith message: ChatMessage)
@@ -371,7 +371,7 @@ extension ChatMessageCell {
 }
 
 extension ChatMessageCell: MessageButtonsViewContainerDelegate {
-    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTapButtonWith action: Action) {
-        delegate?.chatMessageCell(self, didTapButtonWith: action)
+    func messageButtonsViewContainer(_ messageButtonsViewContainer: MessageButtonsViewContainer, didTap button: QuickReply) {
+        delegate?.chatMessageCell(self, didTap: button)
     }
 }

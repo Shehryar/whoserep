@@ -11,6 +11,7 @@ import UIKit
 // MARK: - Chat Message
 
 class ChatMessage: NSObject {
+    typealias Metadata = [String: AnyCodable]
     
     let text: String?
     let attachment: ChatMessageAttachment?
@@ -20,6 +21,7 @@ class ChatMessage: NSObject {
     let suppressNewQuestionConfirmation: Bool
     let hideNewQuestionButton: Bool
     let metadata: EventMetadata
+    let messageMetadata: Metadata?
     
     var hasQuickReplies: Bool {
         return !(quickReplies?.isEmpty ?? true)
@@ -38,7 +40,8 @@ class ChatMessage: NSObject {
           userCanTypeResponse: Bool? = nil,
           suppressNewQuestionConfirmation: Bool = false,
           hideNewQuestionButton: Bool = false,
-          metadata: EventMetadata) {
+          metadata: EventMetadata,
+          messageMetadata: Metadata? = nil) {
         guard (text != nil && !(text?.isEmpty == true)) || attachment != nil || quickReplies != nil else {
             return nil
         }
@@ -58,6 +61,7 @@ class ChatMessage: NSObject {
         self.buttons = combinedButtons.isEmpty ? nil : combinedButtons.withoutDuplicates()
         
         self.metadata = metadata
+        self.messageMetadata = messageMetadata
         self.userCanTypeResponse = userCanTypeResponse
         self.suppressNewQuestionConfirmation = suppressNewQuestionConfirmation
         self.hideNewQuestionButton = hideNewQuestionButton
@@ -75,6 +79,7 @@ extension ChatMessage {
         case buttons
         case clientMessage = "ClientMessage"
         case hideNewQuestionButton
+        case metadata
         case quickReplies
         case suppressNewQuestionConfirmation
         case text
@@ -118,6 +123,8 @@ extension ChatMessage {
         let suppressNewQuestionConfirmation = dict.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
         let hideNewQuestionButton = dict.bool(for: JSONKey.hideNewQuestionButton.rawValue) ?? false
         
+        let messageMetadata = dict.codableDict(for: JSONKey.metadata.rawValue, type: Metadata.self)
+        
         return ChatMessage(
             text: text,
             attachment: attachment,
@@ -126,6 +133,7 @@ extension ChatMessage {
             userCanTypeResponse: userCanTypeResponse,
             suppressNewQuestionConfirmation: suppressNewQuestionConfirmation,
             hideNewQuestionButton: hideNewQuestionButton,
-            metadata: metadata)
+            metadata: metadata,
+            messageMetadata: messageMetadata)
     }
 }
