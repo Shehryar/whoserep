@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RestorableBounds {
+    var originalBounds: CGRect { get }
+}
+
 class ComponentNavigationController: UINavigationController, UpdatableFrames {
     
     let presentationAnimator = ModalCardPresentationAnimator()
@@ -55,6 +59,12 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
+    }
+    
     // MARK: - UpdatableFrames
     
     func willUpdateFrames() {
@@ -90,25 +100,24 @@ extension ComponentNavigationController: KeyboardObserverDelegate {
         
         keyboardHeight = height
         
-        if let updatableFramesVC = visibleViewController as? UpdatableFrames,
-           let view = visibleViewController?.view {
-            let newHeight = view.bounds.height - keyboardHeight
+        if let viewController = topViewController as? UpdatableFrames & RestorableBounds,
+           let view = topViewController?.view {
+            let newHeight = viewController.originalBounds.height - keyboardHeight
+            viewController.willUpdateFrames()
             
-            updatableFramesVC.willUpdateFrames()
             UIView.animate(
                 withDuration: duration,
                 delay: 0,
                 options: animationCurve,
-                animations:
-            {
-                updatableFramesVC.updateFrames()
-                
+                animations: {
+                    
+                viewController.updateFrames()
                 var frame = view.frame
                 frame.size.height = newHeight
                 view.frame = frame
                 view.layoutIfNeeded()
                 
-                updatableFramesVC.didUpdateFrames()
+                viewController.didUpdateFrames()
             })
         }
     }

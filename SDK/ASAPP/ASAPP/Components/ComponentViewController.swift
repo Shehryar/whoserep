@@ -32,7 +32,7 @@ protocol ComponentViewControllerDelegate: class {
 
 // MARK: - ComponentViewController
 
-class ComponentViewController: ASAPPViewController, UpdatableFrames {
+class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableBounds {
     
     // MARK: Properties
     
@@ -43,6 +43,8 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
             updateTitleBar()
         }
     }
+    
+    private(set) var originalBounds: CGRect = .zero
     
     weak var delegate: ComponentViewControllerDelegate?
     
@@ -149,7 +151,9 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        originalBounds = view.bounds
+        
         view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         
         // Empty / Spinner View
@@ -444,9 +448,10 @@ extension ComponentViewController {
         let alert = UIAlertController(title: ASAPP.strings.requestErrorGenericFailureTitle,
                                       message: message,
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: ASAPP.strings.alertDismissButton,
-                                      style: .cancel,
-                                      handler: nil))
+        alert.addAction(UIAlertAction(
+            title: ASAPP.strings.alertDismissButton,
+            style: .cancel,
+            handler: nil))
         present(alert, animated: true, completion: nil)
     }
 }

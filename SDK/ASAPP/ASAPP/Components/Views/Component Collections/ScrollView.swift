@@ -61,9 +61,7 @@ class ScrollView: UIScrollView, ComponentView {
     
     // MARK: Init
     
-    func commonInit() {
-        
-    }
+    func commonInit() {}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -121,7 +119,7 @@ class ScrollView: UIScrollView, ComponentView {
     }
     
     func didUpdateFrames() {
-        if frame.height < previousFrame.height {
+        if frame.height != previousFrame.height {
             let difference = previousFrame.height - frame.height
             setContentOffset(CGPoint(x: previousOffset.x, y: previousOffset.y + difference), animated: false)
         }
