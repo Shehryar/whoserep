@@ -26,18 +26,17 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      codeCoverageEnabled = "YES"
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FD8D8AF91D0F6E2A001B420B"
-            BuildableName = "ASAPP.framework"
-            BlueprintName = "ASAPP"
-            ReferencedContainer = "container:ASAPP.xcodeproj">
+            BlueprintIdentifier = "FD8D8B181D107A19001B420B"
+            BuildableName = "ASAPPTest.app"
+            BlueprintName = "ASAPPTest"
+            ReferencedContainer = "container:ASAPPTest/ASAPPTest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -45,8 +44,9 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      disableMainThreadChecker = "YES"
       language = "es"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
