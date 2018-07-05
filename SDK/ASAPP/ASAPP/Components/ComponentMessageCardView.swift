@@ -51,26 +51,24 @@ class ComponentMessageCardView: ComponentCardView, MessageBubbleCornerRadiusUpda
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if shimmerLayer == nil {
-            let frame = CGRect(x: -shimmerWidth, y: 0, width: shimmerWidth, height: componentView?.view.frame.height ?? 0)
-            let newLayer = createGradient(frame: frame)
-            shimmerStart = newLayer.position
-            shimmerEnd = CGPoint(x: -shimmerStart.x + (componentView?.view.frame.width ?? 0), y: shimmerStart.y)
-            layer.addSublayer(newLayer)
-            shimmerLayer = newLayer
-            
-            if isAnimating {
+        if isAnimating {
+            if shimmerLayer == nil {
+                let frame = CGRect(x: -shimmerWidth, y: 0, width: shimmerWidth, height: componentView?.view.frame.height ?? 0)
+                let newLayer = createGradient(frame: frame)
+                shimmerStart = newLayer.position
+                shimmerEnd = CGPoint(x: -shimmerStart.x + (componentView?.view.frame.width ?? 0), y: shimmerStart.y)
+                layer.addSublayer(newLayer)
+                shimmerLayer = newLayer
+                
                 startAnimating()
             }
+        } else {
+            shimmerLayer = nil
         }
     }
     
     private func startAnimating() {
         isAnimating = true
-        
-        guard let shimmerLayer = shimmerLayer else {
-            return
-        }
         
         let translate = CABasicAnimation(keyPath: #keyPath(CALayer.position))
         translate.fromValue = shimmerStart
@@ -79,7 +77,7 @@ class ComponentMessageCardView: ComponentCardView, MessageBubbleCornerRadiusUpda
         translate.isRemovedOnCompletion = false
         translate.repeatCount = .infinity
         
-        shimmerLayer.add(translate, forKey: shimmerKey)
+        shimmerLayer?.add(translate, forKey: shimmerKey)
     }
     
     private func stopAnimating() {
