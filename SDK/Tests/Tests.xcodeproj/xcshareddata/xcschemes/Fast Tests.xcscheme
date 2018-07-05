@@ -115,6 +115,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:cancelled-auto-pay"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:carousel-uneven"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
