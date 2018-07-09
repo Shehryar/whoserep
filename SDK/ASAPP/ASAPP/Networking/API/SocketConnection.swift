@@ -29,7 +29,7 @@ class SocketConnection: NSObject {
 
     var isConnected: Bool {
         if let socket = socket {
-            return socket.readyState == .OPEN
+            return socket.readyState == .SR_OPEN
         }
         return false
     }
@@ -41,8 +41,8 @@ class SocketConnection: NSObject {
     // MARK: Private Properties
     
     private var connectionRequest: URLRequest
-    private var webSocketClass: SRWebSocket.Type
-    private var socket: SRWebSocket?
+    private var webSocketClass: ASAPPSRWebSocket.Type
+    private var socket: ASAPPSRWebSocket?
     private let savedSessionManager: SavedSessionManagerProtocol
     private var outgoingMessageSerializer: OutgoingMessageSerializerProtocol
     private var incomingMessageDeserializer = IncomingMessageDeserializer()
@@ -57,7 +57,7 @@ class SocketConnection: NSObject {
     
     // MARK: Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil, outgoingMessageSerializer: OutgoingMessageSerializerProtocol? = nil, savedSessionManager: SavedSessionManagerProtocol = SavedSessionManager.shared, webSocketClass: SRWebSocket.Type = SRWebSocket.self) {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil, outgoingMessageSerializer: OutgoingMessageSerializerProtocol? = nil, savedSessionManager: SavedSessionManagerProtocol = SavedSessionManager.shared, webSocketClass: ASAPPSRWebSocket.Type = ASAPPSRWebSocket.self) {
         self.config = config
         self.connectionRequest = SocketConnection.createConnectionRequest(with: config)
         self.outgoingMessageSerializer = outgoingMessageSerializer ?? OutgoingMessageSerializer(config: config, user: user, userLoginAction: userLoginAction)
@@ -114,11 +114,11 @@ extension SocketConnection {
     @objc func connect() {
         if let socket = socket {
             switch socket.readyState {
-            case .CLOSING:
+            case .SR_CLOSING:
                 // Current connection is no longer useful.
                 disconnect()
                 
-            case _ where socket.readyState != .CLOSED:
+            case _ where socket.readyState != .SR_CLOSED:
                 // Connection is valid. No need to connect.
                 return
                 
@@ -159,7 +159,7 @@ extension SocketConnection {
     }
     
     @objc func keepAlive() {
-        guard socket?.readyState == .OPEN else {
+        guard socket?.readyState == .SR_OPEN else {
             timer?.suspend()
             return
         }
@@ -256,11 +256,11 @@ extension SocketConnection {
 
 // MARK: - SocketRocketDelegate
 
-extension SocketConnection: SRWebSocketDelegate {
+extension SocketConnection: ASAPPSRWebSocketDelegate {
     
     // MARK: Receiving Messages
     
-    func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
+    func webSocket(_ webSocket: ASAPPSRWebSocket!, didReceiveMessage message: Any!) {
         
         func logMessageReceived(forRequest request: SocketRequest?, responseTime: Int) {
             let responseTimeString = responseTime > 0 ?  " [\(responseTime) ms]" : ""
@@ -319,7 +319,7 @@ extension SocketConnection: SRWebSocketDelegate {
     
     // MARK: Connection Opening/Closing
     
-    func webSocketDidOpen(_ webSocket: SRWebSocket!) {
+    func webSocketDidOpen(_ webSocket: ASAPPSRWebSocket!) {
         DebugLog.d("Socket Did Open")
         
         authenticate { [weak self] (_, errorMessage) in
@@ -340,7 +340,7 @@ extension SocketConnection: SRWebSocketDelegate {
         }
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
+    func webSocket(_ webSocket: ASAPPSRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
         DebugLog.d("Socket Did Close: \(code) {\n  reason: \(reason),\n  wasClean: \(wasClean)\n}")
         
         isAuthenticated = false
@@ -348,7 +348,7 @@ extension SocketConnection: SRWebSocketDelegate {
         delegate?.socketConnectionDidLoseConnection(self)
     }
     
-    func webSocket(_ webSocket: SRWebSocket!, didFailWithError error: Error!) {
+    func webSocket(_ webSocket: ASAPPSRWebSocket!, didFailWithError error: Error!) {
         DebugLog.d("Socket Did Fail: \(error)")
         
         isAuthenticated = false

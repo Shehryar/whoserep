@@ -17,14 +17,14 @@
 #import <Foundation/Foundation.h>
 #import <Security/SecCertificate.h>
 
-typedef NS_ENUM(NSInteger, SRReadyState) {
+typedef NS_ENUM(NSInteger, ASAPPSRReadyState) {
     SR_CONNECTING   = 0,
     SR_OPEN         = 1,
     SR_CLOSING      = 2,
     SR_CLOSED       = 3,
 };
 
-typedef enum SRStatusCode : NSInteger {
+typedef enum ASAPPSRStatusCode : NSInteger {
     // 0–999: Reserved and not used.
     SRStatusCodeNormal = 1000,
     SRStatusCodeGoingAway = 1001,
@@ -46,24 +46,24 @@ typedef enum SRStatusCode : NSInteger {
     // 2000–2999: Reserved for use by WebSocket extensions.
     // 3000–3999: Available for use by libraries and frameworks. May not be used by applications. Available for registration at the IANA via first-come, first-serve.
     // 4000–4999: Available for use by applications.
-} SRStatusCode;
+} ASAPPSRStatusCode;
 
-@class SRWebSocket;
+@class ASAPPSRWebSocket;
 
-extern NSString *const SRWebSocketErrorDomain;
-extern NSString *const SRHTTPResponseErrorKey;
+extern NSString *const ASAPPSRWebSocketErrorDomain;
+extern NSString *const ASAPPSRHTTPResponseErrorKey;
 
-#pragma mark - SRWebSocketDelegate
+#pragma mark - ASAPPSRWebSocketDelegate
 
-@protocol SRWebSocketDelegate;
+@protocol ASAPPSRWebSocketDelegate;
 
-#pragma mark - SRWebSocket
+#pragma mark - ASAPPSRWebSocket
 
-@interface SRWebSocket : NSObject <NSStreamDelegate>
+@interface ASAPPSRWebSocket : NSObject <NSStreamDelegate>
 
-@property (nonatomic, weak) id <SRWebSocketDelegate> delegate;
+@property (nonatomic, weak) id <ASAPPSRWebSocketDelegate> delegate;
 
-@property (nonatomic, readonly) SRReadyState readyState;
+@property (nonatomic, readonly) ASAPPSRReadyState readyState;
 @property (nonatomic, readonly, retain) NSURL *url;
 
 
@@ -109,46 +109,54 @@ extern NSString *const SRHTTPResponseErrorKey;
 
 @end
 
-#pragma mark - SRWebSocketDelegate
+#pragma mark - ASAPPSRWebSocketDelegate
 
-@protocol SRWebSocketDelegate <NSObject>
+@protocol ASAPPSRWebSocketDelegate <NSObject>
 
 // message will either be an NSString if the server is using text
 // or NSData if the server is using binary.
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
+- (void)webSocket:(ASAPPSRWebSocket *)webSocket didReceiveMessage:(id)message;
 
 @optional
 
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
-- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload;
+- (void)webSocketDidOpen:(ASAPPSRWebSocket *)webSocket;
+- (void)webSocket:(ASAPPSRWebSocket *)webSocket didFailWithError:(NSError *)error;
+- (void)webSocket:(ASAPPSRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+- (void)webSocket:(ASAPPSRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload;
 
 // Return YES to convert messages sent as Text to an NSString. Return NO to skip NSData -> NSString conversion for Text messages. Defaults to YES.
-- (BOOL)webSocketShouldConvertTextFrameToString:(SRWebSocket *)webSocket;
+- (BOOL)webSocketShouldConvertTextFrameToString:(ASAPPSRWebSocket *)webSocket;
 
 @end
 
-#pragma mark - NSURLRequest (SRCertificateAdditions)
+#pragma mark - NSURLRequest (ASAPPSRCertificateAdditions)
 
-@interface NSURLRequest (SRCertificateAdditions)
+@interface NSURLRequest (ASAPPSRCertificateAdditions)
 
 @property (nonatomic, retain, readonly) NSArray *SR_SSLPinnedCertificates;
 
 @end
 
-#pragma mark - NSMutableURLRequest (SRCertificateAdditions)
+#pragma mark - NSMutableURLRequest (ASAPPSRCertificateAdditions)
 
-@interface NSMutableURLRequest (SRCertificateAdditions)
+@interface NSMutableURLRequest (ASAPPSRCertificateAdditions)
 
 @property (nonatomic, retain) NSArray *SR_SSLPinnedCertificates;
 
 @end
 
-#pragma mark - NSRunLoop (SRWebSocket)
+#pragma mark - NSRunLoop (ASAPPSRWebSocket)
 
-@interface NSRunLoop (SRWebSocket)
+@interface NSRunLoop (ASAPPSRWebSocket)
 
 + (NSRunLoop *)SR_networkRunLoop;
 
 @end
+
+//@compatibility_alias SRWebSocket ASAPPSRWebSocket;
+//@compatibility_alias SRStatusCode ASAPPSRStatusCode;
+//@compatibility_alias SRReadyState ASAPPSRReadyState;
+//@compatibility_alias SRWebSocketDelegate ASAPPSRWebSocketDelegate;
+//@compatibility_alias SROpCode ASAPPSROpCode;
+//@compatibility_alias SRIOConsumer ASAPPSRIOConsumer;
+//@compatibility_alias SRIOConsumerPool ASAPPSRIOConsumerPool;
