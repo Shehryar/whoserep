@@ -15,7 +15,6 @@ protocol PushNotificationsManagerProtocol {
     var deviceId: Int? { get set }
     func enableIfSessionExists()
     func register()
-    func deregister()
     func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler)
     func requestAuthorization()
     func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval)
@@ -43,13 +42,8 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     var session: Session? {
         didSet {
             if oldValue != session && session != nil {
+                HTTPClient.shared.session = session
                 register()
-            }
-        }
-        
-        willSet {
-            if session != nil && newValue == nil {
-                deregister()
             }
         }
     }
@@ -98,7 +92,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .POST, path: "customer/push/register", headers: headers, params: params) { (data: [String: Any]?, response, error) in
+        HTTPClient.shared.sendRequest(method: .POST, path: "customer/pushregister", headers: headers, params: params) { (data: [String: Any]?, response, error) in
             guard let data = data,
                   let device = data["Device"] as? [String: Any],
                   let deviceId = device["DeviceID"] as? Int else {
@@ -115,41 +109,6 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    func deregister() {
-        ASAPP.assertSetupComplete()
-        
-        guard let session = session ?? SavedSessionManager.shared.getSession() else {
-            DebugLog.e(caller: self, "Could not disable push notifications because no session was found.")
-            return
-        }
-        
-        guard let deviceId = self.deviceId else {
-            DebugLog.e(caller: self, "Could not disable push notifications because no device ID was found.")
-            return
-        }
-        
-        let params: [String: Any] = ["DeviceId": deviceId]
-        
-        guard let headers = HTTPClient.shared.getHeaders(for: session) else {
-            DebugLog.e(caller: self, "Could not disable push notifications because there was an error constructing the request headers.")
-            return
-        }
-        
-        HTTPClient.shared.sendRequest(method: .POST, path: "customer/push/deregister", headers: headers, params: params) { (data: [String: Any]?, response, error) in
-            guard data != nil else {
-                if let error = error {
-                    DebugLog.e(error)
-                } else {
-                    DebugLog.e("Received error trying to disable push notifications.\n\(String(describing: response))")
-                }
-                return
-            }
-            
-            self.deviceId = nil
-            DebugLog.d(caller: self, "Successfully disabled push notifications for device ID: \(deviceId)")
-        }
-    }
-    
     func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler) {
         ASAPP.assertSetupComplete()
         
@@ -163,7 +122,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .GET, path: "customer/push/chatStatus", headers: headers) { (data: [String: Any]?, response, error) in
+        HTTPClient.shared.sendRequest(method: .GET, path: "customer/pushchatstatus", headers: headers) { (data: [String: Any]?, response, error) in
             guard let data = data,
                   let count = data["UnreadMessages"] as? Int,
                   let isLiveChat = data["IsLiveChat"] as? Bool else {

@@ -44,6 +44,7 @@ protocol ConversationManagerProtocol: class {
     var currentSRSClassification: String? { get set }
     var isLiveChat: Bool { get }
     var isConnected: Bool { get }
+    var pushNotificationPayload: [AnyHashable: Any]? { get set }
     
     func enterConversation()
     func exitConversation()
@@ -95,6 +96,8 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     let user: ASAPPUser
     
     let sessionManager: SessionManager
+    
+    var pushNotificationPayload: [AnyHashable: Any]?
     
     weak var delegate: ConversationManagerDelegate?
     

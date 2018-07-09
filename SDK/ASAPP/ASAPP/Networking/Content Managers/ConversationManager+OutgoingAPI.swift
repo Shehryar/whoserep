@@ -48,10 +48,19 @@ extension ConversationManager {
 
 extension ConversationManager {
     func sendEnterChatRequest(_ completion: (() -> Void)? = nil) {
-        let handler: RequestResponseHandler = { _ in
+        var params: [String: Any] = [:]
+        
+        if let string = pushNotificationPayload?["ProactiveTrigger"] as? String,
+           let proactiveTrigger = string.toJSONObject() {
+            params["ProactiveTrigger"] = proactiveTrigger
+        }
+        
+        let handler: RequestResponseHandler = { [weak self] _ in
+            self?.pushNotificationPayload = nil
             completion?()
         }
-        sendRequest(path: "customer/enterChat", completion: handler)
+        
+        sendRequest(path: "customer/enterChat", params: params, completion: handler)
     }
     
     func sendAskRequest(_ completion: ((_ success: Bool) -> Void)? = nil) {

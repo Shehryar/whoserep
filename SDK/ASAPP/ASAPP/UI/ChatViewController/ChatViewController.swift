@@ -90,7 +90,7 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, appCallbackHandler: @escaping ASAPPAppCallbackHandler, pushNotificationPayload: [AnyHashable: Any]? = nil) {
         self.config = config
         self.appCallbackHandler = appCallbackHandler
         self.segue = segue
@@ -99,6 +99,7 @@ class ChatViewController: ASAPPViewController {
         
         self.user = user
         self.conversationManager.delegate = self
+        self.conversationManager.pushNotificationPayload = pushNotificationPayload
         isLiveChat = self.conversationManager.isLiveChat
         
         automaticallyAdjustsScrollViewInsets = false

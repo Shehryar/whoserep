@@ -178,13 +178,7 @@ public class ASAPP: NSObject {
      - parameter userInfo: A user info dictionary containing notification metadata
      */
     public class func canHandleNotification(with userInfo: [AnyHashable: Any]?) -> Bool {
-        guard let aps = userInfo?["aps"] as? [AnyHashable: Any] ?? userInfo else {
-            return false
-        }
-        if let boolValue = aps["FromASAPP"] as? Bool {
-            return boolValue
-        }
-        return aps.keys.contains("FromASAPP")
+        return userInfo?.keys.contains("FromASAPP") ?? false
     }
     
     // MARK: - Session Management
@@ -233,7 +227,8 @@ internal extension ASAPP {
             user: user,
             segue: segue,
             conversationManager: conversationManager,
-            appCallbackHandler: appCallbackHandler)
+            appCallbackHandler: appCallbackHandler,
+            pushNotificationPayload: userInfo)
         
         return chatViewController
     }
