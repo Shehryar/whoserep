@@ -74,10 +74,6 @@ extension MessageBubbleCornerRadiusUpdating {
             }
         }
         
-        if messageButtonsView != nil {
-            roundedCorners = roundedCorners.union([.bottomLeft, .bottomRight])
-        }
-        
         return roundedCorners
     }
 }
