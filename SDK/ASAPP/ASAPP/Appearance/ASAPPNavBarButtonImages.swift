@@ -19,7 +19,7 @@ public class ASAPPNavBarButtonImages: NSObject {
     
     /// The close button appears in the top right when the view controller is presented modally. Defaults to an ✕.
     lazy public var close: ASAPPCustomImage? = {
-        return ASAPPCustomImage(image: Images.getImage(.iconX)!, size: CGSize(width: 13, height: 13), insets: UIEdgeInsets(top: 15, left: 0, bottom: 16, right: 0))
+        return ASAPPCustomImage(image: ComponentIcon.getImage(.navClose)!, size: CGSize(width: 24, height: 24), insets: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
     }()
     
     /// The back button appears in the top left when the view controller is pushed into a navigation stack. Defaults to a ‹.
