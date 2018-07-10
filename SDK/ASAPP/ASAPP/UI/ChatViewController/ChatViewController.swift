@@ -832,7 +832,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
     private func recordLinkActionSelected(action: LinkAction, title: String) {
         AnalyticsClient.shared.record(event: AnalyticsEvent(
             name: .actionLinkSelected,
-            attributes: [:],
+            attributes: [
+                "link": AnyEncodable(action.link),
+                "linkText": AnyEncodable(title)
+            ],
             metadata: action.metadata
         ))
     }
