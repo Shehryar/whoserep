@@ -309,14 +309,14 @@ class SocketConnectionSpec: QuickSpec {
                         MockSRWebSocket.nextReceivedMessage = """
                         Response|0|{"SessionInfo":{"Customer":{"CustomerId":3830001,"PrimaryIdentifier":"test_customer_1"},"Company":{"CompanyId":40001},"SessionAuth":{"SessionTime":1515112274532741,"SessionSecret":"deadbeef"}}}
                         """
-                        MockSRWebSocket.nextReadyState = .OPEN
+                        MockSRWebSocket.nextReadyState = .SR_OPEN
                         connection.authenticate { (_, _) in
                             MockSRWebSocket.clean()
                             
                             MockSRWebSocket.nextReceivedMessage = """
                             Response|0|{}
                             """
-                            MockSRWebSocket.nextReadyState = .OPEN
+                            MockSRWebSocket.nextReadyState = .SR_OPEN
                             connection.authenticate(attempts: 1) { (_, _) in
                                 calledRequestHandler = true
                                 expect(mockSavedSessionManager.calledClearSession).to(equal(true))

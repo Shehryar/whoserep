@@ -8,23 +8,23 @@
 
 @testable import ASAPP
 
-class MockSRWebSocket: SRWebSocket {
+class MockSRWebSocket: ASAPPSRWebSocket {
     private(set) static var calledOpen = false
     private(set) static var calledClose = false
     private(set) static var calledSend = false
     private(set) static var lastSentData: Any?
-    static var nextReadyState: SRReadyState?
+    static var nextReadyState: ASAPPSRReadyState?
     static var nextReceivedMessage: Any?
     
     override func open() {
         MockSRWebSocket.calledOpen = true
-        MockSRWebSocket.nextReadyState = .OPEN
+        MockSRWebSocket.nextReadyState = .SR_OPEN
         delegate?.webSocketDidOpen?(self)
     }
     
     override func close() {
         MockSRWebSocket.calledClose = true
-        MockSRWebSocket.nextReadyState = .CLOSED
+        MockSRWebSocket.nextReadyState = .SR_CLOSED
         delegate?.webSocket?(self, didCloseWithCode: 0, reason: "", wasClean: true)
     }
     
@@ -38,7 +38,7 @@ class MockSRWebSocket: SRWebSocket {
         }
     }
     
-    override var readyState: SRReadyState {
+    override var readyState: ASAPPSRReadyState {
         return MockSRWebSocket.nextReadyState ?? super.readyState
     }
     

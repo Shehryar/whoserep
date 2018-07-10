@@ -11,21 +11,14 @@
 class MockPushNotificationsManager: PushNotificationsManagerProtocol {
     private(set) var calledEnableIfSessionExists = false
     private(set) var calledRegister = false
-    private(set) var calledDeregister = false
     private(set) var calledGetChatStatus = false
     private(set) var calledRequestAuthorization = false
-    private(set) var calledRequestAuthorizaitonIfNeeded = false
+    private(set) var calledRequestAuthorizationIfNeeded = false
     
     var session: Session? {
         didSet {
             if oldValue == nil && session != nil {
                 register()
-            }
-        }
-        
-        willSet {
-            if session != nil && newValue == nil {
-                deregister()
             }
         }
     }
@@ -44,10 +37,6 @@ class MockPushNotificationsManager: PushNotificationsManagerProtocol {
         calledRegister = true
     }
     
-    func deregister() {
-        calledDeregister = true
-    }
-    
     func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler) {
         calledGetChatStatus = true
     }
@@ -57,6 +46,6 @@ class MockPushNotificationsManager: PushNotificationsManagerProtocol {
     }
     
     func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval) {
-        calledRequestAuthorizaitonIfNeeded = true
+        calledRequestAuthorizationIfNeeded = true
     }
 }

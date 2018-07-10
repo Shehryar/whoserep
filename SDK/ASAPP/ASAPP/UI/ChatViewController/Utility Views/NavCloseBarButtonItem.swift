@@ -41,7 +41,6 @@ class NavCloseBarButtonItem: UIBarButtonItem {
 
         let foregroundColor = ASAPP.styles.colors.navBarButton
         let activeColor = ASAPP.styles.colors.navBarButtonActive
-        imageInsets = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         switch side {
         case .left:
             imageInsets.right += 20

@@ -18,7 +18,7 @@ FOUNDATION_EXPORT const unsigned char ASAPPVersionString[];
 
 // Third-Party Files
 
-#import <ASAPP/SRWebSocket.h>
+#import <ASAPP/ASAPPSRWebSocket.h>
 
 #import <ASAPP/NSData+ImageContentType.h>
 #import <ASAPP/SDImageCache.h>

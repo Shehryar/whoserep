@@ -103,6 +103,8 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
     func commonInit() {
         automaticallyAdjustsScrollViewInsets = false
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
+        
         navigationItem.rightBarButtonItem = NavCloseBarButtonItem(location: .chat, side: .right)
             .configSegue(.present)
             .configTarget(self, action: #selector(ComponentViewController.didTapNavigationCloseButton))
@@ -168,7 +170,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
         }
         
         titleLabel.textAlignment = .center
-        let icon = Images.getImage(.iconX)
+        let icon = ComponentIcon.getImage(.navClose)
         closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark), for: .normal)
         closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark).withAlpha(0.5), for: .highlighted)
         closeButton.addTarget(self, action: #selector(didTapNavigationCloseButton), for: .touchUpInside)
@@ -213,8 +215,8 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
         
         if isInset {
             titleBar.frame = CGRect(x: 0, y: 0, width: width, height: titleBarHeight)
-            let buttonSize = titleBarHeight
-            closeButton.frame = CGRect(x: width - buttonSize, y: 0, width: buttonSize, height: buttonSize)
+            let buttonSize: CGFloat = 24
+            closeButton.frame = CGRect(x: width - buttonSize, y: titleBarHeight / 2 - buttonSize / 2, width: buttonSize, height: buttonSize)
             titleLabel.frame = CGRect(x: buttonSize, y: 0, width: width - 2 * buttonSize, height: titleBarHeight)
             top = titleBar.frame.maxY
         }

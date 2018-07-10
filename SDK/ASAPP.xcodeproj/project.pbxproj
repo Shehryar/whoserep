@@ -93,9 +93,6 @@
 		3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3022683A1D80690500EC4FB1 /* icon-checkmark.png */; };
 		3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3022683B1D80690500EC4FB1 /* icon-checkmark@2x.png */; };
 		3022684E1D80690500EC4FB1 /* icon-checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3022683C1D80690500EC4FB1 /* icon-checkmark@3x.png */; };
-		302268551D80690500EC4FB1 /* icon-x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268431D80690500EC4FB1 /* icon-x.png */; };
-		302268561D80690500EC4FB1 /* icon-x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268441D80690500EC4FB1 /* icon-x@2x.png */; };
-		302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 302268451D80690500EC4FB1 /* icon-x@3x.png */; };
 		302268591D806D1100EC4FB1 /* HorizontalGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */; };
 		30226CD71D4933F200871453 /* IncomingMessageDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC61D4933F200871453 /* IncomingMessageDeserializer.swift */; };
 		30226CD81D4933F200871453 /* OutgoingMessageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */; };
@@ -247,8 +244,8 @@
 		30E57FDB1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */; };
 		30E5E08F1E9C1F0A00C364F4 /* ChatCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E08E1E9C1F0A00C364F4 /* ChatCarouselView.swift */; };
 		30E5E0931E9C390E00C364F4 /* TouchPassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */; };
-		30E87C511D93112E00B5EF9E /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E87C4E1D93112E00B5EF9E /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E87C4F1D93112E00B5EF9E /* SRWebSocket.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		30E87C511D93112E00B5EF9E /* ASAPPSRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E87C4E1D93112E00B5EF9E /* ASAPPSRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30E87C521D93112E00B5EF9E /* ASAPPSRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E87C4F1D93112E00B5EF9E /* ASAPPSRWebSocket.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		30EE29F01D95D75B0079932D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5F1D93149B00B5EF9E /* libicucore.tbd */; };
 		30EE29F11D95D75B0079932D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */; };
 		30EE29F21D95D75B0079932D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E87C551D93133E00B5EF9E /* Security.framework */; };
@@ -508,9 +505,6 @@
 		3022683A1D80690500EC4FB1 /* icon-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-checkmark.png"; sourceTree = "<group>"; };
 		3022683B1D80690500EC4FB1 /* icon-checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-checkmark@2x.png"; sourceTree = "<group>"; };
 		3022683C1D80690500EC4FB1 /* icon-checkmark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-checkmark@3x.png"; sourceTree = "<group>"; };
-		302268431D80690500EC4FB1 /* icon-x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-x.png"; sourceTree = "<group>"; };
-		302268441D80690500EC4FB1 /* icon-x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-x@2x.png"; sourceTree = "<group>"; };
-		302268451D80690500EC4FB1 /* icon-x@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-x@3x.png"; sourceTree = "<group>"; };
 		302268581D806D1000EC4FB1 /* HorizontalGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalGradientView.swift; sourceTree = "<group>"; };
 		30226CC61D4933F200871453 /* IncomingMessageDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageDeserializer.swift; sourceTree = "<group>"; };
 		30226CC71D4933F200871453 /* OutgoingMessageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessageSerializer.swift; sourceTree = "<group>"; };
@@ -662,8 +656,8 @@
 		30E57FDA1E8C46DE001BF53A /* ComponentViewEmptyReloadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentViewEmptyReloadView.swift; sourceTree = "<group>"; };
 		30E5E08E1E9C1F0A00C364F4 /* ChatCarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCarouselView.swift; sourceTree = "<group>"; };
 		30E5E0921E9C390E00C364F4 /* TouchPassThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPassThroughView.swift; sourceTree = "<group>"; };
-		30E87C4E1D93112E00B5EF9E /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
-		30E87C4F1D93112E00B5EF9E /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		30E87C4E1D93112E00B5EF9E /* ASAPPSRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPPSRWebSocket.h; sourceTree = "<group>"; };
+		30E87C4F1D93112E00B5EF9E /* ASAPPSRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAPPSRWebSocket.m; sourceTree = "<group>"; };
 		30E87C551D93133E00B5EF9E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		30E87C5B1D9313D200B5EF9E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		30E87C5F1D93149B00B5EF9E /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -1123,9 +1117,6 @@
 				3A26996F20603B4D007C0EC6 /* icon-send.png */,
 				3A26997120603B4E007C0EC6 /* icon-send@2x.png */,
 				3A26997020603B4E007C0EC6 /* icon-send@3x.png */,
-				302268431D80690500EC4FB1 /* icon-x.png */,
-				302268441D80690500EC4FB1 /* icon-x@2x.png */,
-				302268451D80690500EC4FB1 /* icon-x@3x.png */,
 				285F7AD81DA9AD3B008C2EF6 /* button-bg-close.png */,
 				285F7AD91DA9AD3B008C2EF6 /* button-bg-close@2x.png */,
 				285F7ADA1DA9AD3B008C2EF6 /* button-bg-close@3x.png */,
@@ -1720,8 +1711,8 @@
 		30E87C4C1D93112E00B5EF9E /* SocketRocket-0.5.1 */ = {
 			isa = PBXGroup;
 			children = (
-				30E87C4E1D93112E00B5EF9E /* SRWebSocket.h */,
-				30E87C4F1D93112E00B5EF9E /* SRWebSocket.m */,
+				30E87C4E1D93112E00B5EF9E /* ASAPPSRWebSocket.h */,
+				30E87C4F1D93112E00B5EF9E /* ASAPPSRWebSocket.m */,
 			);
 			path = "SocketRocket-0.5.1";
 			sourceTree = "<group>";
@@ -1811,7 +1802,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30E87C511D93112E00B5EF9E /* SRWebSocket.h in Headers */,
+				30E87C511D93112E00B5EF9E /* ASAPPSRWebSocket.h in Headers */,
 				306619131D9458F50092B4C5 /* SDWebImageDecoder.h in Headers */,
 				3066190D1D9458F50092B4C5 /* NSData+ImageContentType.h in Headers */,
 				306619241D9458F50092B4C5 /* UIImageView+HighlightedWebCache.h in Headers */,
@@ -1915,7 +1906,6 @@
 				3A26997220603B4E007C0EC6 /* icon-send.png in Resources */,
 				3A26995C2060356E007C0EC6 /* icon-chevron@2x.png in Resources */,
 				3A26997A20603CD6007C0EC6 /* icon-arrow-left@3x.png in Resources */,
-				302268551D80690500EC4FB1 /* icon-x.png in Resources */,
 				3AC81A3620BDF19700F345F9 /* rating_thumbs_up_fill@3x.png in Resources */,
 				3023A5C31E578DEA003BE6AB /* chat-notification.wav in Resources */,
 				3AC81A3720BDF19700F345F9 /* mail_empty.png in Resources */,
@@ -1958,7 +1948,6 @@
 				3AC81A3520BDF19700F345F9 /* user_cancel@3x.png in Resources */,
 				3AC81A1920BDF19700F345F9 /* money_card_cancel@2x.png in Resources */,
 				3AE1839F205865EC00FD0D7A /* icon-exit-link@2x.png in Resources */,
-				302268571D80690500EC4FB1 /* icon-x@3x.png in Resources */,
 				3ACAAAA020570CE300963DD3 /* icon-new-question.png in Resources */,
 				3A883C651FBC959F00B44116 /* Lato-LightItalic.ttf in Resources */,
 				3AC81A3920BDF19700F345F9 /* rating_thumbs_down_fill@3x.png in Resources */,
@@ -1974,7 +1963,6 @@
 				3AC81A0B20BDF19700F345F9 /* rating_thumbs_up_fill@2x.png in Resources */,
 				3AC81A3820BDF19700F345F9 /* money_card_cancel.png in Resources */,
 				3AC81A3320BDF19700F345F9 /* money_card_confirm@2x.png in Resources */,
-				302268561D80690500EC4FB1 /* icon-x@2x.png in Resources */,
 				3AC81A1720BDF19700F345F9 /* money_card_recurring.png in Resources */,
 				3AC81A0F20BDF19700F345F9 /* nav_check@3x.png in Resources */,
 				3AC81A4720BDF19700F345F9 /* rating_thumbs_down_fill@2x.png in Resources */,
@@ -2266,7 +2254,7 @@
 				30DF3F751F27BC1D00D6DB02 /* SRSLabel.swift in Sources */,
 				288085251E87FCA800240A5D /* TableViewCell.swift in Sources */,
 				308F29741D4168BE00EC7055 /* Images.swift in Sources */,
-				30E87C521D93112E00B5EF9E /* SRWebSocket.m in Sources */,
+				30E87C521D93112E00B5EF9E /* ASAPPSRWebSocket.m in Sources */,
 				30B7C2761F27E07000D69824 /* ActionFactory+LegacySRS.swift in Sources */,
 				30131FA61EAFB603009E7299 /* UIButton+ASAPPAppearance.swift in Sources */,
 				28580A421D4C54DC005C91DF /* BouncingBallsLoadingView.swift in Sources */,

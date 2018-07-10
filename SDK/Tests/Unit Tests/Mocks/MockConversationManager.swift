@@ -34,6 +34,7 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledEndLiveChat = false
     
     weak var delegate: ConversationManagerDelegate?
+    var pushNotificationPayload: [AnyHashable: Any]?
     var events: [Event]
     var currentSRSClassification: String?
     var isLiveChat: Bool

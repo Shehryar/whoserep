@@ -44,6 +44,7 @@ protocol ConversationManagerProtocol: class {
     var currentSRSClassification: String? { get set }
     var isLiveChat: Bool { get }
     var isConnected: Bool { get }
+    var pushNotificationPayload: [AnyHashable: Any]? { get set }
     
     func enterConversation()
     func exitConversation()
@@ -96,6 +97,8 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     
     let sessionManager: SessionManager
     
+    var pushNotificationPayload: [AnyHashable: Any]?
+    
     weak var delegate: ConversationManagerDelegate?
     
     var originalSearchQuery: String? {
@@ -125,10 +128,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     
     private(set) var isLiveChat: Bool = false
     
-    private var conversantBeganTypingTime: TimeInterval?
-    
-    private var timer: RepeatingTimer?
-    
     // MARK: Private Properties
     
     let socketConnection: SocketConnection
@@ -148,15 +147,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         super.init()
         
         self.socketConnection.delegate = self
-        
-        timer = RepeatingTimer(interval: 6) { [weak self] in
-            self?.checkForTypingStatusChange()
-        }
-        timer?.resume()
-    }
-    
-    deinit {
-        timer = nil
     }
 }
 
@@ -170,23 +160,6 @@ extension ConversationManager {
         }
         
         return isConnected
-    }
-    
-    func checkForTypingStatusChange() {
-        guard let conversantBeganTypingTime = conversantBeganTypingTime else {
-            return
-        }
-        
-        let timeSinceConversantBeganTyping = Date.timeIntervalSinceReferenceDate - conversantBeganTypingTime
-        if timeSinceConversantBeganTyping > 10 {
-            self.conversantBeganTypingTime = nil
-            Dispatcher.performOnMainThread { [weak self] in
-                guard let strongSelf = self else {
-                    return
-                }
-                strongSelf.delegate?.conversationManager(strongSelf, didChangeTypingStatus: false)
-            }
-        }
     }
 }
 
@@ -517,9 +490,6 @@ extension ConversationManager: SocketConnectionDelegate {
         if event.ephemeralType == .typingStatus {
             if let typingStatus = event.typingStatus {
                 delegate?.conversationManager(self, didChangeTypingStatus: typingStatus)
-                if typingStatus {
-                    conversantBeganTypingTime = Date.timeIntervalSinceReferenceDate
-                }
             }
             return
         }

@@ -16,42 +16,42 @@ class ASAPPSpec: QuickSpec {
             describe(".canHandleNotification(with:)") {
                 var userInfo: [AnyHashable: Any]!
                 
-                context("when the asapp key's value is true") {
+                context("when the FromASAPP key's value is true") {
                     it("returns true") {
-                        userInfo = ["aps": ["FromASAPP": true]]
+                        userInfo = ["FromASAPP": true]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beTrue())
                     }
                 }
                 
-                context("when the asapp key's value is false") {
-                    it("returns false") {
-                        userInfo = ["aps": ["FromASAPP": false]]
-                        expect(ASAPP.canHandleNotification(with: userInfo)).to(beFalse())
-                    }
-                }
-                
-                context("when the asapp key's value is a dictionary") {
+                context("when the FromASAPP key's value is false") {
                     it("returns true") {
-                        userInfo = ["aps": ["FromASAPP": ["data": "someData"]]]
+                        userInfo = ["FromASAPP": false]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beTrue())
                     }
                 }
                 
-                context("when there is an aps key but no asapp key") {
-                    it("returns false") {
-                        userInfo = ["aps": []]
-                        expect(ASAPP.canHandleNotification(with: userInfo)).to(beFalse())
-                    }
-                }
-                
-                context("when there is an asapp key but no aps key") {
+                context("when the FromASAPP key's value is a dictionary") {
                     it("returns true") {
                         userInfo = ["FromASAPP": ["data": "someData"]]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beTrue())
                     }
                 }
                 
-                context("when there is no asapp key") {
+                context("when there is an aps key but no FromASAPP key") {
+                    it("returns false") {
+                        userInfo = ["aps": []]
+                        expect(ASAPP.canHandleNotification(with: userInfo)).to(beFalse())
+                    }
+                }
+                
+                context("when there is a FromASAPP key but no aps key") {
+                    it("returns true") {
+                        userInfo = ["FromASAPP": ["data": "someData"]]
+                        expect(ASAPP.canHandleNotification(with: userInfo)).to(beTrue())
+                    }
+                }
+                
+                context("when there is no FromASAPP key") {
                     it("returns false") {
                         userInfo = ["data": "someData"]
                         expect(ASAPP.canHandleNotification(with: userInfo)).to(beFalse())

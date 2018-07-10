@@ -20,7 +20,6 @@ class Images: NSObject {
         case iconNewQuestion = "icon-new-question"
         case iconPaperclip = "icon-paperclip"
         case iconSend = "icon-send"
-        case iconX = "icon-x"
         
         case buttonCloseBG = "button-bg-close"
     }

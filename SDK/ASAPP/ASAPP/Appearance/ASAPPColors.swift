@@ -106,7 +106,7 @@ public class ASAPPColors: NSObject {
     
     internal let attachmentGradientColors = [UIColor.ASAPP.snow, UIColor.ASAPP.ash]
     
-    internal let messageButtonBackground = UIColor(red: 0.976, green: 0.976, blue: 0.98, alpha: 1)
+    internal let messageButtonBackground = UIColor.white
     
     /// The color of chat message text.
     public var messageText = UIColor.white

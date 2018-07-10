@@ -91,7 +91,7 @@ class MessageButtonsView: UIView {
     
     private func updateButtonInsets() {
         buttons.forEach { button in
-            button.contentEdgeInsets = UIEdgeInsets(top: 15, left: contentInsets.left, bottom: 18, right: contentInsets.right)
+            button.contentEdgeInsets = UIEdgeInsets(top: 12, left: contentInsets.left, bottom: 14, right: contentInsets.right)
         }
     }
     

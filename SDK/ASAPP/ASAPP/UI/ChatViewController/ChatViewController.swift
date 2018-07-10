@@ -90,7 +90,7 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, appCallbackHandler: @escaping ASAPPAppCallbackHandler) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, appCallbackHandler: @escaping ASAPPAppCallbackHandler, pushNotificationPayload: [AnyHashable: Any]? = nil) {
         self.config = config
         self.appCallbackHandler = appCallbackHandler
         self.segue = segue
@@ -99,6 +99,7 @@ class ChatViewController: ASAPPViewController {
         
         self.user = user
         self.conversationManager.delegate = self
+        self.conversationManager.pushNotificationPayload = pushNotificationPayload
         isLiveChat = self.conversationManager.isLiveChat
         
         automaticallyAdjustsScrollViewInsets = false
@@ -831,7 +832,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
     private func recordLinkActionSelected(action: LinkAction, title: String) {
         AnalyticsClient.shared.record(event: AnalyticsEvent(
             name: .actionLinkSelected,
-            attributes: [:],
+            attributes: [
+                "link": AnyEncodable(action.link),
+                "linkText": AnyEncodable(title)
+            ],
             metadata: action.metadata
         ))
     }
