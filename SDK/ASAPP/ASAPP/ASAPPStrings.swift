@@ -92,7 +92,7 @@ public class ASAPPStrings: NSObject {
     public var restartConfirmationTitle = ASAPPLocalizedString("Are you sure?")
     
     /// The text for the alert displayed when ending chat.
-    public var restartConfirmationBody = ASAPPLocalizedString("Are you sure you want to end the current conversation and return to the beginning?")
+    public var restartConfirmationBody = ASAPPLocalizedString("It looks like you're in the middle of something.")
     
     /// The text for the confirmation button of the end chat alert.
     public var restartConfirmationRestartButton = ASAPPLocalizedString("I want to ask a new question")
