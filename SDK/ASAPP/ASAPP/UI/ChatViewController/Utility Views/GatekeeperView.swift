@@ -37,7 +37,7 @@ class GatekeeperView: UIView {
         
         promptLabel.textAlignment = .center
         promptLabel.textColor = ASAPP.styles.colors.dark
-        promptLabel.font = ASAPP.styles.textStyles.body.font.withSize(18)
+        promptLabel.font = ASAPP.styles.textStyles.body.font.changingOnlySize(18)
         addSubview(promptLabel)
         
         button.contentEdgeInsets = UIEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)

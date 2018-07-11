@@ -37,7 +37,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
 
-    var font: UIFont = Fonts.default.regular.withSize(15) {
+    var font: UIFont = Fonts.default.regular.changingOnlySize(15) {
         didSet {
             textField.font = font
             setNeedsLayout()
@@ -63,7 +63,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var placeholderFont: UIFont = Fonts.default.bold.withSize(12) {
+    var placeholderFont: UIFont = Fonts.default.bold.changingOnlySize(12) {
         didSet {
             updatePlaceholderText()
             setNeedsLayout()

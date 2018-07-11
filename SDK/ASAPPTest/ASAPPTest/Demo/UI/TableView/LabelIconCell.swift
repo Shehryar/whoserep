@@ -42,7 +42,7 @@ class LabelIconCell: TableViewCell {
         super.commonInit()
         
         titleLabel.textColor = UIColor.darkText
-        titleLabel.font = DemoFonts.asapp.regular.withSize(20)
+        titleLabel.font = DemoFonts.asapp.regular.changingOnlySize(20)
         contentView.addSubview(titleLabel)
         
         iconImageView.contentMode = .scaleAspectFit
@@ -62,7 +62,7 @@ class LabelIconCell: TableViewCell {
     func updateLabel() {
         if let title = title {
             titleLabel.attributedText = NSAttributedString(string: title, attributes: [
-                NSFontAttributeName: appSettings?.branding.fontFamily.regular.withSize(16) ?? DemoFonts.asapp.regular.withSize(16),
+                NSFontAttributeName: appSettings?.branding.fontFamily.regular.changingOnlySize(16) ?? DemoFonts.asapp.regular.changingOnlySize(16),
                 NSKernAttributeName: 1,
                 NSForegroundColorAttributeName: appSettings?.branding.colors.foregroundColor ?? UIColor.darkText
             ])

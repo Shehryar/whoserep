@@ -218,7 +218,7 @@ extension AppSettings {
             AppearanceConfig.create(name: "Rome", brand: .verizon, logo: Image(id: "verizon", uiImage: #imageLiteral(resourceName: "fios-logo")), colors: [
                 .primary: verizonBlue,
                 .dark: black
-            ], strings: [:], fontFamilyName: .neueHaasGrotesk)
+            ], strings: [:], fontFamilyName: .system)
         ]
     }
 }

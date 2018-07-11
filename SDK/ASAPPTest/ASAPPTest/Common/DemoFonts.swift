@@ -33,4 +33,10 @@ class DemoFonts: NSObject {
         regular: UIFont(name: "NHaasGroteskDSStd-55Rg", size: 16)!,
         medium: UIFont(name: "NHaasGroteskDSStd-65Md", size: 16)!,
         bold: UIFont(name: "NHaasGroteskDSStd-75Bd", size: 16)!)
+    
+    static let system = ASAPPFontFamily(
+        light: UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight),
+        regular: UIFont.systemFont(ofSize: 16, weight: UIFontWeightRegular),
+        medium: UIFont.systemFont(ofSize: 16, weight: UIFontWeightBold),
+        bold: UIFont.systemFont(ofSize: 16, weight: UIFontWeightHeavy))
 }

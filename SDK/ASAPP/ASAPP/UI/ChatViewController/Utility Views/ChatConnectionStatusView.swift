@@ -98,7 +98,7 @@ class ChatConnectionStatusView: UIView {
     }
     
     func updateDisplay() {
-        label.font = ASAPP.styles.textStyles.detail1.font.withSize(15)
+        label.font = ASAPP.styles.textStyles.detail1.font.changingOnlySize(15)
         label.textAlignment = .center
         
         layer.shadowOffset = CGSize(width: 0, height: 2)

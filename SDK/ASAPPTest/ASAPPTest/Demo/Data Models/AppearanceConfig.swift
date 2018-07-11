@@ -30,6 +30,7 @@ struct AppearanceConfig: Codable {
         case boost
         case roboto
         case neueHaasGrotesk
+        case system
     }
     
     enum StringName: Int, CountableEnum, Codable {
@@ -47,7 +48,7 @@ struct AppearanceConfig: Codable {
 }
 
 extension AppearanceConfig {
-    static let lastChangedVersion = 139
+    static let lastChangedVersion = 164
     
     var isValid: Bool {
         return version >= AppearanceConfig.lastChangedVersion
@@ -67,6 +68,8 @@ extension AppearanceConfig {
             return DemoFonts.roboto
         case .neueHaasGrotesk:
             return DemoFonts.neueHaasGrotesk
+        case .system:
+            return DemoFonts.system
         }
     }
     

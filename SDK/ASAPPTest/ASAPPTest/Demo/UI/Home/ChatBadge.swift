@@ -27,7 +27,7 @@ class ChatBadge: UIView {
         
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.font = DemoFonts.asapp.medium.withSize(10)
+        label.font = DemoFonts.asapp.medium.changingOnlySize(10)
         label.textColor = .white
         bubble.addSubview(label)
         

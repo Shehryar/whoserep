@@ -56,5 +56,6 @@ class RadioButtonView: RootComponentWrapperView {
         backgroundColor = ASAPP.styles.colors.controlBackground
         layer.borderWidth = component?.style.borderWidth ?? 0
         layer.borderColor = (component?.style.borderColor ?? UIColor.clear).cgColor
+        layer.cornerRadius = component?.style.cornerRadius ?? 3
     }
 }

@@ -121,7 +121,7 @@ class ScrollView: UIScrollView, ComponentView {
     func didUpdateFrames() {
         if frame.height != previousFrame.height {
             let difference = previousFrame.height - frame.height
-            setContentOffset(CGPoint(x: previousOffset.x, y: previousOffset.y + difference), animated: false)
+            setContentOffset(CGPoint(x: previousOffset.x, y: max(0, previousOffset.y + difference)), animated: false)
         }
     }
     
