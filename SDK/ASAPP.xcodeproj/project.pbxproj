@@ -292,6 +292,7 @@
 		3A2C2C3E20D31061006F62D5 /* LinkResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C2C3D20D31061006F62D5 /* LinkResolver.swift */; };
 		3A391B451FA223810085C2DA /* InvalidatableInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B441FA223810085C2DA /* InvalidatableInput.swift */; };
 		3A391B471FA2682F0085C2DA /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */; };
+		3A3C8D8B20F5662E00571874 /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */; };
 		3A43A8CA20CF1392007A90D5 /* ProactiveMessageConfirmationActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A43A8C920CF1392007A90D5 /* ProactiveMessageConfirmationActionSheet.swift */; };
 		3A4FC2811FE031B30098BAE2 /* DropdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2801FE031B30098BAE2 /* DropdownItem.swift */; };
 		3A4FC2831FE063820098BAE2 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2821FE063810098BAE2 /* DropdownView.swift */; };
@@ -704,6 +705,7 @@
 		3A2C2C3D20D31061006F62D5 /* LinkResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkResolver.swift; sourceTree = "<group>"; };
 		3A391B441FA223810085C2DA /* InvalidatableInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidatableInput.swift; sourceTree = "<group>"; };
 		3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
+		3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
 		3A43A8C920CF1392007A90D5 /* ProactiveMessageConfirmationActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProactiveMessageConfirmationActionSheet.swift; sourceTree = "<group>"; };
 		3A4FC2801FE031B30098BAE2 /* DropdownItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownItem.swift; sourceTree = "<group>"; };
 		3A4FC2821FE063810098BAE2 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
@@ -1051,6 +1053,7 @@
 				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
 				3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */,
 				3A28113E206B2B6F00B7CE04 /* UIViewExtensions.swift */,
+				3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2133,6 +2136,7 @@
 				30F6B4C61EC0E3B100ABA570 /* RefreshableTableViewController.swift in Sources */,
 				3062FCDE1E71CECF00A29014 /* ChatMessageCellHeightCache.swift in Sources */,
 				3ACBD7F21F8E9711004D36A6 /* NavBarButtonItem.swift in Sources */,
+				3A3C8D8B20F5662E00571874 /* UIFontExtensions.swift in Sources */,
 				307484E81EB92EEB008CF3E4 /* UIScrollViewExtensions.swift in Sources */,
 				285F7AF71DAB33C2008C2EF6 /* Event+DemoContent.swift in Sources */,
 				281C34A21E7F092C001A2AA3 /* IconView.swift in Sources */,

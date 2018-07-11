@@ -35,7 +35,7 @@ class TitleDetailValueCell: TableViewCell {
         
         selectionStyle = .none
         
-        titleLabel.font = DemoFonts.asapp.regular.withSize(16)
+        titleLabel.font = DemoFonts.asapp.regular.changingOnlySize(16)
         titleLabel.textColor = UIColor.darkText
         titleLabel.kerning = 1
         contentView.addSubview(titleLabel)
@@ -46,7 +46,7 @@ class TitleDetailValueCell: TableViewCell {
         detailLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(detailLabel)
         
-        valueLabel.font = DemoFonts.asapp.light.withSize(16)
+        valueLabel.font = DemoFonts.asapp.light.changingOnlySize(16)
         valueLabel.textColor = UIColor.darkText
         valueLabel.textAlignment = .right
         valueLabel.numberOfLines = 0
@@ -60,9 +60,9 @@ class TitleDetailValueCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            titleLabel.font = appSettings.branding.fontFamily.regular.withSize(16)
-            detailLabel.font = appSettings.branding.fontFamily.light.withSize(14)
-            valueLabel.font = appSettings.branding.fontFamily.light.withSize(16)
+            titleLabel.font = appSettings.branding.fontFamily.regular.changingOnlySize(16)
+            detailLabel.font = appSettings.branding.fontFamily.light.changingOnlySize(14)
+            valueLabel.font = appSettings.branding.fontFamily.light.changingOnlySize(16)
             
             titleLabel.textColor = appSettings.branding.colors.foregroundColor
             detailLabel.textColor = appSettings.branding.colors.secondaryTextColor

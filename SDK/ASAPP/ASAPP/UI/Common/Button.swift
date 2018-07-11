@@ -31,7 +31,7 @@ class Button: UIView {
         }
     }
     
-    var font: UIFont = Fonts.default.bold.withSize(14) {
+    var font: UIFont = Fonts.default.bold.changingOnlySize(14) {
         didSet {
             label.font = font
             setNeedsLayout()

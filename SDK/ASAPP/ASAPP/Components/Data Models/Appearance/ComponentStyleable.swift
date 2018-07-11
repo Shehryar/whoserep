@@ -24,7 +24,7 @@ extension ComponentStyleable where Self: UIView {
                 layer.borderColor = ASAPP.styles.colors.separatorPrimary.cgColor
             }
         }
-        layer.cornerRadius = style.cornerRadius
+        layer.cornerRadius = style.cornerRadius ?? 0
         
         setNeedsLayout()
     }

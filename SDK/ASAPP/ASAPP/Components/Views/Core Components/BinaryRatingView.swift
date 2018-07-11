@@ -95,7 +95,7 @@ class BinaryRatingView: BaseComponentView {
         
         clipsToBounds = false
         
-        let font = ASAPP.styles.textStyles.header2.font.withSize(16)
+        let font = ASAPP.styles.textStyles.header2.font.changingOnlySize(16)
         
         for view in [yesView, noView] {
             view.titleLabel!.font = font

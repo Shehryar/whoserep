@@ -31,7 +31,7 @@ class RestartButton: Button {
         title = ASAPP.strings.quickRepliesRestartButton
         accessibilityLabel = title
         
-        font = ASAPP.styles.textStyles.body.font.withSize(14)
+        font = ASAPP.styles.textStyles.body.font.changingOnlySize(14)
         setForegroundColor(ASAPP.styles.colors.textButtonPrimary.textNormal, forState: .normal)
         setForegroundColor(ASAPP.styles.colors.textButtonPrimary.textHighlighted, forState: .highlighted)
         

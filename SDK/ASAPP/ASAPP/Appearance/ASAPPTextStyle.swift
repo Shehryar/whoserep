@@ -20,7 +20,7 @@ public class ASAPPTextStyle: NSObject {
     let letterSpacing: CGFloat
     
     var font: UIFont {
-        return fontRef.withSize(size)
+        return fontRef.changingOnlySize(size)
     }
     
     private(set) var defaultSize: CGFloat

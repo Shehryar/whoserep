@@ -96,13 +96,13 @@ class TextInputCell: TableViewCell {
         super.applyAppSettings()
         
         if let appSettings = appSettings {
-            textFieldLabel.font = appSettings.branding.fontFamily.regular.withSize(16)
+            textFieldLabel.font = appSettings.branding.fontFamily.regular.changingOnlySize(16)
             textFieldLabel.textColor = appSettings.branding.colors.foregroundColor
             
             if hasLabelText {
-                textField.font = appSettings.branding.fontFamily.light.withSize(16)
+                textField.font = appSettings.branding.fontFamily.light.changingOnlySize(16)
             } else {
-                textField.font = appSettings.branding.fontFamily.regular.withSize(16)
+                textField.font = appSettings.branding.fontFamily.regular.changingOnlySize(16)
             }
             textField.textColor = appSettings.branding.colors.foregroundColor
             textField.tintColor = appSettings.branding.colors.accentColor
@@ -118,7 +118,7 @@ class TextInputCell: TableViewCell {
             if let appSettings = appSettings {
                 textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [
                     NSForegroundColorAttributeName: appSettings.branding.colors.secondaryTextColor,
-                    NSFontAttributeName: appSettings.branding.fontFamily.regular.withSize(16)
+                    NSFontAttributeName: appSettings.branding.fontFamily.regular.changingOnlySize(16)
                     ])
             } else {
                 textField.placeholder = placeholderText

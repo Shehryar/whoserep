@@ -29,7 +29,8 @@ class EditAppearanceViewController: BaseTableViewController {
         .asapp: "Lato",
         .boost: "Boost",
         .roboto: "Roboto",
-        .neueHaasGrotesk: "Neue Haas Grotesk"
+        .neueHaasGrotesk: "Neue Haas Grotesk",
+        .system: "System"
     ]
     
     fileprivate(set) var allColors: DictionaryLiteral<AppearanceConfig.ColorName, String> = [
@@ -197,7 +198,7 @@ extension EditAppearanceViewController {
         let cell = sizingOnly ? buttonSizingCell : tableView.dequeueReusableCell(withIdentifier: ButtonCell.reuseId, for: indexPath) as? ButtonCell
         
         cell?.title = title
-        cell?.titleLabel.font = AppearanceConfig.fontFamily(for: selectedFontFamily).medium.withSize(cell?.titleLabel.font.pointSize ?? 16)
+        cell?.titleLabel.font = AppearanceConfig.fontFamily(for: selectedFontFamily).medium.changingOnlySize(cell?.titleLabel.font.pointSize ?? 16)
         cell?.loading = loading
         
         return cell ?? UITableViewCell()
@@ -217,7 +218,7 @@ extension EditAppearanceViewController {
         
         cell?.appSettings = AppSettings.shared
         cell?.title = allColors.first(where: { $0.0 == colorName })?.value ?? "?"
-        cell?.titleLabel.font = AppearanceConfig.fontFamily(for: selectedFontFamily).regular.withSize(cell?.titleLabel.font.pointSize ?? 16)
+        cell?.titleLabel.font = AppearanceConfig.fontFamily(for: selectedFontFamily).regular.changingOnlySize(cell?.titleLabel.font.pointSize ?? 16)
         cell?.customImage = image
         cell?.customImageView.layer.cornerRadius = 17
         cell?.customImageView.layer.borderWidth = 1
@@ -240,8 +241,8 @@ extension EditAppearanceViewController {
         cell?.placeholderText = placeholder
         cell?.dismissKeyboardOnReturn = true
         cell?.onTextChange = onTextChange
-        cell?.textFieldLabel.font = AppearanceConfig.fontFamily(for: selectedFontFamily).regular.withSize(cell?.textFieldLabel.font.pointSize ?? 16)
-        cell?.textField.font = AppearanceConfig.fontFamily(for: selectedFontFamily).light.withSize(cell?.textField.font?.pointSize ?? 16)
+        cell?.textFieldLabel.font = AppearanceConfig.fontFamily(for: selectedFontFamily).regular.changingOnlySize(cell?.textFieldLabel.font.pointSize ?? 16)
+        cell?.textField.font = AppearanceConfig.fontFamily(for: selectedFontFamily).light.changingOnlySize(cell?.textField.font?.pointSize ?? 16)
         
         return cell ?? TextInputCell()
     }
@@ -253,7 +254,7 @@ extension EditAppearanceViewController {
         
         cell?.appSettings = AppSettings.shared
         cell?.title = title
-        cell?.titleLabel.font = AppearanceConfig.fontFamily(for: fontFamily).regular.withSize(cell?.titleLabel.font.pointSize ?? 16)
+        cell?.titleLabel.font = AppearanceConfig.fontFamily(for: fontFamily).regular.changingOnlySize(cell?.titleLabel.font.pointSize ?? 16)
         cell?.isChecked = isChecked
         
         return cell ?? UITableViewCell()

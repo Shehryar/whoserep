@@ -171,7 +171,7 @@ extension QuickRepliesView {
         
         let rowHeight = QuickRepliesListView.approximateRowHeight()
         let restartButtonHeight = isRestartButtonVisible ? restartButton.defaultHeight : 0
-        return restartButtonHeight + rowHeight * 3.5
+        return restartButtonHeight + rowHeight * 3.55
     }
 }
 

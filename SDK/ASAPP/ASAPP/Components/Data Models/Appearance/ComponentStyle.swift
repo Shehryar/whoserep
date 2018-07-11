@@ -26,7 +26,7 @@ struct ComponentStyle {
     
     var color: UIColor?
     
-    var cornerRadius: CGFloat = 0
+    var cornerRadius: CGFloat?
     
     var fontSize: CGFloat?
     
