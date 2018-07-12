@@ -106,7 +106,7 @@ extension Bubble where Self: UIView {
             let borderPath = UIBezierPath(cgPath: fullPath.cgPath)
             borderPath.append(innerPath.reversing())
             border.path = borderPath.cgPath
-            border.zPosition = .greatestFiniteMagnitude
+            border.zPosition = CGFloat(Float.greatestFiniteMagnitude)
             layer.addSublayer(border)
             borderLayer = border
             innerPath.fill()
