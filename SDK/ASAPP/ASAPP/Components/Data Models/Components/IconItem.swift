@@ -9,6 +9,7 @@
 import UIKit
 
 enum ComponentIcon: String {
+    case hourglass
     case mailEmpty
     case mailPaper
     case moneyCardCancel
@@ -31,6 +32,7 @@ enum ComponentIcon: String {
     case userCancel
     case userConfirm
     case userConnecting
+    case userSync
     case userUser
     case userUserStanding
     
