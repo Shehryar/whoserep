@@ -187,6 +187,7 @@ extension ConversationManager {
     func getRequestParameters(with params: [String: Any]?,
                               requiresContext: Bool = true,
                               contextKey: String = "Context",
+                              contextNeedsRefresh: Bool = false,
                               completion: @escaping (_ params: [String: Any]) -> Void) {
         
         var requestParams: [String: Any] = [
@@ -196,7 +197,7 @@ extension ConversationManager {
         ].with(params)
         
         if requiresContext {
-            user.getContext(completion: { [weak self] (context, authToken) in
+            user.getContext(needsRefresh: contextNeedsRefresh, completion: { [weak self] (context, authToken) in
                 if let context = context {
                     var updatedContext = context
                     if let strongSelf = self, !strongSelf.user.isAnonymous {
@@ -220,9 +221,10 @@ extension ConversationManager {
     func sendRequest(path: String,
                      params: [String: Any]? = nil,
                      requiresContext: Bool = true,
+                     contextNeedsRefresh: Bool = false,
                      completion: RequestResponseHandler? = nil) {
                 
-        getRequestParameters(with: params, requiresContext: requiresContext) { [httpClient] requestParams in
+        getRequestParameters(with: params, requiresContext: requiresContext, contextNeedsRefresh: contextNeedsRefresh) { [httpClient] requestParams in
             httpClient.sendRequest(method: .POST, path: path, params: requestParams) { (data: [String: Any]?, _, error) in
                 guard error == nil else {
                     let message = IncomingMessage.errorMessage(error?.localizedDescription ?? "Response error")
@@ -484,6 +486,12 @@ extension ConversationManager: SocketConnectionDelegate {
             if wasLiveChat != isLiveChat {
                 delegate?.conversationManager(self, didChangeLiveChatStatus: liveChatStatus, with: event)
             }
+        }
+        
+        // Auth Expired
+        if event.ephemeralType == .contextNeedsRefresh {
+            sendRequest(path: "customer/updateContext", contextNeedsRefresh: true)
+            return
         }
         
         // Typing Status

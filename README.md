@@ -36,7 +36,7 @@ Xcode   | 9.2
 
 
 GitFlow and automatic beta distribution
-----------------------------------------
+---------------------------------------
 
 Loosely following [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/), `develop` is the default branch. We merge feature branches into `develop` and merge `develop` into `master` when we're ready to release a beta build for QA. `master` is built automatically by [CircleCI](https://circleci.com/gh/ASAPPinc/ASAPP-iOS) using [fastlane](https://fastlane.tools/) and distributed using Crashlytics/Fabric. While the build number is automatically incremented, the version is not. Be sure to update the version number before distributing a beta build to minimize confusion.
 
@@ -98,3 +98,14 @@ scripts/generate_docs.sh
 
 The reference website can be found at `package/docs/swift/index.html`.
 
+
+Handing off the SDK to a partner
+--------------------------------
+
+1. Does QA approve?
+1. Do all tests pass?
+1. Do the Swift and Objective-C projects work? Make sure to rebuild the framework and override the reference in each project.
+1. Has the version string been updated?
+1. Have the docs been updated?
+
+Once the above checklist has been addressed, distribute a beta build (by merging a pull request into master) if necessary. Then, build the framework by archiving the Aggregate scheme for a Generic iOS Device. Once the build has completed, it will automatically open the `package` directory. Copy the `package` directory, rename it `ASAPP iOS Framework X.Y.Z`, and compress it. Send the ZIP file to the Product team. Tag the relevant commit and record the release [according to existing conventions](https://github.com/ASAPPinc/chat-sdk-ios/releases).

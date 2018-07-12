@@ -68,7 +68,7 @@ SDK Usage
 
 You can include `ASAPP.authTokenKey`, `ASAPP.analyticsKey`, and/or any other keys required by the environment.
 
-    let requestContextProvider = {
+    let requestContextProvider = { needsRefresh in
         return [
             ASAPP.authTokenKey: "<user's authentication token>",
             ASAPP.analyticsKey: ["<arbitrary>": "<data>"]

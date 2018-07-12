@@ -85,7 +85,7 @@ extension ViewController {
          */
         ASAPP.user = ASAPPUser(
             userIdentifier: getUserIdentifier(),
-            requestContextProvider: { () -> [String : Any] in
+            requestContextProvider: { needsRefresh in
                 return [
                     ASAPP.authTokenKey: "dist_ios_SDK_Swift_fake_auth_token",
                     "fake_context_key_1": "fake_context_value_1"

@@ -136,7 +136,7 @@ class HomeViewController: BaseViewController {
             requestContextProvider: requestContextProvider)
     }
     
-    func requestContextProvider() -> [String: Any] {
+    func requestContextProvider(needsRefresh: Bool) -> [String: Any] {
         return AppSettings.shared.getContext()
     }
 }

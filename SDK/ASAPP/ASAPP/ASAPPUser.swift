@@ -8,8 +8,13 @@
 
 import UIKit
 
-/// A type of closure that returns `[String: Any]`. The dictionary can contain the key-value pair `ASAPP.authTokenKey: authToken`, where `authToken` is the user's authentication token; the key-value pair `ASAPP.analyticsKey: analyticsData`, where `analyticsData` is a dictionary; and any other key-value pairs required by the environment.
-public typealias ASAPPRequestContextProvider = (() -> [String: Any])
+/**
+ Returns the context object used for authentication.
+ 
+ - parameter needsRefresh: A `Bool` indicating whether the context has expired and should be refreshed.
+ - returns: A dictionary keyed by `String`s. The dictionary can contain the key-value pair `ASAPP.authTokenKey: authToken`, where `authToken` is the user's authentication token; the key-value pair `ASAPP.analyticsKey: analyticsData`, where `analyticsData` is a dictionary; and any other key-value pairs required by the environment.
+ */
+public typealias ASAPPRequestContextProvider = ((_ needsRefresh: Bool) -> [String: Any])
 
 // MARK: - ASAPPUser
 
@@ -61,9 +66,9 @@ extension ASAPPUser {
     
     typealias ContextRequestCompletion = ((_ context: [String: Any]?, _ authToken: String?) -> Void)
     
-    func getContext(completion: @escaping ContextRequestCompletion) {
+    func getContext(needsRefresh: Bool = false, completion: @escaping ContextRequestCompletion) {
         Dispatcher.performOnBackgroundThread { [weak self] in
-            let context = self?.requestContextProvider()
+            let context = self?.requestContextProvider(needsRefresh)
             let authToken = context?[ASAPP.authTokenKey] as? String
             
             completion(context, authToken)

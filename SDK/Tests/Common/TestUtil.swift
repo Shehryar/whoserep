@@ -73,7 +73,7 @@ class TestUtil: NSObject {
         NSTimeZone.default = TimeZone(identifier: "America/New_York")!
         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
         ASAPP.initialize(with: config)
-        ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: {
+        ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: { _ in
             return [:]
         })
     }

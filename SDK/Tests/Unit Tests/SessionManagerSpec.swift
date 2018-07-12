@@ -18,7 +18,7 @@ class SessionManagerSpec: QuickSpec {
                     it("creates a SessionManager") {
                         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "testing")
                         let milliseconds = Int((Date.timeIntervalSinceReferenceDate * 1000).rounded())
-                        let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: {
+                        let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: { _ in
                             return [:]
                         })
                         let manager = SessionManager(config: config, user: user)
@@ -35,7 +35,7 @@ class SessionManagerSpec: QuickSpec {
                 beforeEach {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "testing")
                     let milliseconds = Int((Date.timeIntervalSinceReferenceDate * 1000).rounded())
-                    let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: {
+                    let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: { _ in
                         return [:]
                     })
                     manager = SessionManager(config: config, user: user)
@@ -62,7 +62,7 @@ class SessionManagerSpec: QuickSpec {
                 beforeEach {
                     let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "testing")
                     let milliseconds = Int((Date.timeIntervalSinceReferenceDate * 1000).rounded())
-                    let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: {
+                    let user = ASAPPUser(userIdentifier: "test-user-\(milliseconds)", requestContextProvider: { _ in
                         return [:]
                     })
                     manager = SessionManager(config: config, user: user)
