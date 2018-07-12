@@ -81,12 +81,11 @@
      
      This demo app automatically creates a fake user id and persists it between sessions.
      */
-    ASAPPUser *user = [[ASAPPUser alloc] initWithUserIdentifier:self.userIdentifier
-                                         requestContextProvider:^NSDictionary<NSString *,id> * _Nonnull {
+    ASAPPUser *user = [[ASAPPUser alloc] initWithUserIdentifier:self.userIdentifier requestContextProvider:^NSDictionary<NSString *,id> * (BOOL needsRefresh) {
         return @{
-              [ASAPP authTokenKey] : @"ios_objc_access_token",
-              @"fake_context_key_1" : @"fake_context_value_1"
-              };
+                 [ASAPP authTokenKey]: @"ios_objc_access_token",
+                 @"fake_context_key_1": @"fake_context_value_1"
+        };
     }];
     
     [ASAPP setUser:user];

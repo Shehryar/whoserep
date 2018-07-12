@@ -28,10 +28,10 @@ import Foundation
      let decoder = JSONDecoder()
      let dictionary = try! decoder.decode([String: AnyCodable].self, from: json)
  */
-public struct AnyDecodable: Decodable {
-    public let value: Any
+struct AnyDecodable: Decodable {
+    let value: Any
     
-    public init<T>(_ value: T?) {
+    init<T>(_ value: T?) {
         self.value = value ?? ()
     }
 }
@@ -44,6 +44,7 @@ protocol AnyDecodableProtocol {
 extension AnyDecodable: AnyDecodableProtocol {}
 
 extension AnyDecodableProtocol {
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         
@@ -70,7 +71,7 @@ extension AnyDecodableProtocol {
 }
 
 extension AnyDecodable: Equatable {
-    public static func == (lhs: AnyDecodable, rhs: AnyDecodable) -> Bool {
+    static func == (lhs: AnyDecodable, rhs: AnyDecodable) -> Bool {
         switch (lhs.value, rhs.value) {
         case is (Void, Void):
             return true
@@ -113,7 +114,7 @@ extension AnyDecodable: Equatable {
 }
 
 extension AnyDecodable: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         switch value {
         case is Void:
             return String(describing: nil as Any?)
@@ -126,7 +127,7 @@ extension AnyDecodable: CustomStringConvertible {
 }
 
 extension AnyDecodable: CustomDebugStringConvertible {
-    public var debugDescription: String {
+    var debugDescription: String {
         switch value {
         case let value as CustomDebugStringConvertible:
             return "AnyDecodable(\(value.debugDescription))"

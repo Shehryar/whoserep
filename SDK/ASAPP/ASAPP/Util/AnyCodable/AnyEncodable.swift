@@ -26,10 +26,10 @@ import Foundation
      let encoder = JSONEncoder()
      let json = try! encoder.encode(dictionary)
  */
-public struct AnyEncodable: Encodable {
-    public let value: Any
+struct AnyEncodable: Encodable {
+    let value: Any
     
-    public init<T>(_ value: T?) {
+    init<T>(_ value: T?) {
         self.value = value ?? ()
     }
 }
@@ -44,6 +44,7 @@ extension AnyEncodable: AnyEncodableProtocol {}
 // MARK: - Encodable
 
 extension AnyEncodableProtocol {
+    /// :nodoc:
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         
@@ -94,7 +95,7 @@ extension AnyEncodableProtocol {
 }
 
 extension AnyEncodable: Equatable {
-    public static func == (lhs: AnyEncodable, rhs: AnyEncodable) -> Bool {
+    static func == (lhs: AnyEncodable, rhs: AnyEncodable) -> Bool {
         switch (lhs.value, rhs.value) {
         case is (Void, Void):
             return true
@@ -137,7 +138,7 @@ extension AnyEncodable: Equatable {
 }
 
 extension AnyEncodable: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         switch value {
         case is Void:
             return String(describing: nil as Any?)
@@ -150,7 +151,7 @@ extension AnyEncodable: CustomStringConvertible {
 }
 
 extension AnyEncodable: CustomDebugStringConvertible {
-    public var debugDescription: String {
+    var debugDescription: String {
         switch value {
         case let value as CustomDebugStringConvertible:
             return "AnyEncodable(\(value.debugDescription))"
@@ -163,34 +164,42 @@ extension AnyEncodable: CustomDebugStringConvertible {
 extension AnyEncodable: ExpressibleByNilLiteral, ExpressibleByBooleanLiteral, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral, ExpressibleByStringLiteral, ExpressibleByArrayLiteral, ExpressibleByDictionaryLiteral {}
 
 extension AnyEncodableProtocol {
+    /// :nodoc:
     public init(nilLiteral: ()) {
         self.init(nil as Any?)
     }
 
+    /// :nodoc:
     public init(booleanLiteral value: Bool) {
         self.init(value)
     }
 
+    /// :nodoc:
     public init(integerLiteral value: Int) {
         self.init(value)
     }
 
+    /// :nodoc:
     public init(floatLiteral value: Double) {
         self.init(value)
     }
 
+    /// :nodoc:
     public init(extendedGraphemeClusterLiteral value: String) {
         self.init(value)
     }
     
+    /// :nodoc:
     public init(stringLiteral value: String) {
         self.init(value)
     }
 
+    /// :nodoc:
     public init(arrayLiteral elements: Any...) {
         self.init(elements)
     }
 
+    /// :nodoc:
     public init(dictionaryLiteral elements: (AnyHashable, Any)...) {
         self.init([AnyHashable: Any](elements, uniquingKeysWith: { (first, _) in first }))
     }

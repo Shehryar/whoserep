@@ -44,6 +44,21 @@ extension HTTPClientProtocol {
     }
 }
 
+enum HTTPError: Error {
+    case generalError(String)
+    
+    var localizedDescription: String {
+        switch self {
+        case .generalError(let message):
+            return message
+        }
+    }
+    
+    var errorDescription: String? { return localizedDescription }
+}
+
+extension HTTPError: LocalizedError {}
+
 class HTTPClient: NSObject, HTTPClientProtocol {
     typealias DictCompletionHandler = ([String: Any]?, URLResponse?, Error?) -> Void
     typealias DataCompletionHandler = (Data?, URLResponse?, Error?) -> Void
@@ -160,6 +175,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
     
     private func resumeDataTask(with request: URLRequest, completion: @escaping DictCompletionHandler) {
         urlSession.dataTask(with: request) { (data, response, error) in
+            var error = error
             var jsonMap: [String: Any]?
             let jsonObject = JSONUtil.getObjectFrom(data)
             
@@ -167,10 +183,27 @@ class HTTPClient: NSObject, HTTPClientProtocol {
                 jsonMap = jsonObject
             }
             
+            if error == nil,
+               let statusCode = (response as? HTTPURLResponse)?.statusCode,
+               statusCode >= 400 {
+                let message: String
+                if let data = data,
+                   let responseString = String(data: data, encoding: .utf8) {
+                    message = ": \(responseString)"
+                } else {
+                    message = ""
+                }
+                error = HTTPError.generalError("Error \(statusCode)\(message)")
+            }
+            
             if response?.mimeType != "application/json",
                let data = data,
                let responseString = String(data: data, encoding: .utf8) {
                 DebugLog.d(caller: HTTPClient.self, "Received instead of JSON: \(responseString)")
+            }
+            
+            if let error = error {
+                DebugLog.d(caller: HTTPClient.self, error.localizedDescription)
             }
             
             completion(jsonMap, response, error)

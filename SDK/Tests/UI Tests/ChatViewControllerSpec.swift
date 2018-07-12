@@ -17,7 +17,7 @@ class ChatViewControllerSpec: QuickSpec {
         describe("ChatViewController") {
             let window = UIWindow(frame: UIScreen.main.bounds)
             let config = ASAPPConfig(appId: "test", apiHostName: "test", clientSecret: "test", regionCode: "test")
-            let user = ASAPPUser(userIdentifier: "testUser", requestContextProvider: {
+            let user = ASAPPUser(userIdentifier: "testUser", requestContextProvider: { _ in
                 return [:]
             })
             let handler: ASAPPAppCallbackHandler = { _, _ in }
