@@ -14,7 +14,7 @@ protocol OutgoingMessageSerializerProtocol {
     var issueId: Int { get set }
     func createRequest(withPath path: String, params: [String: Any]?, context: [String: Any]?) -> SocketRequest
     func createRequestString(withRequest request: SocketRequest) -> String
-    func createAuthRequest(completion: @escaping (_ authRequest: OutgoingMessageSerializer.AuthRequest) -> Void)
+    func createAuthRequest(contextNeedsRefresh: Bool, completion: @escaping (_ authRequest: OutgoingMessageSerializer.AuthRequest) -> Void)
 }
 
 class OutgoingMessageSerializer: OutgoingMessageSerializerProtocol {
@@ -65,7 +65,7 @@ extension OutgoingMessageSerializer {
         let isSessionAuthRequest: Bool
     }
     
-    func createAuthRequest(completion: @escaping (_ authRequest: AuthRequest) -> Void) {
+    func createAuthRequest(contextNeedsRefresh: Bool, completion: @escaping (_ authRequest: AuthRequest) -> Void) {
         var path: String
         var params: [String: Any] = [
             "App": "ios-sdk",
@@ -109,7 +109,7 @@ extension OutgoingMessageSerializer {
                     params["MergeCustomerGUID"] = customer.guid
                 }
                 
-                user.getContext { (context, authToken) in
+                user.getContext(needsRefresh: contextNeedsRefresh) { (context, authToken) in
                     if let authToken = authToken {
                         params["Auth"] = authToken
                     }

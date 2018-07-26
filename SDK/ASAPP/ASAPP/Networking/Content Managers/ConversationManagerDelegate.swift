@@ -20,9 +20,15 @@ protocol ConversationManagerDelegate: class {
     
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool)
     
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authenticationFailed: Bool)
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authError: SocketConnection.AuthError?)
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReturnAfterInactivityWith: Event)
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith: Event)
+}
+
+extension ConversationManagerDelegate {
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool) {
+        conversationManager(manager, didChangeConnectionStatus: isConnected, authError: nil)
+    }
 }

@@ -47,7 +47,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
                         
                         waitUntil { done in
-                            serializer.createAuthRequest { authRequest in
+                            serializer.createAuthRequest(contextNeedsRefresh: false) { authRequest in
                                 expect(authRequest.params["RegionCode"] as? String).to(equal("US"))
                                 done()
                             }
@@ -70,7 +70,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
                         
                         waitUntil { done in
-                            serializer.createAuthRequest { authRequest in
+                            serializer.createAuthRequest(contextNeedsRefresh: false) { authRequest in
                                 expect(authRequest.params["RegionCode"] as? String).to(equal("AUS"))
                                 done()
                             }
@@ -93,7 +93,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
                         
                         waitUntil { done in
-                            serializer.createAuthRequest { authRequest in
+                            serializer.createAuthRequest(contextNeedsRefresh: false) { authRequest in
                                 expect(authRequest.path).to(equal("auth/CreateAnonCustomerAccount"))
                                 expect(authRequest.isSessionAuthRequest).to(beFalse())
                                 done()
@@ -117,7 +117,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                         let serializer = OutgoingMessageSerializer(config: config, user: ASAPP.user)
                         
                         waitUntil { done in
-                            serializer.createAuthRequest { authRequest in
+                            serializer.createAuthRequest(contextNeedsRefresh: false) { authRequest in
                                 expect(authRequest.path).to(equal("auth/AuthenticateWithCustomerIdentifier"))
                                 expect(authRequest.isSessionAuthRequest).to(beFalse())
                                 done()
@@ -163,7 +163,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     
                     it("creates an auth request with an existing session") {
                         waitUntil { done in
-                            serializer.createAuthRequest { authRequest in
+                            serializer.createAuthRequest(contextNeedsRefresh: false) { authRequest in
                                 expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
                                 expect(authRequest.isSessionAuthRequest).to(beTrue())
                                 done()
@@ -210,7 +210,7 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                     
                     it("creates an auth request with an existing session") {
                         waitUntil { done in
-                            serializer.createAuthRequest { authRequest in
+                            serializer.createAuthRequest(contextNeedsRefresh: false) { authRequest in
                                 expect(authRequest.path).to(equal("auth/AuthenticateWithSession"))
                                 expect(authRequest.isSessionAuthRequest).to(beTrue())
                                 done()
