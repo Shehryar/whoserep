@@ -12,7 +12,7 @@ import UIKit
 
 protocol SocketConnectionDelegate: class {
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection)
-    func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection)
+    func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection, error: SocketConnection.AuthError)
     func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection)
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage)
 }
@@ -53,7 +53,10 @@ class SocketConnection: NSObject {
     private var isAuthenticated = false
     private var didManuallyDisconnect = false
     
-    private let invalidAuthString = "invalid_auth"
+    enum AuthError: String {
+        case invalidAuth = "invalid_auth"
+        case tokenExpired = "token_expired"
+    }
     
     // MARK: Initialization
     
@@ -205,8 +208,8 @@ extension SocketConnection {
 extension SocketConnection {
     typealias SocketAuthResponseBlock = ((_ message: IncomingMessage?, _ errorMessage: String?) -> Void)
     
-    func authenticate(attempts: Int = 0, _ completion: SocketAuthResponseBlock? = nil) {
-        outgoingMessageSerializer.createAuthRequest { [weak self] authRequest in
+    func authenticate(attempts: Int = 0, contextNeedsRefresh: Bool = false, _ completion: SocketAuthResponseBlock? = nil) {
+        outgoingMessageSerializer.createAuthRequest(contextNeedsRefresh: contextNeedsRefresh) { [weak self] authRequest in
             self?.sendAuthRequest(withPath: authRequest.path, params: authRequest.params) { [weak self] (message, _, _) in
                 var session: Session?
                 
@@ -226,7 +229,8 @@ extension SocketConnection {
                         self?.updateSession(nil)
                         
                         if attempts == 0 {
-                            self?.authenticate(attempts: 1, completion)
+                            let needsRefresh = (message.debugError == AuthError.tokenExpired.rawValue)
+                            self?.authenticate(attempts: 1, contextNeedsRefresh: needsRefresh, completion)
                             return
                         }
                     }
@@ -327,8 +331,9 @@ extension SocketConnection: ASAPPSRWebSocketDelegate {
                 return
             }
             
-            if errorMessage == strongSelf.invalidAuthString {
-                strongSelf.delegate?.socketConnectionFailedToAuthenticate(strongSelf)
+            if let errorMessage = errorMessage,
+               let authError = AuthError(rawValue: errorMessage) {
+                strongSelf.delegate?.socketConnectionFailedToAuthenticate(strongSelf, error: authError)
             } else {
                 strongSelf.delegate?.socketConnectionEstablishedConnection(strongSelf)
                 

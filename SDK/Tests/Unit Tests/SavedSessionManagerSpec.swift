@@ -59,55 +59,55 @@ class SavedSessionManagerSpec: QuickSpec {
             context(".save(session:)") {
                 context("with everything as expected") {
                     it("saves the session properly") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
                         savedSessionManager.save(session: session)
                         
-                        expect(mockCodableStorage.calledStore).to(equal(true))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(false))
-                        expect(mockCodableStorage.calledRemove).to(equal(false))
+                        expect(mockStorage.calledStore).to(equal(true))
+                        expect(mockStorage.calledRetrieve).to(equal(false))
+                        expect(mockStorage.calledRemove).to(equal(false))
                     }
                 }
                 
                 context("with a nil session") {
                     it("removes the existing session") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
                         savedSessionManager.save(session: session)
-                        mockCodableStorage.cleanCalls()
+                        mockStorage.cleanCalls()
                         savedSessionManager.save(session: nil)
                         
-                        expect(mockCodableStorage.calledStore).to(equal(false))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(false))
-                        expect(mockCodableStorage.calledRemove).to(equal(true))
+                        expect(mockStorage.calledStore).to(equal(false))
+                        expect(mockStorage.calledRetrieve).to(equal(false))
+                        expect(mockStorage.calledRemove).to(equal(true))
                     }
                 }
                 
                 context("with a nil session and an existing session that cannot be removed") {
                     it("tries to remove the existing session") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
                         savedSessionManager.save(session: session)
-                        mockCodableStorage.cleanCalls()
-                        mockCodableStorage.nextRemoveShouldThrow = true
+                        mockStorage.cleanCalls()
+                        mockStorage.nextRemoveShouldThrow = true
                         savedSessionManager.save(session: nil)
                         
-                        expect(mockCodableStorage.calledStore).to(equal(false))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(false))
-                        expect(mockCodableStorage.calledRemove).to(equal(true))
+                        expect(mockStorage.calledStore).to(equal(false))
+                        expect(mockStorage.calledRetrieve).to(equal(false))
+                        expect(mockStorage.calledRemove).to(equal(true))
                     }
                 }
                 
                 context("with a session that lacks a primary identifier") {
                     it("saves the session properly") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createSession(from: [
                             "SessionInfo": [
                                 "Customer": [
@@ -126,66 +126,66 @@ class SavedSessionManagerSpec: QuickSpec {
                         
                         savedSessionManager.save(session: session)
                         
-                        expect(mockCodableStorage.calledStore).to(equal(true))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(false))
-                        expect(mockCodableStorage.calledRemove).to(equal(false))
+                        expect(mockStorage.calledStore).to(equal(true))
+                        expect(mockStorage.calledRetrieve).to(equal(false))
+                        expect(mockStorage.calledRemove).to(equal(false))
                     }
                 }
                 
                 context("with a session that cannot be stored") {
                     it("tries to store the session") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
-                        mockCodableStorage.nextStoreShouldThrow = true
+                        mockStorage.nextStoreShouldThrow = true
                         savedSessionManager.save(session: session)
                         
-                        expect(mockCodableStorage.calledStore).to(equal(true))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(false))
-                        expect(mockCodableStorage.calledRemove).to(equal(false))
+                        expect(mockStorage.calledStore).to(equal(true))
+                        expect(mockStorage.calledRetrieve).to(equal(false))
+                        expect(mockStorage.calledRemove).to(equal(false))
                     }
                 }
             }
             
             context(".clearSession()") {
                 it("removes the existing session") {
-                    let mockCodableStorage = MockCodableStorage()
-                    let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                    let mockStorage = MockSecureCodableStorage()
+                    let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                     let session = createTestSession()
                     
                     savedSessionManager.save(session: session)
-                    mockCodableStorage.cleanCalls()
+                    mockStorage.cleanCalls()
                     savedSessionManager.clearSession()
                     
-                    expect(mockCodableStorage.calledStore).to(equal(false))
-                    expect(mockCodableStorage.calledRetrieve).to(equal(false))
-                    expect(mockCodableStorage.calledRemove).to(equal(true))
+                    expect(mockStorage.calledStore).to(equal(false))
+                    expect(mockStorage.calledRetrieve).to(equal(false))
+                    expect(mockStorage.calledRemove).to(equal(true))
                 }
             }
             
             context(".getSession()") {
                 context("with everything as expected") {
                     it("it retrieves the session properly") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
                         savedSessionManager.save(session: session)
-                        mockCodableStorage.cleanCalls()
+                        mockStorage.cleanCalls()
                         let retrieved = savedSessionManager.getSession()
                         
                         expect(retrieved).to(equal(session))
-                        expect(mockCodableStorage.calledStore).to(equal(false))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(true))
-                        expect(mockCodableStorage.calledRemove).to(equal(false))
+                        expect(mockStorage.calledStore).to(equal(false))
+                        expect(mockStorage.calledRetrieve).to(equal(true))
+                        expect(mockStorage.calledRemove).to(equal(false))
                     }
                 }
                 
                 context("with a session that lacks a primary identifier") {
                     it("retrieves the session properly") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createSession(from: [
                             "SessionInfo": [
                                 "Customer": [
@@ -203,46 +203,46 @@ class SavedSessionManagerSpec: QuickSpec {
                         ])
                         
                         savedSessionManager.save(session: session)
-                        mockCodableStorage.cleanCalls()
+                        mockStorage.cleanCalls()
                         let retrieved = savedSessionManager.getSession()
                         
                         expect(retrieved).to(equal(session))
-                        expect(mockCodableStorage.calledStore).to(equal(false))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(true))
-                        expect(mockCodableStorage.calledRemove).to(equal(false))
+                        expect(mockStorage.calledStore).to(equal(false))
+                        expect(mockStorage.calledRetrieve).to(equal(true))
+                        expect(mockStorage.calledRemove).to(equal(false))
                     }
                 }
                 
                 context("without an existing session") {
                     it("returns nil") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         
                         let retrieved = savedSessionManager.getSession()
                         
                         expect(retrieved).to(beNil())
-                        expect(mockCodableStorage.calledStore).to(equal(false))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(true))
-                        expect(mockCodableStorage.calledRemove).to(equal(false))
+                        expect(mockStorage.calledStore).to(equal(false))
+                        expect(mockStorage.calledRetrieve).to(equal(true))
+                        expect(mockStorage.calledRemove).to(equal(false))
                     }
                 }
                 
                 context("with a session that cannot be read") {
                     it("returns nil") {
-                        let mockCodableStorage = MockCodableStorage()
-                        let savedSessionManager = SavedSessionManager(codableStorage: mockCodableStorage)
+                        let mockStorage = MockSecureCodableStorage()
+                        let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
                         savedSessionManager.save(session: session)
-                        mockCodableStorage.cleanCalls()
-                        mockCodableStorage.nextRetrieveShouldThrow = true
+                        mockStorage.cleanCalls()
+                        mockStorage.nextRetrieveShouldThrow = true
                         
                         let retrieved = savedSessionManager.getSession()
                         
                         expect(retrieved).to(beNil())
-                        expect(mockCodableStorage.calledStore).to(equal(false))
-                        expect(mockCodableStorage.calledRetrieve).to(equal(true))
-                        expect(mockCodableStorage.calledRemove).to(equal(false))
+                        expect(mockStorage.calledStore).to(equal(false))
+                        expect(mockStorage.calledRetrieve).to(equal(true))
+                        expect(mockStorage.calledRemove).to(equal(false))
                     }
                 }
             }

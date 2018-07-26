@@ -17,10 +17,10 @@ protocol SavedSessionManagerProtocol {
 class SavedSessionManager: SavedSessionManagerProtocol {
     static let shared = SavedSessionManager()
     
-    private var codableStorage: CodableStorageProtocol
+    private var secureStorage: SecureCodableStorageProtocol
     
-    init(codableStorage: CodableStorageProtocol = CodableStorage.default) {
-        self.codableStorage = codableStorage
+    init(secureStorage: SecureCodableStorageProtocol = SecureCodableStorage.default) {
+        self.secureStorage = secureStorage
     }
     
     func clearSession() {
@@ -30,7 +30,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
     func save(session: Session?) {
         guard let session = session else {
             do {
-                try codableStorage.remove(sessionFileName, from: Session.defaultDirectory)
+                try secureStorage.remove(sessionKey)
                 DebugLog.d("Cleared saved session")
             } catch {
                 DebugLog.e(error)
@@ -39,7 +39,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
         }
         
         do {
-            try codableStorage.store(session, as: sessionFileName)
+            try secureStorage.store(session, as: sessionKey)
             DebugLog.d("Saved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
         } catch {
             DebugLog.e(error)
@@ -48,7 +48,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
     
     func getSession() -> Session? {
         do {
-            if let session = try codableStorage.retrieve(sessionFileName, as: Session.self) {
+            if let session = try secureStorage.retrieve(sessionKey, as: Session.self) {
                 DebugLog.d("Retrieved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
                 return session
             } else {
@@ -61,7 +61,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
         }
     }
     
-    private var sessionFileName: String {
+    private var sessionKey: String {
         return "Stored-Session"
     }
 }

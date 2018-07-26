@@ -466,7 +466,7 @@ extension ConversationManager: SocketConnectionDelegate {
             return
         }
         
-        if event.ephemeralType == .none && event.eventLogSeq < events.last?.eventLogSeq ?? 0 {
+        if event.ephemeralType == .none && event.eventLogSeq <= events.last?.eventLogSeq ?? 0 {
             return
         }
         
@@ -543,18 +543,18 @@ extension ConversationManager: SocketConnectionDelegate {
         httpClient.session = socketConnection.session
         PushNotificationsManager.shared.session = socketConnection.session
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: true, authenticationFailed: false)
+        delegate?.conversationManager(self, didChangeConnectionStatus: true)
     }
     
-    func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection) {
-        DebugLog.d("ConversationManager: Authentication Failed")
+    func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection, error: SocketConnection.AuthError) {
+        DebugLog.d("ConversationManager: Authentication Failed (\(error.rawValue))")
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: false, authenticationFailed: true)
+        delegate?.conversationManager(self, didChangeConnectionStatus: false, authError: error)
     }
     
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection) {
         DebugLog.d("ConversationManager: Connection Lost")
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: false, authenticationFailed: false)
+        delegate?.conversationManager(self, didChangeConnectionStatus: false)
     }
 }

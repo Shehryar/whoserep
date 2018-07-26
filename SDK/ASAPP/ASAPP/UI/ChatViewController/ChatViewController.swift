@@ -1193,10 +1193,15 @@ extension ChatViewController: ActionSheetDelegate {
         actionSheet.showSpinner()
         
         conversationManager.sendAskRequest { success in
+            Dispatcher.performOnMainThread { [weak self] in
+                self?.quickRepliesView.showRestartSpinner()
+            }
+            
             guard !success else { return }
             Dispatcher.performOnMainThread { [weak self] in
-                actionSheet.hideSpinner()
                 self?.reconnect()
+                actionSheet.hideSpinner()
+                self?.quickRepliesView.hideRestartSpinner()
             }
         }
     }
@@ -1458,12 +1463,12 @@ extension ChatViewController: ConversationManagerDelegate {
         self.isLiveChat = isLiveChat
     }
     
-    func showUnauthenticatedGatekeeperIfNecessary() {
+    func showGatekeeperViewIfNecessary(_ type: GatekeeperView.ContentType) {
         guard connectionStatus != .connected else {
             return
         }
         
-        gatekeeperView = GatekeeperView(contentType: .unauthenticated)
+        gatekeeperView = GatekeeperView(contentType: type)
         if let gatekeeper = gatekeeperView {
             gatekeeper.delegate = self
             gatekeeper.frame = view.bounds
@@ -1475,12 +1480,18 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Connection Status
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authenticationFailed: Bool) {
-        if authenticationFailed && isAppInForeground {
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authError: SocketConnection.AuthError?) {
+        if let authError = authError,
+           isAppInForeground {
             gatekeeperView?.removeFromSuperview()
             // delay in case we reconnect immediately
             Dispatcher.delay { [weak self] in
-                self?.showUnauthenticatedGatekeeperIfNecessary()
+                switch authError {
+                case .invalidAuth:
+                    self?.showGatekeeperViewIfNecessary(.unauthenticated)
+                case .tokenExpired:
+                    self?.showGatekeeperViewIfNecessary(.connectionTrouble)
+                }
             }
             return
         }

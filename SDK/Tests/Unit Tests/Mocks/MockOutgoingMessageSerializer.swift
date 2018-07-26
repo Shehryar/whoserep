@@ -39,7 +39,7 @@ class MockOutgoingMessageSerializer: OutgoingMessageSerializerProtocol {
         return nextRequestString ?? ""
     }
     
-    func createAuthRequest(completion: @escaping (_ authRequest: OutgoingMessageSerializer.AuthRequest) -> Void) {
+    func createAuthRequest(contextNeedsRefresh: Bool, completion: @escaping (_ authRequest: OutgoingMessageSerializer.AuthRequest) -> Void) {
         calledCreateAuthRequest = true
         completion(nextAuthRequest ?? OutgoingMessageSerializer.AuthRequest(path: "", params: [:], isSessionAuthRequest: true))
     }

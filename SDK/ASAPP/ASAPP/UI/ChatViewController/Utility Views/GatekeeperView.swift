@@ -17,6 +17,7 @@ class GatekeeperView: UIView {
     enum ContentType {
         case unauthenticated
         case notConnected
+        case connectionTrouble
     }
     
     weak var delegate: GatekeeperViewDelegate?
@@ -36,6 +37,7 @@ class GatekeeperView: UIView {
         addSubview(iconView)
         
         promptLabel.textAlignment = .center
+        promptLabel.numberOfLines = 0
         promptLabel.textColor = ASAPP.styles.colors.dark
         promptLabel.font = ASAPP.styles.textStyles.body.font.changingOnlySize(18)
         addSubview(promptLabel)
@@ -69,6 +71,11 @@ class GatekeeperView: UIView {
             promptLabel.text = ASAPPLocalizedString("Unable to reconnect")
             button.updateText(ASAPPLocalizedString("Retry connecting"), textStyle: ASAPP.styles.textStyles.button, colors: ASAPP.styles.colors.buttonPrimary)
             button.addTarget(self, action: #selector(didTapReconnect), for: .touchUpInside)
+        case .connectionTrouble:
+            iconView.image = ComponentIcon.getImage(.networkAlert)?.tinted(ASAPP.styles.colors.iconTint)
+            iconSize = CGSize(width: 22, height: 23)
+            promptLabel.text = ASAPPLocalizedString("Sorry, we are having trouble connecting. Please try again later.")
+            button.removeFromSuperview()
         }
     }
     
@@ -77,7 +84,7 @@ class GatekeeperView: UIView {
         
         iconView.frame = CGRect(x: bounds.width / 2 - iconSize.width / 2, y: bounds.height / 2 - iconSize.height, width: iconSize.width, height: iconSize.height)
         
-        let promptLabelSize = promptLabel.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude))
+        let promptLabelSize = promptLabel.sizeThatFits(CGSize(width: bounds.width - 80, height: .greatestFiniteMagnitude))
         promptLabel.frame = CGRect(x: bounds.width / 2 - promptLabelSize.width / 2, y: iconView.frame.maxY + 20, width: promptLabelSize.width, height: promptLabelSize.height)
         
         let buttonSize = button.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude))

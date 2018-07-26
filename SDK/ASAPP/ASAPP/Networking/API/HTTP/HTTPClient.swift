@@ -73,8 +73,15 @@ class HTTPClient: NSObject, HTTPClientProtocol {
     
     private var baseUrl = URL(string: "")
     
-    required init(urlSession: URLSessionProtocol = URLSession.shared) {
-        self.urlSession = urlSession
+    required init(urlSession: URLSessionProtocol? = nil) {
+        if let urlSession = urlSession {
+            self.urlSession = urlSession
+        } else {
+            let defaultUrlSession = URLSession.shared
+            defaultUrlSession.configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+            defaultUrlSession.configuration.urlCache = nil
+            self.urlSession = defaultUrlSession
+        }
     }
     
     static let defaultParams: [String: String] = [
@@ -131,6 +138,7 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         
         var request = URLRequest(url: requestURL)
         request.httpMethod = method.rawValue
+        request.cachePolicy = .reloadIgnoringLocalCacheData
         
         request.injectHeaders(defaultHeaders)
         if let session = session {
