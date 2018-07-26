@@ -1193,10 +1193,15 @@ extension ChatViewController: ActionSheetDelegate {
         actionSheet.showSpinner()
         
         conversationManager.sendAskRequest { success in
+            Dispatcher.performOnMainThread { [weak self] in
+                self?.quickRepliesView.showRestartSpinner()
+            }
+            
             guard !success else { return }
             Dispatcher.performOnMainThread { [weak self] in
-                actionSheet.hideSpinner()
                 self?.reconnect()
+                actionSheet.hideSpinner()
+                self?.quickRepliesView.hideRestartSpinner()
             }
         }
     }
