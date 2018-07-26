@@ -466,7 +466,7 @@ extension ConversationManager: SocketConnectionDelegate {
             return
         }
         
-        if event.ephemeralType == .none && event.eventLogSeq < events.last?.eventLogSeq ?? 0 {
+        if event.ephemeralType == .none && event.eventLogSeq <= events.last?.eventLogSeq ?? 0 {
             return
         }
         
