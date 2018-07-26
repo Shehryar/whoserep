@@ -118,12 +118,12 @@ extension ChatMessage {
             quickReplies = QuickReply.arrayFromJSON(quickRepliesDict.first?.value)
         }
         
-        let userCanTypeResponse = dict.bool(for: JSONKey.userCanTypeResponse.rawValue)
+        let userCanTypeResponse = messageDict.bool(for: JSONKey.userCanTypeResponse.rawValue)
         
-        let suppressNewQuestionConfirmation = dict.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
-        let hideNewQuestionButton = dict.bool(for: JSONKey.hideNewQuestionButton.rawValue) ?? false
+        let suppressNewQuestionConfirmation = messageDict.bool(for: JSONKey.suppressNewQuestionConfirmation.rawValue) ?? false
+        let hideNewQuestionButton = messageDict.bool(for: JSONKey.hideNewQuestionButton.rawValue) ?? false
         
-        let messageMetadata = dict.codableDict(for: JSONKey.metadata.rawValue, type: Metadata.self)
+        let messageMetadata = messageDict.codableDict(for: JSONKey.metadata.rawValue, type: Metadata.self)
         
         return ChatMessage(
             text: text,
