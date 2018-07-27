@@ -15,6 +15,9 @@ public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData:
 @objc public protocol ASAPPDelegate {
     /// Called when a user taps a login button. Please set `ASAPP.user` once the user has logged in.
     func chatViewControllerDidTapUserLoginButton()
+    
+    /// Called when the ASAPP view controller has disappeared.
+    func chatViewControllerDidDisappear()
 }
 
 /**

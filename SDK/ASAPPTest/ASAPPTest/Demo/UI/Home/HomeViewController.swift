@@ -167,6 +167,8 @@ extension HomeViewController: ASAPPDelegate {
         
         (presentedViewController ?? self).present(navController, animated: true, completion: nil)
     }
+    
+    func chatViewControllerDidDisappear() {}
 }
 
 // MARK: - Styling

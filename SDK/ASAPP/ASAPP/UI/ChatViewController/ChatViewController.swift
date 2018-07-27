@@ -318,6 +318,14 @@ class ChatViewController: ASAPPViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if parent?.isMovingFromParentViewController == true || parent?.isBeingDismissed == true {
+            ASAPP.delegate?.chatViewControllerDidDisappear()
+        }
+    }
+    
     // MARK: - Status Bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
