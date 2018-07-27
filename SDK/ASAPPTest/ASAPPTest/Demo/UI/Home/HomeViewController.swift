@@ -28,10 +28,20 @@ class HomeViewController: BaseViewController {
         super.commonInit()
         
         self.callbackHandler = { [weak self] (deepLink, deepLinkData) in
-            guard let blockSelf = self else { return }
+            let completion = { [weak self] in
+                if false == self?.handleAction(deepLink, userInfo: deepLinkData) {
+                    self?.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
+                }
+            }
             
-            if !blockSelf.handleAction(deepLink, userInfo: deepLinkData) {
-                blockSelf.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
+            switch ASAPP.styles.segue {
+            case .present:
+                self?.presentedViewController?.dismiss(animated: true, completion: completion)
+            case .push:
+                CATransaction.begin()
+                CATransaction.setCompletionBlock(completion)
+                self?.navigationController?.popViewController(animated: true)
+                CATransaction.commit()
             }
         }
         
