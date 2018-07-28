@@ -24,8 +24,6 @@ class ChatViewController: ASAPPViewController {
     
     private(set) var user: ASAPPUser!
     
-    let appCallbackHandler: ASAPPAppCallbackHandler
-    
     // MARK: Properties: Storage
     
     private(set) var conversationManager: ConversationManagerProtocol!
@@ -90,9 +88,8 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, appCallbackHandler: @escaping ASAPPAppCallbackHandler, pushNotificationPayload: [AnyHashable: Any]? = nil) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil) {
         self.config = config
-        self.appCallbackHandler = appCallbackHandler
         self.segue = segue
         self.conversationManager = conversationManager
         super.init(nibName: nil, bundle: nil)
@@ -315,6 +312,14 @@ class ChatViewController: ASAPPViewController {
             inputAccessoryView.resignFirstResponder()
             inputAccessoryView.isHidden = true
             reloadInputViews()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        if parent?.isMovingFromParentViewController == true || parent?.isBeingDismissed == true {
+            ASAPP.delegate?.chatViewControllerDidDisappear()
         }
     }
     
@@ -712,21 +717,8 @@ extension ChatViewController {
                 // NOTE: We need the title. Will it always be a quick reply? No
                 conversationManager.sendRequestForDeepLinkAction(deepLinkAction, with: quickReply?.title ?? buttonItem?.title ?? "")
                 
-                let completion: (() -> Void) = { [weak self] in
-                    self?.appCallbackHandler(deepLinkAction.name, deepLinkAction.data)
-                }
-                
-                switch segue {
-                case .present:
-                    Dispatcher.performOnMainThread { [weak self] in
-                        self?.dismiss(animated: true, completion: completion)
-                    }
-                case .push:
-                    if let container = navigationController?.parent as? ContainerViewController {
-                        Dispatcher.performOnMainThread {
-                            container.navigationController?.popViewController(animated: true, completion: completion)
-                        }
-                    }
+                Dispatcher.performOnMainThread {
+                    ASAPP.delegate?.chatViewControlledDidTapDeepLink(name: deepLinkAction.name, data: deepLinkAction.data)
                 }
             }
             
@@ -786,8 +778,24 @@ extension ChatViewController {
             }
             
         case .web:
-            Dispatcher.performOnMainThread { [weak self] in
-                self?.showWebPage(fromAction: action)
+            if let webAction = action as? WebPageAction {
+                Dispatcher.performOnMainThread { [weak self] in
+                    let url = webAction.url
+                    guard true == ASAPP.delegate?.chatViewControllerShouldHandleWebLink(url: url) else {
+                        return
+                    }
+                    
+                    if let urlScheme = url.scheme,
+                       ["http", "https"].contains(urlScheme) {
+                        let safariVC = SFSafariViewController(url: url)
+                        self?.present(safariVC, animated: true, completion: nil)
+                        return
+                    }
+                    
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
             }
             
         case .unknown:
@@ -903,8 +911,11 @@ extension ChatViewController: ChatMessagesViewDelegate {
             
             strongSelf.chatMessagesView.appendEvents(fetchedEvents)
             strongSelf.isLiveChat = strongSelf.conversationManager.isLiveChat
-            strongSelf.updateStateForLastEvent()
             strongSelf.updateViewForLiveChat(animated: true)
+            
+            if let lastChatMessage = fetchedEvents.reversed().first(where: { $0.chatMessage != nil })?.chatMessage {
+                strongSelf.handle(message: lastChatMessage, shouldAdd: false)
+            }
             
             strongSelf.fetchingAfter = nil
         }
@@ -1291,29 +1302,41 @@ extension ChatViewController: NotificationBannerDelegate {
 // MARK: - ConversationManagerDelegate
 
 extension ChatViewController: ConversationManagerDelegate {
-    
-    // New Messages
-    func conversationManager(_ manager: ConversationManagerProtocol, didReceive message: ChatMessage) {
+    private func handle(message: ChatMessage, shouldAdd: Bool = true) {
         provideHapticFeedbackForMessageIfNecessary(message)
         
         if message.metadata.eventType == .newRep {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
         }
         
-        func addMessage() {
-            chatMessagesView.addMessage(message) { [weak self] in
-                self?.messageCompletionHandler(message)
+        func completion() {
+            if shouldAdd {
+                func add() {
+                    chatMessagesView.addMessage(message) { [weak self] in
+                        self?.messageCompletionHandler(message)
+                    }
+                }
+                
+                if message.metadata.isAutomatedMessage {
+                    Dispatcher.delay(.defaultAnimationDuration * 2) {
+                        add()
+                    }
+                } else {
+                    add()
+                }
+            } else {
+                messageCompletionHandler(message)
             }
         }
         
-        func scrollIfNeededBeforeAdding() {
+        func scrollIfNeededBeforeCompleting() {
             if let remaining = scrollingCompletionTime?.timeIntervalSinceNow,
                 remaining > 0 {
                 let delay = max(remaining, DispatchTimeInterval.defaultAnimationDuration.seconds)
                 scrollingCompletionTime = Date().addingTimeInterval(delay + DispatchTimeInterval.defaultAnimationDuration.seconds * 3)
-                Dispatcher.delay(.seconds(delay), closure: addMessage)
+                Dispatcher.delay(.seconds(delay), closure: completion)
             } else {
-                addMessage()
+                completion()
                 scrollingCompletionTime = nil
             }
         }
@@ -1321,10 +1344,15 @@ extension ChatViewController: ConversationManagerDelegate {
         if let actionSheet = actionSheet, shouldHideActionSheetOnNextMessage {
             clearQuickRepliesView(animated: false)
             scrollToBottomBeforeAddingNextMessage()
-            hideActionSheet(actionSheet, completion: scrollIfNeededBeforeAdding)
+            hideActionSheet(actionSheet, completion: scrollIfNeededBeforeCompleting)
         } else {
-            scrollIfNeededBeforeAdding()
+            scrollIfNeededBeforeCompleting()
         }
+    }
+    
+    // New Messages
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceive message: ChatMessage) {
+        handle(message: message)
     }
     
     private func showNotificationBannerIfNecessary(_ notification: ChatNotification?) {

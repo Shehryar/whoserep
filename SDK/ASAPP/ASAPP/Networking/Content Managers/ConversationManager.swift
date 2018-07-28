@@ -458,6 +458,13 @@ extension ConversationManager {
 // MARK: - SocketConnectionDelegate
 
 extension ConversationManager: SocketConnectionDelegate {
+    private func isDuplicate(_ event: Event) -> Bool {
+        return event.eventLogSeq <= events.last?.eventLogSeq ?? 0
+    }
+    
+    private func isOutOfOrder(_ event: Event) -> Bool {
+        return event.eventLogSeq > (events.last?.eventLogSeq ?? (Int.max - 1)) + 1
+    }
     
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage) {
         guard message.type == .event,
@@ -466,11 +473,11 @@ extension ConversationManager: SocketConnectionDelegate {
             return
         }
         
-        if event.ephemeralType == .none && event.eventLogSeq <= events.last?.eventLogSeq ?? 0 {
+        if event.ephemeralType == .none && isDuplicate(event) {
             return
         }
         
-        if event.ephemeralType == .none && event.eventLogSeq > (events.last?.eventLogSeq ?? (Int.max - 1)) + 1 {
+        if event.ephemeralType == .none && isOutOfOrder(event) {
             delegate?.conversationManager(self, didReceiveEventOutOfOrder: event)
             return
         }
@@ -524,16 +531,7 @@ extension ConversationManager: SocketConnectionDelegate {
         
         // Message Event
         if let message = event.chatMessage {
-            if message.metadata.isAutomatedMessage {
-                Dispatcher.delay(.defaultAnimationDuration * 2, closure: { [weak self] in
-                    guard let strongSelf = self else {
-                        return
-                    }
-                    strongSelf.delegate?.conversationManager(strongSelf, didReceive: message)
-                })
-            } else {
-                delegate?.conversationManager(self, didReceive: message)
-            }
+            delegate?.conversationManager(self, didReceive: message)
         }
     }
     

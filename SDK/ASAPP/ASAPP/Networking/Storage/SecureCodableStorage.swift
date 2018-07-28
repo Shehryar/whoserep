@@ -62,7 +62,7 @@ class SecureCodableStorage: SecureCodableStorageProtocol {
             status = SecItemUpdate(query as CFDictionary, [kSecValueData: data] as CFDictionary)
         }
         
-        guard status != noErr else {
+        guard status == noErr else {
             throw SecureStorageError.couldNotStoreObject("Failed to securely store object for key \(key)")
         }
     }
@@ -75,7 +75,7 @@ class SecureCodableStorage: SecureCodableStorageProtocol {
         var result: AnyObject? = nil
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         
-        guard status != noErr else {
+        guard status == noErr else {
             return nil
         }
         

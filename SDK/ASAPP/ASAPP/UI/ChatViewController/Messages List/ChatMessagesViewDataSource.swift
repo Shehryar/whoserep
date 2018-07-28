@@ -140,6 +140,10 @@ extension ChatMessagesViewDataSource {
     
     @discardableResult
     func addMessage(_ message: ChatMessage) -> IndexPath? {
+        guard message.metadata.eventId > allMessages.last?.metadata.eventId ?? -1 else {
+            return nil
+        }
+        
         allMessages.append(message)
         
         // Empty case: Insert at beginning

@@ -37,7 +37,7 @@ class ASAPPButtonSpec: QuickSpec {
                 
                 context("with default styles") {
                     it("has a valid snapshot") {
-                        let button = ASAPP.createChatButton(appCallbackHandler: { _, _ in }, presentingViewController: viewController)
+                        let button = ASAPP.createChatButton(presentingViewController: viewController)
                         expect(button).to(haveValidSnapshot())
                         expect(button).to(haveValidDynamicTypeSnapshot())
                     }
@@ -46,7 +46,7 @@ class ASAPPButtonSpec: QuickSpec {
                 context("with a custom text color") {
                     it("has a valid snapshot") {
                         ASAPP.styles.colors.helpButtonText = .black
-                        let button = ASAPP.createChatButton(appCallbackHandler: { _, _ in }, presentingViewController: viewController)
+                        let button = ASAPP.createChatButton(presentingViewController: viewController)
                         expect(button).to(haveValidSnapshot())
                     }
                 }
@@ -54,7 +54,7 @@ class ASAPPButtonSpec: QuickSpec {
                 context("with a custom background color") {
                     it("has a valid snapshot") {
                         ASAPP.styles.colors.helpButtonBackground = .blue
-                        let button = ASAPP.createChatButton(appCallbackHandler: { _, _ in }, presentingViewController: viewController)
+                        let button = ASAPP.createChatButton(presentingViewController: viewController)
                         expect(button).to(haveValidSnapshot())
                     }
                 }

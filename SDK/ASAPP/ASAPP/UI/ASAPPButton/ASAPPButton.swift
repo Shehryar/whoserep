@@ -20,8 +20,6 @@ public class ASAPPButton: UIView {
     let user: ASAPPUser
     
     let presentingViewController: UIViewController
-    
-    let appCallbackHandler: ASAPPAppCallbackHandler
 
     // MARK: - Private Properties: UI
     
@@ -55,12 +53,10 @@ public class ASAPPButton: UIView {
     
     init(config: ASAPPConfig,
          user: ASAPPUser,
-         appCallbackHandler: @escaping ASAPPAppCallbackHandler,
          presentingViewController: UIViewController) {
         
         self.config = config
         self.user = user
-        self.appCallbackHandler = appCallbackHandler
         self.presentingViewController = presentingViewController
         
         super.init(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
@@ -229,7 +225,7 @@ extension ASAPPButton {
         }
         
         let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
-        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, conversationManager: conversationManager, appCallbackHandler: appCallbackHandler)
+        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, conversationManager: conversationManager)
         
         switch ASAPP.styles.segue {
         case .present:

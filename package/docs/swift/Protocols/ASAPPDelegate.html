@@ -103,9 +103,6 @@
             <a href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Typealiases.html#/s:5ASAPP23ASAPPAppCallbackHandlera">ASAPPAppCallbackHandler</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Typealiases.html#/s:5ASAPP27ASAPPRequestContextProvidera">ASAPPRequestContextProvider</a>
               </li>
             </ul>
@@ -141,7 +138,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Called when a user taps a login button. Please set <code><a href="../Classes/ASAPP.html#/c:@M@ASAPP@objc(cs)ASAPP(cpy)user">ASAPP.user</a></code> once the user has logged in.</p>
+                        <p>Called when a user taps on a login button. Please set <code><a href="../Classes/ASAPP.html#/c:@M@ASAPP@objc(cs)ASAPP(cpy)user">ASAPP.user</a></code> once the user has logged in.</p>
 
                       </div>
                       <div class="declaration">
@@ -155,12 +152,93 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(pl)ASAPPDelegate(im)chatViewControllerDidDisappear"></a>
+                    <a name="//apple_ref/swift/Method/chatViewControllerDidDisappear()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(pl)ASAPPDelegate(im)chatViewControllerDidDisappear">chatViewControllerDidDisappear()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the ASAPP view controller has disappeared.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">chatViewControllerDidDisappear</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(pl)ASAPPDelegate(im)chatViewControlledDidTapDeepLinkWithName:data:"></a>
+                    <a name="//apple_ref/swift/Method/chatViewControlledDidTapDeepLink(name:data:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(pl)ASAPPDelegate(im)chatViewControlledDidTapDeepLinkWithName:data:">chatViewControlledDidTapDeepLink(name:data:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when a user taps on a deep link.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">chatViewControlledDidTapDeepLink</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(pl)ASAPPDelegate(im)chatViewControllerShouldHandleWebLinkWithUrl:"></a>
+                    <a name="//apple_ref/swift/Method/chatViewControllerShouldHandleWebLink(url:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(pl)ASAPPDelegate(im)chatViewControllerShouldHandleWebLinkWithUrl:">chatViewControllerShouldHandleWebLink(url:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when a user taps on a web link. Please return <code>true</code> if ASAPP should open the web link or <code>false</code> otherwise.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">chatViewControllerShouldHandleWebLink</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-07-12)</p>
+          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-07-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
