@@ -206,25 +206,4 @@ extension ASAPPViewController {
         navigationController.displayStyle = action.displayStyle
         present(navigationController, animated: true, completion: nil)
     }
-    
-    func showWebPage(fromAction action: Action?) {
-        guard let action = action as? WebPageAction else { return }
-        
-        // SFSafariViewController
-        if let urlScheme = action.url.scheme {
-            if ["http", "https"].contains(urlScheme) {
-                let safariVC = SFSafariViewController(url: action.url)
-                present(safariVC, animated: true, completion: nil)
-                return
-            } else {
-                DebugLog.w("URL is missing http/https url scheme: \(action.url)")
-            }
-        }
-        
-        // Open in Safari
-        if UIApplication.shared.canOpenURL(action.url) {
-            UIApplication.shared.openURL(action.url)
-        }
-
-    }
 }

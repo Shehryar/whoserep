@@ -20,7 +20,6 @@ class ChatViewControllerSpec: QuickSpec {
             let user = ASAPPUser(userIdentifier: "testUser", requestContextProvider: { _ in
                 return [:]
             })
-            let handler: ASAPPAppCallbackHandler = { _, _ in }
             var nextEventId: Int = 0
             var nextEventTime: TimeInterval = 327511937
             
@@ -101,7 +100,7 @@ class ChatViewControllerSpec: QuickSpec {
                 context("default state") {
                     it("is initialized and loaded properly") {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
                         window.rootViewController = viewController
                         _ = viewController.view
                         
@@ -129,7 +128,7 @@ class ChatViewControllerSpec: QuickSpec {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
                         mockConversationManager.events = [event]
                         
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
                         window.rootViewController = viewController
                         _ = viewController.view
                         
@@ -158,7 +157,7 @@ class ChatViewControllerSpec: QuickSpec {
                         mockConversationManager.events = [event]
                         mockConversationManager.isConnected = true
                         
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
                         window.rootViewController = viewController
                         mockConversationManager.delegate = viewController
                         mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true)
@@ -188,7 +187,7 @@ class ChatViewControllerSpec: QuickSpec {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
                         mockConversationManager.events = [event]
                         
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, appCallbackHandler: handler)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
                         window.rootViewController = viewController
                         mockConversationManager.delegate = viewController
                         _ = viewController.view

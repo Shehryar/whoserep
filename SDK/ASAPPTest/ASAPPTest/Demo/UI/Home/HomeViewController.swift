@@ -10,10 +10,6 @@ import UIKit
 import ASAPP
 
 class HomeViewController: BaseViewController {
-    // MARK: Private Properties
-    
-    fileprivate var callbackHandler: ASAPPAppCallbackHandler!
-
     // MARK: UI
     
     fileprivate let homeTableView = HomeTableView()
@@ -26,24 +22,6 @@ class HomeViewController: BaseViewController {
 
     override func commonInit() {
         super.commonInit()
-        
-        self.callbackHandler = { [weak self] (deepLink, deepLinkData) in
-            let completion = { [weak self] in
-                if false == self?.handleAction(deepLink, userInfo: deepLinkData) {
-                    self?.displayHandleActionAlert(deepLink, userInfo: deepLinkData)
-                }
-            }
-            
-            switch ASAPP.styles.segue {
-            case .present:
-                self?.presentedViewController?.dismiss(animated: true, completion: completion)
-            case .push:
-                CATransaction.begin()
-                CATransaction.setCompletionBlock(completion)
-                self?.navigationController?.popViewController(animated: true)
-                CATransaction.commit()
-            }
-        }
         
         AppSettings.shared.branding = Branding(appearanceConfig: AppSettings.shared.appearanceConfig)
         
@@ -132,8 +110,7 @@ class HomeViewController: BaseViewController {
         }
         
         let chatViewController = ASAPP.createChatViewControllerForPresenting(
-            fromNotificationWith: userInfo,
-            appCallbackHandler: callbackHandler)
+            fromNotificationWith: userInfo)
         
         present(chatViewController, animated: true, completion: nil)
     }
@@ -169,6 +146,28 @@ extension HomeViewController: ASAPPDelegate {
     }
     
     func chatViewControllerDidDisappear() {}
+    
+    func chatViewControlledDidTapDeepLink(name: String, data: [String: Any]?) {
+        let completion = { [weak self] in
+            if false == self?.handleAction(name, userInfo: data) {
+                self?.displayHandleActionAlert(name, userInfo: data)
+            }
+        }
+        
+        switch ASAPP.styles.segue {
+        case .present:
+            presentedViewController?.dismiss(animated: true, completion: completion)
+        case .push:
+            CATransaction.begin()
+            CATransaction.setCompletionBlock(completion)
+            navigationController?.popViewController(animated: true)
+            CATransaction.commit()
+        }
+    }
+    
+    func chatViewControllerShouldHandleWebLink(url: URL) -> Bool {
+        return true
+    }
 }
 
 // MARK: - Styling
@@ -206,8 +205,7 @@ extension HomeViewController {
         ASAPP.strings = AppSettings.shared.branding.strings
         ASAPP.views = AppSettings.shared.branding.views
         
-        chatButton = ASAPP.createChatButton(appCallbackHandler: callbackHandler,
-                                            presentingViewController: self)
+        chatButton = ASAPP.createChatButton(presentingViewController: self)
         
         if let chatButton = chatButton {
             chatButton.frame = CGRect(x: 0, y: 0, width: 72, height: 34)

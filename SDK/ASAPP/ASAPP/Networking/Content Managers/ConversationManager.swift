@@ -531,18 +531,7 @@ extension ConversationManager: SocketConnectionDelegate {
         
         // Message Event
         if let message = event.chatMessage {
-            if message.metadata.isAutomatedMessage {
-                Dispatcher.delay(.defaultAnimationDuration * 2, closure: { [weak self] in
-                    guard let strongSelf = self,
-                          !strongSelf.isDuplicate(event),
-                          !strongSelf.isOutOfOrder(event) else {
-                        return
-                    }
-                    strongSelf.delegate?.conversationManager(strongSelf, didReceive: message)
-                })
-            } else {
-                delegate?.conversationManager(self, didReceive: message)
-            }
+            delegate?.conversationManager(self, didReceive: message)
         }
     }
     

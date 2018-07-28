@@ -8,16 +8,19 @@
 
 import Foundation
 
-/// A `Void` closure type that takes a deep link's name as a `String` and the deep link's metadata as a `[String: Any]?`.
-public typealias ASAPPAppCallbackHandler = ((_ deepLink: String, _ deepLinkData: [String: Any]?) -> Void)
-
 /// A protocol defining functions that can be called by the framework.
 @objc public protocol ASAPPDelegate {
-    /// Called when a user taps a login button. Please set `ASAPP.user` once the user has logged in.
+    /// Called when a user taps on a login button. Please set `ASAPP.user` once the user has logged in.
     func chatViewControllerDidTapUserLoginButton()
     
     /// Called when the ASAPP view controller has disappeared.
     func chatViewControllerDidDisappear()
+    
+    /// Called when a user taps on a deep link.
+    func chatViewControlledDidTapDeepLink(name: String, data: [String: Any]?)
+    
+    /// Called when a user taps on a web link. Please return `true` if ASAPP should open the web link or `false` otherwise.
+    func chatViewControllerShouldHandleWebLink(url: URL) -> Bool
 }
 
 /**
@@ -92,10 +95,10 @@ public class ASAPP: NSObject {
      - parameter userInfo: A user info dictionary containing notification metadata
      - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
-    public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable: Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
         
-        let chat = createBareChatViewController(fromNotificationWith: userInfo, segue: .push, appCallbackHandler: appCallbackHandler)
+        let chat = createBareChatViewController(fromNotificationWith: userInfo, segue: .push)
         let container = ContainerViewController(rootViewController: chat)
         
         return container
@@ -108,10 +111,10 @@ public class ASAPP: NSObject {
      - parameter userInfo: A user info dictionary containing notification metadata
      - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
-    public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable: Any]?, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
         
-        let chat = createBareChatViewController(fromNotificationWith: userInfo, appCallbackHandler: appCallbackHandler)
+        let chat = createBareChatViewController(fromNotificationWith: userInfo)
         let nav = NavigationController(rootViewController: chat)
         
         return nav
@@ -125,13 +128,11 @@ public class ASAPP: NSObject {
      - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      - parameter presentingViewController: The `UIViewController` which will either present or push onto its navigation controller the SDK's view controller.
      */
-    public class func createChatButton(appCallbackHandler: @escaping ASAPPAppCallbackHandler,
-                                       presentingViewController: UIViewController) -> ASAPPButton {
+    public class func createChatButton(presentingViewController: UIViewController) -> ASAPPButton {
         assertSetupComplete()
         
         return ASAPPButton(config: config,
                            user: user,
-                           appCallbackHandler: appCallbackHandler,
                            presentingViewController: presentingViewController)
     }
     
@@ -223,14 +224,13 @@ internal extension ASAPP {
         loadFonts()
     }
     
-    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present, appCallbackHandler: @escaping ASAPPAppCallbackHandler) -> UIViewController {
+    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present) -> UIViewController {
         let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(
             config: config,
             user: user,
             segue: segue,
             conversationManager: conversationManager,
-            appCallbackHandler: appCallbackHandler,
             pushNotificationPayload: userInfo)
         
         return chatViewController
