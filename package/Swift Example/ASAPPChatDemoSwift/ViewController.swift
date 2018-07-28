@@ -70,7 +70,7 @@ extension ViewController {
         /**
          ASAPPDelegate
          
-         Set the delegate, which should implement chatViewControllerDidTapUserLoginButton().
+         Set the delegate, which should implement all protocol methods.
          */
         ASAPP.delegate = self
         
@@ -127,16 +127,12 @@ extension ViewController {
     }
     
     func pushToASAPPChat() {
-        let chatViewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil) { [weak self] (deepLink, data) in
-            self?.handleASAPPDeepLink(named: deepLink, with: data)
-        }
+        let chatViewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil)
         navigationController?.pushViewController(chatViewController, animated: true)
     }
     
     func presentASAPPChat() {
-        let chatViewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil) { [weak self] (deepLink, data) in
-            self?.handleASAPPDeepLink(named: deepLink, with: data)
-        }
+        let chatViewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil)
         present(chatViewController, animated: true, completion: nil)
     }
 }
@@ -144,6 +140,17 @@ extension ViewController {
 // MARK:- ASAPPDelegate
 
 extension ViewController: ASAPPDelegate {
+    func chatViewControllerDidDisappear() {}
+    
+    func chatViewControlledDidTapDeepLink(name: String, data: [String : Any]?) {
+        handleASAPPDeepLink(named: name, with: data)
+    }
+    
+    func chatViewControllerShouldHandleWebLink(url: URL) -> Bool {
+        // Return false if ASAPP should not handle the web link and your app will handle it instead.
+        return true
+    }
+    
     func chatViewControllerDidTapUserLoginButton() {
         /**
          Application should present UI to let user login. Once login is finished, ASAPP.user should be set.

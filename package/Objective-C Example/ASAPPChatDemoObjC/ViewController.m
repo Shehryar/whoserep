@@ -133,23 +133,13 @@
 
 - (void)pushToASAPPChat
 {
-    ViewController __weak *weakSelf = self;
-    UIViewController *viewController = [ASAPP
-                                        createChatViewControllerForPushingFromNotificationWith:nil
-                                        appCallbackHandler:^(NSString *deepLink, NSDictionary<NSString *,id> *data) {
-                                            [weakSelf handleASAPPDeepLink:deepLink withData:data];
-                                        }];
+    UIViewController *viewController = [ASAPP createChatViewControllerForPushingFromNotificationWith:nil];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)presentASAPPChat
 {
-    ViewController __weak *weakSelf = self;
-    UIViewController *viewController = [ASAPP
-                                        createChatViewControllerForPresentingFromNotificationWith:nil
-                                        appCallbackHandler:^(NSString *deepLink, NSDictionary<NSString *,id> *data) {
-                                            [weakSelf handleASAPPDeepLink:deepLink withData:data];
-                                        }];
+    UIViewController *viewController = [ASAPP createChatViewControllerForPresentingFromNotificationWith:nil];
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
@@ -198,6 +188,16 @@
      
      Note: if the user is always logged in, the body of this method may be left blank.
      */
+}
+
+- (void)chatViewControlledDidTapDeepLinkWithName:(NSString * _Nonnull)name data:(NSDictionary<NSString *,id> * _Nullable)data {
+    [self handleASAPPDeepLink:name withData:data];
+}
+
+- (void)chatViewControllerDidDisappear {}
+
+- (BOOL)chatViewControllerShouldHandleWebLinkWithUrl:(NSURL * _Nonnull)url {
+    return true;
 }
 
 @end
