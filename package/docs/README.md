@@ -82,6 +82,12 @@ You can include `ASAPP.authTokenKey`, `ASAPP.analyticsKey`, and/or any other key
 
     ASAPP.user = user
 
+### Set the [Delegate](Protocols/ASAPPDelegate.html)
+
+You should implement the `ASAPPDelegate` protocol and set the `delegate` property to detect when the chat view controller disappears or when a user taps on a login button, deep link, or web link.
+
+    ASAPP.delegate = self
+
 ### Customize [Styles](Classes/ASAPPStyles.html)
 
     ASAPP.styles.segue = .push
@@ -121,15 +127,13 @@ when creating the chat view controller.
 
 #### Presentation (Modal)
 
-    let viewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil, 
-                                                                  appCallbackHandler: deepLinkHandler)
+    let viewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil)
 
     present(viewController, animated: true, completion: nil)
 
 #### Push (Navigation Controller)
 
-    let viewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil, 
-                                                                     appCallbackHandler: deepLinkHandler)
+    let viewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil)
 
     present(viewController, animated: true, completion: nil)
 
