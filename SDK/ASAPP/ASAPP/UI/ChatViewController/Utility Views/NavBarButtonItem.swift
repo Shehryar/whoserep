@@ -153,7 +153,6 @@ class NavBarButtonItem: UIBarButtonItem {
         button.frame = CGRect(x: 0, y: 0, width: buttonSize.width, height: buttonSize.height)
         
         button.clipsToBounds = true
-        button.layer.cornerRadius = button.bounds.height / 2
         
         customView = button
         
