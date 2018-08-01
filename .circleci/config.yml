@@ -14,6 +14,10 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - run:
+          name: Set Time Zone
+          command: |
+            sudo systemsetup -settimezone "America/New_York"
+      - run:
           name: Pre-start simulator
           command: xcrun instruments -w "iPhone SE (11.4) [" || true
       - restore_cache:
