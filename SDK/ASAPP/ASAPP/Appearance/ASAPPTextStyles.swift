@@ -74,7 +74,7 @@ public class ASAPPTextStyles: NSObject {
      */
     public func updateStyles(for fontFamily: ASAPPFontFamily) {
         navButton.updateFont(fontFamily.bold)
-        button.updateFont(fontFamily.bold)
+        button.updateFont(fontFamily.regular)
         actionButton.updateFont(fontFamily.regular)
         link.updateFont(fontFamily.bold)
         

@@ -86,6 +86,7 @@ extension Date {
     
     func formattedStringMostRecent() -> String {
         let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         dateFormatter.dateFormat = dateFormatForMostRecent()
         return dateFormatter.string(from: self)
     }

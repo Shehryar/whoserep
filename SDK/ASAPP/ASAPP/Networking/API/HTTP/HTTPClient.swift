@@ -77,9 +77,10 @@ class HTTPClient: NSObject, HTTPClientProtocol {
         if let urlSession = urlSession {
             self.urlSession = urlSession
         } else {
-            let defaultUrlSession = URLSession.shared
-            defaultUrlSession.configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
-            defaultUrlSession.configuration.urlCache = nil
+            let config = URLSessionConfiguration.default
+            config.requestCachePolicy = .reloadIgnoringLocalCacheData
+            config.urlCache = nil
+            let defaultUrlSession = URLSession(configuration: config, delegate: nil, delegateQueue: nil)
             self.urlSession = defaultUrlSession
         }
     }
