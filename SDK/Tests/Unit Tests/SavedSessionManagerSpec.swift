@@ -46,7 +46,8 @@ class SavedSessionManagerSpec: QuickSpec {
                     "SessionAuth": [
                         "SessionTime": 1234567890,
                         "SessionSecret": "secretsecret"
-                    ]
+                    ],
+                    "SessionId": "dead-beef"
                 ]
             ]
             
@@ -120,7 +121,8 @@ class SavedSessionManagerSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ])
                         
@@ -198,7 +200,8 @@ class SavedSessionManagerSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ])
                         
