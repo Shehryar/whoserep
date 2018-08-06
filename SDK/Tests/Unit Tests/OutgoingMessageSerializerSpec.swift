@@ -150,7 +150,8 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ]
                         
@@ -197,7 +198,8 @@ class OutgoingMessageSerializerSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ]
                         

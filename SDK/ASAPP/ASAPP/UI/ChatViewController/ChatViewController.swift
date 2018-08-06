@@ -211,8 +211,8 @@ class ChatViewController: ASAPPViewController {
     
     func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
         DebugLog.d("Updating user. userIdentifier=\(user.userIdentifier)")
-        if let customer = userLoginAction?.customer {
-            DebugLog.d("Merging Accounts: {\n  mergeCustomerId: \(customer.id),\n  mergeCustomerGUID: \(customer.guid ?? "nil")\n}")
+        if let previousSession = userLoginAction?.previousSession {
+            DebugLog.d("Merging Accounts: {\n  MergeCustomerId: \(previousSession.customer.id),\n  MergeCustomerGUID: \(previousSession.customer.guid ?? "nil"),\n SessionId: \(previousSession.id)}")
         }
         
         if conversationManager != nil {

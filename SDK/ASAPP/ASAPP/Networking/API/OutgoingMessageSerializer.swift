@@ -65,22 +65,16 @@ extension OutgoingMessageSerializer {
         let isSessionAuthRequest: Bool
     }
     
-    func createAuthRequest(contextNeedsRefresh: Bool, completion: @escaping (_ authRequest: AuthRequest) -> Void) {
+    private func create(with params: [String: Any], completion: @escaping (_ authRequest: AuthRequest) -> Void) {
+        var params = params
         var path: String
-        var params: [String: Any] = [
-            "App": "ios-sdk",
-            "CompanyMarker": config.appId,
-            "RegionCode": config.regionCode
-        ]
         
         var sessionInfoJson: [String: Any]?
         if let session = session {
             sessionInfoJson = session.fullInfoAsDict
         }
         
-        //
-        // Existing session
-        //
+        // MARK: - Existing session
         if let sessionInfoJson = sessionInfoJson {
             DebugLog.d(caller: self, "Authenticating with Session")
             
@@ -89,14 +83,10 @@ extension OutgoingMessageSerializer {
             
             completion(AuthRequest(path: path, params: params, isSessionAuthRequest: true))
         }
-        
-        //
-        // New session
-        //
+            
+        // MARK: - New session
         else {
-            //
-            // User Token
-            //
+            // MARK: - User Token
             if !user.isAnonymous {
                 DebugLog.d(caller: self, "Authenticating with Customer Identifier")
                 
@@ -104,27 +94,16 @@ extension OutgoingMessageSerializer {
                 params["IdentifierType"] = config.identifierType
                 params["CustomerIdentifier"] = user.userIdentifier
                 
-                if let customer = userLoginAction?.customer {
-                    params["MergeCustomerId"] = customer.id
-                    params["MergeCustomerGUID"] = customer.guid
+                if let previousSession = userLoginAction?.previousSession {
+                    params["MergeCustomerId"] = previousSession.customer.id
+                    params["MergeCustomerGUID"] = previousSession.customer.guid
+                    params["SessionId"] = previousSession.id
                 }
                 
-                user.getContext(needsRefresh: contextNeedsRefresh) { (context, authToken) in
-                    if let authToken = authToken {
-                        params["Auth"] = authToken
-                    }
-                    
-                    if let context = context {
-                        params["Context"] = JSONUtil.stringify(context)
-                    }
-                    
-                    completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
-                }
+                completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
             }
-            
-            //
-            // Anonymous User
-            //
+                
+            // MARK: - Anonymous User
             else {
                 DebugLog.d(caller: self, "Authenticating with Anonymous User")
                 
@@ -132,6 +111,26 @@ extension OutgoingMessageSerializer {
                 
                 completion(AuthRequest(path: path, params: params, isSessionAuthRequest: false))
             }
+        }
+    }
+    
+    func createAuthRequest(contextNeedsRefresh: Bool, completion: @escaping (_ authRequest: AuthRequest) -> Void) {
+        var params: [String: Any] = [
+            "App": "ios-sdk",
+            "CompanyMarker": config.appId,
+            "RegionCode": config.regionCode
+        ]
+        
+        user.getContext(needsRefresh: contextNeedsRefresh) { [weak self] (context, authToken) in
+            if let authToken = authToken {
+                params["Auth"] = authToken
+            }
+            
+            if let context = context {
+                params["Context"] = context
+            }
+            
+            self?.create(with: params, completion: completion)
         }
     }
 }

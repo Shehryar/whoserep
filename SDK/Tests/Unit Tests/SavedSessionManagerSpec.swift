@@ -46,7 +46,8 @@ class SavedSessionManagerSpec: QuickSpec {
                     "SessionAuth": [
                         "SessionTime": 1234567890,
                         "SessionSecret": "secretsecret"
-                    ]
+                    ],
+                    "SessionId": "dead-beef"
                 ]
             ]
             
@@ -59,7 +60,7 @@ class SavedSessionManagerSpec: QuickSpec {
             context(".save(session:)") {
                 context("with everything as expected") {
                     it("saves the session properly") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
@@ -73,7 +74,7 @@ class SavedSessionManagerSpec: QuickSpec {
                 
                 context("with a nil session") {
                     it("removes the existing session") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
@@ -89,7 +90,7 @@ class SavedSessionManagerSpec: QuickSpec {
                 
                 context("with a nil session and an existing session that cannot be removed") {
                     it("tries to remove the existing session") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
@@ -106,7 +107,7 @@ class SavedSessionManagerSpec: QuickSpec {
                 
                 context("with a session that lacks a primary identifier") {
                     it("saves the session properly") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createSession(from: [
                             "SessionInfo": [
@@ -120,7 +121,8 @@ class SavedSessionManagerSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ])
                         
@@ -134,7 +136,7 @@ class SavedSessionManagerSpec: QuickSpec {
                 
                 context("with a session that cannot be stored") {
                     it("tries to store the session") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
@@ -150,7 +152,7 @@ class SavedSessionManagerSpec: QuickSpec {
             
             context(".clearSession()") {
                 it("removes the existing session") {
-                    let mockStorage = MockSecureCodableStorage()
+                    let mockStorage = MockSecureStorage()
                     let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                     let session = createTestSession()
                     
@@ -167,7 +169,7 @@ class SavedSessionManagerSpec: QuickSpec {
             context(".getSession()") {
                 context("with everything as expected") {
                     it("it retrieves the session properly") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         
@@ -184,7 +186,7 @@ class SavedSessionManagerSpec: QuickSpec {
                 
                 context("with a session that lacks a primary identifier") {
                     it("retrieves the session properly") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createSession(from: [
                             "SessionInfo": [
@@ -198,7 +200,8 @@ class SavedSessionManagerSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ])
                         
@@ -215,7 +218,7 @@ class SavedSessionManagerSpec: QuickSpec {
                 
                 context("without an existing session") {
                     it("returns nil") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         
                         let retrieved = savedSessionManager.getSession()
@@ -229,7 +232,7 @@ class SavedSessionManagerSpec: QuickSpec {
                 
                 context("with a session that cannot be read") {
                     it("returns nil") {
-                        let mockStorage = MockSecureCodableStorage()
+                        let mockStorage = MockSecureStorage()
                         let savedSessionManager = SavedSessionManager(secureStorage: mockStorage)
                         let session = createTestSession()
                         

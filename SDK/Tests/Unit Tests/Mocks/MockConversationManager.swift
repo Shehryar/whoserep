@@ -82,7 +82,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetSuggestions = true
     }
     
-    func getSettings(completion: @escaping (() -> Void)) {
+    func getSettings(attempts: Int = 0, completion: @escaping (() -> Void)) {
         calledGetSettings = true
     }
     

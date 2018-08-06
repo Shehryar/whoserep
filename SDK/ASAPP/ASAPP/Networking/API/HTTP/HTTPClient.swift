@@ -100,17 +100,16 @@ class HTTPClient: NSObject, HTTPClientProtocol {
     }
     
     func getHeaders(for session: Session) -> [String: String]? {
-        let passwordPayloadString = session.sessionTokenForHTTP
+        let payloadString = session.sessionTokenForHTTP
         
-        let authPayloadString = ":\(passwordPayloadString)"
-        guard let authPayloadData = authPayloadString.data(using: .utf8) else {
+        guard let payloadData = payloadString.data(using: .utf8) else {
             DebugLog.e(caller: self, "Could not serialize the authentication payload.")
             return nil
         }
         
         let headers = [
             "Content-Type": "application/json",
-            "Authorization": "Basic \(authPayloadData.base64EncodedString())"
+            "Authorization": "Bearer \(payloadData.base64EncodedString())"
         ]
         
         return headers

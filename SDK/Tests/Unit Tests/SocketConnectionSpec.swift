@@ -74,7 +74,8 @@ class SocketConnectionSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ]
                         
@@ -116,7 +117,8 @@ class SocketConnectionSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ]
                         
@@ -157,7 +159,8 @@ class SocketConnectionSpec: QuickSpec {
                                 "SessionAuth": [
                                     "SessionTime": 1234567890,
                                     "SessionSecret": "secretsecret"
-                                ]
+                                ],
+                                "SessionId": "dead-beef"
                             ]
                         ]
                         
@@ -173,8 +176,9 @@ class SocketConnectionSpec: QuickSpec {
                         expect(mockSavedSessionManager.calledSave).to(equal(false))
                         expect(mockSavedSessionManager.calledGetSession).to(equal(true))
                         expect(mockOutgoingMessageSerializer.userLoginAction).toNot(beNil())
-                        expect(mockOutgoingMessageSerializer.userLoginAction?.customer?.id).to(equal(session.customer.id))
-                        expect(mockOutgoingMessageSerializer.userLoginAction?.customer?.guid).to(equal(session.customer.guid))
+                        expect(mockOutgoingMessageSerializer.userLoginAction?.previousSession?.id).to(equal(session.id))
+                        expect(mockOutgoingMessageSerializer.userLoginAction?.previousSession?.customer.id).to(equal(session.customer.id))
+                        expect(mockOutgoingMessageSerializer.userLoginAction?.previousSession?.customer.guid).to(equal(session.customer.guid))
                     }
                 }
             }
@@ -307,7 +311,7 @@ class SocketConnectionSpec: QuickSpec {
                         MockSRWebSocket.clean()
                         
                         MockSRWebSocket.nextReceivedMessage = """
-                        Response|0|{"SessionInfo":{"Customer":{"CustomerId":3830001,"PrimaryIdentifier":"test_customer_1"},"Company":{"CompanyId":40001},"SessionAuth":{"SessionTime":1515112274532741,"SessionSecret":"deadbeef"}}}
+                        Response|0|{"SessionInfo":{"Customer":{"CustomerId":3830001,"PrimaryIdentifier":"test_customer_1"},"Company":{"CompanyId":40001},"SessionAuth":{"SessionTime":1515112274532741,"SessionSecret":"deadbeef"},"SessionId":"dead-beef"}}
                         """
                         MockSRWebSocket.nextReadyState = .SR_OPEN
                         connection.authenticate { (_, _) in

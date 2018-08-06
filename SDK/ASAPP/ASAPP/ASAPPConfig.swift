@@ -77,4 +77,12 @@ internal extension ASAPPConfig {
     func hashKey(with user: ASAPPUser, prefix: String? = nil) -> String {
         return "\(prefix ?? "")\(apiHostName))-\(appId)-cust-\(user.userIdentifier)-0"
     }
+    
+    func settingsHashKey(suffix: String? = nil) -> String {
+        var formattedSuffix = ""
+        if let suffix = suffix {
+            formattedSuffix = "-" + suffix
+        }
+        return "\(apiHostName)-\(appId)-\(regionCode)\(formattedSuffix)"
+    }
 }

@@ -428,7 +428,7 @@
 		3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */; };
 		3AD183031FAA7E2F00A3A2F0 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */; };
 		3AD183051FACE7B700A3A2F0 /* SavedSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */; };
-		3AD7BB7321077509006FBB7D /* SecureCodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7BB7221077509006FBB7D /* SecureCodableStorage.swift */; };
+		3AD7BB7321077509006FBB7D /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7BB7221077509006FBB7D /* SecureStorage.swift */; };
 		3ADD607C1FE1CD9900FC783C /* icon-dropdown-chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD607B1FE1CD7A00FC783C /* icon-dropdown-chevron.png */; };
 		3ADD607D1FE1CD9900FC783C /* icon-dropdown-chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD607A1FE1CD7900FC783C /* icon-dropdown-chevron@2x.png */; };
 		3ADD607E1FE1CD9900FC783C /* icon-dropdown-chevron@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD60791FE1CD7900FC783C /* icon-dropdown-chevron@3x.png */; };
@@ -848,7 +848,7 @@
 		3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButton.swift; sourceTree = "<group>"; };
 		3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSessionManager.swift; sourceTree = "<group>"; };
-		3AD7BB7221077509006FBB7D /* SecureCodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureCodableStorage.swift; sourceTree = "<group>"; };
+		3AD7BB7221077509006FBB7D /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		3ADD60791FE1CD7900FC783C /* icon-dropdown-chevron@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dropdown-chevron@3x.png"; sourceTree = "<group>"; };
 		3ADD607A1FE1CD7900FC783C /* icon-dropdown-chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dropdown-chevron@2x.png"; sourceTree = "<group>"; };
 		3ADD607B1FE1CD7A00FC783C /* icon-dropdown-chevron.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dropdown-chevron.png"; sourceTree = "<group>"; };
@@ -1247,7 +1247,7 @@
 			children = (
 				3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */,
 				3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */,
-				3AD7BB7221077509006FBB7D /* SecureCodableStorage.swift */,
+				3AD7BB7221077509006FBB7D /* SecureStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -2143,7 +2143,7 @@
 				308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */,
 				28E9BE581D47800600ACCF86 /* KeyboardObserver.swift in Sources */,
 				30DF3F731F27BB7D00D6DB02 /* SRSItem.swift in Sources */,
-				3AD7BB7321077509006FBB7D /* SecureCodableStorage.swift in Sources */,
+				3AD7BB7321077509006FBB7D /* SecureStorage.swift in Sources */,
 				3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */,
 				3A19E17820DC4069000B46DC /* Censor.swift in Sources */,
 				289E040E1EC791FC00CAC413 /* RadioButtonsContainerView.swift in Sources */,

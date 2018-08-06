@@ -15,11 +15,13 @@ struct Session: Codable {
         let customer: Customer
         let company: Company
         let auth: Auth
+        let id: String
         
         private enum CodingKeys: String, CodingKey {
             case customer = "Customer"
             case company = "Company"
             case auth = "SessionAuth"
+            case id = "SessionId"
         }
     }
     
@@ -100,6 +102,10 @@ struct Session: Codable {
         return parsedInfo.auth
     }
     
+    var id: String {
+        return parsedInfo.id
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -125,7 +131,9 @@ struct Session: Codable {
         
         let auth = parsedInfo.auth
         
-        self.parsedInfo = SessionInfo(customer: customer, company: company, auth: auth)
+        let id = parsedInfo.id
+        
+        self.parsedInfo = SessionInfo(customer: customer, company: company, auth: auth, id: id)
     }
 }
 

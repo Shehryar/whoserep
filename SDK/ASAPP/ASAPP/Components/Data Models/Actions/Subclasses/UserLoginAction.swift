@@ -17,7 +17,7 @@ class UserLoginAction: Action {
     }
     
     let nextAction: Action?
-    let customer: Session.Customer?
+    let previousSession: Session?
     
     // MARK: Init
     
@@ -27,13 +27,13 @@ class UserLoginAction: Action {
         }
         
         self.nextAction = ActionFactory.action(with: content[JSONKey.nextAction.rawValue])
-        self.customer = nil
+        self.previousSession = nil
         super.init(content: content)
     }
     
-    init?(customer: Session.Customer, nextAction: Action? = nil) {
+    init?(session: Session, nextAction: Action? = nil) {
         self.nextAction = nextAction
-        self.customer = customer
+        self.previousSession = session
         super.init(content: nil)
     }
 

@@ -57,7 +57,8 @@ class CodableStorageSpec: QuickSpec {
                     "SessionAuth": [
                         "SessionTime": 1234567890,
                         "SessionSecret": "secretsecret"
-                    ]
+                    ],
+                    "SessionId": "dead-beef"
                 ]
             ]
             

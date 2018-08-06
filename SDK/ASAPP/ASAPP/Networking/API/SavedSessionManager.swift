@@ -17,9 +17,9 @@ protocol SavedSessionManagerProtocol {
 class SavedSessionManager: SavedSessionManagerProtocol {
     static let shared = SavedSessionManager()
     
-    private var secureStorage: SecureCodableStorageProtocol
+    private var secureStorage: SecureStorageProtocol
     
-    init(secureStorage: SecureCodableStorageProtocol = SecureCodableStorage.default) {
+    init(secureStorage: SecureStorageProtocol = SecureStorage.default) {
         self.secureStorage = secureStorage
     }
     
@@ -48,13 +48,9 @@ class SavedSessionManager: SavedSessionManagerProtocol {
     
     func getSession() -> Session? {
         do {
-            if let session = try secureStorage.retrieve(sessionKey, as: Session.self) {
-                DebugLog.d("Retrieved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
-                return session
-            } else {
-                DebugLog.d("Retrieved nil session: expired or non-existent")
-                return nil
-            }
+            let session = try secureStorage.retrieve(sessionKey, as: Session.self)
+            DebugLog.d("Retrieved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
+            return session
         } catch {
             DebugLog.e(error)
             return nil

@@ -8,15 +8,27 @@
 
 @testable import ASAPP
 
-class MockSecureCodableStorage: SecureCodableStorageProtocol {
+class MockSecureStorage: SecureStorageProtocol {
     private(set) var calledStore = false
     private(set) var calledRetrieve = false
     private(set) var calledRemove = false
-    var nextRetrievedObject: Codable?
+    var nextRetrievedCodable: Codable?
+    var nextRetrievedData: Data?
     var nextExtantKey: String?
     var nextRemoveShouldThrow = false
     var nextStoreShouldThrow = false
     var nextRetrieveShouldThrow = false
+    
+    func store(data: Data, as key: String) throws {
+        calledStore = true
+        
+        if nextStoreShouldThrow {
+            throw SecureStorageError.couldNotStoreObject("")
+        }
+        
+        nextRetrievedData = data
+        nextExtantKey = key
+    }
     
     func store<T: Codable>(_ object: T, as key: String) throws {
         calledStore = true
@@ -25,18 +37,38 @@ class MockSecureCodableStorage: SecureCodableStorageProtocol {
             throw SecureStorageError.couldNotStoreObject("")
         }
         
-        nextRetrievedObject = object
+        nextRetrievedCodable = object
         nextExtantKey = key
     }
     
-    func retrieve<T: Codable>(_ key: String, as type: T.Type) throws -> T? {
+    func retrieve(_ key: String) throws -> Data {
+        if nextRetrieveShouldThrow {
+            throw SecureStorageError.couldNotRetrieveObject("")
+        }
+        
+        if let data = nextRetrievedData {
+            return data
+        } else {
+            throw SecureStorageError.couldNotRetrieveObject("")
+        }
+    }
+    
+    func retrieve<T: Codable>(_ key: String, as type: T.Type) throws -> T {
         calledRetrieve = true
         
         if nextRetrieveShouldThrow {
             throw SecureStorageError.couldNotRetrieveObject("")
         }
         
-        return key == nextExtantKey ? nextRetrievedObject as? T : nil
+        if key == nextExtantKey {
+            if let object = nextRetrievedCodable as? T {
+                return object
+            } else {
+                throw SecureStorageError.couldNotRetrieveObject("")
+            }
+        }
+        
+        throw SecureStorageError.couldNotRetrieveObject("")
     }
     
     func remove(_ key: String) throws {
@@ -47,7 +79,7 @@ class MockSecureCodableStorage: SecureCodableStorageProtocol {
         }
         
         if key == nextExtantKey {
-            nextRetrievedObject = nil
+            nextRetrievedCodable = nil
             nextExtantKey = nil
         }
     }
@@ -60,7 +92,7 @@ class MockSecureCodableStorage: SecureCodableStorageProtocol {
     
     func clean() {
         cleanCalls()
-        nextRetrievedObject = nil
+        nextRetrievedCodable = nil
         nextExtantKey = nil
         nextRemoveShouldThrow = false
         nextStoreShouldThrow = false

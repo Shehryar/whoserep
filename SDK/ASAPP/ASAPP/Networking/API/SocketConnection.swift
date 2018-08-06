@@ -75,7 +75,7 @@ class SocketConnection: NSObject {
                 updateSession(savedSession)
             } else if savedSession.isAnonymous && !user.isAnonymous {
                 let nextAction = self.outgoingMessageSerializer.userLoginAction?.nextAction
-                self.outgoingMessageSerializer.userLoginAction = UserLoginAction(customer: savedSession.customer, nextAction: nextAction)
+                self.outgoingMessageSerializer.userLoginAction = UserLoginAction(session: savedSession, nextAction: nextAction)
             } else {
                 self.savedSessionManager.clearSession()
             }
