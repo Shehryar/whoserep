@@ -1,5 +1,5 @@
 //
-//  SecureCodableStorage.swift
+//  SecureStorage.swift
 //  ASAPP
 //
 //  Created by Hans Hyttinen on 7/24/18.
@@ -8,9 +8,11 @@
 
 import Foundation
 
-protocol SecureCodableStorageProtocol {
+protocol SecureStorageProtocol {
+    func store(data: Data, as key: String) throws
+    func retrieve(_ key: String) throws -> Data
     func store<T: Codable>(_ object: T, as key: String) throws
-    func retrieve<T: Codable>(_ key: String, as type: T.Type) throws -> T?
+    func retrieve<T: Codable>(_ key: String, as type: T.Type) throws -> T
     func remove(_ key: String) throws
 }
 
@@ -39,21 +41,13 @@ enum SecureStorageError: Error {
     var errorDescription: String? { return localizedDescription }
 }
 
-class SecureCodableStorage: SecureCodableStorageProtocol {
+class SecureStorage: SecureStorageProtocol {
     typealias Query = [CFString: Any]
     
-    static let `default` = SecureCodableStorage()
+    static let `default` = SecureStorage()
     
-    func store<T: Codable>(_ object: T, as key: String) throws {
+    func store(data: Data, as key: String) throws {
         var query = getBaseQuery(for: key)
-        
-        let data: Data
-        do {
-            data = try JSONEncoder().encode(object)
-        } catch {
-            throw SecureStorageError.couldNotEncodeObject("Failed to encode object when trying to store it securely for key \(key)")
-        }
-        
         query[kSecValueData] = data
         
         var status = SecItemAdd(query as CFDictionary, nil)
@@ -67,7 +61,7 @@ class SecureCodableStorage: SecureCodableStorageProtocol {
         }
     }
     
-    func retrieve<T: Codable>(_ key: String, as type: T.Type) throws -> T? {
+    func retrieve(_ key: String) throws -> Data {
         var query = getBaseQuery(for: key)
         query[kSecMatchLimit] = kSecMatchLimitOne
         query[kSecReturnData] = kCFBooleanTrue
@@ -75,15 +69,34 @@ class SecureCodableStorage: SecureCodableStorageProtocol {
         var result: AnyObject? = nil
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         
-        guard status == noErr else {
-            return nil
-        }
-        
-        guard let data = result as? Data else {
+        guard
+            status == noErr,
+            let data = result as? Data
+        else {
             throw SecureStorageError.couldNotRetrieveObject("Failed to retrieve an object for key \(key)")
         }
         
-        return try JSONDecoder().decode(type, from: data)
+        return data
+    }
+    
+    func store<T: Codable>(_ object: T, as key: String) throws {
+        let data: Data
+        do {
+            data = try JSONEncoder().encode(object)
+        } catch {
+            throw SecureStorageError.couldNotEncodeObject("Failed to encode object when trying to store it securely for key \(key)")
+        }
+        
+        try store(data: data, as: key)
+    }
+    
+    func retrieve<T: Codable>(_ key: String, as type: T.Type) throws -> T {
+        do {
+            let data = try retrieve(key)
+            return try JSONDecoder().decode(type, from: data)
+        } catch {
+            throw error
+        }
     }
     
     func remove(_ key: String) throws {

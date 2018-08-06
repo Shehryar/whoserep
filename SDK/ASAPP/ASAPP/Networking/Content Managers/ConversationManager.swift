@@ -55,7 +55,7 @@ protocol ConversationManagerProtocol: class {
     func getEvents(after lastEvent: Event, completion: @escaping FetchedEventsCompletion)
     func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion)
     func getSuggestions(for: String, completion: @escaping AutosuggestCompletion)
-    func getSettings(completion: @escaping (() -> Void))
+    func getSettings(attempts: Int, completion: @escaping (() -> Void))
     func sendEnterChatRequest(_ completion: (() -> Void)?)
     func sendAcceptRequest(action: Action)
     func sendDismissRequest(action: Action)
@@ -86,7 +86,15 @@ extension ConversationManagerProtocol {
     }
     
     func getSettings() {
-        return getSettings(completion: {})
+        return getSettings(attempts: 0, completion: {})
+    }
+    
+    func getSettings(completion: @escaping (() -> Void)) {
+        return getSettings(attempts: 0, completion: completion)
+    }
+    
+    func getSettings(attempts: Int) {
+        return getSettings(attempts: attempts, completion: {})
     }
 }
 
@@ -122,6 +130,8 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     
     private let simpleStore: ChatSimpleStore
     
+    private let secureStorage: SecureStorageProtocol
+    
     private(set) var events: [Event] = []
     
     private var censor: CensorProtocol?
@@ -141,6 +151,7 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)
         self.simpleStore = ChatSimpleStore(config: config, user: user)
+        self.secureStorage = SecureStorage.default
         self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
         self.httpClient = HTTPClient.shared
         self.httpClient.config(config)
@@ -361,13 +372,36 @@ extension ConversationManager {
 // MARK: - Settings
 
 extension ConversationManager {
-    func getSettings(completion: @escaping (() -> Void) = {}) {
+    func getSettings(attempts: Int = 0, completion: @escaping (() -> Void) = {}) {
         let path = "customer/getsdksettings"
         
-        httpClient.sendRequest(method: .POST, path: path) { [weak self] (data: Data?, _, error) in
-            guard let data = data,
-                  error == nil else {
-                DebugLog.e(caller: self, "Could not fetch SDK settings")
+        httpClient.sendRequest(method: .POST, path: path) { [weak self] (responseData: Data?, _, error) in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            let settingsKey = strongSelf.config.settingsHashKey(suffix: "SDKSettings")
+            var responseData = responseData
+            
+            if let responseData = responseData,
+               error == nil {
+                try? strongSelf.secureStorage.store(data: responseData, as: settingsKey)
+            }
+            
+            if responseData == nil || error != nil {
+                if attempts < 2 {
+                    DebugLog.w(caller: strongSelf, "Could not fetch SDK settings. Retrying...")
+                    strongSelf.getSettings(attempts: attempts + 1, completion: completion)
+                    return
+                }
+                
+                DebugLog.e(caller: strongSelf, "Failed to fetch SDK settings")
+                
+                responseData = try? strongSelf.secureStorage.retrieve(settingsKey)
+            }
+            
+            guard let data = responseData else {
+                DebugLog.e(caller: strongSelf, "Failed to retrieve persisted SDK settings")
                 return
             }
             
@@ -378,7 +412,7 @@ extension ConversationManager {
             
             let censor = Censor()
             censor.rules = settings.redactionRules
-            self?.censor = censor
+            strongSelf.censor = censor
         }
     }
 }
