@@ -1271,7 +1271,11 @@ extension ChatViewController: NotificationBannerDelegate {
         banner.delegate = self
         notificationBanner?.removeFromSuperview()
         notificationBanner = banner
-        view.insertSubview(banner, belowSubview: connectionStatusView)
+        if let actionSheet = actionSheet {
+            view.insertSubview(banner, belowSubview: actionSheet)
+        } else {
+            view.insertSubview(banner, belowSubview: connectionStatusView)
+        }
         banner.shouldHide = true
         updateFrames()
         updateShadows()
@@ -1356,8 +1360,7 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     private func showNotificationBannerIfNecessary(_ notification: ChatNotification?) {
-        guard let notification = notification,
-              actionSheet == nil else {
+        guard let notification = notification else {
             updateFrames()
             return
         }
