@@ -231,7 +231,7 @@ extension ChatMessageCell {
                                          width: contentWidth, height: textBubbleViewHeight)
  
         // Attachment View
-        let attachmentViewSize = getAttachmentViewSizeThatFits(contentSizer)
+        let attachmentViewSize = (attachmentView is ChatCarouselView) ? attachmentView?.sizeThatFits(contentSizer) ?? .zero : getAttachmentViewSizeThatFits(contentSizer)
         var attachmentViewTop = textBubbleViewFrame.maxY
         if textBubbleViewHeight > 0 && attachmentViewSize.height > 0 {
             attachmentViewTop += attachmentViewMarginTop
