@@ -22,6 +22,9 @@ class ProgressBarView: BaseComponentView {
                 backgroundColor = progressBarItem.style.backgroundColor ?? .clear
                 progressBar.backgroundColor = progressBarItem.trackFillColor
                 progressBarContainer.backgroundColor = progressBarItem.trackColor
+                isAccessibilityElement = true
+                accessibilityLabel = ASAPPLocalizedString("Progress bar")
+                accessibilityValue = "\(Int(progressBarItem.fillPercentage * 100))%"
             }
         }
     }

@@ -1,0 +1,716 @@
+{
+  "root": {
+    "content": {
+      "items": [
+        {
+          "content": {
+            "root": {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Feedback Survey"
+                    },
+                    "style": {
+                      "marginBottom": 32,
+                      "marginTop": 32,
+                      "padding": "0 24",
+                      "textType": "header2"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your response will help us better serve your future needs. Your individual survey answers may be shared internally for service improvement purposes."
+                    },
+                    "style": {
+                      "marginBottom": 16,
+                      "padding": "0 24",
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "Thank you!"
+                    },
+                    "style": {
+                      "marginBottom": 16,
+                      "padding": "0 24",
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {},
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 32,
+                      "marginTop": 16
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "style": {
+                      "align": "center",
+                      "textType": "header2"
+                    },
+                    "content": {
+                      "text": "How are you feeling?"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "style": {
+                      "align": "center",
+                      "marginTop": 16,
+                      "marginBottom": 16
+                    },
+                    "content": {
+                      "positiveValue": "good",
+                      "negativeValue": "bad"
+                    },
+                    "name": "feeling",
+                    "required": true,
+                    "type": "binaryRatingView"
+                  },
+                  {
+                    "content": {},
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 32,
+                      "marginTop": 16
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "text": "How likely are you to recommend ASAPP to friends or family?"
+                    },
+                    "style": {
+                      "marginBottom": 32,
+                      "marginTop": 0,
+                      "padding": "0 24",
+                      "textType": "header2"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "label": {
+                        "content": {
+                          "text": " "
+                        },
+                        "style": {
+                          "align": "center",
+                          "backgroundColor": "#8b92a3",
+                          "color": "#ffffff",
+                          "cornerRadius": 8,
+                          "marginBottom": 24,
+                          "padding": "16 20",
+                          "textType": "header2"
+                        },
+                        "type": "label"
+                      },
+                      "max": 10,
+                      "min": 0
+                    },
+                    "name": "rating",
+                    "required": true,
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 12,
+                      "padding": "0 24"
+                    },
+                    "type": "slider"
+                  },
+                  {
+                    "content": {
+                      "items": [
+                        {
+                          "content": {
+                            "text": "Not at all Likely"
+                          },
+                          "style": {
+                            "marginRight": 4,
+                            "textAlign": "left",
+                            "textType": "detail1",
+                            "weight": 1
+                          },
+                          "type": "label"
+                        },
+                        {
+                          "content": {
+                            "text": "Extremely Likely"
+                          },
+                          "style": {
+                            "marginLeft": 4,
+                            "textAlign": "right",
+                            "textType": "detail1",
+                            "weight": 1
+                          },
+                          "type": "label"
+                        }
+                      ],
+                      "orientation": "horizontal"
+                    },
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 16,
+                      "padding": "0 24"
+                    },
+                    "type": "stackView"
+                  },
+                  {
+                    "content": {},
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 32,
+                      "marginTop": 32
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "text": "Do you feel your question/issue was fully resolved?"
+                    },
+                    "style": {
+                      "marginBottom": 32,
+                      "marginTop": 0,
+                      "padding": "0 24",
+                      "textType": "header2"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "root": {
+                        "content": {
+                          "items": [
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "Yes"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 0,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "yes"
+                            },
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "No"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 10,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "no"
+                            },
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "I Don't Know"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 10,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "unsure"
+                            }
+                          ]
+                        },
+                        "type": "stackView"
+                      }
+                    },
+                    "name": "questionResolved",
+                    "style": {
+                      "align": "fill",
+                      "padding": "0 24"
+                    },
+                    "type": "radioButtonsContainer"
+                  },
+                  {
+                    "content": {},
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 32,
+                      "marginTop": 32
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "text": "Did this chat increase, decrease or not change your likelihood to recommend ASAPP?"
+                    },
+                    "style": {
+                      "marginBottom": 32,
+                      "marginTop": 0,
+                      "padding": "0 24",
+                      "textType": "header2"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "root": {
+                        "content": {
+                          "items": [
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "Increase"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 0,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "increase"
+                            },
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "Decrease"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 10,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "decrease"
+                            },
+                            {
+                              "content": {
+                                "root": {
+                                  "content": {
+                                    "items": [
+                                      {
+                                        "content": {},
+                                        "style": {
+                                          "gravity": "middle",
+                                          "marginRight": 16
+                                        },
+                                        "type": "radioButton"
+                                      },
+                                      {
+                                        "content": {
+                                          "items": [
+                                            {
+                                              "content": {
+                                                "text": "No Change"
+                                              },
+                                              "style": {
+                                                "marginTop": 0,
+                                                "textType": "body"
+                                              },
+                                              "type": "label"
+                                            }
+                                          ]
+                                        },
+                                        "style": {
+                                          "gravity": "middle",
+                                          "weight": 1
+                                        },
+                                        "type": "stackView"
+                                      }
+                                    ],
+                                    "orientation": "horizontal"
+                                  },
+                                  "type": "stackView"
+                                }
+                              },
+                              "style": {
+                                "align": "fill",
+                                "borderWidth": 1,
+                                "cornerRadius": 6,
+                                "marginTop": 10,
+                                "padding": 20
+                              },
+                              "type": "radioButtonView",
+                              "value": "noChange"
+                            }
+                          ]
+                        },
+                        "type": "stackView"
+                      }
+                    },
+                    "name": "recommendationChange",
+                    "style": {
+                      "align": "fill",
+                      "padding": "0 24"
+                    },
+                    "type": "radioButtonsContainer"
+                  },
+                  {
+                    "content": {},
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 32,
+                      "marginTop": 32
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "text": "Can you briefly explain why?"
+                    },
+                    "style": {
+                      "marginBottom": 32,
+                      "marginTop": 0,
+                      "padding": "0 24",
+                      "textType": "header2"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "placeholder": "Leave a comment (optional)"
+                    },
+                    "name": "comment",
+                    "style": {
+                      "align": "fill",
+                      "marginLeft": 24,
+                      "marginRight": 24
+                    },
+                    "type": "textArea"
+                  },
+                  {
+                    "content": {},
+                    "style": {
+                      "align": "fill",
+                      "marginBottom": 32,
+                      "marginTop": 32
+                    },
+                    "type": "separator"
+                  },
+                  {
+                    "content": {
+                      "text": "Thank you for your time & valuable feedback. We may contact you to help us serve you better in the future. Have a wonderful day!"
+                    },
+                    "style": {
+                      "align": "center",
+                      "marginBottom": 16,
+                      "padding": "0 24",
+                      "textAlign": "center",
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "email",
+                    "style": {
+                      "margin": "16 24",
+                      "align": "fill"
+                    },
+                    "content": {
+                      "placeholder": "Email Address"
+                    }
+                  },
+                  {
+                    "type": "checkboxView",
+                    "name": "emailUpdates",
+                    "value": true,
+                    "style": {
+                      "marginTop": 32,
+                      "marginLeft": 24,
+                      "marginRight": 24,
+                      "padding": 20,
+                      "borderWidth": 1,
+                      "cornerRadius": 8,
+                      "align": "fill"
+                    },
+                    "content": {
+                      "root": {
+                        "type": "stackView",
+                        "content": {
+                          "orientation": "horizontal",
+                          "items": [
+                            {
+                              "type": "checkbox"
+                            },
+                            {
+                              "type": "label",
+                              "content": {
+                                "text": "Sign up for email updates"
+                              },
+                              "style": {
+                                "marginLeft": 16
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "paddingBottom": 32
+              },
+              "type": "stackView"
+            }
+          },
+          "style": {
+            "gravity": "fill",
+            "weight": 1
+          },
+          "type": "scrollView"
+        },
+        {
+          "content": {
+            "items": [
+              {
+                "content": {
+                  "action": {
+                    "content": {},
+                    "type": "finish"
+                  },
+                  "title": "CANCEL"
+                },
+                "style": {
+                  "align": "fill",
+                  "buttonType": "secondary",
+                  "gravity": "fill",
+                  "weight": 1
+                },
+                "type": "button"
+              },
+              {
+                "content": {
+                  "action": {
+                    "content": {
+                      "data": {
+                        "actionTarget": "_SUBMIT_FEEDBACK",
+                        "issueId": "133640001",
+                        "metaData": "{\"dataFields\":[{\"name\":\"rating\",\"question\":\"How likely are you to recommend ASAPP to friends or family?\",\"type\":\"rating\",\"meta\":{\"type\":\"star\",\"min\":0,\"max\":10}},{\"name\":\"questionResolved\",\"question\":\"Do you feel your question/issue was fully resolved?\",\"type\":\"radio\",\"meta\":{\"optionLabels\":[{\"value\":\"yes\",\"label\":\"Yes\"},{\"value\":\"no\",\"label\":\"No\"},{\"value\":\"unsure\",\"label\":\"I Don't Know\"}]}},{\"name\":\"recommendationChange\",\"question\":\"Did this chat increase, decrease or not change your likelihood to recommend ASAPP?\",\"type\":\"radio\",\"meta\":{\"optionLabels\":[{\"value\":\"increase\",\"label\":\"Increase\"},{\"value\":\"decrease\",\"label\":\"Decrease\"},{\"value\":\"noChange\",\"label\":\"No Change\"}]}},{\"name\":\"comment\",\"question\":\"Can you briefly explain why?\",\"type\":\"string\"}]}",
+                        "repId": "150001",
+                        "requireTargetIssueId": true,
+                        "text": "Uploaded feedback"
+                      },
+                      "requestPath": "srs/SubmitFeedback"
+                    },
+                    "type": "api"
+                  },
+                  "title": "SUBMIT"
+                },
+                "style": {
+                  "align": "fill",
+                  "buttonType": "primary",
+                  "gravity": "fill",
+                  "weight": 1
+                },
+                "type": "button"
+              }
+            ],
+            "orientation": "horizontal"
+          },
+          "style": {
+            "weight": 0
+          },
+          "type": "stackView"
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill"
+    },
+    "type": "stackView"
+  }
+}

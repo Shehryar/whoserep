@@ -57,9 +57,12 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer {
     
     func commonInit() {
         super.commonInit()
+        
         fillColor = .white
         strokeColor = ASAPP.styles.colors.replyMessageBorder
         strokeLineWidth = 1
+        
+        isAccessibilityElement = false
     }
     
     override init(frame: CGRect) {
@@ -85,6 +88,15 @@ class ComponentCardView: BubbleView, MessageButtonsViewContainer {
         messageButtonsView?.frame = CGRect(x: 0, y: bounds.height - messageButtonsHeight, width: bounds.width, height: messageButtonsHeight)
         
         componentView?.view.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - messageButtonsHeight)
+        
+        var elements: [Any] = []
+        if let componentView = componentView {
+            elements.append(componentView)
+        }
+        if let messageButtonsView = messageButtonsView {
+            elements.append(messageButtonsView)
+        }
+        accessibilityElements = elements
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

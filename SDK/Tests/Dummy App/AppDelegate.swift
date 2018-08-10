@@ -42,12 +42,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let testCaseName = CommandLine.arguments[1]
         var viewController: UIViewController
         let messagePrefix = "message:"
+        let formPrefix = "form:"
         
         if testCaseName.hasPrefix(messagePrefix) {
             let fileName = testCaseName.dropFirst(messagePrefix.count)
             let singleMessage = SingleMessageViewController()
             viewController = singleMessage
             singleMessage.showMessage(fileName: String(fileName))
+        } else if testCaseName.hasPrefix(formPrefix) {
+            let fileName = testCaseName.dropFirst(formPrefix.count)
+            let controller = ComponentViewContainerController()
+            viewController = controller
+            controller.showContainer(fileName: String(fileName))
         } else if let testCaseViewControllerClass = classesByIdentifier[testCaseName] {
             viewController = testCaseViewControllerClass.init()
         } else {

@@ -184,6 +184,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         
         mediaButton.imageView?.contentMode = .scaleAspectFit
         mediaButton.addTarget(self, action: #selector(ChatInputView.didTapMediaButton), for: .touchUpInside)
+        mediaButton.accessibilityLabel = ASAPPLocalizedString("Upload image")
         bubbleView.addSubview(mediaButton)
         
         // Send Button

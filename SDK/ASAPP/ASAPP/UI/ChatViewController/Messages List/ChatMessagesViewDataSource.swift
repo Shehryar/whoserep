@@ -100,11 +100,43 @@ extension ChatMessagesViewDataSource {
         return IndexPath(row: row, section: section)
     }
     
+    func getFirstOfRecentReplies() -> ChatMessage? {
+        guard
+            let indexOfLastSentMessage = allMessages.enumerated().reversed().first(where: {
+                !$1.metadata.isReply
+            })?.offset
+        else {
+            return nil
+        }
+        
+        return getReplyAfter(indexOfLastSentMessage)
+    }
+    
+    func getReplyAfter(_ message: ChatMessage) -> ChatMessage? {
+        guard
+            let index = allMessages.enumerated().reversed().first(where: {
+                $1 == message
+            })?.offset
+        else {
+            return nil
+        }
+        
+        return getReplyAfter(index)
+    }
+    
     func isEmpty() -> Bool {
         return getLastMessage() == nil
     }
     
     // MARK: Private
+    
+    private func getReplyAfter(_ index: Int) -> ChatMessage? {
+        guard index < allMessages.count - 1 else {
+            return nil
+        }
+        
+        return allMessages[index + 1 ..< allMessages.count].first(where: { $0.metadata.isReply })
+    }
     
     private func getIndex(of message: ChatMessage?) -> Int? {
         guard let message = message else {

@@ -47,9 +47,13 @@ class RadioButtonView: RootComponentWrapperView {
     
     func updateRadioButton() {
         let isSelected = self.isSelected
+        var label = ""
         enumerateNestedComponentViews { childView  in
             if let radioButton = childView as? RadioButton {
                 radioButton.isSelected = isSelected
+            }
+            if let labelView = childView as? LabelView {
+                label = labelView.labelItem?.text ?? ""
             }
         }
         
@@ -57,5 +61,9 @@ class RadioButtonView: RootComponentWrapperView {
         layer.borderWidth = component?.style.borderWidth ?? 0
         layer.borderColor = (component?.style.borderColor ?? UIColor.clear).cgColor
         layer.cornerRadius = component?.style.cornerRadius ?? 3
+        
+        isAccessibilityElement = true
+        accessibilityLabel = label
+        accessibilityTraits = isSelected ? UIAccessibilityTraitSelected : UIAccessibilityTraitButton
     }
 }

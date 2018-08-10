@@ -24,6 +24,7 @@ class TabViewTabBar: UIView {
                     tabs.append(tab)
                 }
                 self.tabs = tabs
+                accessibilityValue = tabs.first?.accessibilityLabel
             } else {
                 self.tabs = nil
             }
@@ -73,6 +74,9 @@ class TabViewTabBar: UIView {
         addSubview(shadowView)
         
         updateDisplay()
+        
+        isAccessibilityElement = true
+        accessibilityTraits = UIAccessibilityTraitAdjustable
     }
     
     override init(frame: CGRect) {
@@ -143,6 +147,18 @@ class TabViewTabBar: UIView {
     
     // MARK: - Actions
     
+    override func accessibilityDecrement() {
+        if selectedIndex > 0 {
+            selectedIndex -= 1
+        }
+    }
+    
+    override func accessibilityIncrement() {
+        if selectedIndex < (pages?.count ?? 0) - 1 {
+            selectedIndex += 1
+        }
+    }
+    
     func updateDisplay() {
         guard let tabs = tabs else {
             return
@@ -156,6 +172,8 @@ class TabViewTabBar: UIView {
                 tab.isSelected = true
                 applyShadowToView(tab)
                 bringSubview(toFront: tab)
+                
+                accessibilityValue = tab.accessibilityLabel
             } else {
                 tab.isSelected = false
                 removeShadowFromView(tab)

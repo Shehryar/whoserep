@@ -88,6 +88,21 @@
 		3A621FD3208E8F8300CB11D6 /* ScaleViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FD2208E8F8300CB11D6 /* ScaleViewSpec.swift */; };
 		3A621FD5208E93E800CB11D6 /* FormWithScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FD4208E93E800CB11D6 /* FormWithScale.swift */; };
 		3A621FD6208E93E800CB11D6 /* FormWithScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FD4208E93E800CB11D6 /* FormWithScale.swift */; };
+		3A675BF6211B91460077BC00 /* ComponentViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A675BF5211B91460077BC00 /* ComponentViewContainerController.swift */; };
+		3A675BF7211B914F0077BC00 /* ComponentViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A675BF5211B91460077BC00 /* ComponentViewContainerController.swift */; };
+		3A675BF8211B914F0077BC00 /* ComponentViewContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A675BF5211B91460077BC00 /* ComponentViewContainerController.swift */; };
+		3A675BFA211B9A280077BC00 /* ultimate-collection.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BF9211B9A280077BC00 /* ultimate-collection.json */; };
+		3A675BFB211B9A280077BC00 /* ultimate-collection.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BF9211B9A280077BC00 /* ultimate-collection.json */; };
+		3A675BFC211B9A280077BC00 /* ultimate-collection.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BF9211B9A280077BC00 /* ultimate-collection.json */; };
+		3A675BFD211B9A280077BC00 /* ultimate-collection.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BF9211B9A280077BC00 /* ultimate-collection.json */; };
+		3A675BFF211C840E0077BC00 /* data-usage.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BFE211C840E0077BC00 /* data-usage.json */; };
+		3A675C00211C840E0077BC00 /* data-usage.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BFE211C840E0077BC00 /* data-usage.json */; };
+		3A675C01211C840E0077BC00 /* data-usage.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BFE211C840E0077BC00 /* data-usage.json */; };
+		3A675C02211C840E0077BC00 /* data-usage.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675BFE211C840E0077BC00 /* data-usage.json */; };
+		3A675C04211C88B50077BC00 /* tab-view.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675C03211C88B50077BC00 /* tab-view.json */; };
+		3A675C05211C88B50077BC00 /* tab-view.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675C03211C88B50077BC00 /* tab-view.json */; };
+		3A675C06211C88B50077BC00 /* tab-view.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675C03211C88B50077BC00 /* tab-view.json */; };
+		3A675C07211C88B50077BC00 /* tab-view.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A675C03211C88B50077BC00 /* tab-view.json */; };
 		3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A797B6D1F97A29D00883ABF /* AppDelegate.swift */; };
 		3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B741F97A29D00883ABF /* Assets.xcassets */; };
 		3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A797B761F97A29D00883ABF /* LaunchScreen.storyboard */; };
@@ -191,6 +206,14 @@
 		3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */; };
 		3ADD608C1FE8412C00FC783C /* StackViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */; };
 		3ADD608E1FE84DFD00FC783C /* ScrollViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */; };
+		3ADF49332113B31A00315E87 /* card-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49322113B31A00315E87 /* card-and-buttons.json */; };
+		3ADF49342113B33500315E87 /* card-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49322113B31A00315E87 /* card-and-buttons.json */; };
+		3ADF49352113B33600315E87 /* card-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49322113B31A00315E87 /* card-and-buttons.json */; };
+		3ADF49362113B33600315E87 /* card-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49322113B31A00315E87 /* card-and-buttons.json */; };
+		3ADF49382113B3F200315E87 /* image-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49372113B3F200315E87 /* image-and-buttons.json */; };
+		3ADF49392113B3F200315E87 /* image-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49372113B3F200315E87 /* image-and-buttons.json */; };
+		3ADF493A2113B3F200315E87 /* image-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49372113B3F200315E87 /* image-and-buttons.json */; };
+		3ADF493B2113B3F200315E87 /* image-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49372113B3F200315E87 /* image-and-buttons.json */; };
 		3AE183A92059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */; };
 		3AE183AB2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
@@ -343,6 +366,10 @@
 		3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form-scale.json"; sourceTree = "<group>"; };
 		3A621FD2208E8F8300CB11D6 /* ScaleViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleViewSpec.swift; sourceTree = "<group>"; };
 		3A621FD4208E93E800CB11D6 /* FormWithScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWithScale.swift; sourceTree = "<group>"; };
+		3A675BF5211B91460077BC00 /* ComponentViewContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentViewContainerController.swift; sourceTree = "<group>"; };
+		3A675BF9211B9A280077BC00 /* ultimate-collection.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "ultimate-collection.json"; sourceTree = "<group>"; };
+		3A675BFE211C840E0077BC00 /* data-usage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "data-usage.json"; sourceTree = "<group>"; };
+		3A675C03211C88B50077BC00 /* tab-view.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "tab-view.json"; sourceTree = "<group>"; };
 		3A797B6A1F97A29D00883ABF /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A797B6D1F97A29D00883ABF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A797B741F97A29D00883ABF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -399,6 +426,8 @@
 		3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorViewSpec.swift; sourceTree = "<group>"; };
 		3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewSpec.swift; sourceTree = "<group>"; };
 		3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSpec.swift; sourceTree = "<group>"; };
+		3ADF49322113B31A00315E87 /* card-and-buttons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "card-and-buttons.json"; sourceTree = "<group>"; };
+		3ADF49372113B3F200315E87 /* image-and-buttons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "image-and-buttons.json"; sourceTree = "<group>"; };
 		3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
@@ -470,6 +499,7 @@
 			children = (
 				3A0429311F97C1E30031CD78 /* add-credit-card.json */,
 				3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */,
+				3ADF49322113B31A00315E87 /* card-and-buttons.json */,
 				3A8790FE20B3559E00AD81E5 /* carousel-uneven.json */,
 				3A99522E20DDD19C00343D10 /* censor-date.json */,
 				3A99523520DDDF2700343D10 /* censor-digits7.json */,
@@ -478,17 +508,21 @@
 				3AED18F51FA0FC18005955DA /* change-pin-form.json */,
 				3AED18F21FA0FA02005955DA /* change-pin-form-no-required.json */,
 				3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */,
+				3A675BFE211C840E0077BC00 /* data-usage.json */,
 				3A9F51C01FB122F3009C68AE /* event-list.json */,
 				3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */,
 				3A95F2D820AD06EA00885C94 /* feedback-form-image.json */,
 				3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */,
 				3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */,
 				3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */,
+				3ADF49372113B3F200315E87 /* image-and-buttons.json */,
 				3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */,
 				3A0429321F97C1E30031CD78 /* live-chat-begin.json */,
 				3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */,
 				3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */,
 				3A0429351F97C1E30031CD78 /* security-pin.json */,
+				3A675C03211C88B50077BC00 /* tab-view.json */,
+				3A675BF9211B9A280077BC00 /* ultimate-collection.json */,
 			);
 			path = "Sample JSON";
 			sourceTree = "<group>";
@@ -533,6 +567,7 @@
 			isa = PBXGroup;
 			children = (
 				3A797B6D1F97A29D00883ABF /* AppDelegate.swift */,
+				3A675BF5211B91460077BC00 /* ComponentViewContainerController.swift */,
 				3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */,
 				3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */,
 				3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */,
@@ -791,6 +826,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ADF49382113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A391B3D1FA14EB20085C2DA /* change-pin-form-no-required.json in Resources */,
 				3AF5C39520D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A391B3E1FA14EB20085C2DA /* live-chat-begin.json in Resources */,
@@ -804,12 +840,16 @@
 				3A95F2D920AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A391B3B1FA14EB20085C2DA /* add-credit-card.json in Resources */,
 				3ACF18981FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
+				3A675BFA211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */,
 				3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */,
 				3A391B3C1FA14EB20085C2DA /* change-pin-form.json in Resources */,
 				3AA0D3B620AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3A391B411FA14EB20085C2DA /* security-pin.json in Resources */,
+				3A675C04211C88B50077BC00 /* tab-view.json in Resources */,
+				3A675BFF211C840E0077BC00 /* data-usage.json in Resources */,
 				3A621FCB208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
+				3ADF49332113B31A00315E87 /* card-and-buttons.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -817,19 +857,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A675C00211C840E0077BC00 /* data-usage.json in Resources */,
 				3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3A7B8ED020ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AED18F31FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3A99523620DDDF2700343D10 /* censor-digits7.json in Resources */,
 				3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */,
+				3A675BFB211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A04293D1F97C24C0031CD78 /* add-credit-card.json in Resources */,
 				3AA8DAF120DD84400062A370 /* censor-email.json in Resources */,
 				3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A99523020DDD49600343D10 /* censor-date.json in Resources */,
 				3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
+				3ADF49392113B3F200315E87 /* image-and-buttons.json in Resources */,
+				3A675C05211C88B50077BC00 /* tab-view.json in Resources */,
 				3A99523420DDDA7700343D10 /* censor-password.json in Resources */,
 				3A04293F1F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
+				3ADF49342113B33500315E87 /* card-and-buttons.json in Resources */,
 				3A87910020B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A0429411F97C24C0031CD78 /* security-pin.json in Resources */,
 				3A04293E1F97C24C0031CD78 /* live-chat-begin.json in Resources */,
@@ -846,10 +891,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA0D3B820AA160B00A04206 /* feedback-form-radio.json in Resources */,
+				3ADF493A2113B3F200315E87 /* image-and-buttons.json in Resources */,
+				3A675BFC211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A7B8ED120ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AED18F41FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */,
+				3ADF49352113B33600315E87 /* card-and-buttons.json in Resources */,
 				3A0429421F97C24C0031CD78 /* add-credit-card.json in Resources */,
 				3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
@@ -859,8 +907,10 @@
 				3A0429431F97C24C0031CD78 /* live-chat-begin.json in Resources */,
 				3A9F51C31FB122F9009C68AE /* event-list.json in Resources */,
 				3AED18F71FA0FC18005955DA /* change-pin-form.json in Resources */,
+				3A675C01211C840E0077BC00 /* data-usage.json in Resources */,
 				3A391B4B1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
 				3A127DBA1FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
+				3A675C06211C88B50077BC00 /* tab-view.json in Resources */,
 				3A621FCD208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -872,19 +922,24 @@
 				3AA0D3FB20AA448100A04206 /* change-pin-form-no-required.json in Resources */,
 				3AA0D3FC20AA448100A04206 /* gravity-fill-test.json in Resources */,
 				3AA0D3FD20AA448100A04206 /* add-credit-card.json in Resources */,
+				3ADF493B2113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3AA0D3FE20AA448100A04206 /* schedule-appointment-5-day.json in Resources */,
 				3AA0D3FF20AA448100A04206 /* phone-plan-upgrade.json in Resources */,
 				3A7B8ED220ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AA0D40020AA448100A04206 /* security-pin.json in Resources */,
 				3AF5C39820D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3AA0D40120AA448100A04206 /* live-chat-begin.json in Resources */,
+				3A675BFD211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3AA0D40220AA448100A04206 /* event-list.json in Resources */,
 				3AA0D40320AA448100A04206 /* change-pin-form.json in Resources */,
 				3A95F2DC20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3AA0D40420AA448100A04206 /* change-pin-form-proper-padding.json in Resources */,
+				3A675C02211C840E0077BC00 /* data-usage.json in Resources */,
 				3AA0D40520AA448100A04206 /* feedback-form.json in Resources */,
 				3AA0D40620AA448100A04206 /* feedback-form-scale.json in Resources */,
+				3ADF49362113B33600315E87 /* card-and-buttons.json in Resources */,
 				3A87910220B3559E00AD81E5 /* carousel-uneven.json in Resources */,
+				3A675C07211C88B50077BC00 /* tab-view.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,6 +986,7 @@
 				3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */,
 				3A621FD5208E93E800CB11D6 /* FormWithScale.swift in Sources */,
 				3AF5C39120D85B410013A616 /* SingleMessageViewController.swift in Sources */,
+				3A675BF6211B91460077BC00 /* ComponentViewContainerController.swift in Sources */,
 				3A7B8ED520ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
 				3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
@@ -1026,6 +1082,7 @@
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
 				3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */,
 				3AA0D3BB20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
+				3A675BF7211B914F0077BC00 /* ComponentViewContainerController.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A621FD6208E93E800CB11D6 /* FormWithScale.swift in Sources */,
 				3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */,
@@ -1038,6 +1095,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A675BF8211B914F0077BC00 /* ComponentViewContainerController.swift in Sources */,
 				3AA0D3C220AA448100A04206 /* DropdownTestCase.swift in Sources */,
 				3AA0D3C320AA448100A04206 /* TextAreaMaxLength.swift in Sources */,
 				3A7B8ED320ACDDAF00DC5EAE /* FormWithRadio.swift in Sources */,

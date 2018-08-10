@@ -56,7 +56,6 @@ class QuickReplyView: UIView {
     // MARK: Init
     
     func commonInit() {
-        accessibilityTraits = UIAccessibilityTraitButton
         backgroundColor = .clear
         isUserInteractionEnabled = true
         
@@ -84,6 +83,9 @@ class QuickReplyView: UIView {
         press.minimumPressDuration = 0
         addGestureRecognizer(press)
         gestureRecognizer = press
+        
+        isAccessibilityElement = false
+        accessibilityElements = [button]
     }
     
     override init(frame: CGRect) {

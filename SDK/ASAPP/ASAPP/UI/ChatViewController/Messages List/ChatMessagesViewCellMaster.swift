@@ -123,8 +123,6 @@ extension ChatMessagesViewCellMaster {
             carouselCell.carouselDelegate = self
             carouselCell.showPage(currentCarouselPageCache[message] ?? 0)
         }
-        cell?.isAccessibilityElement = true
-        cell?.accessibilityLabel = message.text
         cell?.isTimeLabelVisible = detailsVisible
         if let componentViewCell = cell as? ChatComponentViewMessageCell {
             componentViewCell.shouldAnimate = shouldAnimate

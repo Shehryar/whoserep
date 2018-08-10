@@ -59,6 +59,7 @@ class MessageButtonsView: UIView {
         for (i, messageAction) in messageButtons.enumerated() {
             let button = createButton(for: messageAction)
             button.tag = i
+            button.isAccessibilityElement = true
             buttons.append(button)
             addSubview(button)
             actions.append(messageAction.action)

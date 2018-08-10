@@ -18,12 +18,21 @@ class StackView: BaseComponentView {
                 subview.removeFromSuperview()
             }
             
+            var elements: [ComponentView] = []
             if let stackViewItem = stackViewItem {
                 for item in stackViewItem.items {
                     if let componentView = item.createView() {
                         addSubview(componentView.view)
+                        
+                        if let concreteView = componentView as? UIView,
+                           concreteView.isAccessibilityElement || !(concreteView.accessibilityElements?.isEmpty ?? true) {
+                            elements.append(componentView)
+                        }
                     }
                 }
+            }
+            if !elements.isEmpty {
+                accessibilityElements = elements
             }
             
             updateHandlersForNestedComponentViews()
@@ -51,6 +60,7 @@ class StackView: BaseComponentView {
     override func commonInit() {
         super.commonInit()
         clipsToBounds = false
+        isAccessibilityElement = false
     }
     
     // MARK: Layout

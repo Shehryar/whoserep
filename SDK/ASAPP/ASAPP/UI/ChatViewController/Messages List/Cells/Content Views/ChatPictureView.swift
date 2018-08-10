@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ChatPictureView: UIView {
+class ChatPictureView: BubbleView, MessageButtonsViewContainer {
+    weak var delegate: MessageButtonsViewContainerDelegate?
 
     var message: ChatMessage? {
         didSet {
@@ -29,6 +30,16 @@ class ChatPictureView: UIView {
 
     let imageView = FixedSizeImageView()
     
+    var messageButtonsView: MessageButtonsView? {
+        didSet {
+            if let view = messageButtonsView, oldValue == nil {
+                view.contentInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+                view.delegate = self
+                addSubview(view)
+            }
+        }
+    }
+    
     private var picture: ChatMessageImage? {
         return message?.attachment?.image
     }
@@ -38,11 +49,16 @@ class ChatPictureView: UIView {
     func commonInit() {
         clipsToBounds = true
         
+        fillColor = .white
+        strokeColor = ASAPP.styles.colors.replyMessageBorder
+        strokeLineWidth = 1
+        
         imageView.backgroundColor = ASAPP.styles.colors.backgroundSecondary
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 6.0
         imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
+        
+        isAccessibilityElement = false
     }
     
     override init(frame: CGRect) {
@@ -79,10 +95,29 @@ extension ChatPictureView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        imageView.frame = bounds
+        let messageButtonsHeight = getMessageButtonsViewSizeThatFits(bounds.width).height
+        messageButtonsView?.frame = CGRect(x: 0, y: bounds.height - messageButtonsHeight, width: bounds.width, height: messageButtonsHeight)
+        
+        imageView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - messageButtonsHeight)
+        
+        imageView.isAccessibilityElement = true
+        imageView.accessibilityLabel = ASAPPLocalizedString("Image")
+        var elements: [Any] = [imageView]
+        if let messageButtonsView = messageButtonsView {
+            elements.append(messageButtonsView)
+        }
+        accessibilityElements = elements
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return imageViewSizeThatFits(size)
+        let fittedSize = imageViewSizeThatFits(size)
+        let messageButtonsSize = getMessageButtonsViewSizeThatFits(size.width)
+        return CGSize(width: size.width, height: fittedSize.height + messageButtonsSize.height)
+    }
+}
+
+extension ChatPictureView: MessageButtonsViewDelegate {
+    func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTap button: QuickReply) {
+        delegate?.messageButtonsViewContainer(self, didTap: button)
     }
 }

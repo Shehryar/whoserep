@@ -25,6 +25,7 @@ class ChatPictureMessageCell: ChatMessageCell {
         super.commonInit()
         
         attachmentView = pictureView
+        pictureView.delegate = self
     }
     
     // MARK: Reuse

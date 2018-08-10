@@ -20,7 +20,7 @@ class SliderView: BaseComponentView {
         didSet {
             if let sliderItem = sliderItem {
                 labelView.component = sliderItem.label
-                
+                sliderView.isAccessibilityElement = true
                 sliderView.tintColor = sliderItem.style.color ?? ASAPP.styles.colors.controlTint
                 sliderView.minimumValue = Float(sliderItem.minValue)
                 sliderView.maximumValue = Float(sliderItem.maxValue)
@@ -54,6 +54,9 @@ class SliderView: BaseComponentView {
                              action: #selector(SliderView.onValueChange),
                              for: .valueChanged)
         addSubview(sliderView)
+        
+        isAccessibilityElement = false
+        accessibilityElements = [sliderView]
     }
     
     // MARK: Layout
@@ -148,7 +151,9 @@ class SliderView: BaseComponentView {
     }
     
     func updateLabelText() {
-        labelView.updateText("\(getCurrentValue())")
+        let text = "\(getCurrentValue())"
+        labelView.updateText(text)
+        sliderView.accessibilityValue = text
         setNeedsLayout()
     }
     
