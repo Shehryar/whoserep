@@ -221,7 +221,7 @@ class PlaceholderTextInputView: UIView {
     
     private let placeholderLabel = UILabel()
     
-    private let textField = UITextField()
+    let textField = UITextField()
     
     private let underlineView = UIView()
     
@@ -252,6 +252,9 @@ class PlaceholderTextInputView: UIView {
         addSubview(underlineView)
                 
         textField.addTarget(self, action: #selector(PlaceholderTextInputView.textFieldTextDidChange), for: .editingChanged)
+        
+        isAccessibilityElement = false
+        accessibilityElements = [textField]
     }
     
     override init(frame: CGRect) {
@@ -293,19 +296,26 @@ class PlaceholderTextInputView: UIView {
     
     func updatePlaceholderText() {
         if var placeholderText = placeholderText {
+            var plainPlaceholder = placeholderText
             let requiredSuffix = " *"
             if isRequired {
                 if !placeholderText.hasSuffix(requiredSuffix) {
                     placeholderText.append(requiredSuffix)
+                } else {
+                    plainPlaceholder.removeLast(requiredSuffix.count)
                 }
             } else {
                 if placeholderText.hasSuffix(requiredSuffix) {
                     placeholderText.removeLast(requiredSuffix.count)
+                    plainPlaceholder = placeholderText
                 }
             }
             placeholderLabel.setAttributedText(placeholderText, textType: .detail1, color: placeholderColor)
+            let prefix = isRequired ? ASAPPLocalizedString("Required: ") : ""
+            textField.accessibilityLabel = "\(prefix)\(plainPlaceholder)"
         } else {
             placeholderLabel.attributedText = nil
+            textField.accessibilityLabel = ASAPPLocalizedString("Text area")
         }
     }
 }

@@ -121,6 +121,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "imageLayout"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "formValidation"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

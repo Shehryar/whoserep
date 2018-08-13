@@ -1,0 +1,24 @@
+{
+    "text": "Hello world!",
+    "attachment": {
+        "type": "image",
+        "content": {
+            "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg",
+            "width": 371,
+            "height": 277
+        }
+    },
+    "buttons": [
+        {
+            "title": "Go to ASAPP",
+            "action": {
+                "type": "web",
+                "content": {
+                    "url": "https://asapp.com"
+                }
+            },
+            "isTransient": false
+        }
+    ]
+}
+

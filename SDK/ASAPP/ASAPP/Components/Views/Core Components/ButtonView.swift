@@ -33,6 +33,11 @@ class ButtonView: UIButton, ComponentView {
             
             if let buttonItem = buttonItem {
                 updateText(buttonItem.title, buttonType: buttonItem.style.buttonType)
+                if !(buttonItem.title?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) {
+                    isAccessibilityElement = true
+                    accessibilityLabel = buttonItem.title
+                    accessibilityTraits = UIAccessibilityTraitButton
+                }
                 
                 var contentEdgeInsets = defaultContentEdgeInsets
                 if buttonItem.style.padding != .zero {

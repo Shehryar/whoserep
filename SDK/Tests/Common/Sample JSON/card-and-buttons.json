@@ -1,0 +1,30 @@
+{
+    "text": "Hello world!",
+    "attachment": {
+        "type": "componentView",
+        "content": {
+            "root": {
+                "type": "label",
+                "content": {
+                    "text": "This is a label component. Lorem ipsum dolor sit amet."
+                },
+                "style": {
+                    "padding": 20
+                }
+            }
+        }
+    },
+    "buttons": [
+        {
+            "title": "Go to ASAPP",
+            "action": {
+                "type": "web",
+                "content": {
+                    "url": "https://asapp.com"
+                }
+            },
+            "isTransient": false
+        }
+    ]
+}
+

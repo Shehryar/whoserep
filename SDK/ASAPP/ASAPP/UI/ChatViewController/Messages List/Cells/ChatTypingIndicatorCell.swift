@@ -24,6 +24,7 @@ class ChatTypingIndicatorCell: UITableViewCell {
     
     func commonInit() {
         selectionStyle = .none
+        accessibilityLabel = ASAPPLocalizedString("Agent is typing")
         
         backgroundColor = UIColor.clear
         

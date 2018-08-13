@@ -83,6 +83,9 @@ class TextInputView: BaseComponentView, InvalidatableInput {
         
         errorIcon.isHidden = true
         addSubview(errorIcon)
+        
+        isAccessibilityElement = false
+        accessibilityElements = [textInputView, errorLabel]
     }
     
     // MARK: Layout

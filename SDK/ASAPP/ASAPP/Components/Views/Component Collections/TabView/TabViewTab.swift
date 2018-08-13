@@ -95,6 +95,9 @@ class TabViewTab: UIView {
                                 color: titleColor)
         
         setNeedsLayout()
+        
+        isAccessibilityElement = true
+        accessibilityLabel = title
     }
     
     // MARK: Layout

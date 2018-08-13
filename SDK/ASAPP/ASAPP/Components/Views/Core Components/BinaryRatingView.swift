@@ -81,6 +81,7 @@ class BinaryRatingView: BaseComponentView {
             
             updateColors()
             updateBorderColors()
+            updateAccessibilityElements()
         }
     }
     
@@ -110,6 +111,28 @@ class BinaryRatingView: BaseComponentView {
         
         updateColors()
         updateBorderColors()
+        
+        isAccessibilityElement = false
+    }
+    
+    func updateAccessibilityElements() {
+        let yesElement = UIAccessibilityElement(accessibilityContainer: self)
+        yesElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(yesView.frame, self)
+        yesElement.accessibilityLabel = yesView.titleLabel?.text ?? ASAPPLocalizedString("Positive")
+        yesElement.accessibilityTraits = UIAccessibilityTraitButton
+        if currentChoice == true {
+            yesElement.accessibilityTraits += UIAccessibilityTraitSelected
+        }
+        
+        let noElement = UIAccessibilityElement(accessibilityContainer: self)
+        noElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(noView.frame, self)
+        noElement.accessibilityLabel = noView.titleLabel?.text ?? ASAPPLocalizedString("Negative")
+        noElement.accessibilityTraits = UIAccessibilityTraitButton
+        if currentChoice == false {
+            noElement.accessibilityTraits += UIAccessibilityTraitSelected
+        }
+        
+        accessibilityElements = isPositiveOnRight ? [noElement, yesElement] : [yesElement, noElement]
     }
     
     // MARK: Layout
@@ -145,6 +168,8 @@ class BinaryRatingView: BaseComponentView {
             button.titleEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
             contentLeft = button.frame.maxX + buttonSpacing
         }
+        
+        updateAccessibilityElements()
     }
     
     func updateColors() {

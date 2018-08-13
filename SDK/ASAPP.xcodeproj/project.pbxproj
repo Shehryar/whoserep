@@ -426,6 +426,7 @@
 		3ACBD7F21F8E9711004D36A6 /* NavBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */; };
 		3ACBD7F41F8E9743004D36A6 /* NavCloseBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */; };
 		3ACBD7F61F8E97AE004D36A6 /* SizedImageOnlyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */; };
+		3ACCE581211DE61300934931 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACCE580211DE61300934931 /* Timer.swift */; };
 		3AD183031FAA7E2F00A3A2F0 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */; };
 		3AD183051FACE7B700A3A2F0 /* SavedSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */; };
 		3AD7BB7321077509006FBB7D /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7BB7221077509006FBB7D /* SecureStorage.swift */; };
@@ -846,6 +847,7 @@
 		3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavCloseBarButtonItem.swift; sourceTree = "<group>"; };
 		3ACBD7F51F8E97AE004D36A6 /* SizedImageOnlyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButton.swift; sourceTree = "<group>"; };
+		3ACCE580211DE61300934931 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSessionManager.swift; sourceTree = "<group>"; };
 		3AD7BB7221077509006FBB7D /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
@@ -1061,6 +1063,7 @@
 				3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */,
 				3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */,
 				3AB23D6D20A3808D00591A56 /* Throttler.swift */,
+				3ACCE580211DE61300934931 /* Timer.swift */,
 				3A7B8ECC20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift */,
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */,
@@ -2204,6 +2207,7 @@
 				3A7B8EC920ACC8B800DC5EAE /* ImageView.swift in Sources */,
 				307484E21EB8FE29008CF3E4 /* DeepLinkAction.swift in Sources */,
 				3029A6AD1D4BDFE4000B6404 /* DateExtensions.swift in Sources */,
+				3ACCE581211DE61300934931 /* Timer.swift in Sources */,
 				30DF3F7D1F27C0C400D6DB02 /* SRSInfo.swift in Sources */,
 				288084F81E861B0400240A5D /* ChatComponentViewMessageCell.swift in Sources */,
 				3AD183031FAA7E2F00A3A2F0 /* CodableStorage.swift in Sources */,

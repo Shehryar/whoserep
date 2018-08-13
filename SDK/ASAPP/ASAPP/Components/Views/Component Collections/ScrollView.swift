@@ -20,6 +20,7 @@ class ScrollView: UIScrollView, ComponentView {
             contentView?.contentHandler = contentHandler
             if let contentView = contentView {
                 addSubview(contentView.view)
+                accessibilityElements = [contentView]
                 setNeedsLayout()
             }
         }
@@ -61,7 +62,9 @@ class ScrollView: UIScrollView, ComponentView {
     
     // MARK: Init
     
-    func commonInit() {}
+    func commonInit() {
+        isAccessibilityElement = false
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

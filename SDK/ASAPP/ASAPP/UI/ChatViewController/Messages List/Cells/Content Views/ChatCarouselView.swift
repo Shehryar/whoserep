@@ -118,6 +118,12 @@ class ChatCarouselView: UIView {
         
         let offsetX = CGFloat(page) * scrollView.bounds.width
         scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: animated)
+        if let container = containerViews?[page],
+           let componentView = container.componentView {
+            Dispatcher.delay {
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, componentView)
+            }
+        }
     }
     
     // MARK: Init
@@ -136,6 +142,8 @@ class ChatCarouselView: UIView {
         addSubview(scrollView)
         
         addSubview(pageControl)
+        
+        isAccessibilityElement = false
     }
     
     override init(frame: CGRect) {
@@ -243,6 +251,8 @@ class ChatCarouselView: UIView {
         }
         scrollView.contentSize = layout.contentSize
         pageControl.frame = layout.pageControlFrame
+        
+        accessibilityElements = [scrollView, pageControl]
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

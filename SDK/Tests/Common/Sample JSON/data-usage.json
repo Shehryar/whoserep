@@ -1,0 +1,657 @@
+{
+  "title": "Data Usage",
+  "styles": {
+    "sectionHeader": {
+      "backgroundColor": "#ededed"
+    },
+    "sectionTitle": {
+      "padding": "8 24",
+      "textType": "detail1"
+    },
+    "row": {
+      "padding": "16 24"
+    },
+    "icon": {
+      "gravity": "middle",
+      "width": 12,
+      "height": 12,
+      "marginRight": 16
+    },
+    "rowLeftColumn": {
+      "weight": 1,
+      "gravity": "middle"
+    },
+    "rowTitle": {
+      "textType": "bodyBold",
+      "marginBottom": 4
+    },
+    "rowDetail": {
+      "textType": "detail1"
+    },
+    "rowValue": {
+      "textType": "bodyBold",
+      "gravity": "middle",
+      "weight": 0
+    }
+  },
+  "root": {
+    "type": "tableView",
+    "content": {
+      "separatorStyle": "singleLine",
+      "sections": [
+        {
+          "rows": [
+            {
+              "type": "stackView",
+              "content": {
+                "items": [
+                  {
+                    "type": "progressBar",
+                    "content": {
+                      "fillPercentage": 0.6
+                    },
+                    "style": {
+                      "marginBottom": 16
+                    }
+                  },
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "orientation": "horizontal",
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "448 GB"
+                          },
+                          "style": {
+                            "textType": "header2",
+                            "gravity": "middle"
+                          }
+                        }
+                      ]
+                    },
+                    "style": {
+                      "align": "center",
+                      "marginBottom": 4
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "of 450 GB"
+                    },
+                    "style": {
+                      "align": "fill",
+                      "textAlign": "center",
+                      "textType": "detail1",
+                      "color": "#55607a"
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "padding": "32 24 24 24"
+              }
+            }
+          ]
+        },
+        {
+          "header": {
+            "type": "stackView",
+            "content": {
+              "items": [
+                {
+                  "type": "label",
+                  "content": {
+                    "text": "2017"
+                  },
+                  "style": {},
+                  "class": "sectionTitle"
+                }
+              ]
+            },
+            "class": "sectionHeader"
+          },
+          "rows": [
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            },
+            {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "stackView",
+                    "content": {
+                      "items": [
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "Sample Content"
+                          },
+                          "class": "rowTitle"
+                        },
+                        {
+                          "type": "label",
+                          "content": {
+                            "text": "3/3/2017 - 4:14PM"
+                          },
+                          "class": "rowDetail"
+                        }
+                      ]
+                    },
+                    "class": "rowLeftColumn"
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "FPO"
+                    },
+                    "class": "rowValue"
+                  }
+                ]
+              },
+              "class": "row"
+            }
+          ]
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill"
+    }
+  }
+}

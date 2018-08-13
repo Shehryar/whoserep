@@ -44,6 +44,8 @@ class RadioButtonsContainerView: RootComponentWrapperView {
         }
         self.radioButtonViews = radioButtonViews
         updateRadioButtonStates()
+        isAccessibilityElement = false
+        accessibilityElements = radioButtonViews
     }
     
     func didTap(_ radioButtonView: RadioButtonView) {

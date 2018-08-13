@@ -1,0 +1,37 @@
+{
+  "title": "Tab View Example",
+  "root": {
+    "content": {
+      "pages": [
+        {
+          "title": "Tab A",
+          "root": {
+            "type": "label",
+            "content": {
+              "text": "Label A"
+            }
+          }
+        },
+        {
+          "title": "Tab B",
+          "root": {
+            "type": "label",
+            "content": {
+              "text": "Label B"
+            }
+          }
+        },
+        {
+          "title": "Tab C",
+          "root": {
+            "type": "label",
+            "content": {
+              "text": "Label C"
+            }
+          }
+        }
+      ]
+    },
+    "type": "tabView"
+  }
+}

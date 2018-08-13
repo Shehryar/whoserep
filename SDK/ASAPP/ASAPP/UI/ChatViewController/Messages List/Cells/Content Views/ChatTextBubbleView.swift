@@ -98,13 +98,9 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
             // Update Text
             //
             label.text = message.text
-            if textHasDataDetectorLink(label.text) {
-                label.isUserInteractionEnabled = true
-                label.isSelectable = true
-            } else {
-                label.isUserInteractionEnabled = false
-                label.isSelectable = false
-            }
+            label.isAccessibilityElement = label.text?.isEmpty == false
+            accessibilityElements = [label]
+            label.isSelectable = textHasDataDetectorLink(label.text)
             
             //
             // Update Bubble
@@ -181,6 +177,7 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
                 view.contentInsets = textInset
                 view.delegate = self
                 bubbleView.addSubview(view)
+                accessibilityElements?.append(contentsOf: view.buttons)
             }
             
             if let message = message {
@@ -193,6 +190,7 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
     
     func commonInit() {
         backgroundColor = .clear
+        isAccessibilityElement = false
         
         bubbleView.fillColor = ASAPP.styles.colors.messageBackground
         bubbleView.clipsToBounds = false
@@ -209,7 +207,7 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
         label.textContainer.lineFragmentPadding = 0.0
         label.backgroundColor = UIColor.clear
         label.dataDetectorTypes = dataDetectorTypes
-        label.isAccessibilityElement = false
+        label.isAccessibilityElement = true
         bubbleView.addSubview(label)
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(ChatTextBubbleView.longPressGestureAction(_:)))

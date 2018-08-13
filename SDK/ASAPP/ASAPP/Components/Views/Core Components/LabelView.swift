@@ -24,9 +24,12 @@ class LabelView: BaseComponentView {
                 }
                 
                 updateText(labelItem.text)
+                isAccessibilityElement = true
+                accessibilityLabel = labelItem.text
             } else {
                 label.text = nil
                 label.attributedText = nil
+                isAccessibilityElement = false
             }
         }
     }

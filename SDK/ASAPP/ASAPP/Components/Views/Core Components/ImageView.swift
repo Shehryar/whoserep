@@ -43,6 +43,8 @@ class ImageView: BaseComponentView {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         addSubview(imageView)
+        
+        isAccessibilityElement = true
     }
     
     override func updateFrames() {

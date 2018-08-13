@@ -146,6 +146,9 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
         
         errorIcon.isHidden = true
         addSubview(errorIcon)
+        
+        isAccessibilityElement = false
+        accessibilityElements = [textView, errorLabel]
     }
     
     deinit {
@@ -277,22 +280,31 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
     
     func updatePlaceholderText() {
         if var placeholderText = placeholderText {
+            var plainPlaceholder = placeholderText
             let requiredSuffix = " *"
             if isRequired {
                 if !placeholderText.hasSuffix(requiredSuffix) {
                     placeholderText.append(requiredSuffix)
+                } else {
+                    plainPlaceholder.removeLast(requiredSuffix.count)
                 }
             } else {
                 if placeholderText.hasSuffix(requiredSuffix) {
                     placeholderText.removeLast(requiredSuffix.count)
+                    plainPlaceholder = placeholderText
                 }
             }
             
             placeholderLabel.setAttributedText(placeholderText, textType: placeholderTextType, color: placeholderColor)
             placeholderFont = ASAPP.styles.textStyles.style(for: placeholderTextType).font
+            
+            let prefix = isRequired ? ASAPPLocalizedString("Required: ") : ""
+            textView.accessibilityLabel = "\(prefix)\(plainPlaceholder)"
         } else {
             placeholderLabel.attributedText = nil
+            textView.accessibilityLabel = ASAPPLocalizedString("Text area")
         }
+        
     }
 }
 

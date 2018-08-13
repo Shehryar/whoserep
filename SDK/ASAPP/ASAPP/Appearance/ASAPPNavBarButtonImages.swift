@@ -29,6 +29,6 @@ public class ASAPPNavBarButtonImages: NSObject {
     
     /// The more button appears in the chat view when chatting with an agent and lets the user end the live chat. Defaults to a ⋮.
     lazy public var more: ASAPPCustomImage? = {
-        return ASAPPCustomImage(image: Images.getImage(.iconMore)!, size: CGSize(width: 18, height: 18), insets: UIEdgeInsets(top: 13, left: 0, bottom: 13, right: 0))
+        return ASAPPCustomImage(image: Images.getImage(.iconMore)!, size: CGSize(width: 18, height: 18), insets: UIEdgeInsets(top: 13, left: 40, bottom: 13, right: 0))
     }()
 }

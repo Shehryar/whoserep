@@ -229,8 +229,7 @@ class ChatViewController: ASAPPViewController {
         func reEnter() {
             shouldReloadOnUserUpdate = false
             chatMessagesView.clear()
-            gatekeeperView?.removeFromSuperview()
-            gatekeeperView = nil
+            hideGatekeeperView()
             spinner.alpha = 1
             conversationManager.enterConversation()
         }
@@ -312,6 +311,14 @@ class ChatViewController: ASAPPViewController {
             inputAccessoryView.resignFirstResponder()
             inputAccessoryView.isHidden = true
             reloadInputViews()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !isMovingToParentViewController {
+            chatMessagesView.focusAccessibilityOnLastMessage(delay: false)
         }
     }
     
@@ -409,6 +416,7 @@ extension ChatViewController {
             moreButton.configImage(moreIcon)
         }
         moreButton.configTarget(self, action: #selector(ChatViewController.didTapMoreButton))
+        moreButton.accessibilityLabel = ASAPPLocalizedString("Menu")
         setBarButtonItem(moreButton)
     }
 }
@@ -487,16 +495,18 @@ extension ChatViewController {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alertController.addAction(UIAlertAction(title: ASAPP.strings.endChatTitle, style: .destructive, handler: { [weak self] _ in
+        let endAction = UIAlertAction(title: ASAPP.strings.endChatTitle, style: .destructive, handler: { [weak self] _ in
             if self?.conversationManager.endLiveChat() != true {
                 self?.shakeConnectionStatusView()
             } else {
                 self?.scrollToBottomBeforeAddingNextMessage()
             }
-        }))
+        })
+        endAction.accessibilityTraits += UIAccessibilityTraitStartsMediaSession
+        alertController.addAction(endAction)
         
-        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .cancel, handler: { _ in
-            // No-op
+        alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .cancel, handler: { [weak self] _ in
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self?.chatInputView)
         }))
         
         alertController.popoverPresentationController?.sourceView = view
@@ -928,6 +938,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
                 self?.chatMessagesView.scrollToBottomAnimated(true)
             }
         }
+    }
+    
+    func chatMessagesViewShouldChangeAccessibilityFocus(_ messagesView: ChatMessagesView) -> Bool {
+        return actionSheet == nil
     }
 }
 
@@ -1504,17 +1518,26 @@ extension ChatViewController: ConversationManagerDelegate {
             gatekeeper.delegate = self
             gatekeeper.frame = view.bounds
             view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
+            view.accessibilityElements = [gatekeeper]
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, gatekeeper)
             spinner.alpha = 0
             updateInputState(.conversationEnd, animated: false)
             shouldReloadOnUserUpdate = true
         }
     }
     
+    func hideGatekeeperView() {
+        gatekeeperView?.removeFromSuperview()
+        gatekeeperView = nil
+        view.accessibilityElements = nil
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, view)
+    }
+    
     // Connection Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authError: SocketConnection.AuthError?) {
         if let authError = authError,
            isAppInForeground {
-            gatekeeperView?.removeFromSuperview()
+            hideGatekeeperView()
             // delay in case we reconnect immediately
             Dispatcher.delay { [weak self] in
                 switch authError {
@@ -1546,8 +1569,7 @@ extension ChatViewController: ConversationManagerDelegate {
         updateFramesAnimated(scrollToBottomIfNearBottom: false)
         
         if isConnected {
-            gatekeeperView?.removeFromSuperview()
-            gatekeeperView = nil
+            hideGatekeeperView()
             
             if chatMessagesView.isEmpty {
                 reloadMessageEvents()
@@ -1566,13 +1588,8 @@ extension ChatViewController: ConversationManagerDelegate {
             }
             
             if !didConnectAtLeastOnce {
-                gatekeeperView?.removeFromSuperview()
-                gatekeeperView = GatekeeperView(contentType: .notConnected)
-                if let gatekeeper = gatekeeperView {
-                    gatekeeper.delegate = self
-                    gatekeeper.frame = view.bounds
-                    view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
-                }
+                hideGatekeeperView()
+                showGatekeeperViewIfNecessary(.notConnected)
             }
         }
         

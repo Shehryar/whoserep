@@ -16,7 +16,7 @@
                     },
                     "buttons": [
                         {
-                            "title": "Go to ASAPP",
+                            "title": "Go to ASAPP. Lorem ipsum dolor sit amet.",
                             "action": {
                                 "type": "web",
                                 "content": {

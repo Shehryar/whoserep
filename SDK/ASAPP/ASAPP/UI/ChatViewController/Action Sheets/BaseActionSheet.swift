@@ -163,9 +163,12 @@ class BaseActionSheet: UIView {
         contentView.setNeedsLayout()
         contentView.layoutIfNeeded()
         
-        UIView.animate(withDuration: 0.3) { [weak self] in
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.contentView.frame = contentViewFinalFrame
-        }
+        }, completion: { [weak self] _ in
+            self?.accessibilityViewIsModal = true
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self)
+        })
     }
     
     func hide(_ completion: (() -> Void)? = nil) {
@@ -178,6 +181,7 @@ class BaseActionSheet: UIView {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.contentView.frame = contentViewFinalFrame
         }, completion: { [weak self] _ in
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self?.superview)
             self?.removeFromSuperview()
             completion?()
         })

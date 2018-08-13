@@ -87,7 +87,7 @@ class ChatMessageCell: UITableViewCell {
             oldValue?.removeFromSuperview()
             
             if let attachmentView = attachmentView {
-                contentView.insertSubview(attachmentView, belowSubview: textBubbleView)
+                contentView.addSubview(attachmentView)
                 contentView.sendSubview(toBack: timeLabel)
                 setNeedsLayout()
             }
@@ -109,6 +109,8 @@ class ChatMessageCell: UITableViewCell {
         timeLabel.alpha = 0.0
         timeLabel.backgroundColor = .clear
         contentView.insertSubview(timeLabel, belowSubview: textBubbleView)
+        
+        isAccessibilityElement = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -231,7 +233,7 @@ extension ChatMessageCell {
                                          width: contentWidth, height: textBubbleViewHeight)
  
         // Attachment View
-        let attachmentViewSize = getAttachmentViewSizeThatFits(contentSizer)
+        let attachmentViewSize = (attachmentView is ChatCarouselView) ? attachmentView?.sizeThatFits(contentSizer) ?? .zero : getAttachmentViewSizeThatFits(contentSizer)
         var attachmentViewTop = textBubbleViewFrame.maxY
         if textBubbleViewHeight > 0 && attachmentViewSize.height > 0 {
             attachmentViewTop += attachmentViewMarginTop
@@ -263,6 +265,19 @@ extension ChatMessageCell {
         textBubbleView.frame = layout.textBubbleViewFrame
         attachmentView?.frame = layout.attachmentViewFrame
         timeLabel.frame = layout.timeLabelFrame
+        
+        configureAccessibility()
+    }
+    
+    func configureAccessibility() {
+        var elements: [Any] = []
+        if !(textBubbleView.accessibilityElements?.isEmpty ?? true) {
+            elements.append(textBubbleView)
+        }
+        if let attachment = attachmentView {
+            elements.append(attachment)
+        }
+        accessibilityElements = elements
     }
     
     // MARK: UIView

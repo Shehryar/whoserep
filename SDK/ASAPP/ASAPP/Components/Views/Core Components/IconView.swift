@@ -40,6 +40,8 @@ class IconView: BaseComponentView {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         addSubview(imageView)
+        
+        isAccessibilityElement = false
     }
     
     // MARK: Layout

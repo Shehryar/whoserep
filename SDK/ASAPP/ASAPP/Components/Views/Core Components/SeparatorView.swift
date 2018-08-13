@@ -35,6 +35,7 @@ class SeparatorView: BaseComponentView {
         super.commonInit()
         separator.backgroundColor = ASAPP.styles.colors.separatorPrimary
         addSubview(separator)
+        isAccessibilityElement = false
     }
     
     // MARK: Layout

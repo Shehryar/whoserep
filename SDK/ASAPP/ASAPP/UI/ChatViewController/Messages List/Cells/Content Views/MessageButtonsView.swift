@@ -59,6 +59,7 @@ class MessageButtonsView: UIView {
         for (i, messageAction) in messageButtons.enumerated() {
             let button = createButton(for: messageAction)
             button.tag = i
+            button.isAccessibilityElement = true
             buttons.append(button)
             addSubview(button)
             actions.append(messageAction.action)
@@ -78,6 +79,7 @@ class MessageButtonsView: UIView {
         button.updateText(messageAction.title, textStyle: ASAPP.styles.textStyles.body, colors: ASAPP.styles.colors.textButtonPrimary)
         button.titleLabel?.numberOfLines = 0
         button.titleLabel?.lineBreakMode = .byWordWrapping
+        button.titleLabel?.textAlignment = .center
         button.backgroundColor = .clear
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
         return button

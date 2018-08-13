@@ -47,12 +47,20 @@ class CheckboxView: RootComponentWrapperView {
     
     func updateCheckbox() {
         let isChecked = self.isChecked
+        var label = ""
         enumerateNestedComponentViews { childView in
             if let checkbox = childView as? Checkbox {
                 checkbox.isChecked = isChecked
             }
+            if let labelView = childView as? LabelView {
+                label = labelView.labelItem?.text ?? ""
+            }
         }
         
         backgroundColor = ASAPP.styles.colors.controlBackground
+        
+        isAccessibilityElement = true
+        accessibilityLabel = label
+        accessibilityTraits = isChecked ? UIAccessibilityTraitSelected : UIAccessibilityTraitButton
     }
 }

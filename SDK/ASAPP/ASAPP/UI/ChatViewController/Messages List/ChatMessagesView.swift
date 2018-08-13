@@ -26,6 +26,8 @@ protocol ChatMessagesViewDelegate: class {
                           didTap button: QuickReply)
     
     func chatMessagesViewDidScrollNearBeginning(_ messagesView: ChatMessagesView)
+    
+    func chatMessagesViewShouldChangeAccessibilityFocus(_ messagesView: ChatMessagesView) -> Bool
 }
 
 class ChatMessagesView: UIView {
@@ -120,6 +122,10 @@ class ChatMessagesView: UIView {
     
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     
+    private var focusTimer: Timer?
+    
+    private var previousFocusedReply: ChatMessage?
+    
     // MARK: - Initialization
     
     func commonInit() {
@@ -155,6 +161,11 @@ class ChatMessagesView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
+    }
+    
+    deinit {
+        focusTimer?.cancel()
+        focusTimer = nil
     }
     
     // MARK: Layout
@@ -489,6 +500,7 @@ extension ChatMessagesView {
             }
             
             strongSelf.scrollToRow(at: indexPath, animated: animated)
+            strongSelf.focusAccessibilityOnLastMessage(delay: animated)
         }
         
         Dispatcher.performOnMainThread {
@@ -605,8 +617,6 @@ extension ChatMessagesView {
         
         tableView.reloadData()
         
-        focusAccessibilityOnLastMessage()
-        
         if wasNearBottom {
             scrollToBottomAnimated(cellAnimationsEnabled)
         }
@@ -621,9 +631,44 @@ extension ChatMessagesView {
         completion?()
     }
     
-    func focusAccessibilityOnLastMessage() {
-        if let lastCell = tableView.visibleCells.last {
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, lastCell)
+    func focusAccessibilityOnLastMessage(delay: Bool) {
+        func focus() {
+            guard
+                delegate?.chatMessagesViewShouldChangeAccessibilityFocus(self) == true,
+                let firstOfRecentReplies = dataSource.getFirstOfRecentReplies()
+            else {
+                return
+            }
+            
+            var message = firstOfRecentReplies
+            if let previousFocused = previousFocusedReply,
+                previousFocused.metadata.sendTime >= message.metadata.sendTime {
+                guard let nextReply = dataSource.getReplyAfter(previousFocused) else {
+                    return
+                }
+                message = nextReply
+            }
+            
+            guard
+                let indexPath = dataSource.getIndexPath(of: message),
+                let cell = tableView.cellForRow(at: indexPath)
+            else {
+                return
+            }
+            
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, cell)
+            
+            focusTimer?.cancel()
+            focusTimer = Timer(delay: .seconds(1)) { [weak self] in
+                self?.previousFocusedReply = message
+            }
+            focusTimer?.start()
+        }
+        
+        if delay {
+            Dispatcher.delay(closure: focus)
+        } else {
+            focus()
         }
     }
 }
