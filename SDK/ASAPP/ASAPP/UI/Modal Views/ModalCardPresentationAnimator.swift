@@ -254,8 +254,13 @@ extension ModalCardPresentationAnimator {
             return
         }
         
+        var keyboardOffset = keyboardHeight
+        if keyboardOffset > 0 && !(UIResponder.currentFirstResponder is UITextInput) {
+            keyboardOffset = 0
+        }
+        
         let viewWidth = containerView.bounds.width - 2 * viewInsetSides
-        let maxHeight = containerView.bounds.height - viewInsetTop - viewInsetBottom - keyboardHeight
+        let maxHeight = containerView.bounds.height - viewInsetTop - viewInsetBottom - keyboardOffset
         var viewHeight = maxHeight
         if let modalVC = presentedViewController as? ResizableModalCardViewController {
             viewHeight = min(maxHeight, modalVC.viewSizeThatFits(CGSize(width: viewWidth, height: maxHeight)).height)
@@ -273,11 +278,11 @@ extension ModalCardPresentationAnimator {
         var centerY = containerView.bounds.midY + containerView.bounds.height
         if visible {
             if fixedBottom {
-                centerY = ceil(containerView.bounds.height - keyboardHeight - viewInsetBottom - viewHeight / 2.0)
+                centerY = ceil(containerView.bounds.height - keyboardOffset - viewInsetBottom - viewHeight / 2.0)
             } else {
                 centerY = containerView.bounds.midY
                 if keyboardHeight > 0 {
-                    centerY = min(centerY, containerView.bounds.height - keyboardHeight - viewInsetBottom - ceil(presentedView.bounds.height / 2.0))
+                    centerY = min(centerY, containerView.bounds.height - keyboardOffset - viewInsetBottom - ceil(presentedView.bounds.height / 2.0))
                 }
             }
         }

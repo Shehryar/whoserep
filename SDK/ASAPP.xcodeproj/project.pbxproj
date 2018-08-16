@@ -295,6 +295,7 @@
 		3A26997A20603CD6007C0EC6 /* icon-arrow-left@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A26997520603B79007C0EC6 /* icon-arrow-left@3x.png */; };
 		3A28113F206B2B6F00B7CE04 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A28113E206B2B6F00B7CE04 /* UIViewExtensions.swift */; };
 		3A2C2C3E20D31061006F62D5 /* LinkResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2C2C3D20D31061006F62D5 /* LinkResolver.swift */; };
+		3A2F49DC212362CD000B0542 /* UIResponderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F49DB212362CD000B0542 /* UIResponderExtensions.swift */; };
 		3A391B451FA223810085C2DA /* InvalidatableInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B441FA223810085C2DA /* InvalidatableInput.swift */; };
 		3A391B471FA2682F0085C2DA /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */; };
 		3A3C8D8B20F5662E00571874 /* UIFontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */; };
@@ -715,6 +716,7 @@
 		3A26997720603B79007C0EC6 /* icon-arrow-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-arrow-left@2x.png"; sourceTree = "<group>"; };
 		3A28113E206B2B6F00B7CE04 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3A2C2C3D20D31061006F62D5 /* LinkResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkResolver.swift; sourceTree = "<group>"; };
+		3A2F49DB212362CD000B0542 /* UIResponderExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResponderExtensions.swift; sourceTree = "<group>"; };
 		3A391B441FA223810085C2DA /* InvalidatableInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidatableInput.swift; sourceTree = "<group>"; };
 		3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtensions.swift; sourceTree = "<group>"; };
@@ -1069,6 +1071,7 @@
 				3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */,
 				3A28113E206B2B6F00B7CE04 /* UIViewExtensions.swift */,
 				3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */,
+				3A2F49DB212362CD000B0542 /* UIResponderExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -2114,6 +2117,7 @@
 				30F6B4D91EC5331000ABA570 /* ButtonType.swift in Sources */,
 				3A43A8CA20CF1392007A90D5 /* ProactiveMessageConfirmationActionSheet.swift in Sources */,
 				306619251D9458F50092B4C5 /* UIImageView+HighlightedWebCache.m in Sources */,
+				3A2F49DC212362CD000B0542 /* UIResponderExtensions.swift in Sources */,
 				3A967FDA1F606C78000E9696 /* ASAPPCustomImage.swift in Sources */,
 				30131FA01EAFB416009E7299 /* ASAPPInputColors.swift in Sources */,
 				302A20A91E5DF110007C522A /* ModalCardControlsView.swift in Sources */,

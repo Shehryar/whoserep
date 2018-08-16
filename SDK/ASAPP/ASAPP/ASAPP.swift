@@ -48,7 +48,7 @@ public class ASAPP: NSObject {
     
     // MARK: - Properties
     
-    /// The delegate, currently only used for handling logging in.
+    /// The delegate, whose methods are called to allow you to respond to various events.
     public static weak var delegate: ASAPPDelegate?
     
     /// Set by calling `ASAPP.initialize(with:)`, typically in the `AppDelegate`.
@@ -93,7 +93,6 @@ public class ASAPP: NSObject {
      
      - returns: A `UIViewController`
      - parameter userInfo: A user info dictionary containing notification metadata
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
     public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
@@ -109,7 +108,6 @@ public class ASAPP: NSObject {
      
      - returns: A `UIViewController`
      - parameter userInfo: A user info dictionary containing notification metadata
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
     public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
