@@ -128,9 +128,6 @@ class TestUtil: NSObject {
             primaryButton: UIColor(red: 0.476, green: 0.498, blue: 0.565, alpha: 1),
             secondaryButton: UIColor(red: 0.535, green: 0.557, blue: 0.586, alpha: 1))
         
-        ASAPP.styles.colors.helpButtonText = UIColor.white
-        ASAPP.styles.colors.helpButtonBackground = UIColor(red: 0.374, green: 0.392, blue: 0.434, alpha: 1)
-        
         var style = ComponentStyle()
         style.alignment = .center
         style.backgroundColor = .white

@@ -120,22 +120,6 @@ public class ASAPP: NSObject {
         return nav
     }
     
-    /**
-     Creates a button that will launch the SDK when tapped. Configure the segue style
-     by setting the `ASAPPStyles.segue` property.
-     
-     - returns: An `ASAPPButton`
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
-     - parameter presentingViewController: The `UIViewController` which will either present or push onto its navigation controller the SDK's view controller.
-     */
-    public class func createChatButton(presentingViewController: UIViewController) -> ASAPPButton {
-        assertSetupComplete()
-        
-        return ASAPPButton(config: config,
-                           user: user,
-                           presentingViewController: presentingViewController)
-    }
-    
     // MARK: - Push Notifications
     
     /**
@@ -224,7 +208,7 @@ internal extension ASAPP {
         loadFonts()
     }
     
-    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present) -> UIViewController {
+    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: Segue = .present) -> UIViewController {
         let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(
             config: config,

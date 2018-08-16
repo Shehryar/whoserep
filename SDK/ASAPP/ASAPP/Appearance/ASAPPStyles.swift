@@ -21,18 +21,9 @@ public class ASAPPStyles: NSObject {
     /// Customizable colors.
     public var colors = ASAPPColors()
     
-    /// How the SDK's view controller is displayed by an `ASAPPButton`.
-    public var segue: ASAPPSegue = .push
-    
     /// Customizable navigation bar styles.
     public var navBarStyles = ASAPPNavBarStyles()
     
     /// Whether primary Component buttons have rounded corners.
     public var primaryButtonsRounded = false
-}
-
-extension ASAPPStyles {
-    internal func closeButtonSide(for segue: ASAPPSegue) -> NavBarButtonSide {
-        return segue == .present ? .right : .left
-    }
 }

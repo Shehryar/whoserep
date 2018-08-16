@@ -47,7 +47,7 @@ class ChatViewController: ASAPPViewController {
     private var isInitialLayout = true
     private var delayedDisconnectTime: Date?
     private let disconnectedTimeThreshold: TimeInterval = 2
-    private var segue: ASAPPSegue = .present
+    private var segue: Segue = .present
     private var inputState: InputState = .both
     private var previousInputState: InputState?
     private var shouldConfirmRestart = true
@@ -88,7 +88,7 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: ASAPPSegue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: Segue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil) {
         self.config = config
         self.segue = segue
         self.conversationManager = conversationManager
@@ -101,7 +101,7 @@ class ChatViewController: ASAPPViewController {
         
         automaticallyAdjustsScrollViewInsets = false
         
-        let side = ASAPP.styles.closeButtonSide(for: segue)
+        let side = closeButtonSide(for: segue)
         let closeButton = NavCloseBarButtonItem(location: .chat, side: .right)
             .configSegue(segue)
             .configTarget(self, action: #selector(ChatViewController.didTapCloseButton))
@@ -394,7 +394,7 @@ extension ChatViewController {
     }
     
     func updateMoreButton() {
-        let side = ASAPP.styles.closeButtonSide(for: segue).opposite()
+        let side = closeButtonSide(for: segue).opposite()
         
         func setBarButtonItem(_ item: NavBarButtonItem?) {
             switch side {
@@ -418,6 +418,10 @@ extension ChatViewController {
         moreButton.configTarget(self, action: #selector(ChatViewController.didTapMoreButton))
         moreButton.accessibilityLabel = ASAPPLocalizedString("Menu")
         setBarButtonItem(moreButton)
+    }
+    
+    func closeButtonSide(for segue: Segue) -> NavBarButtonSide {
+        return segue == .present ? .right : .left
     }
 }
 

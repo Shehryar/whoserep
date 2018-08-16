@@ -14,7 +14,7 @@ class HomeViewController: BaseViewController {
     
     fileprivate let homeTableView = HomeTableView()
     
-    fileprivate var chatButton: ASAPPButton?
+    fileprivate var chatButton: HelpButton?
     
     fileprivate var chatBadge = ChatBadge(frame: .zero)
     
@@ -154,7 +154,7 @@ extension HomeViewController: ASAPPDelegate {
             }
         }
         
-        switch ASAPP.styles.segue {
+        switch AppSettings.shared.branding.appearanceConfig.segue {
         case .present:
             presentedViewController?.dismiss(animated: true, completion: completion)
         case .push:
@@ -205,9 +205,14 @@ extension HomeViewController {
         ASAPP.strings = AppSettings.shared.branding.strings
         ASAPP.views = AppSettings.shared.branding.views
         
-        chatButton = ASAPP.createChatButton(presentingViewController: self)
+        chatButton = HelpButton(
+            config: ASAPP.config,
+            user: ASAPP.user,
+            presentingViewController: self)
         
         if let chatButton = chatButton {
+            chatButton.segue = AppSettings.shared.branding.appearanceConfig.segue
+            chatButton.title = AppSettings.shared.branding.appearanceConfig.strings[.helpButton] ?? "Help"
             chatButton.frame = CGRect(x: 0, y: 0, width: 72, height: 34)
             let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 72, height: 34))
             buttonContainerView.addSubview(chatButton)

@@ -64,9 +64,6 @@ class Branding: NSObject {
             styles = Branding.createCustomStyles(appearanceConfig)
         }
         
-        if let helpButtonText = appearanceConfig.strings[.helpButton] {
-            strings.asappButton = helpButtonText
-        }
         strings.chatTitle = appearanceConfig.strings[.chatTitle]
         
         super.init()
@@ -95,7 +92,7 @@ extension Branding {
         
         // Boost special cases
         
-        styles.segue = .present
+        // space left intentionally blank
         
         return styles
     }

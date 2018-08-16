@@ -52,7 +52,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
     }
     
     @discardableResult
-    func configSegue(_ segue: ASAPPSegue) -> Self {
+    func configSegue(_ segue: Segue) -> Self {
         let closeButtonStyle = ASAPP.styles.navBarStyles.buttonImages.close
         let backButtonStyle = ASAPP.styles.navBarStyles.buttonImages.back
         let button = SizedImageOnlyButton()

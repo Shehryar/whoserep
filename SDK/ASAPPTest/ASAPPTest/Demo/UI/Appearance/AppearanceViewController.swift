@@ -23,11 +23,13 @@ class AppearanceViewController: BaseTableViewController {
     
     init() {
         selectedOption = AppSettings.shared.appearanceConfig
-        options = AppSettings.getAppearanceConfigArray()
+        let savedConfigs = AppSettings.getAppearanceConfigArray()
         
-        if options == AppSettings.defaultAppearanceConfigs {
+        if savedConfigs.isEmpty || savedConfigs == AppSettings.defaultAppearanceConfigs {
             AppSettings.clearAppearanceConfigArray()
         }
+        
+        options = savedConfigs
         
         super.init(nibName: nil, bundle: nil)
         
@@ -129,6 +131,9 @@ extension AppearanceViewController {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard !options.isEmpty else {
+            return false
+        }
         let config = options[indexPath.row]
         return config.brand == .custom
     }

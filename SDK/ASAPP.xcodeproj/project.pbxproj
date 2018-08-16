@@ -201,7 +201,6 @@
 		307C63BF1D501E4300D8BC1B /* FixedSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */; };
 		307DBE7F1E9E827500B8F10F /* TextAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE7E1E9E827500B8F10F /* TextAreaView.swift */; };
 		307DBE811E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DBE801E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift */; };
-		30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30883F941D54E0E7002414E9 /* ASAPPButton.swift */; };
 		308CFF441ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */; };
 		308F29741D4168BE00EC7055 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29731D4168BE00EC7055 /* Images.swift */; };
 		308F29761D416D1C00EC7055 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308F29751D416D1C00EC7055 /* UIImageExtensions.swift */; };
@@ -304,7 +303,7 @@
 		3A4FC2831FE063820098BAE2 /* DropdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2821FE063810098BAE2 /* DropdownView.swift */; };
 		3A4FEEF51F54C87800338B00 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */; };
 		3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */; };
-		3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */; };
+		3A4FEF011F55EA4300338B00 /* Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FEF001F55EA4300338B00 /* Segue.swift */; };
 		3A51137A1FD1D95F00BE0785 /* PushNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */; };
 		3A5370AB1F86B2BB0092B3B3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */; };
 		3A5B019A209CB4C800178E15 /* RepeatingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B0199209CB4C800178E15 /* RepeatingTimer.swift */; };
@@ -622,7 +621,6 @@
 		307C63BE1D501E4300D8BC1B /* FixedSizeImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedSizeImageView.swift; sourceTree = "<group>"; };
 		307DBE7E1E9E827500B8F10F /* TextAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAreaView.swift; sourceTree = "<group>"; };
 		307DBE801E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSectionHeaderView.swift; sourceTree = "<group>"; };
-		30883F941D54E0E7002414E9 /* ASAPPButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPButton.swift; sourceTree = "<group>"; };
 		308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+ASAPPAppearance.swift"; sourceTree = "<group>"; };
 		308F29731D4168BE00EC7055 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		308F29751D416D1C00EC7055 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
@@ -725,7 +723,7 @@
 		3A4FC2821FE063810098BAE2 /* DropdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownView.swift; sourceTree = "<group>"; };
 		3A4FEEF41F54C87800338B00 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarButtonSide.swift; sourceTree = "<group>"; };
-		3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPSegue.swift; sourceTree = "<group>"; };
+		3A4FEF001F55EA4300338B00 /* Segue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segue.swift; sourceTree = "<group>"; };
 		3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsManager.swift; sourceTree = "<group>"; };
 		3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3A5B0199209CB4C800178E15 /* RepeatingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTimer.swift; sourceTree = "<group>"; };
@@ -1259,7 +1257,6 @@
 			isa = PBXGroup;
 			children = (
 				307484C51EB13B83008CF3E4 /* Base Classes */,
-				30883F931D54E0CA002414E9 /* ASAPPButton */,
 				30226CE71D493F5300871453 /* ChatViewController */,
 				302A20891E5DE990007C522A /* Modal Views */,
 				30226CEE1D493F5300871453 /* Common */,
@@ -1398,7 +1395,6 @@
 				3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */,
 				3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */,
 				3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */,
-				3A4FEF001F55EA4300338B00 /* ASAPPSegue.swift */,
 				30F6B4D81EC5331000ABA570 /* ButtonType.swift */,
 				3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */,
 				308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */,
@@ -1408,6 +1404,7 @@
 				303699AA1EAFAAE700A819DF /* Colors.swift */,
 				3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */,
 				3A68112C1F7C1BF800078E3F /* FontLoader.swift */,
+				3A4FEF001F55EA4300338B00 /* Segue.swift */,
 				30131FA71EAFB662009E7299 /* TextSizeCategory.swift */,
 			);
 			path = Appearance;
@@ -1584,14 +1581,6 @@
 				307484E51EB8FF66008CF3E4 /* WebPageAction.swift */,
 			);
 			path = Subclasses;
-			sourceTree = "<group>";
-		};
-		30883F931D54E0CA002414E9 /* ASAPPButton */ = {
-			isa = PBXGroup;
-			children = (
-				30883F941D54E0E7002414E9 /* ASAPPButton.swift */,
-			);
-			path = ASAPPButton;
 			sourceTree = "<group>";
 		};
 		3093A4A41E730D4F00C65818 /* Chat Message */ = {
@@ -2109,7 +2098,7 @@
 				30131FA81EAFB662009E7299 /* TextSizeCategory.swift in Sources */,
 				30131FCB1EB10FD0009E7299 /* IconItem.swift in Sources */,
 				3066190E1D9458F50092B4C5 /* NSData+ImageContentType.m in Sources */,
-				3A4FEF011F55EA4300338B00 /* ASAPPSegue.swift in Sources */,
+				3A4FEF011F55EA4300338B00 /* Segue.swift in Sources */,
 				3A8790F920AE241200AD81E5 /* ChatCarouselMessageCell.swift in Sources */,
 				30BD87861DBFF06F0008042D /* JSONUtil.swift in Sources */,
 				3A9EF22C202E802E0092A1AA /* WelcomeBackActionSheet.swift in Sources */,
@@ -2330,7 +2319,6 @@
 				3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */,
 				3A5B019A209CB4C800178E15 /* RepeatingTimer.swift in Sources */,
 				30131FD21EB10FD0009E7299 /* SeparatorItem.swift in Sources */,
-				30883F951D54E0E7002414E9 /* ASAPPButton.swift in Sources */,
 				3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */,
 				30131FE11EB11561009E7299 /* UITextView+ASAPPAppearance.swift in Sources */,
 				30AE79F91D4BC5E900651F09 /* ChatMessagesViewDataSource.swift in Sources */,

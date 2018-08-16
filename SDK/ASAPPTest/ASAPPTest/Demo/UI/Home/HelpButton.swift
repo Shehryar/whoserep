@@ -1,53 +1,56 @@
 //
-//  ASAPPButton.swift
+//  HelpButton.swift
 //  ASAPP
 //
 //  Created by Mitchell Morgan on 8/5/16.
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
+@testable import ASAPP
 import UIKit
 
-/**
- An `ASAPPButton` will launch the SDK, showing the view controller based on the configured segue.
- Create one using `ASAPP.createChatButton(appCallbackHandler:presentingViewController:)`.
- */
-@objc(ASAPPButton)
-public class ASAPPButton: UIView {
-    
+class HelpButton: UIView {
     let config: ASAPPConfig
     
     let user: ASAPPUser
     
     let presentingViewController: UIViewController
-
-    // MARK: - Private Properties: UI
     
-    private enum ASAPPButtonState {
-        case normal
-        case highlighted
-    }
-    
-    private var currentState: ASAPPButtonState {
-        return isTouching ? .highlighted : .normal
-    }
-    
-    private let backgroundColors = [
-        ASAPPButtonState.normal: ASAPP.styles.colors.helpButtonBackground,
-        ASAPPButtonState.highlighted: ASAPP.styles.colors.helpButtonBackground.highlightColor()
-    ]
-    
-    private let contentView = UIView()
-    
-    private let label = UILabel()
-    
-    private var isTouching = false {
+    var title: String = "Help" {
         didSet {
             updateDisplay()
         }
     }
     
-    private var isWaitingToAnimateIn = false
+    var segue: AppearanceConfig.Segue = .push
+    
+    // MARK: - Private Properties: UI
+    
+    fileprivate enum HelpButtonState {
+        case normal
+        case highlighted
+    }
+    
+    fileprivate var currentState: HelpButtonState {
+        return isTouching ? .highlighted : .normal
+    }
+    
+    fileprivate let backgroundColors = [
+        HelpButtonState.normal: ASAPP.styles.colors.primary,
+        HelpButtonState.highlighted: ASAPP.styles.colors.primary.highlightColor()
+    ]
+    
+    fileprivate let contentView = UIView()
+    
+    fileprivate let label = UILabel()
+    
+    fileprivate var isTouching = false {
+        didSet {
+            updateDisplay()
+        }
+    }
+    
+    fileprivate var isWaitingToAnimateIn = false
     
     // MARK: - Initialization
     
@@ -66,7 +69,7 @@ public class ASAPPButton: UIView {
         
         isAccessibilityElement = true
         accessibilityTraits = UIAccessibilityTraitButton
-        accessibilityLabel = ASAPP.strings.asappButton
+        accessibilityLabel = title
         
         label.minimumScaleFactor = 0.2
         label.adjustsFontSizeToFitWidth = true
@@ -79,26 +82,23 @@ public class ASAPPButton: UIView {
         
         updateDisplay()
         
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(ASAPPButton.updateDisplay),
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(HelpButton.updateDisplay),
             name: Notification.Name.UIContentSizeCategoryDidChange,
             object: nil)
     }
     
-    /// :nodoc:
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Layout
     
-    /**
-     Lays out subviews. Just as with `UIView.layoutSubviews()`, you should not call this method directly.
-     */
     public override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -117,7 +117,6 @@ public class ASAPPButton: UIView {
         contentView.transform = currentTransform
     }
     
-    /// :nodoc:
     override public var intrinsicContentSize: CGSize {
         return CGSize(width: 72, height: 34)
     }
@@ -130,36 +129,18 @@ public class ASAPPButton: UIView {
     
     // MARK: - Touches
     
-    /**
-     Overrides `UIView.touchesBegan(_:with:)`.
-     
-     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
-     - parameter event: The event to which the touches belong.
-     */
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if touchesInBounds(touches) {
             isTouching = true
         }
     }
     
-    /**
-     Overrides `UIView.touchesMoved(_:with:)`.
-     
-     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
-     - parameter event: The event to which the touches belong.
-     */
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && !touchesInBounds(touches) {
             touchesCancelled(touches, with: event)
         }
     }
     
-    /**
-     Overrides `UIView.touchesEnded(_:with:)`.
-     
-     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
-     - parameter event: The event to which the touches belong.
-     */
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if isTouching && touchesInBounds(touches) {
             didTap()
@@ -167,12 +148,6 @@ public class ASAPPButton: UIView {
         isTouching = false
     }
     
-    /**
-     Overrides `UIView.touchesCancelled(_:with:)`.
-     
-     - parameter touches: A set of `UITouch` instances that represent the touches for the starting phase of the event, which is represented by event. For touches in a view, this set contains only one touch by default. To receive multiple touches, you must set the view's `isMultipleTouchEnabled` property to true.
-     - parameter event: The event to which the touches belong.
-     */
     public override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
         isTouching = false
     }
@@ -192,12 +167,11 @@ public class ASAPPButton: UIView {
 
 // MARK: - Button Display
 
-extension ASAPPButton {
+extension HelpButton {
     
     @objc func updateDisplay() {
-        label.setAttributedText(ASAPP.strings.asappButton,
-                                textType: .link,
-                                color: ASAPP.styles.colors.helpButtonText)
+        accessibilityLabel = title
+        label.setAttributedText(title, textType: .link, color: .white)
         
         if let buttonBackgroundColor = backgroundColors[currentState] {
             contentView.alpha = 1
@@ -212,29 +186,26 @@ extension ASAPPButton {
 
 // MARK: - Actions
 
-extension ASAPPButton {
+extension HelpButton {
     func didTap() {
         let testRequest = SocketConnection.createConnectionRequest(with: config)
         guard testRequest.url != nil else {
             let alert = UIAlertController(title: "API Host is invalid",
-                message: "Please make sure the API Host is a valid domain like example.asapp.com",
-                preferredStyle: .alert)
+                                          message: "Please make sure the API Host is a valid domain like example.asapp.com",
+                                          preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             presentingViewController.present(alert, animated: true, completion: nil)
             return
         }
         
-        let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
-        let chatViewController = ChatViewController(config: config, user: user, segue: ASAPP.styles.segue, conversationManager: conversationManager)
-        
-        switch ASAPP.styles.segue {
+        switch segue {
         case .present:
-            let navigationController = NavigationController(rootViewController: chatViewController)
+            let navigationController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil)
             navigationController.modalPresentationStyle = .fullScreen
             navigationController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(navigationController, animated: true, completion: nil)
         case .push:
-            let containerViewController = ContainerViewController(rootViewController: chatViewController)
+            let containerViewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil)
             presentingViewController.navigationController?.pushViewController(containerViewController, animated: true)
         }
     }
@@ -248,19 +219,13 @@ extension ASAPPButton {
     }
 }
 
-extension ASAPPButton {
+extension HelpButton {
     // MARK: - Animations
     
-    /**
-     Simulates a tap on the button, displaying the SDK's view controller.
-     */
     public func triggerTap() {
         didTap()
     }
     
-    /**
-     Hides the button until `animateIn(afterDelay:)` is called.
-     */
     public func hideUntilAnimateInIsCalled() {
         if isWaitingToAnimateIn { return }
         layoutSubviews()
@@ -272,17 +237,12 @@ extension ASAPPButton {
         self.contentView.alpha = 0.0
     }
     
-    /**
-     Reveals the button with an animation.
-     
-     - parameter delay: A `TimeInterval` after which the animation will start.
-     */
     public func animateIn(afterDelay delay: TimeInterval = 0) {
         UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .beginFromCurrentState, animations: { [weak self] in
             self?.contentView.transform = CGAffineTransform.identity
             self?.contentView.alpha = 1.0
-        }, completion: { [weak self] _ in
-            self?.isWaitingToAnimateIn = false
+            }, completion: { [weak self] _ in
+                self?.isWaitingToAnimateIn = false
         })
     }
 }
