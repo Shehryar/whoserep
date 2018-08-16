@@ -43,7 +43,7 @@ public class ASAPPColors: NSObject {
     public var navBarTitle = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.85)
     
     /// The color of navigation bar buttons in the chat view, as well as the color of the close/back button.
-    public var navBarButton = UIColor.ASAPP.purpleHaze
+    public var navBarButton = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9)
     
     /// The color of navigation bar buttons while tapped.
     public var navBarButtonActive = UIColor.ASAPP.eggplant
