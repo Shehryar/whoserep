@@ -54,7 +54,7 @@ struct AppearanceConfig: Codable {
 }
 
 extension AppearanceConfig {
-    static let lastChangedVersion = 177
+    static let lastChangedVersion = 178
     
     var isValid: Bool {
         return version >= AppearanceConfig.lastChangedVersion
