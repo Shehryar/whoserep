@@ -6,7 +6,7 @@
 //  Copyright © 2016 asappinc. All rights reserved.
 //
 
-@testable import ASAPP
+import ASAPP
 import UIKit
 
 class HelpButton: UIView {
@@ -171,7 +171,11 @@ extension HelpButton {
     
     @objc func updateDisplay() {
         accessibilityLabel = title
-        label.setAttributedText(title, textType: .link, color: .white)
+        label.attributedText = NSAttributedString(string: title, attributes: [
+            NSFontAttributeName: AppSettings.shared.branding.appearanceConfig.fontFamily.bold.withSize(12),
+            NSKernAttributeName: 1.5,
+            NSForegroundColorAttributeName: UIColor.white
+        ])
         
         if let buttonBackgroundColor = backgroundColors[currentState] {
             contentView.alpha = 1
@@ -187,8 +191,14 @@ extension HelpButton {
 // MARK: - Actions
 
 extension HelpButton {
+    private func createTestRequest(with config: ASAPPConfig) -> URLRequest {
+        let connectionRequest = NSMutableURLRequest()
+        connectionRequest.url = URL(string: "wss://\(config.apiHostName)/api/websocket")
+        return connectionRequest as URLRequest
+    }
+    
     func didTap() {
-        let testRequest = SocketConnection.createConnectionRequest(with: config)
+        let testRequest = createTestRequest(with: config)
         guard testRequest.url != nil else {
             let alert = UIAlertController(title: "API Host is invalid",
                                           message: "Please make sure the API Host is a valid domain like example.asapp.com",
@@ -208,14 +218,6 @@ extension HelpButton {
             let containerViewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil)
             presentingViewController.navigationController?.pushViewController(containerViewController, animated: true)
         }
-    }
-    
-    func didBeginLongHold() {
-        DebugLog.d("DidBeginLongHold()")
-    }
-    
-    func didFinishLongHold() {
-        DebugLog.d("DidFinishLongHold()")
     }
 }
 
