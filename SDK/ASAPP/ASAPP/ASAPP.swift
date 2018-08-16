@@ -48,7 +48,7 @@ public class ASAPP: NSObject {
     
     // MARK: - Properties
     
-    /// The delegate, currently only used for handling logging in.
+    /// The delegate, whose methods are called to allow you to respond to various events.
     public static weak var delegate: ASAPPDelegate?
     
     /// Set by calling `ASAPP.initialize(with:)`, typically in the `AppDelegate`.
@@ -93,7 +93,6 @@ public class ASAPP: NSObject {
      
      - returns: A `UIViewController`
      - parameter userInfo: A user info dictionary containing notification metadata
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
     public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
@@ -109,7 +108,6 @@ public class ASAPP: NSObject {
      
      - returns: A `UIViewController`
      - parameter userInfo: A user info dictionary containing notification metadata
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
      */
     public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
@@ -118,22 +116,6 @@ public class ASAPP: NSObject {
         let nav = NavigationController(rootViewController: chat)
         
         return nav
-    }
-    
-    /**
-     Creates a button that will launch the SDK when tapped. Configure the segue style
-     by setting the `ASAPPStyles.segue` property.
-     
-     - returns: An `ASAPPButton`
-     - parameter appCallbackHandler: An `ASAPPCallbackHandler`
-     - parameter presentingViewController: The `UIViewController` which will either present or push onto its navigation controller the SDK's view controller.
-     */
-    public class func createChatButton(presentingViewController: UIViewController) -> ASAPPButton {
-        assertSetupComplete()
-        
-        return ASAPPButton(config: config,
-                           user: user,
-                           presentingViewController: presentingViewController)
     }
     
     // MARK: - Push Notifications
@@ -224,7 +206,7 @@ internal extension ASAPP {
         loadFonts()
     }
     
-    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: ASAPPSegue = .present) -> UIViewController {
+    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: Segue = .present) -> UIViewController {
         let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(
             config: config,

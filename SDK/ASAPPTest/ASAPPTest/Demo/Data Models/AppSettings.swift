@@ -205,7 +205,7 @@ extension AppSettings {
                 .dark: boostGrey
             ], strings: [
                 .helpButton: "CHAT"
-            ], fontFamilyName: .boost),
+            ], fontFamilyName: .boost, segue: .present),
             
             AppearanceConfig.create(name: "Tetris", brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
                 .primary: telstraBlue,

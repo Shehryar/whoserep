@@ -20,9 +20,6 @@ func ASAPPLocalizedString(_ key: String) -> String {
 public class ASAPPStrings: NSObject {
     // MARK: General
     
-    /// The text of an `ASAPPButton`.
-    public var asappButton = ASAPPLocalizedString("HELP")
-    
     /// The accessibility label for the close/back button.
     public var accessibilityClose = ASAPPLocalizedString("Close Help")
     

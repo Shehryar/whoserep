@@ -1,0 +1,6 @@
+git_url("git@github.com:ASAPPinc/chat-sdk-ios-certificates.git")
+
+type("enterprise")
+
+app_identifier("com.asappinc.TestApp")
+

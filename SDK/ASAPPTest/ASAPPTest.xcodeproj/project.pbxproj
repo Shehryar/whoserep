@@ -80,6 +80,7 @@
 		3A2E5C511FD7316700687928 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E5C501FD7316700687928 /* ImageCell.swift */; };
 		3A2E5C531FD73AED00687928 /* EditAppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E5C521FD73AED00687928 /* EditAppearanceViewController.swift */; };
 		3A2E5C551FD740D500687928 /* ImageCheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2E5C541FD740D500687928 /* ImageCheckmarkCell.swift */; };
+		3A2F49DA212225E5000B0542 /* HelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2F49D9212225E5000B0542 /* HelpButton.swift */; };
 		3A304C53208641750072BA56 /* NHaasGroteskDSStd-65Md.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A304C50208641750072BA56 /* NHaasGroteskDSStd-65Md.otf */; };
 		3A304C54208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A304C51208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf */; };
 		3A304C55208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A304C52208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf */; };
@@ -208,6 +209,7 @@
 		3A2E5C501FD7316700687928 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		3A2E5C521FD73AED00687928 /* EditAppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAppearanceViewController.swift; sourceTree = "<group>"; };
 		3A2E5C541FD740D500687928 /* ImageCheckmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCheckmarkCell.swift; sourceTree = "<group>"; };
+		3A2F49D9212225E5000B0542 /* HelpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButton.swift; sourceTree = "<group>"; };
 		3A304C50208641750072BA56 /* NHaasGroteskDSStd-65Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NHaasGroteskDSStd-65Md.otf"; sourceTree = "<group>"; };
 		3A304C51208641750072BA56 /* NHaasGroteskDSStd-75Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NHaasGroteskDSStd-75Bd.otf"; sourceTree = "<group>"; };
 		3A304C52208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NHaasGroteskDSStd-55Rg.otf"; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF5DAE52075239B00C39DF1 /* ChatBadge.swift */,
+				3A2F49D9212225E5000B0542 /* HelpButton.swift */,
 				30988EA71DC7BA8700470E09 /* HomeViewController.swift */,
 				30E78EDB1DCA6D32006A2AD8 /* HomeTableView.swift */,
 			);
@@ -755,6 +758,7 @@
 				307022C61DBE592F0027908C /* DemoFonts.swift in Sources */,
 				3A43A8CE20D07858007A90D5 /* Account.swift in Sources */,
 				FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */,
+				3A2F49DA212225E5000B0542 /* HelpButton.swift in Sources */,
 				30988EB31DC7BD7E00470E09 /* AppSettings.swift in Sources */,
 				281D8DFB1DC967BD00E4A65B /* ButtonCell.swift in Sources */,
 				308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */,
@@ -849,8 +853,8 @@
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 177;
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
@@ -940,7 +944,7 @@
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hans Hyttinen (V444Y7FXP4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 177;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
@@ -958,8 +962,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "951bc8d6-c652-4220-b250-f8e59d9bccb2";
-				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Debug";
+				PROVISIONING_PROFILE = "d0f3346d-1a80-4fec-9433-3c3b4653ae82";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.asappinc.TestAppDebug";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

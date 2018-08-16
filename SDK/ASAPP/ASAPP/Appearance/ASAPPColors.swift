@@ -43,7 +43,7 @@ public class ASAPPColors: NSObject {
     public var navBarTitle = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.85)
     
     /// The color of navigation bar buttons in the chat view, as well as the color of the close/back button.
-    public var navBarButton = UIColor.ASAPP.purpleHaze
+    public var navBarButton = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9)
     
     /// The color of navigation bar buttons while tapped.
     public var navBarButtonActive = UIColor.ASAPP.eggplant
@@ -155,14 +155,6 @@ public class ASAPPColors: NSObject {
         border: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.15),
         primaryButton: UIColor.ASAPP.eggplant,
         secondaryButton: UIColor.ASAPP.eggplant)
-    
-    // MARK: - ASAPPButton
-    
-    /// The color of text in an `ASAPPButton`.
-    public var helpButtonText = UIColor.white
-    
-    /// The color of the background of an `ASAPPButton`.
-    public var helpButtonBackground = UIColor.ASAPP.eggplant
 }
 
 extension ASAPPColors {
@@ -170,7 +162,6 @@ extension ASAPPColors {
         iconTint = primary
         navBarButtonActive = primary
         messageBackground = primary
-        helpButtonBackground = primary
         navBarTitle = dark.withAlphaComponent(0.85)
         navBarButton = dark.withAlphaComponent(0.9)
         textSecondary = dark

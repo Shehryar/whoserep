@@ -38,17 +38,23 @@ struct AppearanceConfig: Codable {
         case chatTitle
     }
     
+    enum Segue: Int, CountableEnum, Codable {
+        case present
+        case push
+    }
+    
     let name: String
     let brand: Brand
     let logo: Image
     let colors: [ColorName: Color]
     let strings: [StringName: String]
     let fontFamilyName: FontFamilyName
+    let segue: Segue
     let version: Int
 }
 
 extension AppearanceConfig {
-    static let lastChangedVersion = 164
+    static let lastChangedVersion = 178
     
     var isValid: Bool {
         return version >= AppearanceConfig.lastChangedVersion
@@ -83,8 +89,8 @@ extension AppearanceConfig {
         return (color ?? defaultColor)!.uiColor
     }
     
-    static func create(name: String, brand: Brand, logo: Image, colors: [ColorName: Color] = [:], strings: [StringName: String] = [:], fontFamilyName: FontFamilyName = .asapp) -> AppearanceConfig {
-        return AppearanceConfig(name: name, brand: brand, logo: logo, colors: colors, strings: strings, fontFamilyName: fontFamilyName, version: Bundle.main.buildVersion)
+    static func create(name: String, brand: Brand, logo: Image, colors: [ColorName: Color] = [:], strings: [StringName: String] = [:], fontFamilyName: FontFamilyName = .asapp, segue: Segue = .push) -> AppearanceConfig {
+        return AppearanceConfig(name: name, brand: brand, logo: logo, colors: colors, strings: strings, fontFamilyName: fontFamilyName, segue: segue, version: Bundle.main.buildVersion)
     }
 }
 

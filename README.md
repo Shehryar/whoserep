@@ -9,7 +9,6 @@ Organization
 ```
 .
 ├── SDK             Chat SDK
-├── Provisioning    Provisioning profile and credentials
 ├── fastlane        fastlane configuration files
 ├── package         Directory containing docs, the built framework, and example projects that is delivered to partners
 ├── scripts         Utility scripts
@@ -22,7 +21,7 @@ iOS Development
 
 Program | Version
 --------|---------
-Xcode   | 9.2
+Xcode   | 9.4.1
 
 ### Steps for running the apps
 
@@ -52,13 +51,13 @@ Manually distributing a beta build of the test app (for QA)
 
 Program   | Version
 ----------|---------
-ruby      | 2.4.0
-[bundler](https://github.com/bundler/bundler)   | 1.16.1
-[fastlane](https://github.com/fastlane/fastlane)  | 2.89.0
+ruby      | 2.4.4
+[bundler](https://github.com/bundler/bundler)   | 1.16.2
+[fastlane](https://github.com/fastlane/fastlane)  | 2.101.1
 
 #### Note
 
-It is recommended to manage your Ruby versions with [`rbenv`](https://github.com/rbenv/rbenv). To make sure Ruby 2.4.0 is installed, first install `rbenv`, install Ruby 2.4.0, and then select it globally. You may find [`rbenv-installer` and `rbenv-doctor`](https://github.com/rbenv/rbenv-installer#rbenv-doctor) helpful.
+It is recommended to manage your Ruby versions with [`rbenv`](https://github.com/rbenv/rbenv). To make sure Ruby 2.4.4 is installed, first install `rbenv`, install Ruby 2.4.4, and then select it globally. You may find [`rbenv-installer` and `rbenv-doctor`](https://github.com/rbenv/rbenv-installer#rbenv-doctor) helpful.
 
 ### Setup
 
@@ -84,9 +83,9 @@ Generating API reference pages from documentation comments
 
 Program   | Version
 ----------|---------
-ruby      | 2.4.0
-[bundler](https://github.com/bundler/bundler)   | 1.16.1
-[jazzy](https://github.com/realm/jazzy)  | 0.8.4
+ruby      | 2.4.4
+[bundler](https://github.com/bundler/bundler)   | 1.16.2
+[jazzy](https://github.com/realm/jazzy)  | 0.9.3
 
 ### Running `jazzy`
 
