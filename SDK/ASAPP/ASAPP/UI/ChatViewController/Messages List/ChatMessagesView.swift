@@ -513,26 +513,28 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func updateTypingStatus(_ isTyping: Bool) {
+    func updateTypingStatus(_ isTyping: Bool, shouldRemove: Bool = true) {
         let isDifferent = isTyping != otherParticipantIsTyping
         let shouldScrollToBottom = isNearBottom() && isDifferent
         
         otherParticipantIsTyping = isTyping
         
-        if isDifferent {
-            let lastSection = dataSource.numberOfSections() - 1
-            let lastRow = dataSource.numberOfRowsInSection(lastSection)
-            tableView.beginUpdates()
-            if isTyping {
-                tableView.insertRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
-            } else {
-                tableView.deleteRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
-            }
-            tableView.endUpdates()
-            
-            if shouldScrollToBottom {
-                tableView.scrollToRow(at: IndexPath(row: lastRow - 1, section: lastSection), at: .top, animated: true)
-            }
+        guard isDifferent && (isTyping || shouldRemove) else {
+            return
+        }
+        
+        let lastSection = dataSource.numberOfSections() - 1
+        let lastRow = dataSource.numberOfRowsInSection(lastSection)
+        tableView.beginUpdates()
+        if isTyping {
+            tableView.insertRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
+        } else {
+            tableView.deleteRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
+        }
+        tableView.endUpdates()
+
+        if shouldScrollToBottom {
+            tableView.scrollToRow(at: IndexPath(row: lastRow - 1, section: lastSection), at: .top, animated: true)
         }
     }
 }

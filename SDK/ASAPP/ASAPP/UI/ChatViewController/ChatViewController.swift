@@ -1323,6 +1323,10 @@ extension ChatViewController: ConversationManagerDelegate {
     private func handle(message: ChatMessage, shouldAdd: Bool = true) {
         provideHapticFeedbackForMessageIfNecessary(message)
         
+        if message.metadata.isReply && !isLiveChat {
+            chatMessagesView.updateTypingStatus(false, shouldRemove: false)
+        }
+        
         if message.metadata.eventType == .newRep {
             ASAPP.soundEffectPlayer.playSound(.liveChatNotification)
         }
