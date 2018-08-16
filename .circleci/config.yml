@@ -5,12 +5,11 @@ version: 2
 jobs:
   build-and-test:
     macos:
-      xcode: "9.4.0"
+      xcode: "9.4.1"
     working_directory: /Users/distiller/output
     environment:
       XCODE_SCHEME: Tests
       XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
-      GYM_CODE_SIGNING_IDENTITY: 'iPhone Distribution: ASAPP Inc.'
     shell: /bin/bash --login -o pipefail
     steps:
       - run:
@@ -21,12 +20,12 @@ jobs:
           name: Pre-start simulator
           command: xcrun simctl boot "iPhone SE" || true
       - restore_cache:
-          key: v5-homebrew-swiftlint
+          key: v6-homebrew-swiftlint
       - run:
           name: Install SwiftLint
           command: brew install swiftlint
       - save_cache:
-          key: v5-homebrew-swiftlint
+          key: v6-homebrew-swiftlint
           paths:
             - /usr/local/Homebrew
       - add_ssh_keys:
@@ -72,12 +71,11 @@ jobs:
 
   fastlane-beta:
     macos:
-      xcode: "9.4.0"
+      xcode: "9.4.1"
     working_directory: /Users/distiller/output
     environment:
       XCODE_SCHEME: ASAPPTest
       XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
-      GYM_CODE_SIGNING_IDENTITY: 'iPhone Distribution: ASAPP Inc.'
     shell: /bin/bash --login -o pipefail
     steps:
       - add_ssh_keys:
