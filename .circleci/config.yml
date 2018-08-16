@@ -19,7 +19,7 @@ jobs:
             sudo systemsetup -settimezone "America/New_York"
       - run:
           name: Pre-start simulator
-          command: xcrun instruments -w "iPhone SE (11.4) [" || true
+          command: xcrun simctl boot "iPhone SE" || true
       - restore_cache:
           key: v5-homebrew-swiftlint
       - run:
@@ -31,11 +31,8 @@ jobs:
             - /usr/local/Homebrew
       - add_ssh_keys:
           fingerprints:
-            - "e3:f1:08:d5:e9:dd:50:d9:37:29:ab:11:83:34:9a:1d"
+            - "2a:d0:83:45:1c:03:01:c1:65:a0:48:8c:d9:ae:7e:61"
       - checkout
-      - run:
-          name: Install code signing credentials
-          command: './scripts/install_codesigning_credentials.sh'
       - restore_cache:
           keys:
             - v1-gems-{{ checksum "Gemfile.lock" }}
@@ -85,11 +82,8 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "e3:f1:08:d5:e9:dd:50:d9:37:29:ab:11:83:34:9a:1d"
+            - "2a:d0:83:45:1c:03:01:c1:65:a0:48:8c:d9:ae:7e:61"
       - checkout
-      - run:
-          name: Install code signing credentials
-          command: './scripts/install_codesigning_credentials.sh'
       - restore_cache:
           keys:
             - v1-gems-{{ checksum "Gemfile.lock" }}
@@ -121,11 +115,13 @@ workflows:
       - build-and-test:
           filters:
             branches:
-              ignore: master
+              ignore:
+                - master
   deploy-beta:
     jobs:
       - fastlane-beta:
           filters:
             branches:
-              only: master
+              only:
+                - master
 

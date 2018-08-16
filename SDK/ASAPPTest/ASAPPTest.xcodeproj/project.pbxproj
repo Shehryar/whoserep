@@ -849,8 +849,8 @@
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ASAPP Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ASAPP Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 177;
 				DEFAULT_ENVIRONMENT = demo;
 				DEMO_CONTENT_ENABLED = NO;
@@ -940,7 +940,7 @@
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hans Hyttinen (V444Y7FXP4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 177;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;
@@ -958,8 +958,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.asappinc.TestAppDebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "951bc8d6-c652-4220-b250-f8e59d9bccb2";
-				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Debug";
+				PROVISIONING_PROFILE = "d0f3346d-1a80-4fec-9433-3c3b4653ae82";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.asappinc.TestAppDebug";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
