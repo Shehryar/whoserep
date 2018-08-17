@@ -34,9 +34,6 @@
                 <a href="../Classes/ASAPP.html">ASAPP</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/ASAPPButton.html">ASAPPButton</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/ASAPPButtonColors.html">ASAPPButtonColors</a>
               </li>
               <li class="nav-group-task">
@@ -86,9 +83,6 @@
               <li class="nav-group-task">
                 <a href="../Enums/ASAPPLogLevel.html">ASAPPLogLevel</a>
               </li>
-              <li class="nav-group-task">
-                <a href="../Enums/ASAPPSegue.html">ASAPPSegue</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -115,7 +109,9 @@
             <h1>ASAPP</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ASAPP</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">@objc(ASAPP)</span>
+<span class="kd">@objcMembers</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">ASAPP</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
@@ -153,7 +149,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">authTokenKey</span> <span class="o">=</span> <span class="s">"access_token"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">authTokenKey</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -180,7 +176,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">analyticsKey</span> <span class="o">=</span> <span class="s">"partnerAnalytics"</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">analyticsKey</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -207,7 +203,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">clientVersion</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">clientVersion</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -238,14 +234,14 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The delegate, currently only used for handling logging in.</p>
+                        <p>The delegate, whose methods are called to allow you to respond to various events.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ASAPPDelegate.html">ASAPPDelegate</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">weak</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ASAPPDelegate.html">ASAPPDelegate</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -272,7 +268,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPConfig.html">ASAPPConfig</a></span><span class="o">!</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPConfig.html">ASAPPConfig</a></span><span class="o">!</span></code></pre>
 
                         </div>
                       </div>
@@ -299,7 +295,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPUser.html">ASAPPUser</a></span><span class="o">!</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPUser.html">ASAPPUser</a></span><span class="o">!</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -326,7 +322,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">styles</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPStyles.html">ASAPPStyles</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPStyles.html">ASAPPStyles</a></span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">styles</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPStyles.html">ASAPPStyles</a></span></code></pre>
 
                         </div>
                       </div>
@@ -353,7 +349,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">strings</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPStrings.html">ASAPPStrings</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPStrings.html">ASAPPStrings</a></span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">strings</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPStrings.html">ASAPPStrings</a></span></code></pre>
 
                         </div>
                       </div>
@@ -380,7 +376,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">views</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPViews.html">ASAPPViews</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/ASAPPViews.html">ASAPPViews</a></span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">views</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPViews.html">ASAPPViews</a></span></code></pre>
 
                         </div>
                       </div>
@@ -407,7 +403,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">debugLogLevel</span><span class="p">:</span> <span class="kt"><a href="../Enums/ASAPPLogLevel.html">ASAPPLogLevel</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">errors</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">debugLogLevel</span><span class="p">:</span> <span class="kt"><a href="../Enums/ASAPPLogLevel.html">ASAPPLogLevel</a></span></code></pre>
 
                         </div>
                       </div>
@@ -445,7 +441,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">with</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPConfig.html">ASAPPConfig</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">with</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPConfig.html">ASAPPConfig</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -502,7 +498,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createChatViewControllerForPushing</span><span class="p">(</span><span class="n">fromNotificationWith</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createChatViewControllerForPushing</span><span class="p">(</span><span class="n">fromNotificationWith</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
 
                         </div>
                       </div>
@@ -519,18 +515,6 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                               <td>
                                 <div>
                                   <p>A user info dictionary containing notification metadata</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>appCallbackHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An <code>ASAPPCallbackHandler</code></p>
                                 </div>
                               </td>
                             </tr>
@@ -564,7 +548,7 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createChatViewControllerForPresenting</span><span class="p">(</span><span class="n">fromNotificationWith</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createChatViewControllerForPresenting</span><span class="p">(</span><span class="n">fromNotificationWith</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
 
                         </div>
                       </div>
@@ -584,87 +568,12 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>appCallbackHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An <code>ASAPPCallbackHandler</code></p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
                         <p>A <code>UIViewController</code></p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatButtonWithPresentingViewController:"></a>
-                    <a name="//apple_ref/swift/Method/createChatButton(presentingViewController:)" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatButtonWithPresentingViewController:">createChatButton(presentingViewController:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates a button that will launch the SDK when tapped. Configure the segue style
-by setting the <code><a href="../Classes/ASAPPStyles.html#/c:@M@ASAPP@objc(cs)ASAPPStyles(py)segue">ASAPPStyles.segue</a></code> property.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createChatButton</span><span class="p">(</span><span class="nv">presentingViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/ASAPPButton.html">ASAPPButton</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>appCallbackHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>An <code>ASAPPCallbackHandler</code></p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>presentingViewController</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The <code>UIViewController</code> which will either present or push onto its navigation controller the SDK&rsquo;s view controller.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>An <code><a href="../Classes/ASAPPButton.html">ASAPPButton</a></code></p>
                       </div>
                     </section>
                   </div>
@@ -701,7 +610,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">shouldRequestNotificationAuthorization</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">shouldRequestNotificationAuthorization</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -729,7 +638,8 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">notificationAuthorizationDenied</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available(iOS 10.0, *)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">notificationAuthorizationDenied</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
 
                         </div>
                       </div>
@@ -756,7 +666,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">enablePushNotifications</span><span class="p">(</span><span class="n">with</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">enablePushNotifications</span><span class="p">(</span><span class="n">with</span> <span class="nv">deviceToken</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -802,7 +712,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ChatStatusHandler</span> <span class="o">=</span> <span class="p">((</span><span class="n">_</span> <span class="nv">unread</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">_</span> <span class="nv">isLiveChat</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ChatStatusHandler</span> <span class="o">=</span> <span class="p">((</span><span class="n">_</span> <span class="nv">unread</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">_</span> <span class="nv">isLiveChat</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -829,7 +739,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">getChatStatus</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/ASAPP.html#/s:5ASAPPAAC17ChatStatusHandlera">ChatStatusHandler</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">getChatStatus</span><span class="p">(</span><span class="n">_</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/ASAPP.html#/s:5ASAPPAAC17ChatStatusHandlera">ChatStatusHandler</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -876,7 +786,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">canHandleNotification</span><span class="p">(</span><span class="n">with</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">canHandleNotification</span><span class="p">(</span><span class="n">with</span> <span class="nv">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt">AnyHashable</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -937,7 +847,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">clearSavedSession</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">clearSavedSession</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -975,7 +885,7 @@ such as sending a message or pressing a button.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">loadFonts</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">loadFonts</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
@@ -987,8 +897,8 @@ such as sending a message or pressing a button.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-08-08)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-08-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
