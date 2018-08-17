@@ -90,7 +90,6 @@ You should implement the `ASAPPDelegate` protocol and set the `delegate` propert
 
 ### Customize [Styles](Classes/ASAPPStyles.html)
 
-    ASAPP.styles.segue = .push
     ASAPP.styles.colors.dark = .black
     ASAPP.styles.colors.navBarTitle = .blue
 
