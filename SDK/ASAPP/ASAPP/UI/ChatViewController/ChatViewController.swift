@@ -1327,7 +1327,7 @@ extension ChatViewController: ConversationManagerDelegate {
     private func handle(message: ChatMessage, shouldAdd: Bool = true) {
         provideHapticFeedbackForMessageIfNecessary(message)
         
-        if message.metadata.isReply && !isLiveChat {
+        if message.metadata.isReply {
             chatMessagesView.updateTypingStatus(false, shouldRemove: false)
         }
         
