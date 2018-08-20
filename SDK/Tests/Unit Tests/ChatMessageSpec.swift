@@ -104,20 +104,6 @@ class ChatMessageSpec: QuickSpec {
                     }
                 }
                 
-                context("with legacy JSON") {
-                    it("returns a proper ChatMessage") {
-                        let dict = TestUtil.dictForFile(named: "add-credit-card")
-                        let msg = ChatMessage.fromJSON(dict, with: metadata)
-                        expect(msg).toNot(beNil())
-                        expect(msg!.text).to(contain("add a credit card"))
-                        
-                        let action = msg!.buttons?.first?.action as? DeepLinkAction
-                        expect(action).toNot(beNil())
-                        expect(action?.name).to(equal("payment"))
-                        expect(msg!.hasQuickReplies).to(equal(false))
-                    }
-                }
-                
                 context("with JSON containing a quick reply with a component view action") {
                     it("returns a ChatMessage with a quick reply that is a message action") {
                         let dict = TestUtil.dictForFile(named: "security-pin")
@@ -129,63 +115,6 @@ class ChatMessageSpec: QuickSpec {
                         let action = msg!.buttons?.first?.action as? ComponentViewAction
                         expect(action).toNot(beNil())
                         expect(action?.name).to(contain("new_pin"))
-                    }
-                }
-            }
-            
-            describe(".fromLegacySRSJSON(_:with:)") {
-                context("without valid JSON") {
-                    it("returns nil") {
-                        let msg = ChatMessage.fromLegacySRSJSON(nil, with: metadata)
-                        expect(msg).to(beNil())
-                    }
-                }
-                
-                context("with contentType of carousel") {
-                    it("returns nil") {
-                        let dict = TestUtil.dictForFile(named: "phone-plan-upgrade")
-                        let msg = ChatMessage.fromLegacySRSJSON(dict, with: metadata)
-                        expect(msg).to(beNil())
-                    }
-                }
-                
-                context("without a message component") {
-                    it("returns nil") {
-                        let dict = TestUtil.dictForFile(named: "live-chat-begin")
-                        let msg = ChatMessage.fromLegacySRSJSON(dict, with: metadata)
-                        expect(msg).to(beNil())
-                    }
-                }
-                
-                context("with a new credit card") {
-                    var dict: [String: Any]!
-                    var msg: ChatMessage!
-                    
-                    beforeEach {
-                        dict = TestUtil.dictForFile(named: "add-credit-card")
-                        msg = ChatMessage.fromLegacySRSJSON(dict, with: metadata)
-                    }
-                    
-                    it("has Make a Payment as its first message action") {
-                        expect(msg).toNot(beNil())
-                        
-                        expect(msg!.text).to(contain("add a credit card"))
-                        
-                        expect(msg!.hasQuickReplies).to(equal(false))
-                        
-                        let firstReply = msg!.buttons?.first
-                        expect(firstReply).toNot(beNil())
-                        expect(firstReply?.title).to(equal("Make a Payment"))
-                        expect(firstReply?.action).to(beAKindOf(DeepLinkAction.self))
-                        
-                        let action = firstReply?.action as? DeepLinkAction
-                        expect(action?.name).to(equal("payment"))
-                    }
-                    
-                    it("has a StackView as an attachment") {
-                        expect(msg).toNot(beNil())
-                        expect(msg.attachment?.template).toNot(beNil())
-                        expect(msg.attachment!.template!).to(beAKindOf(StackViewItem.self))
                     }
                 }
             }
