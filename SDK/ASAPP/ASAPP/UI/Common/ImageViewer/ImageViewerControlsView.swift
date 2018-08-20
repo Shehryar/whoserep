@@ -27,6 +27,7 @@ class ImageViewerControlsView: UIView {
         dismissButton.setImage(icon?.tinted(UIColor.white, alpha: 0.6), for: .highlighted)
         dismissButton.setImage(icon?.tinted(UIColor.white, alpha: 0.4), for: .disabled)
         dismissButton.addTarget(self, action: #selector(ImageViewerControlsView.didTapXButton), for: .touchUpInside)
+        dismissButton.accessibilityLabel = ASAPPLocalizedString("Close")
         addSubview(dismissButton)
     }
     

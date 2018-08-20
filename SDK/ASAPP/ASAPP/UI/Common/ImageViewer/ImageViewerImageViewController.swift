@@ -39,6 +39,8 @@ class ImageViewerImageViewController: UIViewController {
     // MARK: Init
     
     func commonInit() {
+        accessibilityViewIsModal = true
+        
         scrollView.scrollsToTop = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
