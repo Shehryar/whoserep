@@ -154,6 +154,8 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        accessibilityViewIsModal = true
+        
         originalBounds = view.bounds
         
         view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
@@ -174,6 +176,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
         closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark), for: .normal)
         closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark).withAlpha(0.5), for: .highlighted)
         closeButton.addTarget(self, action: #selector(didTapNavigationCloseButton), for: .touchUpInside)
+        closeButton.accessibilityLabel = ASAPPLocalizedString("Close")
         titleBar.addSubview(closeButton)
         titleBar.addSubview(titleLabel)
         let borderLayer = CALayer()

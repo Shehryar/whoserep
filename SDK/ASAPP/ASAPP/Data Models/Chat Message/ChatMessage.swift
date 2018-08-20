@@ -92,14 +92,7 @@ extension ChatMessage {
         }
         
         let messageDict = dict.jsonObject(for: JSONKey.clientMessage.rawValue) ?? dict
-        
-        if jsonIsLikelyLegacy(messageDict),
-           let legacyMessage = fromLegacySRSJSON(messageDict, with: metadata) {
-            return legacyMessage
-        }
-        
         let text = messageDict.string(for: JSONKey.text.rawValue)
-        
         let attachment = ChatMessageAttachment.fromJSON(messageDict[JSONKey.attachment.rawValue])
         
         var buttons: [QuickReply]?

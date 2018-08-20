@@ -11,14 +11,8 @@
 		3A04291F1F97C1B70031CD78 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291E1F97C1B70031CD78 /* TestUtil.swift */; };
 		3A04293A1F97C23C0031CD78 /* ASAPPSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0429391F97C23C0031CD78 /* ASAPPSpec.swift */; };
 		3A04293C1F97C23E0031CD78 /* ChatMessageSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */; };
-		3A04293D1F97C24C0031CD78 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429311F97C1E30031CD78 /* add-credit-card.json */; };
-		3A04293E1F97C24C0031CD78 /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429321F97C1E30031CD78 /* live-chat-begin.json */; };
-		3A04293F1F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */; };
 		3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */; };
 		3A0429411F97C24C0031CD78 /* security-pin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429351F97C1E30031CD78 /* security-pin.json */; };
-		3A0429421F97C24C0031CD78 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429311F97C1E30031CD78 /* add-credit-card.json */; };
-		3A0429431F97C24C0031CD78 /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429321F97C1E30031CD78 /* live-chat-begin.json */; };
-		3A0429441F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */; };
 		3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */; };
 		3A0429461F97C24C0031CD78 /* security-pin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429351F97C1E30031CD78 /* security-pin.json */; };
 		3A0429491F97C2890031CD78 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
@@ -59,11 +53,8 @@
 		3A391B381FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
 		3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
 		3A391B3A1FA14EAC0085C2DA /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291E1F97C1B70031CD78 /* TestUtil.swift */; };
-		3A391B3B1FA14EB20085C2DA /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429311F97C1E30031CD78 /* add-credit-card.json */; };
 		3A391B3C1FA14EB20085C2DA /* change-pin-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AED18F51FA0FC18005955DA /* change-pin-form.json */; };
 		3A391B3D1FA14EB20085C2DA /* change-pin-form-no-required.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AED18F21FA0FA02005955DA /* change-pin-form-no-required.json */; };
-		3A391B3E1FA14EB20085C2DA /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429321F97C1E30031CD78 /* live-chat-begin.json */; };
-		3A391B3F1FA14EB20085C2DA /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */; };
 		3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */; };
 		3A391B411FA14EB20085C2DA /* security-pin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429351F97C1E30031CD78 /* security-pin.json */; };
 		3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */; };
@@ -159,11 +150,8 @@
 		3AA0D3F920AA448100A04206 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
 		3AA0D3FB20AA448100A04206 /* change-pin-form-no-required.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AED18F21FA0FA02005955DA /* change-pin-form-no-required.json */; };
 		3AA0D3FC20AA448100A04206 /* gravity-fill-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */; };
-		3AA0D3FD20AA448100A04206 /* add-credit-card.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429311F97C1E30031CD78 /* add-credit-card.json */; };
 		3AA0D3FE20AA448100A04206 /* schedule-appointment-5-day.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */; };
-		3AA0D3FF20AA448100A04206 /* phone-plan-upgrade.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */; };
 		3AA0D40020AA448100A04206 /* security-pin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429351F97C1E30031CD78 /* security-pin.json */; };
-		3AA0D40120AA448100A04206 /* live-chat-begin.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0429321F97C1E30031CD78 /* live-chat-begin.json */; };
 		3AA0D40220AA448100A04206 /* event-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F51C01FB122F3009C68AE /* event-list.json */; };
 		3AA0D40320AA448100A04206 /* change-pin-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AED18F51FA0FC18005955DA /* change-pin-form.json */; };
 		3AA0D40420AA448100A04206 /* change-pin-form-proper-padding.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */; };
@@ -314,9 +302,6 @@
 /* Begin PBXFileReference section */
 		3A0429171F97A2DF0031CD78 /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A04291E1F97C1B70031CD78 /* TestUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
-		3A0429311F97C1E30031CD78 /* add-credit-card.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "add-credit-card.json"; sourceTree = "<group>"; };
-		3A0429321F97C1E30031CD78 /* live-chat-begin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "live-chat-begin.json"; sourceTree = "<group>"; };
-		3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "phone-plan-upgrade.json"; sourceTree = "<group>"; };
 		3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "schedule-appointment-5-day.json"; sourceTree = "<group>"; };
 		3A0429351F97C1E30031CD78 /* security-pin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "security-pin.json"; sourceTree = "<group>"; };
 		3A0429391F97C23C0031CD78 /* ASAPPSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPSpec.swift; sourceTree = "<group>"; };
@@ -495,7 +480,6 @@
 		3A0429361F97C1E30031CD78 /* Sample JSON */ = {
 			isa = PBXGroup;
 			children = (
-				3A0429311F97C1E30031CD78 /* add-credit-card.json */,
 				3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */,
 				3ADF49322113B31A00315E87 /* card-and-buttons.json */,
 				3A8790FE20B3559E00AD81E5 /* carousel-uneven.json */,
@@ -515,8 +499,6 @@
 				3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */,
 				3ADF49372113B3F200315E87 /* image-and-buttons.json */,
 				3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */,
-				3A0429321F97C1E30031CD78 /* live-chat-begin.json */,
-				3A0429331F97C1E30031CD78 /* phone-plan-upgrade.json */,
 				3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */,
 				3A0429351F97C1E30031CD78 /* security-pin.json */,
 				3A675C03211C88B50077BC00 /* tab-view.json */,
@@ -826,16 +808,13 @@
 				3ADF49382113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A391B3D1FA14EB20085C2DA /* change-pin-form-no-required.json in Resources */,
 				3AF5C39520D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
-				3A391B3E1FA14EB20085C2DA /* live-chat-begin.json in Resources */,
 				3A8790FF20B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */,
 				3A9F51C11FB122F3009C68AE /* event-list.json in Resources */,
 				3A127DB81FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
 				3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
-				3A391B3F1FA14EB20085C2DA /* phone-plan-upgrade.json in Resources */,
 				3A7B8ECF20ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3A95F2D920AD06EA00885C94 /* feedback-form-image.json in Resources */,
-				3A391B3B1FA14EB20085C2DA /* add-credit-card.json in Resources */,
 				3ACF18981FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A675BFA211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */,
@@ -862,7 +841,6 @@
 				3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A675BFB211B9A280077BC00 /* ultimate-collection.json in Resources */,
-				3A04293D1F97C24C0031CD78 /* add-credit-card.json in Resources */,
 				3AA8DAF120DD84400062A370 /* censor-email.json in Resources */,
 				3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A99523020DDD49600343D10 /* censor-date.json in Resources */,
@@ -870,11 +848,9 @@
 				3ADF49392113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A675C05211C88B50077BC00 /* tab-view.json in Resources */,
 				3A99523420DDDA7700343D10 /* censor-password.json in Resources */,
-				3A04293F1F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
 				3ADF49342113B33500315E87 /* card-and-buttons.json in Resources */,
 				3A87910020B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A0429411F97C24C0031CD78 /* security-pin.json in Resources */,
-				3A04293E1F97C24C0031CD78 /* live-chat-begin.json in Resources */,
 				3A9F51C21FB122F3009C68AE /* event-list.json in Resources */,
 				3AED18F61FA0FC18005955DA /* change-pin-form.json in Resources */,
 				3A391B4A1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
@@ -895,13 +871,10 @@
 				3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3ADF49352113B33600315E87 /* card-and-buttons.json in Resources */,
-				3A0429421F97C24C0031CD78 /* add-credit-card.json in Resources */,
 				3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
-				3A0429441F97C24C0031CD78 /* phone-plan-upgrade.json in Resources */,
 				3A87910120B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A0429461F97C24C0031CD78 /* security-pin.json in Resources */,
-				3A0429431F97C24C0031CD78 /* live-chat-begin.json in Resources */,
 				3A9F51C31FB122F9009C68AE /* event-list.json in Resources */,
 				3AED18F71FA0FC18005955DA /* change-pin-form.json in Resources */,
 				3A675C01211C840E0077BC00 /* data-usage.json in Resources */,
@@ -918,14 +891,11 @@
 			files = (
 				3AA0D3FB20AA448100A04206 /* change-pin-form-no-required.json in Resources */,
 				3AA0D3FC20AA448100A04206 /* gravity-fill-test.json in Resources */,
-				3AA0D3FD20AA448100A04206 /* add-credit-card.json in Resources */,
 				3ADF493B2113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3AA0D3FE20AA448100A04206 /* schedule-appointment-5-day.json in Resources */,
-				3AA0D3FF20AA448100A04206 /* phone-plan-upgrade.json in Resources */,
 				3A7B8ED220ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AA0D40020AA448100A04206 /* security-pin.json in Resources */,
 				3AF5C39820D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
-				3AA0D40120AA448100A04206 /* live-chat-begin.json in Resources */,
 				3A675BFD211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3AA0D40220AA448100A04206 /* event-list.json in Resources */,
 				3AA0D40320AA448100A04206 /* change-pin-form.json in Resources */,
