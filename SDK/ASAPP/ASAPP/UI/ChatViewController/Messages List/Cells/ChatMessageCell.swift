@@ -328,7 +328,7 @@ extension ChatMessageCell {
         let blockStartTime = Date.timeIntervalSinceReferenceDate
         animationStartTime = blockStartTime
         
-        prepareAnimation()
+        prepareForAnimation()
         Dispatcher.delay(.milliseconds(100)) { [weak self] in
             guard let strongSelf = self else {
                 return
@@ -340,7 +340,7 @@ extension ChatMessageCell {
         }
     }
     
-    internal func prepareAnimation() {
+    func prepareForAnimation() {
         textBubbleView.alpha = 0.0
         attachmentView?.alpha = 0.0
     }

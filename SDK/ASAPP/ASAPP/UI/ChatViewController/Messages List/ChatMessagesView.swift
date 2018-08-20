@@ -591,12 +591,6 @@ extension ChatMessagesView {
     }
     
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
-        var rowsToReload: [IndexPath] = []
-        
-        if let previousLastIndexPath = dataSource.getLastIndexPath() {
-            rowsToReload.append(previousLastIndexPath)
-        }
-        
         guard let indexPath = dataSource.addMessage(message) else {
             DebugLog.w(caller: self, "Failed to add message to view.")
             return
@@ -610,14 +604,11 @@ extension ChatMessagesView {
             messagesThatShouldAnimate.insert(message)
         }
         
-        if indexPath.row > 0 {
-            let previousIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)
-            if !rowsToReload.contains(previousIndexPath) {
-                rowsToReload.append(previousIndexPath)
-            }
-        }
-        
         tableView.reloadData()
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
+            cell.prepareForAnimation()
+        }
         
         if wasNearBottom {
             scrollToBottomAnimated(cellAnimationsEnabled)
