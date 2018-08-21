@@ -56,6 +56,7 @@ protocol ConversationManagerProtocol: class {
     func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion)
     func getSuggestions(for: String, completion: @escaping AutosuggestCompletion)
     func getSettings(attempts: Int, completion: @escaping (() -> Void))
+    func resolve(linkAction: LinkAction, completion: @escaping ((Action?) -> Void))
     func sendEnterChatRequest(_ completion: (() -> Void)?)
     func sendAcceptRequest(action: Action)
     func sendDismissRequest(action: Action)

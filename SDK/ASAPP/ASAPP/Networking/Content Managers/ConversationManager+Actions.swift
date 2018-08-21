@@ -147,4 +147,40 @@ extension ConversationManager {
         }
         sendRequest(path: path, params: params, completion: responseHandler)
     }
+    
+    // MARK: Platform-independent link resolution
+    
+    enum ResolvedLinkType: String {
+        case app
+        case web
+    }
+    
+    func resolve(linkAction: LinkAction, completion: @escaping ((Action?) -> Void)) {
+        let params: [String: Any] = [
+            "link": linkAction.link,
+            "data": JSONUtil.stringify(linkAction.data) as Any
+        ]
+        
+        sendRequest(path: "customer/resolveLink", params: params) { message in
+            guard
+                let data = message.body,
+                let typeString = data["type"] as? String,
+                let linkType = ResolvedLinkType(rawValue: typeString),
+                let resolvedLink = data["link"] as? String
+            else {
+                completion(nil)
+                return
+            }
+            
+            let action: Action?
+            switch linkType {
+            case .app:
+                action = DeepLinkAction(content: ["name": resolvedLink, "data": data["data"]])
+            case .web:
+                action = WebPageAction(content: ["url": resolvedLink, "data": data["data"]])
+            }
+            
+            completion(action)
+        }
+    }
 }

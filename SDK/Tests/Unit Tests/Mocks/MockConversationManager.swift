@@ -18,6 +18,7 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledGetEventWithLimit = false
     private(set) var calledGetSuggestions = false
     private(set) var calledGetSettings = false
+    private(set) var calledResolve = false
     private(set) var calledSendEnterChatRequest = false
     private(set) var calledSendAcceptRequest = false
     private(set) var calledSendDismissRequest = false
@@ -84,6 +85,10 @@ class MockConversationManager: ConversationManagerProtocol {
     
     func getSettings(attempts: Int = 0, completion: @escaping (() -> Void)) {
         calledGetSettings = true
+    }
+    
+    func resolve(linkAction: LinkAction, completion: @escaping ((Action?) -> Void)) {
+        calledResolve = true
     }
     
     func sendEnterChatRequest(_ completion: (() -> Void)?) {
@@ -153,6 +158,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetEventWithLimit = false
         calledGetSuggestions = false
         calledGetSettings = false
+        calledResolve = false
         calledSendEnterChatRequest = false
         calledSendAcceptRequest = false
         calledSendDismissRequest = false
