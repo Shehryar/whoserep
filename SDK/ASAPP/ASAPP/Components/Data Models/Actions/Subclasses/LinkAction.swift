@@ -10,6 +10,7 @@ import Foundation
 
 class LinkAction: Action {
     typealias Metadata = [String: AnyCodable]
+    typealias PlatformIndependentLink = String
     
     enum JSONKey: String {
         case link
