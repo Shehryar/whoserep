@@ -368,6 +368,7 @@ extension ChatViewController {
             navigationItem.titleView = nil
         }
         
+        notificationBanner?.updateDisplay()
         chatMessagesView.updateDisplay()
         quickRepliesView.updateDisplay()
         connectionStatusView.updateDisplay()

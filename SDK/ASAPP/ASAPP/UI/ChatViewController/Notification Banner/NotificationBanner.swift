@@ -150,6 +150,17 @@ class NotificationBanner: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func updateDisplay() {
+        titleLabel.setAttributedText(notification.title, textType: .body, color: ASAPP.styles.colors.dark)
+        if let text = notification.text {
+            bodyLabel.setAttributedText(text, textType: .body, color: ASAPP.styles.colors.dark.withAlphaComponent(0.8))
+        }
+        if let button = notification.button {
+            actionButton.updateText(button.title, textStyle: ASAPP.styles.textStyles.body2, colors: ASAPP.styles.colors.textButtonPrimary)
+        }
+        dismissButton.updateText(ASAPP.strings.notificationBannerDismissButton, textStyle: ASAPP.styles.textStyles.body2, colors: ASAPP.styles.colors.textButtonPrimary)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

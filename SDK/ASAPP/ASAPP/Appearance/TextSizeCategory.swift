@@ -16,6 +16,11 @@ enum TextSizeCategory: Int {
     case xLarge
     case xxLarge
     case xxxLarge
+    case huge
+    case xHuge
+    case xxHuge
+    case xxxHuge
+    case xxxxHuge
     
     static let defaultSizeCategory = large
     
@@ -27,31 +32,41 @@ enum TextSizeCategory: Int {
     
     static func from(contentSizeCategory: UIContentSizeCategory) -> TextSizeCategory {
         switch contentSizeCategory {
-        case UIContentSizeCategory.extraSmall:
+        case .extraSmall:
             return xSmall
             
-        case UIContentSizeCategory.small:
+        case .small:
             return small
             
-        case UIContentSizeCategory.medium,
-             UIContentSizeCategory.accessibilityMedium:
+        case .medium:
             return medium
             
-        case UIContentSizeCategory.large,
-             UIContentSizeCategory.accessibilityLarge:
+        case .large:
             return large
             
-        case UIContentSizeCategory.extraLarge,
-             UIContentSizeCategory.accessibilityExtraLarge:
+        case .extraLarge:
             return .xLarge
             
-        case UIContentSizeCategory.extraExtraLarge,
-             UIContentSizeCategory.accessibilityExtraExtraLarge:
+        case .extraExtraLarge:
             return xxLarge
             
-        case UIContentSizeCategory.extraExtraExtraLarge,
-             UIContentSizeCategory.accessibilityExtraExtraExtraLarge:
+        case .extraExtraExtraLarge:
             return xxxLarge
+        
+        case .accessibilityMedium:
+            return huge
+            
+        case .accessibilityLarge:
+            return xHuge
+            
+        case .accessibilityExtraLarge:
+            return xxHuge
+            
+        case .accessibilityExtraExtraLarge:
+            return xxxHuge
+            
+        case .accessibilityExtraExtraExtraLarge:
+            return xxxxHuge
             
         default: return defaultSizeCategory
         }
