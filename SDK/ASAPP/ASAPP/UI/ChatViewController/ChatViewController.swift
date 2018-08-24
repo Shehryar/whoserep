@@ -1545,6 +1545,7 @@ extension ChatViewController: ConversationManagerDelegate {
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authError: SocketConnection.AuthError?) {
         if let authError = authError,
            isAppInForeground {
+            connectionStatus = .disconnected
             hideGatekeeperView()
             // delay in case we reconnect immediately
             Dispatcher.delay { [weak self] in
