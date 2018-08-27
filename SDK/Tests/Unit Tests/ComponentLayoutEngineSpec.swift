@@ -34,7 +34,7 @@ class ComponentLayoutEngineSpec: QuickSpec {
                 ] as [String: Any]
                 
                 beforeSuite {
-                    ASAPP.styles.textStyles.button = ASAPPTextStyle(font: Fonts.default.bold, size: 13, letterSpacing: 1, color: UIColor.ASAPP.cometBlue, uppercase: true)
+                    ASAPP.styles.textStyles.button = ASAPPTextStyle(font: Fonts.default.bold, size: 13, letterSpacing: 1, color: UIColor.ASAPP.cometBlue, case: .upper)
                     
                     style.alignment = .fill
                     

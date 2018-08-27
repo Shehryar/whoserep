@@ -14,6 +14,17 @@ import UIKit
 @objc(ASAPPTextStyle)
 @objcMembers
 public class ASAPPTextStyle: NSObject {
+    /// Case style of text.
+    public enum ASAPPCaseStyle {
+        /// UPPERCASE
+        case upper
+        
+        /// Start Case
+        case start
+        
+        /// Original case, without Changes
+        case original
+    }
     
     // MARK: Properties (final)
     
@@ -25,7 +36,7 @@ public class ASAPPTextStyle: NSObject {
     
     private(set) var defaultSize: CGFloat
     
-    private(set) var uppercase: Bool = false
+    private(set) var `case`: ASAPPCaseStyle
     
     private(set) var color: UIColor
     
@@ -46,14 +57,14 @@ public class ASAPPTextStyle: NSObject {
      - parameter size: The default size.
      - parameter letterSpacing: The amount of space between characters.
      - parameter color: The text color.
-     - parameter uppercase: Whether the text is rendered as all uppercase.
+     - parameter case: The case style. Defaults to .original.
      */
-    public init(font: UIFont, size: CGFloat, letterSpacing: CGFloat, color: UIColor, uppercase: Bool = false) {
+    public init(font: UIFont, size: CGFloat, letterSpacing: CGFloat, color: UIColor, case: ASAPPCaseStyle = .original) {
         self.defaultSize = size
         self.fontRef = font
         self.letterSpacing = letterSpacing
         self.color = color
-        self.uppercase = uppercase
+        self.case = `case`
         super.init()
     }
     

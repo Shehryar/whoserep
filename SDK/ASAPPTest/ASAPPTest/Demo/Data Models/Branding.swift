@@ -53,6 +53,9 @@ class Branding: NSObject {
         case .boost:
             styles = Branding.createBoostStyles(appearanceConfig)
             
+        case .cairo:
+            styles = Branding.createCairoStyles(appearanceConfig)
+            
         case .telstra:
             styles = Branding.createTelstraStyles(appearanceConfig)
             
@@ -97,6 +100,46 @@ extension Branding {
         return styles
     }
     
+    fileprivate class func createCairoStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+        let styles = createCustomStyles(config)
+        
+        // Cairo special cases
+        
+        styles.primaryButtonRoundingStyle = .radius(4)
+        
+        let primary = config.getUIColor(.primary)
+        let highlightedBlue = UIColor(red: 0, green: 0.55, blue: 1, alpha: 1)
+        let disabledGrey = UIColor(red: 0.39, green: 0.45, blue: 0.54, alpha: 1)
+        
+        styles.colors.buttonPrimary = ASAPPButtonColors(
+            backgroundNormal: primary,
+            backgroundHighlighted: highlightedBlue,
+            backgroundDisabled: UIColor(red: 0.85, green: 0.87, blue: 0.9, alpha: 1),
+            textNormal: .white,
+            textHighlighted: .white,
+            textDisabled: disabledGrey,
+            border: nil)
+        
+        styles.colors.buttonSecondary = ASAPPButtonColors(
+            backgroundColor: .clear,
+            textColor: primary,
+            border: primary)
+        
+        styles.colors.textButtonPrimary = ASAPPButtonColors(
+            backgroundNormal: .clear,
+            backgroundHighlighted: .clear,
+            backgroundDisabled: .clear,
+            textNormal: primary,
+            textHighlighted: highlightedBlue,
+            textDisabled: disabledGrey,
+            border: nil)
+        
+        styles.textStyles.button = ASAPPTextStyle(font: config.fontFamily.medium, size: 16, letterSpacing: 0.2, color: primary, case: .start)
+        styles.textStyles.link = ASAPPTextStyle(font: config.fontFamily.medium, size: 16, letterSpacing: 0.2, color: primary, case: .start)
+        
+        return styles
+    }
+    
     fileprivate class func createTelstraStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = createCustomStyles(config)
         
@@ -114,7 +157,7 @@ extension Branding {
         
         // Verizon special cases
         
-        styles.primaryButtonsRounded = true
+        styles.primaryButtonRoundingStyle = .pill
         
         styles.textStyles.header1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 24, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.9))
         styles.textStyles.header2 = ASAPPTextStyle(font: config.fontFamily.bold, size: 22, letterSpacing: 0, color: .black)
@@ -174,9 +217,7 @@ class BrandingColors: NSObject {
         let textLight = UIColor.white
         let textDark = config.getUIColor(.dark)
         let demoNavBar = config.getUIColor(.demoNavBar)
-        let demoNavBarText = navBarColor.isBright()
-                                ? primary.isDark() ? primary : textDark
-                                : primary.isBright() ? primary : textLight
+        let demoNavBarText = demoNavBar.chooseHighestContrast(of: [primary, textDark, textLight])
         
         navBarColor = demoNavBar
         navBarTintColor = demoNavBarText

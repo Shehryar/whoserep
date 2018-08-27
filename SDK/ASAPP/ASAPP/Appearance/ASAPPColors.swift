@@ -88,9 +88,6 @@ public class ASAPPColors: NSObject {
     /// The color of text buttons, usually an accent color.
     public var textButtonPrimary = ASAPPButtonColors(textColor: UIColor.ASAPP.eggplant)
     
-    /// The color of secondary text buttons, usually a muted color.
-    public var textButtonSecondary = ASAPPButtonColors(textColor: UIColor(red: 0.663, green: 0.686, blue: 0.733, alpha: 1))
-    
     /// The colors of block-style buttons for primary actions, usually an accent color.
     public var buttonPrimary = ASAPPButtonColors(backgroundColor: UIColor.ASAPP.eggplant)
     
@@ -203,7 +200,6 @@ extension ASAPPColors {
         case .primary: return ASAPP.styles.colors.buttonPrimary
         case .secondary: return ASAPP.styles.colors.buttonSecondary
         case .textPrimary: return ASAPP.styles.colors.textButtonPrimary
-        case .textSecondary: return ASAPP.styles.colors.textButtonSecondary
         }
     }
 }

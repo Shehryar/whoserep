@@ -17,6 +17,7 @@ struct AppearanceConfig: Codable {
         case telstra
         case custom
         case verizon
+        case cairo
     }
     
     enum ColorName: Int, CountableEnum, Codable {
@@ -54,7 +55,7 @@ struct AppearanceConfig: Codable {
 }
 
 extension AppearanceConfig {
-    static let lastChangedVersion = 178
+    static let lastChangedVersion = 181
     
     var isValid: Bool {
         return version >= AppearanceConfig.lastChangedVersion

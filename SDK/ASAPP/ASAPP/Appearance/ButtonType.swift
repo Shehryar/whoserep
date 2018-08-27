@@ -12,7 +12,6 @@ enum ButtonType: String {
     case primary
     case secondary
     case textPrimary
-    case textSecondary
     
     static func from(_ value: Any?) -> ButtonType? {
         guard let value = value as? String,

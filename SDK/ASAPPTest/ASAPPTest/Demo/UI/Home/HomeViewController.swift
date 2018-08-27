@@ -212,16 +212,17 @@ extension HomeViewController {
         
         if let chatButton = chatButton {
             chatButton.segue = AppSettings.shared.branding.appearanceConfig.segue
-            chatButton.title = AppSettings.shared.branding.appearanceConfig.strings[.helpButton] ?? "Help"
-            chatButton.frame = CGRect(x: 0, y: 0, width: 72, height: 34)
-            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: 72, height: 34))
+            chatButton.title = AppSettings.shared.branding.appearanceConfig.strings[.helpButton] ?? "HELP"
+            chatButton.frame = CGRect(origin: .zero, size: chatButton.intrinsicContentSize)
+            let buttonContainerView = UIView(frame: CGRect(x: 0, y: 0, width: chatButton.intrinsicContentSize.width, height: 34))
             buttonContainerView.addSubview(chatButton)
             let badgeSize: CGFloat = 18
             let chatBadge = ChatBadge(frame: CGRect(x: buttonContainerView.bounds.width - badgeSize * 0.75, y: -4, width: badgeSize, height: badgeSize))
             self.chatBadge = chatBadge
             buttonContainerView.addSubview(chatBadge)
             refreshChatBadge()
-            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainerView)
+            let barButtonItem = UIBarButtonItem(customView: buttonContainerView)
+            navigationItem.rightBarButtonItems = [barButtonItem]
         }
         
         demoLog("Chat Button Updated")
