@@ -350,6 +350,10 @@ extension ChatTextBubbleView {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return action == #selector(ChatMessagesView.copy(_:))
     }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return messageButtonsView?.frame.contains(point) ?? false
+    }
 }
 
 extension ChatTextBubbleView: MessageButtonsViewDelegate {

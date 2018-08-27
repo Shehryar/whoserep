@@ -692,7 +692,7 @@ extension ChatViewController {
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
                     Dispatcher.performOnMainThread { [weak self] in
-                        self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                        self?.quickRepliesView.showPrevious()
                     }
                     return
                 }
@@ -707,7 +707,7 @@ extension ChatViewController {
                     Dispatcher.performOnMainThread { [weak self] in
                         self?.showRequestErrorAlert(message: response.error?.userMessage)
                         if quickReply != nil {
-                            self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                            self?.quickRepliesView.showPrevious()
                         }
                     }
                     
@@ -779,7 +779,7 @@ extension ChatViewController {
                         guard !success else {
                             return
                         }
-                        self?.quickRepliesView.deselectCurrentSelection(animated: true)
+                        self?.quickRepliesView.showPrevious()
                         self?.actionSheet?.hideSpinner()
                     }
             })
@@ -962,7 +962,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
         ))
         
         if let nextAction = action?.nextAction {
-            quickRepliesView.disableCurrentButtons()
+            quickRepliesView.disableAndClear()
             performAction(nextAction)
         }
         
@@ -1070,7 +1070,7 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
         if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-            quickRepliesView.disableCurrentButtons()
+            quickRepliesView.disableAndClear()
             selectedSuggestionMetadata?.keystrokesBeforeSelection = keystrokesBeforeSelection
             selectedSuggestionMetadata?.keystrokesAfterSelection = keystrokesAfterSelection
             chatInputView.clear()
