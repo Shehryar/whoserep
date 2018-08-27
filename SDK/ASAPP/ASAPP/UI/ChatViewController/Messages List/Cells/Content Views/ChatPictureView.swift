@@ -101,7 +101,6 @@ extension ChatPictureView {
         imageView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - messageButtonsHeight)
         
         imageView.isAccessibilityElement = true
-        imageView.accessibilityLabel = ASAPPLocalizedString("Image")
         var elements: [Any] = [imageView]
         if let messageButtonsView = messageButtonsView {
             elements.append(messageButtonsView)
