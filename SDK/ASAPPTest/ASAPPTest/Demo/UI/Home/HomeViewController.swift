@@ -277,7 +277,7 @@ extension HomeViewController: HomeTableViewDelegate {
         }
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        AuthenticationAPI.requestAuthToken(apiHostName: AppSettings.shared.apiHostName, appId: AppSettings.shared.appId, userId: account.username, password: password) { (authToken, _) in
+        AuthenticationAPI.requestAuthToken(apiHostName: AppSettings.shared.apiHostName, appId: AppSettings.shared.appId, userId: account.username, password: password) { (customerId, authToken, _) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             guard let authToken = authToken else {
                 showAuthTokenFetchError()
@@ -285,6 +285,11 @@ extension HomeViewController: HomeTableViewDelegate {
             }
             
             AppSettings.saveObject(authToken, forKey: .authToken)
+            
+            if let customerId = customerId {
+                AppSettings.saveObject(customerId, forKey: .customerIdentifier)
+            }
+            
             flashAuthRow()
             completion?()
         }
