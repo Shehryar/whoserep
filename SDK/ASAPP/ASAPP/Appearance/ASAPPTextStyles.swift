@@ -136,7 +136,7 @@ extension ASAPPTextStyles {
         case .primary, .secondary:
             return button
             
-        case .textPrimary, .textSecondary:
+        case .textPrimary:
             return link
         }
     }

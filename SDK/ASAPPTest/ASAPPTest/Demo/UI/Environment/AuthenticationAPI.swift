@@ -11,7 +11,7 @@ import Foundation
 class AuthenticationAPI: NSObject {
     
     @discardableResult
-    class func requestAuthToken(apiHostName: String, appId: String, userId: String, password: String, completion: ((_ authToken: String?, _ error: String?) -> Void)?) -> URLSessionDataTask? {
+    class func requestAuthToken(apiHostName: String, appId: String, userId: String, password: String, completion: ((_ customerId: String?, _ authToken: String?, _ error: String?) -> Void)?) -> URLSessionDataTask? {
         
         guard let requestUrl = URL(string: "https://\(apiHostName)/api/noauth/treewalkAuthenticate") else {
             print("Unable to create request url")
@@ -38,20 +38,21 @@ class AuthenticationAPI: NSObject {
                 demoLog("Auth token response: \(jsonDict)")
                 
                 if let authToken = jsonDict["access_token"] as? String {
+                    let customerId = jsonDict["customer_id"] as? String
                     DispatchQueue.main.async {
-                        completion?(authToken, nil)
+                        completion?(customerId, authToken, nil)
                     }
                 } else {
                     demoLog("Unable to find auth token in JSON: \(jsonDict)")
                     let error = "No access_token found in response."
                     DispatchQueue.main.async {
-                        completion?(nil, error)
+                        completion?(nil, nil, error)
                     }
                 }
             } else {
                 demoLog("Unable to fetch auth token: \(String(describing: response))")
                 DispatchQueue.main.async {
-                    completion?(nil, nil)
+                    completion?(nil, nil, nil)
                 }
             }
         })

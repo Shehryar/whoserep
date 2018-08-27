@@ -197,15 +197,16 @@ extension QuickRepliesView {
         listView.flashScrollIndicatorsIfNecessary()
     }
     
-    func disableCurrentButtons() {
-        listView.selectionDisabled = true
-        listView.updateEnabled()
-    }
-    
     func reloadButtons(for message: ChatMessage) {
         if listView.message?.metadata.eventId == message.metadata.eventId {
             listView.update(for: message, animated: true)
         }
+    }
+    
+    func disableAndClear() {
+        listView.selectionDisabled = true
+        listView.updateEnabled()
+        clear(animated: true)
     }
     
     func clear(animated: Bool, completion: (() -> Void)? = nil) {
@@ -213,8 +214,8 @@ extension QuickRepliesView {
         listView.update(for: nil, animated: animated, completion: completion)
     }
     
-    func deselectCurrentSelection(animated: Bool) {
-        listView.deselectButtonSelection(animated: animated)
+    func showPrevious() {
+        listView.showHidden()
     }
     
     func showRestartButtonAlone(animated: Bool) {
@@ -239,7 +240,7 @@ extension QuickRepliesView {
     }
     
     func showRestartSpinner() {
-        disableCurrentButtons()
+        disableAndClear()
         restartButton.showSpinner()
     }
     

@@ -235,7 +235,7 @@ extension AuthenticationViewController {
         }
         
         loadingAccount = account
-        AuthenticationAPI.requestAuthToken(apiHostName: AppSettings.shared.apiHostName, appId: AppSettings.shared.appId, userId: account.username, password: password) { [weak self] (authToken, _) in
+        AuthenticationAPI.requestAuthToken(apiHostName: AppSettings.shared.apiHostName, appId: AppSettings.shared.appId, userId: account.username, password: password) { [weak self] (customerId, authToken, _) in
             self?.loadingAccount = nil
             
             guard let authToken = authToken else {
@@ -246,6 +246,11 @@ extension AuthenticationViewController {
             }
             
             AppSettings.saveObject(authToken, forKey: .authToken)
+            
+            if let customerId = customerId {
+                AppSettings.saveObject(customerId, forKey: .customerIdentifier)
+            }
+            
             completion?()
             self?.reload()
         }

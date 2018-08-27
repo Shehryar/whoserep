@@ -18,8 +18,15 @@ extension UILabel {
             return
         }
         
-        if textStyle.uppercase {
+        switch textStyle.case {
+        case .upper:
             text = text.localizedUppercase
+        case .start:
+            text = text.split(separator: " ").map({ (substring) in
+                return String(substring).localizedCapitalized
+            }).joined()
+        case .original:
+            break
         }
         
         attributedText = NSAttributedString(string: text, attributes: [

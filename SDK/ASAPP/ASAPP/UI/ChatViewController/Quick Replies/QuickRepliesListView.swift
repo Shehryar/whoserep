@@ -83,12 +83,26 @@ class QuickRepliesListView: UIView {
     
     // MARK: - Display
     
+    func hideAll() {
+        removeAll(animated: true) { [weak self] _ in
+            self?.reset()
+        }
+    }
+    
+    func showHidden() {
+        selectedQuickReply = nil
+        selectionDisabled = false
+        addAll(animated: false, shouldDelay: false)
+    }
+    
     func update(for message: ChatMessage?, animated: Bool, completion: (() -> Void)? = nil) {
         self.message = message
         quickReplies = message?.quickReplies
-        refresh(animated: animated) { [weak self] in
-            self?.reset()
-            completion?()
+        removeAll(animated: animated, shouldAnimateUp: message != nil) { [weak self] delayNext in
+            self?.addAll(animated: animated, shouldDelay: delayNext) { [weak self] in
+                self?.reset()
+                completion?()
+            }
         }
     }
     
@@ -205,13 +219,7 @@ extension QuickRepliesListView {
         return view.buttonMinHeight * 0.75
     }
     
-    private func refresh(animated: Bool, _ completion: (() -> Void)? = nil) {
-        removeAll(animated: animated) { [weak self] delayNext in
-            self?.addAll(animated: animated, shouldDelay: delayNext, completion)
-        }
-    }
-    
-    private func removeAll(animated: Bool, _ completion: ((_ delayNext: Bool) -> Void)? = nil) {
+    private func removeAll(animated: Bool, shouldAnimateUp: Bool = true, _ completion: ((_ delayNext: Bool) -> Void)? = nil) {
         guard !quickReplyViews.isEmpty else {
             completion?(true)
             return
@@ -227,8 +235,17 @@ extension QuickRepliesListView {
             return
         }
         
-        for (i, view) in quickReplyViews.reversed().enumerated() {
-            let targetY = view.center.y + getTranslationOffset(for: view)
+        var views = quickReplyViews.filter({
+            $0.frame.minY < bounds.maxY || $0.frame.maxY > bounds.minY
+        })
+        
+        if !shouldAnimateUp {
+            views = views.reversed()
+        }
+        
+        for (i, view) in views.enumerated() {
+            let oper: (CGFloat, CGFloat) -> CGFloat = shouldAnimateUp ? (-) : (+)
+            let targetY = oper(view.center.y, getTranslationOffset(for: view))
             let delay = getDelay(initial: false, at: i)
             let fadeDuration = getFadeDuration(at: i, direction: .out)
             let translationDuration = getTranslationDuration(direction: .out)
@@ -341,7 +358,8 @@ extension QuickRepliesListView: QuickReplyViewDelegate {
         if !onQuickReplySelected(quickReply) {
             selectedQuickReply = nil
         }
-        updateViewsAnimated(true)
+        updateViewsAnimated(false)
+        hideAll()
     }
 }
 

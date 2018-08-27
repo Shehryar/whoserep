@@ -16,7 +16,7 @@ class HelpButton: UIView {
     
     let presentingViewController: UIViewController
     
-    var title: String = "Help" {
+    var title: String = "HELP" {
         didSet {
             updateDisplay()
         }
@@ -62,7 +62,7 @@ class HelpButton: UIView {
         self.user = user
         self.presentingViewController = presentingViewController
         
-        super.init(frame: CGRect(x: 0, y: 0, width: 65, height: 65))
+        super.init(frame: CGRect(x: 0, y: 0, width: 89, height: 44))
         
         clipsToBounds = false
         autoresizesSubviews = false
@@ -118,7 +118,7 @@ class HelpButton: UIView {
     }
     
     override public var intrinsicContentSize: CGSize {
-        return CGSize(width: 72, height: 34)
+        return CGSize(width: 64, height: 34)
     }
     
     func updateCornerRadius() {
@@ -173,7 +173,7 @@ extension HelpButton {
         accessibilityLabel = title
         label.attributedText = NSAttributedString(string: title, attributes: [
             NSFontAttributeName: AppSettings.shared.branding.appearanceConfig.fontFamily.bold.withSize(12),
-            NSKernAttributeName: 1.5,
+            NSKernAttributeName: 0.5,
             NSForegroundColorAttributeName: UIColor.white
         ])
         

@@ -130,6 +130,7 @@ extension AppSettings {
             "boost",
             "fios",
             "spectrum-cable",
+            "spectrum-mobile",
             "company1",
             "company2",
             "company3",
@@ -192,12 +193,12 @@ extension AppSettings {
         let boostGrey = Color(uiColor: UIColor(hexString: "#373737")!)!
         let telstraBlue = Color(uiColor: UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1))!
         let verizonBlue = Color(uiColor: UIColor(red: 0.22, green: 0.55, blue: 0.98, alpha: 1))!
+        let spectrumBlue = Color(uiColor: UIColor(red: 0, green: 0.45, blue: 0.82, alpha: 1))!
+        let spectrumNavy = Color(uiColor: UIColor(red: 0, green: 0.18, blue: 0.34, alpha: 1))!
         let black = Color(uiColor: .black)!
         
         return [
-            AppearanceConfig.create(name: "ASAPP", brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [
-                .helpButton: "HELP"
-            ], fontFamilyName: .asapp),
+            AppearanceConfig.create(name: "ASAPP", brand: .asapp, logo: Image(id: "asapp", uiImage: #imageLiteral(resourceName: "asapp-logo")), colors: [:], strings: [:], fontFamilyName: .asapp),
             
             AppearanceConfig.create(name: "Spear", brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
                 .demoNavBar: black,
@@ -211,13 +212,18 @@ extension AppSettings {
                 .primary: telstraBlue,
                 .dark: black
             ], strings: [
-                .helpButton: "HELP",
                 .chatTitle: "24x7 Chat"
             ], fontFamilyName: .asapp),
             
             AppearanceConfig.create(name: "Rome", brand: .verizon, logo: Image(id: "verizon", uiImage: #imageLiteral(resourceName: "fios-logo")), colors: [
                 .primary: verizonBlue,
                 .dark: black
+            ], strings: [:], fontFamilyName: .system),
+            
+            AppearanceConfig.create(name: "Cairo", brand: .cairo, logo: Image(id: "cairo", uiImage: #imageLiteral(resourceName: "spectrum-mobile-logo")), colors: [
+                .demoNavBar: spectrumNavy,
+                .primary: spectrumBlue,
+                .dark: spectrumNavy
             ], strings: [:], fontFamilyName: .system)
         ]
     }

@@ -150,6 +150,17 @@ class NotificationBanner: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func updateDisplay() {
+        titleLabel.setAttributedText(notification.title, textType: .body, color: ASAPP.styles.colors.dark)
+        if let text = notification.text {
+            bodyLabel.setAttributedText(text, textType: .body, color: ASAPP.styles.colors.dark.withAlphaComponent(0.8))
+        }
+        if let button = notification.button {
+            actionButton.updateText(button.title, textStyle: ASAPP.styles.textStyles.body2, colors: ASAPP.styles.colors.textButtonPrimary)
+        }
+        dismissButton.updateText(ASAPP.strings.notificationBannerDismissButton, textStyle: ASAPP.styles.textStyles.body2, colors: ASAPP.styles.colors.textButtonPrimary)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -201,6 +212,27 @@ class NotificationBanner: UIView {
         
         bannerContainer.alpha = shouldHide ? 0 : 1
         expandedContainer.isHidden = shouldHide
+        
+        var elements: [Any] = [titleLabel]
+        
+        if overlayButton.superview != nil {
+            let expandElement = UIAccessibilityElement(accessibilityContainer: self)
+            expandElement.accessibilityLabel = ASAPPLocalizedString(isExpanded ? "Collapse" : "Expand")
+            expandElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(expandIcon.frame, bannerContainer)
+            expandElement.accessibilityTraits = UIAccessibilityTraitButton
+            elements.append(expandElement)
+        }
+        
+        if isExpanded {
+            elements.append(bodyLabel)
+            elements.append(dismissButton)
+            
+            if actionButton.superview != nil {
+                elements.append(actionButton)
+            }
+        }
+        
+        accessibilityElements = elements
     }
     
     private func calculateExpandedContainerHeight() -> CGFloat {
