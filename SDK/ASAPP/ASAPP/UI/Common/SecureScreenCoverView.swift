@@ -45,6 +45,6 @@ class SecureScreenCoverView: UIView {
         let labelTop = bounds.height - contentInset.bottom - labelHeight
         
         label.frame = CGRect(x: contentInset.left, y: labelTop,
-                             width: bounds.width, height: labelHeight)
+                             width: bounds.width - contentInset.horizontal, height: labelHeight)
     }
 }

@@ -177,12 +177,9 @@ extension AppSettings {
             "user-anonymous",
             "user-gustavo",
             "user-mitch",
-            "user-alan",
             "user-joshua",
-            "user-susan",
             "user-tim",
             "user-tony",
-            "user-lori",
             "user-rachel",
             "user-max"
         ]
