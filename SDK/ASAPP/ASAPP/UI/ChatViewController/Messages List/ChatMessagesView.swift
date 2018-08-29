@@ -182,7 +182,7 @@ class ChatMessagesView: UIView {
         cellMaster.clearCache()
         tableView.reloadData()
         
-        scrollToBottomAnimated(false)
+        scrollToBottom(animated: false)
     }
     
     func clear() {
@@ -398,7 +398,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         if let message = dataSource.getMessage(for: indexPath) {
             if message == dataSource.getLastMessage() {
                 if isNearBottom() {
-                    scrollToBottomAnimated(false)
+                    scrollToBottom(animated: false)
                 }
             }
         }
@@ -492,7 +492,7 @@ extension ChatMessagesView {
         tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
     }
     
-    func scrollToBottomAnimated(_ animated: Bool) {
+    func scrollToBottom(animated: Bool, focus: Bool = false) {
         let scroll = { [weak self] in
             guard let strongSelf = self,
                   let indexPath = strongSelf.getLastIndexPath() else {
@@ -500,7 +500,10 @@ extension ChatMessagesView {
             }
             
             strongSelf.scrollToRow(at: indexPath, animated: animated)
-            strongSelf.focusAccessibilityOnLastMessage(delay: animated)
+            
+            if focus {
+                strongSelf.focusAccessibilityOnLastMessage(delay: animated)
+            }
         }
         
         Dispatcher.performOnMainThread {
@@ -586,7 +589,7 @@ extension ChatMessagesView {
         tableView.reloadData()
         
         if dataSource.allMessages.count != countBefore {
-            scrollToBottomAnimated(false)
+            scrollToBottom(animated: false, focus: true)
         }
     }
     
@@ -611,7 +614,7 @@ extension ChatMessagesView {
         }
         
         if wasNearBottom {
-            scrollToBottomAnimated(cellAnimationsEnabled)
+            scrollToBottom(animated: cellAnimationsEnabled, focus: true)
         }
         
         completion?()
@@ -644,22 +647,24 @@ extension ChatMessagesView {
             
             guard
                 let indexPath = dataSource.getIndexPath(of: message),
-                let cell = tableView.cellForRow(at: indexPath)
+                let cell = tableView.cellForRow(at: indexPath),
+                message == (cell as? ChatMessageCell)?.message
             else {
                 return
             }
             
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, cell)
-            
             focusTimer?.cancel()
-            focusTimer = Timer(delay: .seconds(1)) { [weak self] in
+            focusTimer = Timer(delay: .defaultAnimationDuration) { [weak self] in
+                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, cell)
                 self?.previousFocusedReply = message
             }
             focusTimer?.start()
         }
         
         if delay {
-            Dispatcher.delay(closure: focus)
+            Dispatcher.delay(.defaultAnimationDuration * 2, closure: focus)
+        } else if shouldShowLoadingHeader {
+            Dispatcher.delay(.defaultAnimationDuration * 4, closure: focus)
         } else {
             focus()
         }

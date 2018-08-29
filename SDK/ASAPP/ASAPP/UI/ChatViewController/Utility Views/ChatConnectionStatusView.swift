@@ -43,6 +43,12 @@ class ChatConnectionStatusView: UIView {
         }
     }
     
+    override var isHidden: Bool {
+        didSet {
+            configureAccessibility()
+        }
+    }
+    
     var onTapToConnect: (() -> Void)?
     
     // MARK: Private Properties
@@ -65,6 +71,8 @@ class ChatConnectionStatusView: UIView {
         addSubview(spinner)
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ChatConnectionStatusView.didTap)))
+        
+        configureAccessibility()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -121,6 +129,19 @@ class ChatConnectionStatusView: UIView {
         let horizontalInset = bounds.width - spinner.frame.minX - 8.0
         let labelWidth = bounds.width - 2 * horizontalInset
         label.frame = CGRect(x: horizontalInset, y: 0, width: labelWidth, height: bounds.height)
+        
+        configureAccessibility()
+    }
+    
+    func configureAccessibility() {
+        isAccessibilityElement = true
+        if !isHidden {
+            accessibilityLabel = message
+            accessibilityTraits = (status == .disconnected) ? UIAccessibilityTraitButton : UIAccessibilityTraitNone
+        } else {
+            accessibilityLabel = nil
+            accessibilityTraits = UIAccessibilityTraitNone
+        }
     }
     
     // MARK: Actions

@@ -102,14 +102,16 @@ extension ChatMessagesViewDataSource {
     
     func getFirstOfRecentReplies() -> ChatMessage? {
         guard
-            let indexOfLastSentMessage = allMessages.enumerated().reversed().first(where: {
-                !$1.metadata.isReply
+            let lastMessage = allMessages.last,
+            lastMessage.metadata.isReply == true,
+            let indexOfLastMessageWithDifferentTimestamp = allMessages.enumerated().reversed().first(where: {
+                return $1.metadata.sendTime.addingTimeInterval(0.2) < lastMessage.metadata.sendTime
             })?.offset
         else {
             return nil
         }
         
-        return getReplyAfter(indexOfLastSentMessage)
+        return getReplyAfter(indexOfLastMessageWithDifferentTimestamp)
     }
     
     func getReplyAfter(_ message: ChatMessage) -> ChatMessage? {

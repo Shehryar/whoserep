@@ -181,8 +181,11 @@ class BaseActionSheet: UIView {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.contentView.frame = contentViewFinalFrame
         }, completion: { [weak self] _ in
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self?.superview)
+            guard let superview = self?.superview else {
+                return
+            }
             self?.removeFromSuperview()
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, superview)
             completion?()
         })
     }
