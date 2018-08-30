@@ -104,21 +104,22 @@ extension ChatMessagesViewDataSource {
         guard
             let lastMessage = allMessages.last,
             lastMessage.metadata.isReply == true,
-            let indexOfLastMessageWithDifferentTimestamp = allMessages.enumerated().reversed().first(where: {
-                return $1.metadata.sendTime.addingTimeInterval(0.2) < lastMessage.metadata.sendTime
-            })?.offset
+            let firstReplyWithSameTimestampAsLast = allMessages.reversed().last(where: {
+                return $0.metadata.isReply
+                    && $0.metadata.sendTime.addingTimeInterval(0.2) >= lastMessage.metadata.sendTime
+            })
         else {
             return nil
         }
         
-        return getReplyAfter(indexOfLastMessageWithDifferentTimestamp)
+        return firstReplyWithSameTimestampAsLast
     }
     
     func getReplyAfter(_ message: ChatMessage) -> ChatMessage? {
         guard
-            let index = allMessages.enumerated().reversed().first(where: {
-                $1 == message
-            })?.offset
+            let index = allMessages.lastIndex(where: {
+                $0 == message
+            })
         else {
             return nil
         }

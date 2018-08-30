@@ -66,5 +66,24 @@ class SingleMessageViewController: UIViewController {
         view.setLinearGradient(degrees: 161, colors: ASAPP.styles.colors.messagesListGradientColors)
         view.addSubview(messagesView)
         messagesView.frame = view.bounds
+        messagesView.delegate = self
+    }
+}
+
+extension SingleMessageViewController: ChatMessagesViewDelegate {
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTapImageView imageView: UIImageView, from message: ChatMessage) {}
+    
+    func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateQuickRepliesFrom message: ChatMessage) {}
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTap buttonItem: ButtonItem, from message: ChatMessage) {}
+    
+    func chatMessagesView(_ messagesView: ChatMessagesView, didTap button: QuickReply) {}
+    
+    func chatMessagesViewDidScrollNearBeginning(_ messagesView: ChatMessagesView) {}
+    
+    func chatMessagesViewShouldChangeAccessibilityFocus(_ messagesView: ChatMessagesView) -> Bool {
+        return true
     }
 }

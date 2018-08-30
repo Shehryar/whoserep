@@ -99,7 +99,7 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
             //
             label.text = message.text
             label.isAccessibilityElement = label.text?.isEmpty == false
-            accessibilityElements = [label]
+            accessibilityElements = label.isAccessibilityElement ? [label] : nil
             label.isSelectable = textHasDataDetectorLink(label.text)
             
             //
