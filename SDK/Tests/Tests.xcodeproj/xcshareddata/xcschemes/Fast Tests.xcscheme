@@ -115,7 +115,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "form:tab-view"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "form:ultimate-collection"
@@ -147,7 +147,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:cancelled-auto-pay"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:carousel-uneven"

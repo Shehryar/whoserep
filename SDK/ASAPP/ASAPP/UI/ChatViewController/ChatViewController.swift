@@ -342,7 +342,7 @@ class ChatViewController: ASAPPViewController {
         super.viewDidLayoutSubviews()
         
         if isInitialLayout {
-            chatMessagesView.scrollToBottomAnimated(false)
+            chatMessagesView.scrollToBottom(animated: false)
             isInitialLayout = false
         }
     }
@@ -607,14 +607,14 @@ extension ChatViewController {
         let wasNearBottom = chatMessagesView.isNearBottom() || chatMessagesView.isHidden
         if animated {
             if wasNearBottom && scrollToBottomIfNearBottom {
-                chatMessagesView.scrollToBottomAnimated(true)
+                chatMessagesView.scrollToBottom(animated: true)
             }
             
             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: { [weak self] in
                 self?.updateFrames()
             }, completion: { [weak self] _ in
                 if wasNearBottom && scrollToBottomIfNearBottom {
-                    self?.chatMessagesView.scrollToBottomAnimated(true)
+                    self?.chatMessagesView.scrollToBottom(animated: true)
                 }
                 
                 completion?()
@@ -623,7 +623,7 @@ extension ChatViewController {
             updateFrames()
             
             if wasNearBottom && scrollToBottomIfNearBottom {
-                chatMessagesView.scrollToBottomAnimated(false)
+                chatMessagesView.scrollToBottom(animated: false)
             }
             
             completion?()
@@ -940,7 +940,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
         if !chatMessagesView.isNearBottom() {
             scrollingCompletionTime = Date().addingTimeInterval(DispatchTimeInterval.defaultAnimationDuration.seconds * 2)
             Dispatcher.performOnMainThread { [weak self] in
-                self?.chatMessagesView.scrollToBottomAnimated(true)
+                self?.chatMessagesView.scrollToBottom(animated: true)
             }
         }
     }
@@ -1185,6 +1185,7 @@ extension ChatViewController: QuickRepliesViewDelegate {
     }
     
     func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ASAPPLocalizedString("Sent. Waiting for reply."))
         updateInputState(.quickReplies, animated: true)
         
         let attributes = ["quickReplyText": AnyEncodable(quickReply.title)]
@@ -1221,6 +1222,7 @@ extension ChatViewController: ActionSheetDelegate {
     func actionSheetDidTapConfirm(_ actionSheet: BaseActionSheet) {
         shouldHideActionSheetOnNextMessage = true
         actionSheet.showSpinner()
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ASAPPLocalizedString("Loading."))
         
         conversationManager.sendAskRequest { success in
             Dispatcher.performOnMainThread { [weak self] in
@@ -1536,6 +1538,10 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     func hideGatekeeperView() {
+        guard gatekeeperView != nil else {
+            return
+        }
+        
         gatekeeperView?.removeFromSuperview()
         gatekeeperView = nil
         view.accessibilityElements = nil

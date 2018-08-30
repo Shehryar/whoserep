@@ -167,8 +167,8 @@ extension Branding {
         styles.textStyles.bodyBold  = ASAPPTextStyle(font: config.fontFamily.medium, size: 16, letterSpacing: 0, color: .black)
         styles.textStyles.body2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 15, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.85))
         styles.textStyles.bodyBold2 = ASAPPTextStyle(font: config.fontFamily.medium, size: 15, letterSpacing: 0, color: .black)
-        styles.textStyles.detail1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 13, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.5))
-        styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.5))
+        styles.textStyles.detail1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 13, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.55))
+        styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.55))
         
         return styles
     }
@@ -217,7 +217,7 @@ class BrandingColors: NSObject {
         let textLight = UIColor.white
         let textDark = config.getUIColor(.dark)
         let demoNavBar = config.getUIColor(.demoNavBar)
-        let demoNavBarText = demoNavBar.chooseHighestContrast(of: [primary, textDark, textLight])
+        let demoNavBarText = demoNavBar.chooseFirstAcceptableColor(of: [primary, textDark, textLight], largeText: true)
         
         navBarColor = demoNavBar
         navBarTintColor = demoNavBarText

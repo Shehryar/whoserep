@@ -316,6 +316,7 @@
 		3A883C661FBC959F00B44116 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C621FBC959E00B44116 /* Lato-Italic.ttf */; };
 		3A883C671FBC959F00B44116 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C631FBC959F00B44116 /* Lato-BoldItalic.ttf */; };
 		3A8C2F0A1FAA152E00F2407A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C2F091FAA152E00F2407A /* Session.swift */; };
+		3A9310E621375CE400B20A76 /* BidirectionalCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9310E521375CE400B20A76 /* BidirectionalCollectionExtensions.swift */; };
 		3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */; };
 		3A967FD81F606A5D000E9696 /* ASAPPNavBarButtonImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */; };
 		3A967FDA1F606C78000E9696 /* ASAPPCustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */; };
@@ -723,6 +724,7 @@
 		3A883C621FBC959E00B44116 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		3A883C631FBC959F00B44116 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3A8C2F091FAA152E00F2407A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		3A9310E521375CE400B20A76 /* BidirectionalCollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalCollectionExtensions.swift; sourceTree = "<group>"; };
 		3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
 		3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPNavBarButtonImages.swift; sourceTree = "<group>"; };
 		3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPPCustomImage.swift; sourceTree = "<group>"; };
@@ -1016,6 +1018,7 @@
 			children = (
 				3A0015C920E581A700781290 /* AnyCodable */,
 				3A87910320B3718600AD81E5 /* ArrayExtensions.swift */,
+				3A9310E521375CE400B20A76 /* BidirectionalCollectionExtensions.swift */,
 				3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */,
 				3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */,
 				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
@@ -2162,6 +2165,7 @@
 				307484E61EB8FF66008CF3E4 /* WebPageAction.swift in Sources */,
 				30A4BB101D510AAA00795BA7 /* ImageViewerImage.swift in Sources */,
 				30F6B4C01EBCE7D700ABA570 /* UseCasePreviewAPI.swift in Sources */,
+				3A9310E621375CE400B20A76 /* BidirectionalCollectionExtensions.swift in Sources */,
 				3A621FC3208E854A00CB11D6 /* ScaleItem.swift in Sources */,
 				306619101D9458F50092B4C5 /* SDImageCache.m in Sources */,
 				30099DCC1D3EDBC400171D56 /* ASAPP.swift in Sources */,

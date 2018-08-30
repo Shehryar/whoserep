@@ -57,7 +57,7 @@ public class ASAPPTextStyles: NSObject {
     public var bodyBold2  = ASAPPTextStyle(font: Fonts.default.medium, size: 16, letterSpacing: 0.2, color: UIColor.ASAPP.purpleHaze)
     
     /// The style of top-level detail text.
-    public var detail1 = ASAPPTextStyle(font: Fonts.default.regular, size: 11, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.5))
+    public var detail1 = ASAPPTextStyle(font: Fonts.default.regular, size: 11, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.65))
     
     /// The style of second-level detail text.
     public var detail2 = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9))
@@ -105,7 +105,7 @@ public class ASAPPTextStyles: NSObject {
         bodyBold.updateColor(color)
         body2.updateColor(color.withAlphaComponent(0.85))
         bodyBold2.updateColor(color)
-        detail1.updateColor(color.withAlphaComponent(0.5))
+        detail1.updateColor(color.withAlphaComponent(0.65))
         detail2.updateColor(color.withAlphaComponent(0.9))
     }
 }

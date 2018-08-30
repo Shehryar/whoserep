@@ -30,7 +30,7 @@ class ChatMessageCell: UITableViewCell {
             textBubbleView.message = message
             
             timeLabel.textAlignment = isReply ? .left : .right
-            timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail1, color: ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5))
+            timeLabel.setAttributedText(message?.metadata.sendTimeString, textType: .detail1)
         }
     }
     
