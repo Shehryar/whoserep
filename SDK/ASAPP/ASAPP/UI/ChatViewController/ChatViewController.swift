@@ -188,6 +188,10 @@ class ChatViewController: ASAPPViewController {
             return false
         }
         
+        if connectionStatus == .disconnected && shouldReloadOnUserUpdate {
+            return false
+        }
+        
         if let delayedDisconnectTime = delayedDisconnectTime {
             if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
                 return true
