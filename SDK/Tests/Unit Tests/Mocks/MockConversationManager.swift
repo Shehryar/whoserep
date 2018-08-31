@@ -16,6 +16,7 @@ class MockConversationManager: ConversationManagerProtocol {
     private(set) var calledGetEventsBefore = false
     private(set) var calledGetEventsAfter = false
     private(set) var calledGetEventWithLimit = false
+    private(set) var calledGetRequestParameters = false
     private(set) var calledGetSuggestions = false
     private(set) var calledGetSettings = false
     private(set) var calledResolve = false
@@ -77,6 +78,10 @@ class MockConversationManager: ConversationManagerProtocol {
     
     func getEvents(limit: Int, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
         calledGetEventWithLimit = true
+    }
+    
+    func getRequestParameters(with params: [String : Any]?, requiresContext: Bool, contextKey: String, contextNeedsRefresh: Bool, completion: @escaping ([String : Any]) -> Void) {
+        calledGetRequestParameters = true
     }
     
     func getSuggestions(for: String, completion: @escaping ConversationManagerProtocol.AutosuggestCompletion) {
@@ -156,6 +161,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetEventsBefore = false
         calledGetEventsAfter = false
         calledGetEventWithLimit = false
+        calledGetRequestParameters = false
         calledGetSuggestions = false
         calledGetSettings = false
         calledResolve = false

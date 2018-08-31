@@ -857,7 +857,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
     }
     
     private func recordLinkActionSelected(action: LinkAction, title: String) {
-        AnalyticsClient.shared.record(event: AnalyticsEvent(
+        recordEvent(AnalyticsEvent(
             name: .actionLinkSelected,
             attributes: [
                 "link": AnyEncodable(action.link),
@@ -959,7 +959,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
 extension ChatViewController: ComponentViewControllerDelegate {
     
     func componentViewControllerDidFinish(with action: FinishAction?, container: ComponentViewContainer?) {
-        AnalyticsClient.shared.record(event: AnalyticsEvent(
+        recordEvent(AnalyticsEvent(
             name: .viewDismissed,
             attributes: [:],
             metadata: container?.metadata
@@ -1163,10 +1163,37 @@ extension ChatViewController {
 // MARK: - QuickRepliesViewDelegate
 
 extension ChatViewController: QuickRepliesViewDelegate {
+    func recordEventWithLastReply(_ name: AnalyticsEvent.Name, buttonTitle: String?) {
+        var attributes: AnalyticsEvent.Attributes = [:]
+        
+        if let buttonTitle = buttonTitle {
+            attributes["buttonText"] = AnyEncodable(buttonTitle)
+        }
+        
+        if let messageMetadata = chatMessagesView.lastReply?.messageMetadata {
+            attributes["messageMetadata"] = AnyEncodable(messageMetadata.mapValues { AnyEncodable($0.value) })
+        }
+        
+        recordEvent(AnalyticsEvent(
+            name: name,
+            attributes: attributes,
+            metadata: nil
+        ))
+    }
+    
+    func recordEvent(_ event: AnalyticsEvent) {
+        conversationManager.getRequestParameters { params in
+            AnalyticsClient.shared.record(event: event, params: params)
+        }
+    }
+    
     func quickRepliesViewDidTapRestart(_ quickRepliesView: QuickRepliesView) {
         guard shouldConfirmRestart else {
             scrollToBottomBeforeAddingNextMessage()
             quickRepliesView.showRestartSpinner()
+            
+            recordEventWithLastReply(.newQuestionButtonTapped, buttonTitle: quickRepliesView.restartButton.title)
+            
             conversationManager.sendAskRequest { success in
                 guard !success else { return }
                 Dispatcher.performOnMainThread { [weak self] in
@@ -1184,6 +1211,8 @@ extension ChatViewController: QuickRepliesViewDelegate {
             return
         }
         
+        recordEventWithLastReply(.newQuestionWithConfirmationButtonTapped, buttonTitle: quickRepliesView.restartButton.title)
+        
         self.actionSheet = actionSheet
         actionSheet.show(in: view, below: connectionStatusView)
     }
@@ -1192,11 +1221,14 @@ extension ChatViewController: QuickRepliesViewDelegate {
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ASAPPLocalizedString("Sent. Waiting for reply."))
         updateInputState(.quickReplies, animated: true)
         
-        let attributes = ["quickReplyText": AnyEncodable(quickReply.title)]
-        AnalyticsClient.shared.record(event: AnalyticsEvent(
+        let attributes = [
+            "quickReplyText": AnyEncodable(quickReply.title),
+            "messageMetadata": AnyEncodable(message.messageMetadata?.mapValues { AnyEncodable($0.value) })
+        ]
+        recordEvent(AnalyticsEvent(
             name: .quickReplySelected,
             attributes: attributes,
-            metadata: message.messageMetadata))
+            metadata: quickReply.action.metadata))
         
         return performAction(quickReply.action, fromMessage: message, quickReply: quickReply)
     }
@@ -1214,6 +1246,9 @@ extension ChatViewController: ActionSheetDelegate {
     func actionSheetDidTapHide(_ actionSheet: BaseActionSheet) {
         reconnect()
         
+        let eventName: AnalyticsEvent.Name = (actionSheet is WelcomeBackActionSheet) ? .continueSheetHideButtonTapped : .restartSheetHideButtonTapped
+        recordEventWithLastReply(eventName, buttonTitle: actionSheet.hideButton.titleLabel?.text)
+        
         hideActionSheet(actionSheet) { [weak self] in
             if self?.conversationManager.events.isEmpty == false {
                 self?.updateStateForLastEvent()
@@ -1227,6 +1262,9 @@ extension ChatViewController: ActionSheetDelegate {
         shouldHideActionSheetOnNextMessage = true
         actionSheet.showSpinner()
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ASAPPLocalizedString("Loading."))
+        
+        let eventName: AnalyticsEvent.Name = (actionSheet is WelcomeBackActionSheet) ? .continueSheetConfirmButtonTapped : .restartSheetConfirmButtonTapped
+        recordEventWithLastReply(eventName, buttonTitle: actionSheet.confirmButton.titleLabel?.text)
         
         conversationManager.sendAskRequest { success in
             Dispatcher.performOnMainThread { [weak self] in
@@ -1467,7 +1505,6 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         let continueSheet = WelcomeBackActionSheet(for: continuePrompt)
-        
         continueSheet.delegate = self
         actionSheet = continueSheet
         guard let actionSheet = actionSheet else {

@@ -112,7 +112,7 @@
      */
     [ASAPP.styles.textStyles updateStylesFor:avenirNext];
     
-    ASAPP.styles.textStyles.navButton = [[ASAPPTextStyle alloc] initWithFont:avenirNext.bold size:12 letterSpacing:0 color:UIColor.whiteColor uppercase:false];
+    ASAPP.styles.textStyles.navButton = [[ASAPPTextStyle alloc] initWithFont:avenirNext.bold size:12 letterSpacing:0 color:UIColor.whiteColor case:ASAPPCaseStyleOriginal];
     
     /**
      ASAPPStrings

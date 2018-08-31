@@ -10,14 +10,14 @@ import Foundation
 
 extension BidirectionalCollection {
     // coming soon in Swift 4.2
-    public func last(
+    func last(
         where predicate: (Element) throws -> Bool
     ) rethrows -> Element? {
         return try lastIndex(where: predicate).map { self[$0] }
     }
     
     // coming soon in Swift 4.2
-    public func lastIndex(
+    func lastIndex(
         where predicate: (Element) throws -> Bool
     ) rethrows -> Index? {
         var i = endIndex

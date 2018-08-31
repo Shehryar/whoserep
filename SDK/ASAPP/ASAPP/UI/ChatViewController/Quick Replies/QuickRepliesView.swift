@@ -69,7 +69,7 @@ class QuickRepliesView: UIView {
     
     // MARK: UI Properties
     
-    private let restartButton = RestartButton()
+    let restartButton = RestartButton()
     
     private let separatorTopView = UIView()
     

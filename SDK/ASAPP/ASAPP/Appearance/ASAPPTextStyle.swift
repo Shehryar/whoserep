@@ -15,7 +15,8 @@ import UIKit
 @objcMembers
 public class ASAPPTextStyle: NSObject {
     /// Case style of text.
-    public enum ASAPPCaseStyle {
+    @objc(ASAPPCaseStyle)
+    public enum ASAPPCaseStyle: Int {
         /// UPPERCASE
         case upper
         
