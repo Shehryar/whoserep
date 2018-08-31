@@ -81,6 +81,10 @@ class ChatMessagesView: UIView {
         return dataSource.getLastMessage()
     }
     
+    var lastReply: ChatMessage? {
+        return dataSource.getLastReply()
+    }
+    
     var numberOfMessages: Int {
         return dataSource.allMessages.count
     }

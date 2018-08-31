@@ -85,6 +85,10 @@ extension ChatMessagesViewDataSource {
         return sections.last?.last
     }
     
+    func getLastReply() -> ChatMessage? {
+        return allMessages.last(where: { $0.metadata.isReply })
+    }
+    
     func getLastIndexPath() -> IndexPath? {
         guard !sections.isEmpty else {
             return nil

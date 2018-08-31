@@ -99,7 +99,8 @@ public class ASAPPColors: NSObject {
     
     // MARK: - Chat: Messages
     
-    internal let messagesListGradientColors = [UIColor.ASAPP.snow, UIColor.ASAPP.ash]
+    /// The list of colors for the messages list's background gradient.
+    public var messagesListGradientColors = [UIColor.ASAPP.snow, UIColor.ASAPP.ash]
     
     internal let attachmentGradientColors = [UIColor.ASAPP.snow, UIColor.ASAPP.ash]
     

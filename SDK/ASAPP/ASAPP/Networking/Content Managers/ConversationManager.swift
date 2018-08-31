@@ -51,11 +51,14 @@ protocol ConversationManagerProtocol: class {
     func isConnected(retryConnectionIfNeeded: Bool) -> Bool
     
     func getCurrentQuickReplyMessage() -> ChatMessage?
+    func getRequestParameters(with params: [String: Any]?, requiresContext: Bool, contextKey: String, contextNeedsRefresh: Bool, completion: @escaping (_ params: [String: Any]) -> Void)
+    
     func getEvents(before firstEvent: Event, limit: Int, completion: @escaping FetchedEventsCompletion)
     func getEvents(after lastEvent: Event, completion: @escaping FetchedEventsCompletion)
     func getEvents(limit: Int, completion: @escaping FetchedEventsCompletion)
     func getSuggestions(for: String, completion: @escaping AutosuggestCompletion)
     func getSettings(attempts: Int, completion: @escaping (() -> Void))
+    
     func resolve(linkAction: LinkAction, completion: @escaping ((Action?) -> Void))
     func sendEnterChatRequest(_ completion: (() -> Void)?)
     func sendAcceptRequest(action: Action)
@@ -96,6 +99,15 @@ extension ConversationManagerProtocol {
     
     func getSettings(attempts: Int) {
         return getSettings(attempts: attempts, completion: {})
+    }
+    
+    func getRequestParameters(completion: @escaping (_ params: [String: Any]) -> Void) {
+        return getRequestParameters(
+            with: nil,
+            requiresContext: true,
+            contextKey: "Context",
+            contextNeedsRefresh: false,
+            completion: completion)
     }
 }
 

@@ -23,8 +23,8 @@ class BaseActionSheet: UIView {
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let titleLabel = UILabel()
     private let bodyLabel = UILabel()
-    private let hideButton = UIButton()
-    private let confirmButton = UIButton()
+    let hideButton = UIButton()
+    let confirmButton = UIButton()
     private var activityIndicator: UIActivityIndicatorView?
     
     private let sheetInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)

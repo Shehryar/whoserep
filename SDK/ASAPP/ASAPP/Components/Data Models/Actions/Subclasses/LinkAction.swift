@@ -9,16 +9,13 @@
 import Foundation
 
 class LinkAction: Action {
-    typealias Metadata = [String: AnyCodable]
     typealias PlatformIndependentLink = String
     
     enum JSONKey: String {
         case link
-        case metadata
     }
     
     let link: PlatformIndependentLink
-    var metadata: Metadata?
     
     required init?(content: Any?) {
         guard
@@ -30,7 +27,6 @@ class LinkAction: Action {
         }
         
         self.link = link
-        self.metadata = content.codableDict(for: JSONKey.metadata.rawValue, type: Metadata.self)
         
         super.init(content: content)
     }

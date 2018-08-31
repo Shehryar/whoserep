@@ -9,23 +9,29 @@
 import UIKit
 
 class Action: NSObject {
+    typealias Metadata = [String: AnyCodable]
     
     // MARK: Properties
     
     enum JSONKey: String {
         case data
+        case metadata
     }
 
     private(set) var data: [String: Any]?
+    let metadata: Metadata?
     
     // MARK: Init
     
     required init?(content: Any?) {
         if let content = content as? [String: Any] {
             self.data = content[JSONKey.data.rawValue] as? [String: Any]
+            self.metadata = content.codableDict(for: JSONKey.metadata.rawValue, type: Metadata.self)
         } else {
             self.data = nil
+            self.metadata = nil
         }
+        
         super.init()
     }
 }
