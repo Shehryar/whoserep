@@ -110,6 +110,10 @@ extension Branding {
         let primary = config.getUIColor(.primary)
         let highlightedBlue = UIColor(red: 0, green: 0.55, blue: 1, alpha: 1)
         let disabledGrey = UIColor(red: 0.39, green: 0.45, blue: 0.54, alpha: 1)
+        let backgroundGrey = UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1)
+        
+        styles.colors.replyMessageBackground = UIColor(red: 0.85, green: 0.87, blue: 0.9, alpha: 1)
+        styles.colors.messagesListGradientColors = [backgroundGrey, backgroundGrey]
         
         styles.colors.buttonPrimary = ASAPPButtonColors(
             backgroundNormal: primary,

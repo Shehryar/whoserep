@@ -24,7 +24,7 @@ extension UILabel {
         case .start:
             text = text.split(separator: " ").map({ (substring) in
                 return String(substring).localizedCapitalized
-            }).joined()
+            }).joined(separator: " ")
         case .original:
             break
         }
