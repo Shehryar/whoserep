@@ -83,6 +83,10 @@
 		<string>NHaasGroteskDSStd-55Rg.otf</string>
 		<string>NHaasGroteskDSStd-65Md.otf</string>
 		<string>NHaasGroteskDSStd-75Bd.otf</string>
+		<string>Lato-Light.ttf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Lato-Black.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>$(LAUNCH_SCREEN)</string>

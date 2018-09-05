@@ -76,14 +76,13 @@ public class ASAPP: NSObject {
     // MARK: - Initialization
     
     /**
-     Sets the `config` property and loads built-in fonts, if necessary.
+     Sets the `config` property.
      
      - parameter config: An `ASAPPConfig` instance used to configure the SDK.
      */
     public class func initialize(with config: ASAPPConfig) {
         ASAPP.config = config
         HTTPClient.shared.config(config)
-        ASAPP.loadFonts()
     }
 
     // MARK: - Entering Chat
@@ -173,13 +172,6 @@ public class ASAPP: NSObject {
     public class func clearSavedSession() {
         SavedSessionManager.shared.clearSession()
     }
-    
-    // MARK: - Fonts
-    
-    /// Loads the SDK's built-in fonts.
-    public class func loadFonts() {
-        FontLoader.load(bundle: ASAPP.bundle)
-    }
 }
 
 internal extension ASAPP {
@@ -202,8 +194,6 @@ internal extension ASAPP {
         assert(config != nil, "ASAPP.config must be set before calling this method. You can set the config by calling method +initialize(with:) from your app delegate.")
         
         assert(user != nil, "ASAPP.user must be set before calling this method.")
-        
-        loadFonts()
     }
     
     class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: Segue = .present) -> UIViewController {

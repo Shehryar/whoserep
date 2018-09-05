@@ -28,7 +28,7 @@ class ButtonSpec: QuickSpec {
             
             context("on its own") {
                 beforeEach {
-                    ASAPP.styles = ASAPPStyles()
+                    TestUtil.createStyle()
                 }
                 
                 context("with default styles") {

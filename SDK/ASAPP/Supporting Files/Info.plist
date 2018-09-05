@@ -31,9 +31,5 @@
 	<string>Allows users to upload images to the chat.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Lato-Black</string>
-	</array>
 </dict>
 </plist>

@@ -10,7 +10,11 @@ import UIKit
 import ASAPP
 
 class DemoFonts: NSObject {
-    static let asapp = ASAPPFontFamily()
+    static let asapp = ASAPPFontFamily(
+        light: UIFont(name: "Lato-Light", size: 14)!,
+        regular: UIFont(name: "Lato-Regular", size: 14)!,
+        medium: UIFont(name: "Lato-Bold", size: 14)!,
+        bold: UIFont(name: "Lato-Black", size: 14)!)
     
     static let boost = ASAPPFontFamily(
         light: UIFont(name: "SprintSans-Regular", size: 16)!,
@@ -22,11 +26,7 @@ class DemoFonts: NSObject {
         light: UIFont(name: "Roboto-Light", size: 16)!,
         regular: UIFont(name: "Roboto-Regular", size: 16)!,
         medium: UIFont(name: "Roboto-Medium", size: 16)!,
-        bold: UIFont(name: "Roboto-Bold", size: 16)!,
-        lightItalic: UIFont(name: "Roboto-LightItalic", size: 16)!,
-        regularItalic: UIFont(name: "Roboto-Italic", size: 16)!,
-        mediumItalic: UIFont(name: "Roboto-MediumItalic", size: 16)!,
-        boldItalic: UIFont(name: "Roboto-BoldItalic", size: 16)!)
+        bold: UIFont(name: "Roboto-Bold", size: 16)!)
     
     static let neueHaasGrotesk = ASAPPFontFamily(
         light: UIFont(name: "NHaasGroteskDSStd-55Rg", size: 16)!,

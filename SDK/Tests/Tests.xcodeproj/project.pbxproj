@@ -65,6 +65,26 @@
 		3A3D925F1F98F1A900E1FAE3 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
 		3A3D92601F98F1B800E1FAE3 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A3D92611F98F1BC00E1FAE3 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A4B43AE2140396400D729CF /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B43AD2140396300D729CF /* FontLoader.swift */; };
+		3A4B43AF2140396400D729CF /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B43AD2140396300D729CF /* FontLoader.swift */; };
+		3A4B43B02140396400D729CF /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B43AD2140396300D729CF /* FontLoader.swift */; };
+		3A4B43B12140396400D729CF /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B43AD2140396300D729CF /* FontLoader.swift */; };
+		3A4B43C621403D5B00D729CF /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */; };
+		3A4B43C721403D5B00D729CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C321403D5B00D729CF /* Lato-Black.ttf */; };
+		3A4B43C821403D5B00D729CF /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */; };
+		3A4B43C921403D5B00D729CF /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C521403D5B00D729CF /* Lato-Light.ttf */; };
+		3A4B43CA21403DC200D729CF /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */; };
+		3A4B43CB21403DC200D729CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C321403D5B00D729CF /* Lato-Black.ttf */; };
+		3A4B43CC21403DC200D729CF /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */; };
+		3A4B43CD21403DC200D729CF /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C521403D5B00D729CF /* Lato-Light.ttf */; };
+		3A4B43CE21403DC200D729CF /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */; };
+		3A4B43CF21403DC200D729CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C321403D5B00D729CF /* Lato-Black.ttf */; };
+		3A4B43D021403DC200D729CF /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */; };
+		3A4B43D121403DC200D729CF /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C521403D5B00D729CF /* Lato-Light.ttf */; };
+		3A4B43D221403DC300D729CF /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */; };
+		3A4B43D321403DC300D729CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C321403D5B00D729CF /* Lato-Black.ttf */; };
+		3A4B43D421403DC300D729CF /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */; };
+		3A4B43D521403DC300D729CF /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C521403D5B00D729CF /* Lato-Light.ttf */; };
 		3A4B48F71FF2CB2200988491 /* TableViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */; };
 		3A4B48F91FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B48F81FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift */; };
 		3A4B48FB1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B48FA1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift */; };
@@ -338,6 +358,11 @@
 		3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationTestCase.swift; sourceTree = "<group>"; };
 		3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "change-pin-form-proper-padding.json"; sourceTree = "<group>"; };
 		3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidInputsSpec.swift; sourceTree = "<group>"; };
+		3A4B43AD2140396300D729CF /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
+		3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		3A4B43C321403D5B00D729CF /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		3A4B43C521403D5B00D729CF /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSpec.swift; sourceTree = "<group>"; };
 		3A4B48F81FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatComponentViewMessageCellSpec.swift; sourceTree = "<group>"; };
 		3A4B48FA1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextBubbleViewSpec.swift; sourceTree = "<group>"; };
@@ -472,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				3A0429361F97C1E30031CD78 /* Sample JSON */,
+				3A4B43AD2140396300D729CF /* FontLoader.swift */,
 				3A04291E1F97C1B70031CD78 /* TestUtil.swift */,
 			);
 			path = Common;
@@ -518,6 +544,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3A4B43B621403D1700D729CF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3A4B43B721403D1D00D729CF /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3A4B43B721403D1D00D729CF /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3A4B43C121403D5B00D729CF /* Lato */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		3A4B43C121403D5B00D729CF /* Lato */ = {
+			isa = PBXGroup;
+			children = (
+				3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */,
+				3A4B43C321403D5B00D729CF /* Lato-Black.ttf */,
+				3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */,
+				3A4B43C521403D5B00D729CF /* Lato-Light.ttf */,
+			);
+			path = Lato;
+			sourceTree = "<group>";
+		};
 		3A797B611F97A29D00883ABF = {
 			isa = PBXGroup;
 			children = (
@@ -546,6 +599,7 @@
 		3A797B6C1F97A29D00883ABF /* Dummy App */ = {
 			isa = PBXGroup;
 			children = (
+				3A4B43B621403D1700D729CF /* Resources */,
 				3A797B6D1F97A29D00883ABF /* AppDelegate.swift */,
 				3A675BF5211B91460077BC00 /* ComponentViewContainerController.swift */,
 				3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */,
@@ -806,19 +860,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ADF49382113B3F200315E87 /* image-and-buttons.json in Resources */,
+				3A4B43C921403D5B00D729CF /* Lato-Light.ttf in Resources */,
 				3A391B3D1FA14EB20085C2DA /* change-pin-form-no-required.json in Resources */,
 				3AF5C39520D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A8790FF20B3559E00AD81E5 /* carousel-uneven.json in Resources */,
+				3A4B43C721403D5B00D729CF /* Lato-Black.ttf in Resources */,
 				3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */,
 				3A9F51C11FB122F3009C68AE /* event-list.json in Resources */,
 				3A127DB81FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
 				3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
+				3A4B43C621403D5B00D729CF /* Lato-Bold.ttf in Resources */,
 				3A7B8ECF20ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3A95F2D920AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3ACF18981FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A675BFA211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */,
 				3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */,
+				3A4B43C821403D5B00D729CF /* Lato-Regular.ttf in Resources */,
 				3A391B3C1FA14EB20085C2DA /* change-pin-form.json in Resources */,
 				3AA0D3B620AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3A391B411FA14EB20085C2DA /* security-pin.json in Resources */,
@@ -836,10 +894,12 @@
 				3A675C00211C840E0077BC00 /* data-usage.json in Resources */,
 				3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3A7B8ED020ACDB5F00DC5EAE /* image-layout.json in Resources */,
+				3A4B43CD21403DC200D729CF /* Lato-Light.ttf in Resources */,
 				3AED18F31FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3A99523620DDDF2700343D10 /* censor-digits7.json in Resources */,
 				3ACF18991FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DA20AD06EA00885C94 /* feedback-form-image.json in Resources */,
+				3A4B43CA21403DC200D729CF /* Lato-Bold.ttf in Resources */,
 				3A675BFB211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3AA8DAF120DD84400062A370 /* censor-email.json in Resources */,
 				3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
@@ -855,6 +915,8 @@
 				3AED18F61FA0FC18005955DA /* change-pin-form.json in Resources */,
 				3A391B4A1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
 				3A127DB91FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
+				3A4B43CC21403DC200D729CF /* Lato-Regular.ttf in Resources */,
+				3A4B43CB21403DC200D729CF /* Lato-Black.ttf in Resources */,
 				3A621FCC208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -870,10 +932,13 @@
 				3AED18F41FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
 				3ACF189A1FCDBA0B0036B653 /* gravity-fill-test.json in Resources */,
 				3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */,
+				3A4B43D121403DC200D729CF /* Lato-Light.ttf in Resources */,
+				3A4B43CF21403DC200D729CF /* Lato-Black.ttf in Resources */,
 				3ADF49352113B33600315E87 /* card-and-buttons.json in Resources */,
 				3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3A87910120B3559E00AD81E5 /* carousel-uneven.json in Resources */,
+				3A4B43CE21403DC200D729CF /* Lato-Bold.ttf in Resources */,
 				3A0429461F97C24C0031CD78 /* security-pin.json in Resources */,
 				3A9F51C31FB122F9009C68AE /* event-list.json in Resources */,
 				3AED18F71FA0FC18005955DA /* change-pin-form.json in Resources */,
@@ -882,6 +947,7 @@
 				3A127DBA1FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
 				3A675C06211C88B50077BC00 /* tab-view.json in Resources */,
 				3A621FCD208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
+				3A4B43D021403DC200D729CF /* Lato-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,14 +958,18 @@
 				3AA0D3FB20AA448100A04206 /* change-pin-form-no-required.json in Resources */,
 				3AA0D3FC20AA448100A04206 /* gravity-fill-test.json in Resources */,
 				3ADF493B2113B3F200315E87 /* image-and-buttons.json in Resources */,
+				3A4B43D521403DC300D729CF /* Lato-Light.ttf in Resources */,
 				3AA0D3FE20AA448100A04206 /* schedule-appointment-5-day.json in Resources */,
+				3A4B43D421403DC300D729CF /* Lato-Regular.ttf in Resources */,
 				3A7B8ED220ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AA0D40020AA448100A04206 /* security-pin.json in Resources */,
 				3AF5C39820D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A675BFD211B9A280077BC00 /* ultimate-collection.json in Resources */,
+				3A4B43D321403DC300D729CF /* Lato-Black.ttf in Resources */,
 				3AA0D40220AA448100A04206 /* event-list.json in Resources */,
 				3AA0D40320AA448100A04206 /* change-pin-form.json in Resources */,
 				3A95F2DC20AD06EA00885C94 /* feedback-form-image.json in Resources */,
+				3A4B43D221403DC300D729CF /* Lato-Bold.ttf in Resources */,
 				3AA0D40420AA448100A04206 /* change-pin-form-proper-padding.json in Resources */,
 				3A675C02211C840E0077BC00 /* data-usage.json in Resources */,
 				3AA0D40520AA448100A04206 /* feedback-form.json in Resources */,
@@ -955,6 +1025,7 @@
 				3AF5C39120D85B410013A616 /* SingleMessageViewController.swift in Sources */,
 				3A675BF6211B91460077BC00 /* ComponentViewContainerController.swift in Sources */,
 				3A7B8ED520ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
+				3A4B43AE2140396400D729CF /* FontLoader.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
 				3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
 				3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */,
@@ -976,6 +1047,7 @@
 				3A889FE41FA7D6CA002C06C1 /* OutgoingMessageSerializerSpec.swift in Sources */,
 				3A04293C1F97C23E0031CD78 /* ChatMessageSpec.swift in Sources */,
 				3A0F04AC200948DF0064E76F /* HTTPActionSpec.swift in Sources */,
+				3A4B43B12140396400D729CF /* FontLoader.swift in Sources */,
 				3AD60AA02050652F00C0F2C2 /* SavedSessionManagerSpec.swift in Sources */,
 				3A0F04B2201040250064E76F /* SocketRequestSpec.swift in Sources */,
 				3A04291F1F97C1B70031CD78 /* TestUtil.swift in Sources */,
@@ -1044,6 +1116,7 @@
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
 				3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */,
 				3A95F2D720AD03BD00885C94 /* ImageViewSpec.swift in Sources */,
+				3A4B43B02140396400D729CF /* FontLoader.swift in Sources */,
 				3AE183A92059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift in Sources */,
 				3AED18EE1FA0EB11005955DA /* TextInputMaxLength.swift in Sources */,
 				3ADD60781FE1BB7C00FC783C /* DropdownViewSpec.swift in Sources */,
@@ -1078,6 +1151,7 @@
 				3AF5C39320D85B490013A616 /* SingleMessageViewController.swift in Sources */,
 				3A7B8ED720ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3AA0D3F220AA448100A04206 /* FormValidationTestCase.swift in Sources */,
+				3A4B43AF2140396400D729CF /* FontLoader.swift in Sources */,
 				3AA0D3F320AA448100A04206 /* Dropdown.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

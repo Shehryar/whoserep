@@ -22,6 +22,8 @@ class LabelViewSpec: QuickSpec {
                 let window = UIWindow(frame: UIScreen.main.bounds)
                 window.rootViewController = UIViewController()
                 window.makeKeyAndVisible()
+                
+                TestUtil.createStyle()
             }
             
             context("on its own") {

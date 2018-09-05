@@ -28,7 +28,7 @@ class InvalidInputsSpec: QuickSpec {
             
             beforeEach {
                 ASAPP.strings = ASAPPStrings()
-                ASAPP.styles = ASAPPStyles()
+                TestUtil.createStyle()
             }
             
             context("marked invalid with no specific error messages") {

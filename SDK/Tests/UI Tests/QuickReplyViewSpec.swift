@@ -31,8 +31,6 @@ class QuickReplyViewSpec: QuickSpec {
             
             context("on its own") {
                 beforeEach {
-                    ASAPP.styles = ASAPPStyles()
-                    
                     let colors = ASAPPButtonColors(
                         backgroundColor: UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1),
                         textColor: UIColor(red: 91.0 / 255.0, green: 101.0 / 255.0, blue: 126.0 / 255.0, alpha: 1))

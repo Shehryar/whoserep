@@ -32,7 +32,7 @@ class NavBarButtonItemSpec: QuickSpec {
                 toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 64))
                 toolbar.backgroundColor = .gray
                 ASAPP.strings = ASAPPStrings()
-                ASAPP.styles = ASAPPStyles()
+                TestUtil.createStyle()
             }
             
             context("in the chat view on the left with a title and with default styles") {
