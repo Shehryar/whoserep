@@ -99,11 +99,7 @@
                                    initWithLight:[UIFont fontWithName:@"AvenirNext-Regular" size:16]
                                    regular:[UIFont fontWithName:@"AvenirNext-Medium" size:16]
                                    medium:[UIFont fontWithName:@"AvenirNext-DemiBold" size:16]
-                                   bold:[UIFont fontWithName:@"AvenirNext-Bold" size:16]
-                                   lightItalic:nil
-                                   regularItalic:nil
-                                   mediumItalic:nil
-                                   boldItalic:nil];
+                                   bold:[UIFont fontWithName:@"AvenirNext-Bold" size:16]];
     
     /**
      ASAPPStyles
