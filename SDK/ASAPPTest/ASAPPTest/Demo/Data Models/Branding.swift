@@ -47,7 +47,7 @@ class Branding: NSObject {
         
         switch appearanceConfig.brand {
         case .asapp:
-            styles = ASAPPStyles()
+            styles = Branding.createASAPPStyles(appearanceConfig)
             views.chatTitle = Branding.createChatTitle(image: #imageLiteral(resourceName: "asapp-logo"), frame: CGRect(x: 0, y: 7, width: 76, height: 14.6))
             
         case .boost:
@@ -89,6 +89,12 @@ class Branding: NSObject {
 
 extension Branding {
     // MARK: - per-client demo styles
+    
+    fileprivate class func createASAPPStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+        let styles = ASAPPStyles()
+        styles.textStyles.updateStyles(for: config.fontFamily)
+        return styles
+    }
     
     fileprivate class func createBoostStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = createCustomStyles(config)

@@ -106,6 +106,11 @@
 		3A6811251F7BEB7600078E3F /* hey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3A6811051F7AF55B00078E3F /* hey.caf */; };
 		3A86332C1FB235E400E90C18 /* CountableEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A86332B1FB235E400E90C18 /* CountableEnum.swift */; };
 		3AB67B2A1FC636D200FC3C69 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */; };
+		3AED516C2140219100F565B4 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AED51642140219100F565B4 /* Lato-Bold.ttf */; };
+		3AED516D2140219100F565B4 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AED51652140219100F565B4 /* Lato-Black.ttf */; };
+		3AED516E2140219100F565B4 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AED51662140219100F565B4 /* Lato-Regular.ttf */; };
+		3AED51712140219100F565B4 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AED51692140219100F565B4 /* Lato-Light.ttf */; };
+		3AED51732140311100F565B4 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED51722140311100F565B4 /* FontLoader.swift */; };
 		3AF5DAE62075239B00C39DF1 /* ChatBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5DAE52075239B00C39DF1 /* ChatBadge.swift */; };
 		3AFB74C81FDA006200AF0442 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C01FDA006200AF0442 /* Roboto-Bold.ttf */; };
 		3AFB74C91FDA006200AF0442 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C11FDA006200AF0442 /* Roboto-BoldItalic.ttf */; };
@@ -237,6 +242,11 @@
 		3A6811131F7BE95600078E3F /* SprintSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SprintSans-Regular.ttf"; sourceTree = "<group>"; };
 		3A86332B1FB235E400E90C18 /* CountableEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountableEnum.swift; sourceTree = "<group>"; };
 		3AB67B291FC636D200FC3C69 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		3AED51642140219100F565B4 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		3AED51652140219100F565B4 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		3AED51662140219100F565B4 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		3AED51692140219100F565B4 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		3AED51722140311100F565B4 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		3AF5DAE52075239B00C39DF1 /* ChatBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBadge.swift; sourceTree = "<group>"; };
 		3AFB74C01FDA006200AF0442 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		3AFB74C11FDA006200AF0442 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -305,6 +315,7 @@
 				308CB1131DCBE86400477013 /* DemoDispatcher.swift */,
 				307022C51DBE592F0027908C /* DemoFonts.swift */,
 				30C24C371DCA4BEF00529785 /* DemoLog.swift */,
+				3AED51722140311100F565B4 /* FontLoader.swift */,
 				307301D61DAE9C750002CF3B /* ImageBackgroundViewController.swift */,
 				307301D71DAE9C750002CF3B /* NavigationController.swift */,
 				30C24C351DCA39E100529785 /* RandomNameGenerator.swift */,
@@ -473,6 +484,7 @@
 		3A6811061F7AF56A00078E3F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				3AED51612140219100F565B4 /* Lato */,
 				3A304C4F208641750072BA56 /* Neue Haas Grotesk */,
 				3A6811091F7AF58100078E3F /* Boost Neo */,
 				3AFB74BF1FDA006200AF0442 /* Roboto */,
@@ -502,6 +514,17 @@
 				3A68110D1F7BE94C00078E3F /* BoostNeo-Light.ttf */,
 			);
 			path = "Boost Neo";
+			sourceTree = "<group>";
+		};
+		3AED51612140219100F565B4 /* Lato */ = {
+			isa = PBXGroup;
+			children = (
+				3AED51642140219100F565B4 /* Lato-Bold.ttf */,
+				3AED51652140219100F565B4 /* Lato-Black.ttf */,
+				3AED51662140219100F565B4 /* Lato-Regular.ttf */,
+				3AED51692140219100F565B4 /* Lato-Light.ttf */,
+			);
+			path = Lato;
 			sourceTree = "<group>";
 		};
 		3AFB74BF1FDA006200AF0442 /* Roboto */ = {
@@ -638,6 +661,8 @@
 				3A1E00651F8ECB5B008C3F39 /* appointment-confirmation.json in Resources */,
 				3A1E006C1F8ECB5B008C3F39 /* cancel-appointment.json in Resources */,
 				3A1E00701F8ECB5B008C3F39 /* chat-flow-wait-or-callback.json in Resources */,
+				3AED516E2140219100F565B4 /* Lato-Regular.ttf in Resources */,
+				3AED516D2140219100F565B4 /* Lato-Black.ttf in Resources */,
 				3A1E00801F8ECB5B008C3F39 /* tech-location.json in Resources */,
 				3A1E007E1F8ECB5B008C3F39 /* schedule-appointment.json in Resources */,
 				3A1E00771F8ECB5B008C3F39 /* live-chat-end.json in Resources */,
@@ -673,6 +698,7 @@
 				3AFB74C81FDA006200AF0442 /* Roboto-Bold.ttf in Resources */,
 				3A6811191F7BEB7200078E3F /* BoostNeo-Black.ttf in Resources */,
 				3A1E007B1F8ECB5B008C3F39 /* predictive-response.json in Resources */,
+				3AED51712140219100F565B4 /* Lato-Light.ttf in Resources */,
 				3A1E006A1F8ECB5B008C3F39 /* bill-summary.json in Resources */,
 				3A6811251F7BEB7600078E3F /* hey.caf in Resources */,
 				3AFB74CB1FDA006200AF0442 /* Roboto-Light.ttf in Resources */,
@@ -680,6 +706,7 @@
 				307301CF1DAE9BAA0002CF3B /* LaunchScreen-Sprint.storyboard in Resources */,
 				3A1E006B1F8ECB5B008C3F39 /* cancel-appointment-confirmation.json in Resources */,
 				3A304C55208641750072BA56 /* NHaasGroteskDSStd-55Rg.otf in Resources */,
+				3AED516C2140219100F565B4 /* Lato-Bold.ttf in Resources */,
 				3A6811181F7BEB6500078E3F /* Assets.xcassets in Resources */,
 				3A1E00791F8ECB5B008C3F39 /* phone-upgrade-ineligible.json in Resources */,
 				3A1E00711F8ECB5B008C3F39 /* data-usage-near-full-message.json in Resources */,
@@ -716,6 +743,7 @@
 				307022BA1DBE554D0027908C /* BaseViewController.swift in Sources */,
 				307301E01DAE9C750002CF3B /* ImageBackgroundViewController.swift in Sources */,
 				281D8E011DC9681300E4A65B /* TableViewCell.swift in Sources */,
+				3AED51732140311100F565B4 /* FontLoader.swift in Sources */,
 				3AF5DAE62075239B00C39DF1 /* ChatBadge.swift in Sources */,
 				30C24C381DCA4BEF00529785 /* DemoLog.swift in Sources */,
 				281D8E031DC9696A00E4A65B /* TitleDetailValueCell.swift in Sources */,
@@ -944,7 +972,7 @@
 				CAN_CHANGE_ENVIRONMENT = YES;
 				CAN_USE_DIFFERENT_COMPANY = YES;
 				CODE_SIGN_ENTITLEMENTS = ASAPPTest/ASAPPTest.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chat SDK iOS (SR87QKL3K6)";
 				CURRENT_PROJECT_VERSION = 184;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFAULT_ENVIRONMENT = demo;

@@ -76,12 +76,30 @@ class TestUtil: NSObject {
         ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: { _ in
             return [:]
         })
+        
+        FontLoader.load(bundle: Bundle(identifier: "ASAPP.UITests") ?? Bundle(identifier: "ASAPP.UnitTests") ?? Bundle.main)
+        let lato = ASAPPFontFamily(
+            light: UIFont(name: "Lato-Light", size: 14)!,
+            regular: UIFont(name: "Lato-Regular", size: 14)!,
+            medium: UIFont(name: "Lato-Bold", size: 14)!,
+            bold: UIFont(name: "Lato-Black", size: 14)!)
+        ASAPP.styles.textStyles.updateStyles(for: lato)
     }
     
     @discardableResult
     class func createStyle() -> ComponentStyle {
         ASAPP.styles = ASAPPStyles()
-        ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .blue)
+        
+        ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.2, color: .blue)
+        
+        FontLoader.load(bundle: Bundle(identifier: "ASAPP.UITests") ?? Bundle(identifier: "ASAPP.UnitTests") ?? Bundle.main)
+        let lato = ASAPPFontFamily(
+            light: UIFont(name: "Lato-Light", size: 14)!,
+            regular: UIFont(name: "Lato-Regular", size: 14)!,
+            medium: UIFont(name: "Lato-Bold", size: 14)!,
+            bold: UIFont(name: "Lato-Black", size: 14)!)
+        ASAPP.styles.textStyles.updateStyles(for: lato)
+        
         ASAPP.styles.colors.controlSecondary = .blue
         ASAPP.styles.colors.controlTint = .brown
         

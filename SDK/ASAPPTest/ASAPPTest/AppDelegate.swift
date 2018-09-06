@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self, Answers.self])
         
         ASAPP.debugLogLevel = .debug
-        ASAPP.loadFonts()
+        FontLoader.load()
         
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.isTranslucent = false

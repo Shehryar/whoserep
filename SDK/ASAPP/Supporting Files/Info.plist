@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.4.8</string>
+	<string>4.4.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -31,9 +31,5 @@
 	<string>Allows users to upload images to the chat.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Lato-Black</string>
-	</array>
 </dict>
 </plist>

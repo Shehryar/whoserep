@@ -15,7 +15,7 @@ class ComponentLayoutEngineSpec: QuickSpec {
     override func spec() {
         describe("ComponentLayoutEngine") {
             let buttonHeight: CGFloat = 48
-            let buttonWidth: CGFloat = 108
+            let buttonWidth: CGFloat = 111
             
             describe(".getVerticalLayout(for:inside:)") {
                 var style = ComponentStyle()

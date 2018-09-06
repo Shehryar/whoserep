@@ -20,7 +20,7 @@ class ChatInputViewTestCase: FBSnapshotTestCase {
         TestUtil.setUpASAPP()
         
         ASAPP.strings = ASAPPStrings()
-        ASAPP.styles = ASAPPStyles()
+        TestUtil.createStyle()
     }
     
     func testOnItsOwn() {

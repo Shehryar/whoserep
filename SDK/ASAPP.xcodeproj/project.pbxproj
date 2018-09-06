@@ -106,10 +106,6 @@
 		3023A5BE1E575C9B003BE6AB /* ChatSimpleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */; };
 		3023A5C01E578C28003BE6AB /* SoundEffectPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */; };
 		3023A5C31E578DEA003BE6AB /* chat-notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3023A5C21E578DEA003BE6AB /* chat-notification.wav */; };
-		302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472921D89A07B0005A6C9 /* Lato-Black.ttf */; };
-		302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472931D89A07B0005A6C9 /* Lato-Bold.ttf */; };
-		302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472941D89A07B0005A6C9 /* Lato-Light.ttf */; };
-		302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 302472951D89A07B0005A6C9 /* Lato-Regular.ttf */; };
 		3025D9A01E527FBF004149D7 /* icon-error-alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D99D1E527FBF004149D7 /* icon-error-alert.png */; };
 		3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D99E1E527FBF004149D7 /* icon-error-alert@2x.png */; };
 		3025D9A21E527FBF004149D7 /* icon-error-alert@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3025D99F1E527FBF004149D7 /* icon-error-alert@3x.png */; };
@@ -300,7 +296,6 @@
 		3A621FC3208E854A00CB11D6 /* ScaleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC2208E854A00CB11D6 /* ScaleItem.swift */; };
 		3A621FC5208E861E00CB11D6 /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC4208E861E00CB11D6 /* ScaleView.swift */; };
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
-		3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68112C1F7C1BF800078E3F /* FontLoader.swift */; };
 		3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */; };
 		3A7B8EC920ACC8B800DC5EAE /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */; };
 		3A7B8ECB20ACC97500DC5EAE /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */; };
@@ -311,10 +306,6 @@
 		3A87910420B3718600AD81E5 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87910320B3718600AD81E5 /* ArrayExtensions.swift */; };
 		3A883C5D1FBB71BA00B44116 /* BubbleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */; };
 		3A883C5F1FBBAB1800B44116 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */; };
-		3A883C641FBC959F00B44116 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C601FBC959D00B44116 /* Lato-BlackItalic.ttf */; };
-		3A883C651FBC959F00B44116 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C611FBC959E00B44116 /* Lato-LightItalic.ttf */; };
-		3A883C661FBC959F00B44116 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C621FBC959E00B44116 /* Lato-Italic.ttf */; };
-		3A883C671FBC959F00B44116 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A883C631FBC959F00B44116 /* Lato-BoldItalic.ttf */; };
 		3A8C2F0A1FAA152E00F2407A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C2F091FAA152E00F2407A /* Session.swift */; };
 		3A9310E621375CE400B20A76 /* BidirectionalCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9310E521375CE400B20A76 /* BidirectionalCollectionExtensions.swift */; };
 		3A95DC9F1F66DAF000B9578D /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */; };
@@ -514,10 +505,6 @@
 		3023A5BD1E575C9B003BE6AB /* ChatSimpleStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatSimpleStore.swift; sourceTree = "<group>"; };
 		3023A5BF1E578C28003BE6AB /* SoundEffectPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEffectPlayer.swift; sourceTree = "<group>"; };
 		3023A5C21E578DEA003BE6AB /* chat-notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "chat-notification.wav"; sourceTree = "<group>"; };
-		302472921D89A07B0005A6C9 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
-		302472931D89A07B0005A6C9 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
-		302472941D89A07B0005A6C9 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
-		302472951D89A07B0005A6C9 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		3025D99D1E527FBF004149D7 /* icon-error-alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-error-alert.png"; sourceTree = "<group>"; };
 		3025D99E1E527FBF004149D7 /* icon-error-alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-error-alert@2x.png"; sourceTree = "<group>"; };
 		3025D99F1E527FBF004149D7 /* icon-error-alert@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-error-alert@3x.png"; sourceTree = "<group>"; };
@@ -708,7 +695,6 @@
 		3A621FC2208E854A00CB11D6 /* ScaleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleItem.swift; sourceTree = "<group>"; };
 		3A621FC4208E861E00CB11D6 /* ScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleView.swift; sourceTree = "<group>"; };
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
-		3A68112C1F7C1BF800078E3F /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageButtonsView.swift; sourceTree = "<group>"; };
 		3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
@@ -719,10 +705,6 @@
 		3A87910320B3718600AD81E5 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleButton.swift; sourceTree = "<group>"; };
 		3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
-		3A883C601FBC959D00B44116 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
-		3A883C611FBC959E00B44116 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
-		3A883C621FBC959E00B44116 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
-		3A883C631FBC959F00B44116 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3A8C2F091FAA152E00F2407A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3A9310E521375CE400B20A76 /* BidirectionalCollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidirectionalCollectionExtensions.swift; sourceTree = "<group>"; };
 		3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
@@ -1063,19 +1045,10 @@
 			isa = PBXGroup;
 			children = (
 				3023A5C11E578C42003BE6AB /* Sounds */,
-				30099E061D3FD1DA00171D56 /* Fonts */,
 				30CF55B61D7750A000C7DB6D /* Localizations */,
 				30099E0B1D3FD1DA00171D56 /* Images */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		30099E061D3FD1DA00171D56 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				302472911D89A07B0005A6C9 /* Lato */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		30099E0B1D3FD1DA00171D56 /* Images */ = {
@@ -1306,21 +1279,6 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		302472911D89A07B0005A6C9 /* Lato */ = {
-			isa = PBXGroup;
-			children = (
-				3A883C601FBC959D00B44116 /* Lato-BlackItalic.ttf */,
-				302472921D89A07B0005A6C9 /* Lato-Black.ttf */,
-				3A883C631FBC959F00B44116 /* Lato-BoldItalic.ttf */,
-				302472931D89A07B0005A6C9 /* Lato-Bold.ttf */,
-				302472951D89A07B0005A6C9 /* Lato-Regular.ttf */,
-				3A883C621FBC959E00B44116 /* Lato-Italic.ttf */,
-				302472941D89A07B0005A6C9 /* Lato-Light.ttf */,
-				3A883C611FBC959E00B44116 /* Lato-LightItalic.ttf */,
-			);
-			path = Lato;
-			sourceTree = "<group>";
-		};
 		302A20891E5DE990007C522A /* Modal Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1379,7 +1337,6 @@
 				30131FE01EB11561009E7299 /* UITextView+ASAPPAppearance.swift */,
 				303699AA1EAFAAE700A819DF /* Colors.swift */,
 				3A5370AA1F86B2BB0092B3B3 /* Fonts.swift */,
-				3A68112C1F7C1BF800078E3F /* FontLoader.swift */,
 				3A4FEF001F55EA4300338B00 /* Segue.swift */,
 				30131FA71EAFB662009E7299 /* TextSizeCategory.swift */,
 			);
@@ -1864,7 +1821,6 @@
 				3AC81A2B20BDF19700F345F9 /* mail_paper@3x.png in Resources */,
 				3A24FD2420F7AC030075B6CD /* hourglass@3x.png in Resources */,
 				3A24FD2920F7AC150075B6CD /* user_sync@2x.png in Resources */,
-				3A883C641FBC959F00B44116 /* Lato-BlackItalic.ttf in Resources */,
 				3022684E1D80690500EC4FB1 /* icon-checkmark@3x.png in Resources */,
 				3022684D1D80690500EC4FB1 /* icon-checkmark@2x.png in Resources */,
 				3A26995A2060356E007C0EC6 /* icon-chevron@3x.png in Resources */,
@@ -1878,7 +1834,6 @@
 				3023A5C31E578DEA003BE6AB /* chat-notification.wav in Resources */,
 				3A24FD2A20F7AC150075B6CD /* user_sync@3x.png in Resources */,
 				3AC81A3720BDF19700F345F9 /* mail_empty.png in Resources */,
-				302472971D89A07B0005A6C9 /* Lato-Bold.ttf in Resources */,
 				3A26997420603B4E007C0EC6 /* icon-send@2x.png in Resources */,
 				3AC81A1020BDF19700F345F9 /* tech_router_on@2x.png in Resources */,
 				3AC81A3120BDF19700F345F9 /* mail_empty@3x.png in Resources */,
@@ -1911,7 +1866,6 @@
 				3AC81A5320BDF19700F345F9 /* tech_router_on@3x.png in Resources */,
 				3AC81A2820BDF19700F345F9 /* user_cancel-2@3x.png in Resources */,
 				3A03C38D206D275F00A51EF7 /* icon-paperclip.png in Resources */,
-				3A883C661FBC959F00B44116 /* Lato-Italic.ttf in Resources */,
 				3025D9A01E527FBF004149D7 /* icon-error-alert.png in Resources */,
 				3ACAAAA120570CE300963DD3 /* icon-new-question@3x.png in Resources */,
 				3AC81A4220BDF19700F345F9 /* sound_on_fill@2x.png in Resources */,
@@ -1919,13 +1873,10 @@
 				3AC81A1920BDF19700F345F9 /* money_card_cancel@2x.png in Resources */,
 				3AE1839F205865EC00FD0D7A /* icon-exit-link@2x.png in Resources */,
 				3ACAAAA020570CE300963DD3 /* icon-new-question.png in Resources */,
-				3A883C651FBC959F00B44116 /* Lato-LightItalic.ttf in Resources */,
 				3AC81A3920BDF19700F345F9 /* rating_thumbs_down_fill@3x.png in Resources */,
 				3AC81A4A20BDF19700F345F9 /* nav_close.png in Resources */,
 				3AC81A2120BDF19700F345F9 /* notification_alert@2x.png in Resources */,
-				302472961D89A07B0005A6C9 /* Lato-Black.ttf in Resources */,
 				3AE1839E205865EC00FD0D7A /* icon-exit-link@3x.png in Resources */,
-				302472981D89A07B0005A6C9 /* Lato-Light.ttf in Resources */,
 				3AC81A3B20BDF19700F345F9 /* rating_thumbs_up_fill.png in Resources */,
 				3022684C1D80690500EC4FB1 /* icon-checkmark.png in Resources */,
 				3ADD607D1FE1CD9900FC783C /* icon-dropdown-chevron@2x.png in Resources */,
@@ -1945,14 +1896,12 @@
 				3AC81A1520BDF19700F345F9 /* rating_thumbs_down_fill.png in Resources */,
 				3A26995520600597007C0EC6 /* icon-more@3x.png in Resources */,
 				3AC81A4B20BDF19700F345F9 /* network_alert@3x.png in Resources */,
-				3A883C671FBC959F00B44116 /* Lato-BoldItalic.ttf in Resources */,
 				3AC81A5220BDF19700F345F9 /* nav_check.png in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				3AC81A1420BDF19700F345F9 /* user_confirm.png in Resources */,
 				3AC81A1120BDF19700F345F9 /* user_user@3x.png in Resources */,
 				3AC81A2D20BDF19700F345F9 /* user_user_standing.png in Resources */,
 				3AC81A2A20BDF19700F345F9 /* mail_paper.png in Resources */,
-				302472991D89A07B0005A6C9 /* Lato-Regular.ttf in Resources */,
 				3025D9A11E527FBF004149D7 /* icon-error-alert@2x.png in Resources */,
 				3ADD607E1FE1CD9900FC783C /* icon-dropdown-chevron@3x.png in Resources */,
 				30CF55BA1D7750C100C7DB6D /* Localizable.strings in Resources */,
@@ -1999,7 +1948,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\necho \"Building for devices\"\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphoneos BITCODE_GENERATION_MODE=bitcode ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\necho \"Building for simulators\"\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator BITCODE_GENERATION_MODE=marker ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\necho \"Copying framework structure\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\necho \"Copying simulator Swift modules\"\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\necho \"Creating universal binary using lipo\"\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}/../package/\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}/../package/\"";
+			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\n# add BITCODE_GENERATION_MODE=bitcode to support bitcode\necho \"Building for devices\"\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphoneos BITCODE_GENERATION_MODE=bitcode ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# add BITCODE_GENERATION_MODE=marker to support bitcode\necho \"Building for simulators\"\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\necho \"Copying framework structure\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\necho \"Copying simulator Swift modules\"\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\necho \"Creating universal binary using lipo\"\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}/../package/\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}/../package/\"";
 		};
 		3A4FEEF31F54748200338B00 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2173,7 +2122,6 @@
 				305C6C9A1DB6BB1800FF0AF4 /* IncomingMessage+EventList.swift in Sources */,
 				307DBE811E9EA0EE00B8F10F /* TableViewSectionHeaderView.swift in Sources */,
 				307484D71EB8F007008CF3E4 /* ActionType.swift in Sources */,
-				3A68112D1F7C1BF800078E3F /* FontLoader.swift in Sources */,
 				30131FD11EB10FD0009E7299 /* ScrollViewItem.swift in Sources */,
 				30131F9C1EAFB384009E7299 /* ASAPPColors.swift in Sources */,
 				303699AB1EAFAAE700A819DF /* Colors.swift in Sources */,
@@ -2342,6 +2290,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2448,6 +2397,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2507,6 +2457,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

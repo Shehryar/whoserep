@@ -12,15 +12,15 @@ import Foundation
 import UIKit
 
 internal class FontLoader {
-    private enum SupportedFontExtensions: String {
+    enum SupportedFontExtensions: String {
         case trueTypeFont = ".ttf"
         case openTypeFont = ".otf"
     }
     
-    private typealias FontPath = String
-    private typealias FontName = String
-    private typealias FontExtension = String
-    private typealias Font = (path: FontPath, name: FontName, ext: FontExtension)
+    typealias FontPath = String
+    typealias FontName = String
+    typealias FontExtension = String
+    typealias Font = (path: FontPath, name: FontName, ext: FontExtension)
     
     class func load(bundle: Bundle = Bundle.main, completion: (([String]) -> Void)? = nil) {
         let path = bundle.bundlePath
@@ -31,7 +31,7 @@ internal class FontLoader {
 
 /// :nodoc:
 extension FontLoader {
-    private class var existingFonts: [FontName] {
+    class var existingFonts: [FontName] {
         var fontNames = [FontName]()
         for family in UIFont.familyNames {
             for font in UIFont.fontNames(forFamilyName: family) {
@@ -41,7 +41,7 @@ extension FontLoader {
         return fontNames
     }
     
-    private class func loadFontsForBundle(withPath path: String) -> Set<String> {
+    fileprivate class func loadFontsForBundle(withPath path: String) -> Set<String> {
         var loaded: Set<String> = []
         
         do {
@@ -56,10 +56,10 @@ extension FontLoader {
                     }
                 }
             } else {
-                DebugLog.e("No fonts were found in the bundle path: \(path).")
+                print("No fonts were found in the bundle path: \(path).")
             }
         } catch {
-            DebugLog.e("There was an error loading fonts from the bundle. \nPath: \(path).\nError: \(error)")
+            print("There was an error loading fonts from the bundle. \nPath: \(path).\nError: \(error)")
         }
         
         return loaded
@@ -81,16 +81,16 @@ extension FontLoader {
                 return String(postScriptName)
             } else if let fontError = fontError?.takeRetainedValue() {
                 let errorDescription = CFErrorCopyDescription(fontError)
-                DebugLog.e("Failed to load font '\(fontName)': \(String(describing: errorDescription))")
+                print("Failed to load font '\(fontName)': \(String(describing: errorDescription))")
             }
         } else {
             guard let fontError = fontError?.takeRetainedValue() else {
-                DebugLog.e("Failed to load font '\(fontName)'")
+                print("Failed to load font '\(fontName)'")
                 return nil
             }
             
             let errorDescription = CFErrorCopyDescription(fontError)
-            DebugLog.e("Failed to load font '\(fontName)': \(String(describing: errorDescription))")
+            print("Failed to load font '\(fontName)': \(String(describing: errorDescription))")
         }
         
         return nil
