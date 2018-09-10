@@ -518,7 +518,16 @@ extension ChatViewController {
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self?.chatInputView)
         }))
         
-        alertController.popoverPresentationController?.sourceView = view
+        let side = closeButtonSide(for: segue).opposite()
+        guard
+            let barButtonItem = side == .left ? navigationItem.leftBarButtonItem : navigationItem.rightBarButtonItem,
+            let button = barButtonItem.customView as? UIButton
+        else {
+            return
+        }
+        
+        alertController.popoverPresentationController?.sourceView = button
+        alertController.popoverPresentationController?.sourceRect = button.imageView?.frame ?? .zero
         
         present(alertController, animated: true, completion: nil)
     }
