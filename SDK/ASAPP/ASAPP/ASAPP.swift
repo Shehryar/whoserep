@@ -143,6 +143,17 @@ public class ASAPP: NSObject {
         PushNotificationsManager.shared.enableIfSessionExists()
     }
     
+    /**
+     Enables ASAPP push notifications for this device.
+     
+     - parameter uuid: An arbitrary string used by a separate push notification system to uniquely identify the device.
+     */
+    @objc(enablePushNotificationsWithUUID:)
+    public class func enablePushNotifications(with uuid: String) {
+        PushNotificationsManager.shared.deviceToken = uuid
+        PushNotificationsManager.shared.enableIfSessionExists()
+    }
+    
     /// A `Void` closure type that takes an `Int`, the number of unread messages; and a `Bool`, whether the user is in a live chat.
     public typealias ChatStatusHandler = ((_ unread: Int, _ isLiveChat: Bool) -> Void)
     
