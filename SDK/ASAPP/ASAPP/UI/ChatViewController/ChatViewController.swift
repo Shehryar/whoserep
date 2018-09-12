@@ -31,6 +31,7 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: Properties: Views / UI
 
+    private var backgroundLayer: CALayer?
     private let chatMessagesView = ChatMessagesView()
     private let chatInputView = ChatInputView()
     private let connectionStatusView = ChatConnectionStatusView()
@@ -267,8 +268,9 @@ class ChatViewController: ASAPPViewController {
         
         // View
         
-        view.clipsToBounds = true
-        view.setLinearGradient(degrees: 161, colors: ASAPP.styles.colors.messagesListGradientColors)
+        let background = view.createLinearGradient(degrees: 161, colors: ASAPP.styles.colors.messagesListGradientColors)
+        backgroundLayer = background
+        view.layer.insertSublayer(background, at: 0)
         
         if isLiveChat {
             clearQuickRepliesView(animated: false, completion: nil)
@@ -332,6 +334,14 @@ class ChatViewController: ASAPPViewController {
         if parent?.isMovingFromParentViewController == true || parent?.isBeingDismissed == true {
             ASAPP.delegate?.chatViewControllerDidDisappear()
         }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        let newBounds = CGRect(origin: .zero, size: size)
+        view.layer.frame = newBounds
+        backgroundLayer?.frame = newBounds
     }
     
     // MARK: - Status Bar

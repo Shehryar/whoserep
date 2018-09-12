@@ -29,7 +29,8 @@ extension UIView {
     
     func createLinearGradient(degrees: Float = 0, colors: [UIColor]) -> CALayer {
         let gradient = CAGradientLayer()
-        gradient.frame = bounds
+        let lengthOfLongestSide = max(bounds.width, bounds.height)
+        gradient.frame = CGRect(x: 0, y: 0, width: lengthOfLongestSide, height: lengthOfLongestSide)
         gradient.colors = colors.map { $0.cgColor }
         
         let α = degrees / 360
