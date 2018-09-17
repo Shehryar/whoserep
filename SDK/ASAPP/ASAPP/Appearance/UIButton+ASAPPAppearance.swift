@@ -49,7 +49,7 @@ extension UIButton {
         ]), for: .disabled)
     }
     
-    func updateText(_ text: String?, buttonType: ButtonType) {
+    func updateText(_ text: String?, buttonType: ComponentButtonType) {
         let textStyle = ASAPP.styles.textStyles.getStyle(forButtonType: buttonType)
         let colors = ASAPP.styles.colors.getButtonColors(for: buttonType)
 

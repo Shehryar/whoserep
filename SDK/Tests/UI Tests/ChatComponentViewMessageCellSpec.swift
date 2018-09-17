@@ -64,7 +64,7 @@ class ChatComponentViewMessageCellSpec: QuickSpec {
                             ]
                         ] as [String: Any]
                         
-                        let cell = ChatComponentViewMessageCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+                        let cell = ChatComponentViewMessageCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
                         cell.message = ChatMessage.fromJSON(dict, with: metadata)
                         cell.sizeToFit()
                         expect(cell).to(haveValidSnapshot())

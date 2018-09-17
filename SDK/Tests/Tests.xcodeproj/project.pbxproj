@@ -19,8 +19,6 @@
 		3A04294B1F97C2980031CD78 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; };
 		3A04294F1F97C3510031CD78 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A0429501F97C3520031CD78 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3A0521611F98F2B50072D089 /* Nimble_Snapshots.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3A0521621F98F2B80072D089 /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */; };
 		3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521631F99211E0072D089 /* BubbleViewSpec.swift */; };
 		3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521651F9926220072D089 /* ButtonSpec.swift */; };
 		3A05216A1F9937630072D089 /* QuickReplyViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */; };
@@ -164,7 +162,6 @@
 		3AA0D3F120AA448100A04206 /* FormWithScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FD4208E93E800CB11D6 /* FormWithScale.swift */; };
 		3AA0D3F220AA448100A04206 /* FormValidationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */; };
 		3AA0D3F320AA448100A04206 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
-		3AA0D3F620AA448100A04206 /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */; };
 		3AA0D3F720AA448100A04206 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
 		3AA0D3F820AA448100A04206 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; };
 		3AA0D3F920AA448100A04206 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
@@ -177,7 +174,6 @@
 		3AA0D40420AA448100A04206 /* change-pin-form-proper-padding.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A391B481FA283E90085C2DA /* change-pin-form-proper-padding.json */; };
 		3AA0D40520AA448100A04206 /* feedback-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */; };
 		3AA0D40620AA448100A04206 /* feedback-form-scale.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */; };
-		3AA0D40820AA448100A04206 /* Nimble_Snapshots.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -192,6 +188,8 @@
 		3AA1E5001FFDBD9600548E3D /* MockSRWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4FF1FFDBD9600548E3D /* MockSRWebSocket.swift */; };
 		3AA8DAEF20DD81900062A370 /* CensorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8DAEE20DD81900062A370 /* CensorSpec.swift */; };
 		3AA8DAF120DD84400062A370 /* censor-email.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8DAF020DD84400062A370 /* censor-email.json */; };
+		3AB876DA2150221C00DC0CEC /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; };
+		3AB876DB2150223500DC0CEC /* Nimble_Snapshots.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AB92C7F1FED8B25000AE21A /* EventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C7E1FED8B25000AE21A /* EventSpec.swift */; };
 		3AB92C811FF192FD000AE21A /* HTTPClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C801FF192FD000AE21A /* HTTPClientSpec.swift */; };
 		3AB92C831FF1BC74000AE21A /* TabViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */; };
@@ -297,7 +295,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3A0521611F98F2B50072D089 /* Nimble_Snapshots.framework in CopyFiles */,
+				3AB876DB2150223500DC0CEC /* Nimble_Snapshots.framework in CopyFiles */,
 				3A1A13B21F97CF1E00B647C7 /* FBSnapshotTestCase.framework in CopyFiles */,
 				3A3D92601F98F1B800E1FAE3 /* Quick.framework in CopyFiles */,
 				3A3D92611F98F1BC00E1FAE3 /* Nimble.framework in CopyFiles */,
@@ -310,7 +308,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3AA0D40820AA448100A04206 /* Nimble_Snapshots.framework in CopyFiles */,
 				3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */,
 				3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */,
 				3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */,
@@ -328,7 +325,6 @@
 		3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageSpec.swift; sourceTree = "<group>"; };
 		3A0429481F97C2890031CD78 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		3A04294A1F97C2980031CD78 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
-		3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble_Snapshots.framework; path = ../Carthage/Build/iOS/Nimble_Snapshots.framework; sourceTree = "<group>"; };
 		3A0521631F99211E0072D089 /* BubbleViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleViewSpec.swift; sourceTree = "<group>"; };
 		3A0521651F9926220072D089 /* ButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSpec.swift; sourceTree = "<group>"; };
 		3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReplyViewSpec.swift; sourceTree = "<group>"; };
@@ -417,6 +413,7 @@
 		3AA1E4FF1FFDBD9600548E3D /* MockSRWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSRWebSocket.swift; sourceTree = "<group>"; };
 		3AA8DAEE20DD81900062A370 /* CensorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorSpec.swift; sourceTree = "<group>"; };
 		3AA8DAF020DD84400062A370 /* censor-email.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "censor-email.json"; sourceTree = "<group>"; };
+		3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble_Snapshots.framework; path = ../Carthage/Build/iOS/Nimble_Snapshots.framework; sourceTree = "<group>"; };
 		3AB92C7E1FED8B25000AE21A /* EventSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSpec.swift; sourceTree = "<group>"; };
 		3AB92C801FF192FD000AE21A /* HTTPClientSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpec.swift; sourceTree = "<group>"; };
 		3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewSpec.swift; sourceTree = "<group>"; };
@@ -472,7 +469,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A0521621F98F2B80072D089 /* Nimble_Snapshots.framework in Frameworks */,
+				3AB876DA2150221C00DC0CEC /* Nimble_Snapshots.framework in Frameworks */,
 				3A1A13AF1F97CEAC00B647C7 /* FBSnapshotTestCase.framework in Frameworks */,
 				3A3D925E1F98F1A700E1FAE3 /* Nimble.framework in Frameworks */,
 				3A3D925F1F98F1A900E1FAE3 /* Quick.framework in Frameworks */,
@@ -483,7 +480,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AA0D3F620AA448100A04206 /* Nimble_Snapshots.framework in Frameworks */,
 				3AA0D3F720AA448100A04206 /* FBSnapshotTestCase.framework in Frameworks */,
 				3AA0D3F820AA448100A04206 /* Nimble.framework in Frameworks */,
 				3AA0D3F920AA448100A04206 /* Quick.framework in Frameworks */,
@@ -536,7 +532,7 @@
 		3A0429471F97C2890031CD78 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3A05215F1F98F2AC0072D089 /* Nimble_Snapshots.framework */,
+				3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */,
 				3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */,
 				3A04294A1F97C2980031CD78 /* Nimble.framework */,
 				3A0429481F97C2890031CD78 /* Quick.framework */,
@@ -810,24 +806,28 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = ASAPP;
 				TargetAttributes = {
 					3A797B691F97A29D00883ABF = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					3A797B7D1F97A29D00883ABF = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3A797B691F97A29D00883ABF;
 					};
 					3A797B881F97A29D00883ABF = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3A797B691F97A29D00883ABF;
 					};
 					3AA0D3BE20AA448100A04206 = {
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3A797B691F97A29D00883ABF;
 					};
@@ -994,7 +994,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"copying std libs\"\n\n${TOOLCHAIN_DIR}/usr/bin/swift-stdlib-tool \\\n--copy --verbose --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" \\\n--scan-executable \"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\" \\\n--scan-executable \"${BUILT_PRODUCTS_DIR}/ASAPP.framework/ASAPP\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\" \\\n--platform \"${PLATFORM_NAME}\" \\\n--toolchain \"${TOOLCHAIN_DIR}\" \\\n--destination \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--strip-bitcode --resource-destination \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \\\n--resource-library libswiftRemoteMirror.dylib\n\necho \"copied std libs\"";
+			shellScript = "echo \"copying std libs\"\n\n${TOOLCHAIN_DIR}/usr/bin/swift-stdlib-tool \\\n--copy --verbose --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" \\\n--scan-executable \"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\" \\\n--scan-executable \"${BUILT_PRODUCTS_DIR}/ASAPP.framework/ASAPP\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\" \\\n--platform \"${PLATFORM_NAME}\" \\\n--toolchain \"${TOOLCHAIN_DIR}\" \\\n--destination \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--strip-bitcode --resource-destination \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \\\n--resource-library libswiftRemoteMirror.dylib\n\necho \"copied std libs\"\n";
 		};
 		3AA0D40C20AA448100A04206 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1202,6 +1202,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1209,6 +1210,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1222,6 +1224,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS/";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1242,6 +1245,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1253,16 +1257,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../Carthage/Build/iOS/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Dummy App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ASAPP.TestsDummyApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1274,12 +1275,12 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Unit Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ASAPP.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tests.app/Tests";
 			};
@@ -1292,14 +1293,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "UI Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ASAPP.UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "";
 				TEST_TARGET_NAME = Tests;
@@ -1313,14 +1314,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GHJ79KTB8D;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Interaction Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ASAPP.InteractionTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "";
 				TEST_TARGET_NAME = Tests;

@@ -46,7 +46,7 @@ class ChatCarouselMessageCellSpec: QuickSpec {
                     
                     context("with transient buttons shown") {
                         it("has a valid snapshot") {
-                            let cell = ChatCarouselMessageCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+                            let cell = ChatCarouselMessageCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
                             let message = ChatMessage.fromJSON(dict, with: metadata)
                             cell.update(message, showTransientButtons: true)
                             cell.sizeToFit()
@@ -56,7 +56,7 @@ class ChatCarouselMessageCellSpec: QuickSpec {
                     
                     context("with transient buttons hidden") {
                         it("has a valid snapshot") {
-                            let cell = ChatCarouselMessageCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+                            let cell = ChatCarouselMessageCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
                             let message = ChatMessage.fromJSON(dict, with: metadata)
                             cell.update(message, showTransientButtons: false)
                             cell.sizeToFit()

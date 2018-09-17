@@ -40,10 +40,12 @@ extension UIView : Snapshotable {
                                filename: String, identifier: String? = nil) -> Bool {
 
         let testName = parseFilename(filename: filename)
-        let snapshotController: FBSnapshotTestController = FBSnapshotTestController(testName: testName)
+        let snapshotController: FBSnapshotTestController = FBSnapshotTestController(test: self)
+        snapshotController.folderName = testName
         snapshotController.isDeviceAgnostic = isDeviceAgnostic
         snapshotController.recordMode = record
         snapshotController.referenceImagesDirectory = referenceDirectory
+        snapshotController.imageDiffDirectory = NSTemporaryDirectory()
         snapshotController.usesDrawViewHierarchyInRect = usesDrawRect
 
         let reason = "Missing value for referenceImagesDirectory - " +
@@ -51,20 +53,20 @@ extension UIView : Snapshotable {
         assert(snapshotController.referenceImagesDirectory != nil, reason)
 
         do {
-            try snapshotController.compareSnapshot(ofViewOrLayer: instance.snapshotObject,
+            try snapshotController.compareSnapshot(ofViewOrLayer: instance.snapshotObject!,
                                                  selector: Selector(snapshot), identifier: identifier, tolerance: tolerance)
             let image = try snapshotController.referenceImage(for: Selector(snapshot), identifier: identifier)
-            attach(image: image, named: "Reference Image")
+            attach(image: image, named: "Reference_\(snapshot)")
         } catch let error {
             let info = (error as NSError).userInfo
             if let ref = info[FBReferenceImageKey] as? UIImage {
-                attach(image: ref, named: "Reference Image")
+                attach(image: ref, named: "Reference_\(snapshot)")
             }
             if let captured = info[FBCapturedImageKey] as? UIImage {
-                attach(image: captured, named: "Captured Image")
+                attach(image: captured, named: "Captured_\(snapshot)")
             }
             if let diff = info[FBDiffedImageKey] as? UIImage {
-                attach(image: diff, named: "Diffed Image")
+                attach(image: diff, named: "Diffed_\(snapshot)")
             }
             return false
         }
@@ -95,6 +97,10 @@ func getDefaultReferenceDirectory(_ sourceFileName: String) -> String {
     if let globalReference = FBSnapshotTest.sharedInstance.referenceImagesDirectory {
         return globalReference
     }
+    
+    if let environmentReference = ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"] {
+        return environmentReference
+    }
 
     // Search the test file's path to find the first folder with a test suffix,
     // then append "/ReferenceImages" and use that.
@@ -111,7 +117,8 @@ func getDefaultReferenceDirectory(_ sourceFileName: String) -> String {
 
     guard let testDirectory = testPath else {
         fatalError("Could not infer reference image folder – You should provide a reference dir using " +
-                   "FBSnapshotTest.setReferenceImagesDirectory(FB_REFERENCE_IMAGE_DIR)")
+                   "FBSnapshotTest.setReferenceImagesDirectory(FB_REFERENCE_IMAGE_DIR) " +
+                   "or by setting the FB_REFERENCE_IMAGE_DIR environment variable")
     }
 
     // Recombine the path components and append our own image directory.

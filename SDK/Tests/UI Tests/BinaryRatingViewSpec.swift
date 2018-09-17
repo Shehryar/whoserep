@@ -16,8 +16,11 @@ class BinaryRatingViewSpec: QuickSpec {
     override func spec() {
         describe("BinaryRatingView") {
             beforeSuite {
-                FBSnapshotTest.setReferenceImagesDirectory(
-                    ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!)
+                super.setUp()
+                
+                let path = ProcessInfo.processInfo.environment["FB_REFERENCE_IMAGE_DIR"]!
+                FBSnapshotTest.setReferenceImagesDirectory(path)
+//                setNimbleTestFolder(path)
                 
                 let window = UIWindow(frame: UIScreen.main.bounds)
                 window.rootViewController = UIViewController()

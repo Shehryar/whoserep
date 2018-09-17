@@ -131,7 +131,7 @@ extension ASAPPTextStyles {
         }
     }
     
-    func getStyle(forButtonType buttonType: ButtonType) -> ASAPPTextStyle {
+    func getStyle(forButtonType buttonType: ComponentButtonType) -> ASAPPTextStyle {
         switch buttonType {
         case .primary, .secondary:
             return button

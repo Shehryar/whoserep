@@ -27,16 +27,22 @@ class DropdownTestCase: XCTestCase {
         let picker = app.pickerWheels.firstMatch
         XCTAssert(picker.exists)
         picker.adjust(toPickerWheelValue: "C")
-        app.toolbars.buttons.element(boundBy: 0).forceTap()
+        app.toolbars.buttons.firstMatch.forceTap()
         
         XCTAssert(field.value as? String == "C")
-        XCTAssert(!app.pickerWheels.firstMatch.exists)
+        XCTAssert(waitForElementToDisappear(app.pickerWheels.firstMatch))
         
         field.forceTap()
         picker.adjust(toPickerWheelValue: "A")
-        app.toolbars.buttons.element(boundBy: 0).forceTap()
+        app.toolbars.buttons.firstMatch.forceTap()
         
         XCTAssert(field.value as? String == "A")
         XCTAssert(!app.pickerWheels.firstMatch.exists)
+    }
+    
+    func waitForElementToDisappear(_ element: XCUIElement) -> Bool {
+        let predicate = NSPredicate(format: "exists == false")
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
+        return XCTWaiter().wait(for: [expectation], timeout: 5) == .completed
     }
 }

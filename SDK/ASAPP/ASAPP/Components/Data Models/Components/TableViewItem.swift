@@ -21,7 +21,7 @@ class TableViewItem: Component {
     
     let sections: [TableViewSectionItem]
     
-    let separatorStyle: UITableViewCellSeparatorStyle
+    let separatorStyle: UITableViewCell.SeparatorStyle
     
     // MARK: - Component Properties
     
@@ -61,7 +61,7 @@ class TableViewItem: Component {
         }
         self.sections = sections
         
-        var separatorStyle: UITableViewCellSeparatorStyle = .singleLine
+        var separatorStyle: UITableViewCell.SeparatorStyle = .singleLine
         if let separatorStyleValue = content?[JSONKey.separatorStyle.rawValue] as? String,
             separatorStyleValue != "singleLine" {
             separatorStyle = .none

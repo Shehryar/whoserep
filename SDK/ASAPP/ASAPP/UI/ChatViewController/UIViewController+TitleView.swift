@@ -23,7 +23,7 @@ extension UIViewController {
                                 height: labelSize.height + padding.top + padding.bottom)
         let titleView = UIView(frame: titleFrame)
         
-        label.frame = UIEdgeInsetsInsetRect(titleView.bounds, padding)
+        label.frame = titleView.bounds.inset(by: padding)
         titleView.addSubview(label)
         
         return titleView

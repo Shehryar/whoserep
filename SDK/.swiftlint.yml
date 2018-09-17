@@ -30,6 +30,7 @@ identifier_name:
     - r
     - g
     - b
+    - α
 
 nesting:
   type_level:

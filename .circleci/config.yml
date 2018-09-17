@@ -5,17 +5,22 @@ version: 2
 jobs:
   build-and-test:
     macos:
-      xcode: "9.4.1"
+      xcode: "10.0.0"
     working_directory: /Users/distiller/output
     environment:
+      LANG: "en_US.UTF-8"
+      LC_ALL: "en_US.UTF-8"
       XCODE_SCHEME: Tests
       XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
     shell: /bin/bash --login -o pipefail
     steps:
       - run:
-          name: Set Time Zone
+          name: Set time zone
           command: |
             sudo systemsetup -settimezone "America/New_York"
+      - run:
+          name: Reset simulators
+          command: fastlane snapshot reset_simulators --force
       - run:
           name: Pre-start simulator
           command: xcrun simctl boot "iPhone SE" || true
@@ -45,13 +50,13 @@ jobs:
             - vendor/bundle
       - restore_cache:
           keys:
-            - v4-carthage-{{ checksum "SDK/Cartfile.resolved" }}
-            - v4-carthage-
+            - v6-carthage-{{ checksum "SDK/Cartfile.resolved" }}
+            - v6-carthage-
       - run:
           name: Carthage update
           command: ( cd SDK && carthage update --cache-builds --platform ios )
       - save_cache:
-          key: v4-carthage-{{ checksum "SDK/Cartfile.resolved" }}
+          key: v6-carthage-{{ checksum "SDK/Cartfile.resolved" }}
           paths:
             - SDK/Carthage/Build
       - run:
@@ -71,9 +76,11 @@ jobs:
 
   fastlane-beta:
     macos:
-      xcode: "9.4.1"
+      xcode: "10.0.0"
     working_directory: /Users/distiller/output
     environment:
+      LANG: "en_US.UTF-8"
+      LC_ALL: "en_US.UTF-8"
       XCODE_SCHEME: ASAPPTest
       XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
     shell: /bin/bash --login -o pipefail

@@ -57,8 +57,8 @@ extension ASAPPViewController {
     
     func beginObservingNotifications() {
         // App left foreground
-        let backgroundNotificationNames = [Notification.Name.UIApplicationDidEnterBackground,
-                                           Notification.Name.UIApplicationWillResignActive]
+        let backgroundNotificationNames = [UIApplication.didEnterBackgroundNotification,
+                                           UIApplication.willResignActiveNotification]
         let hideContentsSelector = #selector(ASAPPViewController.hideViewContents)
         for notificationName in backgroundNotificationNames {
             NotificationCenter.default.addObserver(self,
@@ -68,8 +68,8 @@ extension ASAPPViewController {
         }
         
         // App entered foreground
-        let foregroundNotificationNames = [Notification.Name.UIApplicationDidBecomeActive,
-                                           Notification.Name.UIApplicationWillEnterForeground]
+        let foregroundNotificationNames = [UIApplication.didBecomeActiveNotification,
+                                           UIApplication.willEnterForegroundNotification]
         let showContentsSelector = #selector(ASAPPViewController.showViewContents)
         for notificationName in foregroundNotificationNames {
             NotificationCenter.default.addObserver(self,
@@ -145,7 +145,7 @@ extension ASAPPViewController {
         }
         
         if view.subviews.contains(backgroundedViewCover) {
-            view.bringSubview(toFront: backgroundedViewCover)
+            view.bringSubviewToFront(backgroundedViewCover)
         } else {
             view.addSubview(backgroundedViewCover)
         }

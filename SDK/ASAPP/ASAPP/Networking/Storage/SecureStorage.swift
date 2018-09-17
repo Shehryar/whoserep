@@ -66,7 +66,7 @@ class SecureStorage: SecureStorageProtocol {
         query[kSecMatchLimit] = kSecMatchLimitOne
         query[kSecReturnData] = kCFBooleanTrue
         
-        var result: AnyObject? = nil
+        var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         
         guard

@@ -22,7 +22,7 @@ struct ComponentStyle {
     
     var borderWidth: CGFloat = 0
     
-    var buttonType: ButtonType = .primary
+    var buttonType: ComponentButtonType = .primary
     
     var color: UIColor?
     

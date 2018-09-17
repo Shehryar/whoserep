@@ -126,12 +126,12 @@ extension ViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func pushToASAPPChat() {
+    @objc func pushToASAPPChat() {
         let chatViewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil)
         navigationController?.pushViewController(chatViewController, animated: true)
     }
     
-    func presentASAPPChat() {
+    @objc func presentASAPPChat() {
         let chatViewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil)
         present(chatViewController, animated: true, completion: nil)
     }

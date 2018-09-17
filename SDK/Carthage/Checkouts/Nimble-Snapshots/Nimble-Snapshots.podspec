@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Nimble-Snapshots"
-  s.version      = "6.7.0"
+  s.version      = "6.8.1"
   s.summary      = "Nimble matchers for iOSSnapshotTestCase"
   s.description  = <<-DESC
                    Nimble matchers for iOSSnapshotTestCase. Highly derivative of [Expecta Matchers for iOSSnapshotTestCase](https://github.com/dblock/ios-snapshot-test-case-expecta).
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |ss|
     ss.source_files  = "*.{h,m,swift}", "DynamicType/*.{swift,m,h}", "DynamicSize/*.{swift}"
-    ss.dependency "iOSSnapshotTestCase", "~> 3.0"
+    ss.dependency "iOSSnapshotTestCase", "~> 4.0"
     ss.dependency "Nimble", "~> 7.0"
   end
 

@@ -79,28 +79,28 @@ class ModalCardViewController: UIViewController {
             .addObserver(
                 self,
                 selector: #selector(ModalCardViewController.hideContentWhileBackgrounded),
-                name: Notification.Name.UIApplicationDidEnterBackground,
+                name: UIApplication.didEnterBackgroundNotification,
                 object: nil)
         
         NotificationCenter.default
             .addObserver(
                 self,
                 selector: #selector(ModalCardViewController.hideContentWhileBackgrounded),
-                name: Notification.Name.UIApplicationWillResignActive,
+                name: UIApplication.willResignActiveNotification,
                 object: nil)
         
         NotificationCenter.default
             .addObserver(
                 self,
                 selector: #selector(ModalCardViewController.showContent),
-                name: Notification.Name.UIApplicationDidBecomeActive,
+                name: UIApplication.didBecomeActiveNotification,
                 object: nil)
         
         NotificationCenter.default
             .addObserver(
                 self,
                 selector: #selector(ModalCardViewController.showContent),
-                name: Notification.Name.UIApplicationWillEnterForeground,
+                name: UIApplication.willEnterForegroundNotification,
                 object: nil)
     }
     
@@ -375,7 +375,7 @@ extension ModalCardViewController {
         }
         isShowingSuccessView = true
         
-        contentScrollView.bringSubview(toFront: successView)
+        contentScrollView.bringSubviewToFront(successView)
         
         successView.alpha = 0.0
         successView.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)

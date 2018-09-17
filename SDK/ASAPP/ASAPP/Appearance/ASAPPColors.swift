@@ -196,7 +196,7 @@ extension ASAPPColors {
             secondaryButton: primary)
     }
     
-    func getButtonColors(for buttonType: ButtonType) -> ASAPPButtonColors {
+    func getButtonColors(for buttonType: ComponentButtonType) -> ASAPPButtonColors {
         switch buttonType {
         case .primary: return ASAPP.styles.colors.buttonPrimary
         case .secondary: return ASAPP.styles.colors.buttonSecondary

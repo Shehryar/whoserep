@@ -218,8 +218,8 @@ class NotificationBanner: UIView {
         if overlayButton.superview != nil {
             let expandElement = UIAccessibilityElement(accessibilityContainer: self)
             expandElement.accessibilityLabel = ASAPPLocalizedString(isExpanded ? "Collapse" : "Expand")
-            expandElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(expandIcon.frame, bannerContainer)
-            expandElement.accessibilityTraits = UIAccessibilityTraitButton
+            expandElement.accessibilityFrame = UIAccessibility.convertToScreenCoordinates(expandIcon.frame, in: bannerContainer)
+            expandElement.accessibilityTraits = UIAccessibilityTraits.button
             elements.append(expandElement)
         }
         

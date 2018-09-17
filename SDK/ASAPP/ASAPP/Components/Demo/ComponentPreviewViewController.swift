@@ -101,7 +101,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     override public func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        view.bringSubview(toFront: controlsBar)
+        view.bringSubviewToFront(controlsBar)
         
         guard let contentView = contentView else {
             return
@@ -190,7 +190,7 @@ public class ComponentPreviewViewController: ASAPPViewController {
     
     // MARK: Motion
     
-    public override func motionEnded(_ motion: UIEventSubtype,
+    public override func motionEnded(_ motion: UIEvent.EventSubtype,
                                      with event: UIEvent?) {
         if motion == .motionShake {
             refresh()
