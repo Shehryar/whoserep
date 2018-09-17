@@ -60,4 +60,18 @@ class ContainerViewController: UIViewController {
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return nav.topViewController!.preferredStatusBarUpdateAnimation
     }
+    
+    // Orientation
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return nav.topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return nav.topViewController?.supportedInterfaceOrientations ?? .portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return nav.topViewController?.shouldAutorotate ?? false
+    }
 }

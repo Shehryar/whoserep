@@ -11,8 +11,8 @@ import SafariServices
 
 /// :nodoc:
 public class ASAPPViewController: UIViewController {
-
-    var hideViewContentsWhileBackgrounded: Bool = false
+    var hideViewContentsWhileBackgrounded = false
+    private(set) var doneTransitioningToPortrait = false
     
     let backgroundedViewCover = SecureScreenCoverView()
     
@@ -37,6 +37,29 @@ public class ASAPPViewController: UIViewController {
         
         // Notifications
         beginObservingNotifications()
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKeyPath: "orientation")
+        UIViewController.attemptRotationToDeviceOrientation()
+    }
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isMovingFromParent {
+            UIViewController.attemptRotationToDeviceOrientation()
+        }
+    }
+    
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        doneTransitioningToPortrait = false
+        
+        coordinator.animate(alongsideTransition: nil, completion: { [weak self] _ in
+            self?.doneTransitioningToPortrait = true
+        })
     }
     
     // MARK: - Layout
@@ -88,9 +111,16 @@ extension ASAPPViewController {
 
 /// :nodoc:
 extension ASAPPViewController {
+    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
     
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
+        return doneTransitioningToPortrait ? .portrait : .all
+    }
+    
+    override public var shouldAutorotate: Bool {
+        return false
     }
 }
 

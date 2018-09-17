@@ -171,6 +171,12 @@ class BaseActionSheet: UIView {
         })
     }
     
+    func updateFrames(in bounds: CGRect) {
+        frame = bounds
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
     func hide(_ completion: (() -> Void)? = nil) {
         var contentViewFinalFrame = contentView.frame
         contentViewFinalFrame.origin.y = contentView.frame.maxY

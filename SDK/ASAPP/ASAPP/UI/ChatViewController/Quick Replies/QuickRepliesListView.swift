@@ -124,6 +124,11 @@ class QuickRepliesListView: UIView {
     
     // MARK: - Layout
     
+    func updateFrames(in bounds: CGRect) {
+        frame = bounds
+        updateDisplay()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -161,6 +166,7 @@ class QuickRepliesListView: UIView {
     private func styleQuickReplyView(_ view: QuickReplyView, for quickReply: QuickReply) {
         let enabled = (selectedQuickReply == nil && !selectionDisabled) || selectedQuickReply == quickReply
         view.update(for: quickReply, enabled: enabled)
+        view.frame = CGRect(origin: view.frame.origin, size: view.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude)))
         view.setNeedsLayout()
     }
     

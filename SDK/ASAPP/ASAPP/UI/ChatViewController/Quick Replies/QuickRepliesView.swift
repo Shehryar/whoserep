@@ -156,7 +156,8 @@ extension QuickRepliesView {
         let containerTop = separatorTopView.frame.maxY
         let containerHeight = bounds.height - containerTop
         containerView.frame = CGRect(x: 0, y: containerTop, width: bounds.width, height: containerHeight)
-        listView.frame = containerView.bounds
+        
+        listView.updateFrames(in: containerView.bounds)
         
         // the blur effect looks bad when growing from nothing. make it larger than necessary while the container is short.
         blurredBackground.frame = containerView.frame.height > 5 ? containerView.frame : CGRect(x: containerView.frame.minX, y: -restartButton.defaultHeight, width: containerView.frame.width, height: restartButton.defaultHeight)
@@ -246,6 +247,16 @@ extension QuickRepliesView {
     
     func hideRestartSpinner() {
         restartButton.hideSpinner()
+    }
+    
+    func showBlur() {
+        blurredBackground.isHidden = false
+        backgroundColor = .clear
+    }
+    
+    func hideBlur() {
+        blurredBackground.isHidden = true
+        backgroundColor = .white
     }
 }
 

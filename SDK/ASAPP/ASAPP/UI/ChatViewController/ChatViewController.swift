@@ -314,8 +314,8 @@ class ChatViewController: ASAPPViewController {
         keyboardObserver.deregisterForNotification()
         
         if isMovingFromParent {
-            inputAccessoryView.resignFirstResponder()
-            inputAccessoryView.isHidden = true
+            chatInputView.resignFirstResponder()
+            chatInputView.isHidden = true
             reloadInputViews()
         }
     }
@@ -339,9 +339,27 @@ class ChatViewController: ASAPPViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        let newBounds = CGRect(origin: .zero, size: size)
+        let longest = max(size.width, size.height)
+        let newBounds = CGRect(origin: .zero, size: CGSize(width: longest, height: longest))
         view.layer.frame = newBounds
         backgroundLayer?.frame = newBounds
+        
+        quickRepliesView.hideBlur()
+        
+        coordinator.animate(alongsideTransition: { [weak self] context in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.updateFramesAnimated(duration: context.transitionDuration, bounds: context.containerView.bounds)
+        }, completion: { [weak self] context in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.view.layer.frame = context.containerView.bounds
+            strongSelf.backgroundLayer?.frame = context.containerView.bounds
+            strongSelf.quickRepliesView.showBlur()
+            strongSelf.updateFrames()
+        })
     }
     
     // MARK: - Status Bar
@@ -547,10 +565,10 @@ extension ChatViewController {
 
 extension ChatViewController {
     
-    func updateFrames() {
+    func updateFrames(in bounds: CGRect? = nil) {
+        let bounds = bounds ?? view.bounds
+        let viewWidth = bounds.width
         var minVisibleY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
-        
-        let viewWidth = view.bounds.width
         
         let connectionStatusHeight: CGFloat = 44
         let connectionStatusTop = shouldShowConnectionStatusView ? minVisibleY : -connectionStatusHeight
@@ -568,7 +586,7 @@ extension ChatViewController {
             }
         }
         
-        chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: view.bounds.height)
+        chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: bounds.height)
         chatMessagesView.setNeedsLayout()
         chatMessagesView.layoutIfNeeded()
         chatMessagesView.contentInsetTop = minVisibleY
@@ -611,10 +629,9 @@ extension ChatViewController {
         }
         
         let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both && chatInputView.alpha > 0 ? chatInputView.frame.height : 0)
-        quickRepliesView.frame = CGRect(x: 0, y: view.bounds.height - quickRepliesHeightWithChat, width: viewWidth, height: quickRepliesHeightWithChat)
-        if previousInputState != inputState {
-            quickRepliesView.updateFrames()
-        }
+        quickRepliesView.frame = CGRect(x: 0, y: bounds.height - quickRepliesHeightWithChat, width: viewWidth, height: quickRepliesHeightWithChat)
+        quickRepliesView.updateFrames()
+        quickRepliesView.layoutIfNeeded()
         
         if inputState != .both || quickRepliesView.frame.height > chatInputView.frame.height {
             quickRepliesView.isHidden = false
@@ -624,17 +641,19 @@ extension ChatViewController {
             chatInputView.becomeFirstResponder()
             chatInputView.needsToBecomeFirstResponder = false
         }
+        
+        actionSheet?.updateFrames(in: bounds)
     }
     
-    func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
+    func updateFramesAnimated(_ animated: Bool = true, duration: TimeInterval = 0.3, scrollToBottomIfNearBottom: Bool = true, bounds: CGRect? = nil, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom() || chatMessagesView.isHidden
         if animated {
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottom(animated: true)
             }
             
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: { [weak self] in
-                self?.updateFrames()
+            UIView.animate(withDuration: duration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+                self?.updateFrames(in: bounds)
             }, completion: { [weak self] _ in
                 if wasNearBottom && scrollToBottomIfNearBottom {
                     self?.chatMessagesView.scrollToBottom(animated: true)
@@ -643,7 +662,7 @@ extension ChatViewController {
                 completion?()
             })
         } else {
-            updateFrames()
+            updateFrames(in: bounds)
             
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottom(animated: false)

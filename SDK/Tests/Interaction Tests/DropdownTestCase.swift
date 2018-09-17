@@ -43,6 +43,6 @@ class DropdownTestCase: XCTestCase {
     func waitForElementToDisappear(_ element: XCUIElement) -> Bool {
         let predicate = NSPredicate(format: "exists == false")
         let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
-        return XCTWaiter().wait(for: [expectation], timeout: 5) == .completed
+        return XCTWaiter().wait(for: [expectation], timeout: 10) == .completed
     }
 }
