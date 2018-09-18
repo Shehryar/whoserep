@@ -133,7 +133,7 @@ public class ASAPP: NSObject {
     public static var notificationAuthorizationDenied: (() -> Void)?
     
     /**
-     Enables ASAPP push notifications for this device.
+     Enables ASAPP push notifications for this device. The device token is saved in memory for later use when registering.
      
      - parameter deviceToken: The token provided by APNS in `didRegisterForRemoteNotificationsWithDeviceToken(_:)`
      */
@@ -144,7 +144,7 @@ public class ASAPP: NSObject {
     }
     
     /**
-     Enables ASAPP push notifications for this device.
+     Enables ASAPP push notifications for this device. The UUID is saved in memory for later use when registering.
      
      - parameter uuid: An arbitrary string used by a separate push notification system to uniquely identify the device.
      */
