@@ -68,6 +68,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     }
     
     func enableIfSessionExists() {
+        // if session does not exist now, it might exist later. register() is called in session's didSet.
         if session != nil {
             register()
         }

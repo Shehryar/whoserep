@@ -98,9 +98,9 @@ class ChatConnectionStatusView: UIView {
         
         if let backgroundColor = backgroundColor {
             if backgroundColor.isDark() {
-                spinner.activityIndicatorViewStyle = .white
+                spinner.style = .white
             } else {
-                spinner.activityIndicatorViewStyle = .gray
+                spinner.style = .gray
             }
         }
     }
@@ -137,10 +137,10 @@ class ChatConnectionStatusView: UIView {
         isAccessibilityElement = true
         if !isHidden {
             accessibilityLabel = message
-            accessibilityTraits = (status == .disconnected) ? UIAccessibilityTraitButton : UIAccessibilityTraitNone
+            accessibilityTraits = (status == .disconnected) ? UIAccessibilityTraits.button : UIAccessibilityTraits.none
         } else {
             accessibilityLabel = nil
-            accessibilityTraits = UIAccessibilityTraitNone
+            accessibilityTraits = UIAccessibilityTraits.none
         }
     }
     

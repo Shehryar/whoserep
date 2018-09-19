@@ -40,7 +40,7 @@ class ChatViewController: ASAPPViewController {
     private var actionSheet: BaseActionSheet?
     private var notificationBanner: NotificationBanner?
     private var hapticFeedbackGenerator: Any?
-    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private let spinner = UIActivityIndicatorView(style: .gray)
     
     // MARK: Properties: Status
 
@@ -132,10 +132,10 @@ class ChatViewController: ASAPPViewController {
         
         updateDisplay()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: .UIContentSizeCategoryDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: UIContentSizeCategory.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(userDidChange), name: .UserDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: .UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
 
         keyboardObserver.delegate = self
         
@@ -313,9 +313,9 @@ class ChatViewController: ASAPPViewController {
         super.viewWillDisappear(animated)
         keyboardObserver.deregisterForNotification()
         
-        if isMovingFromParentViewController {
-            inputAccessoryView.resignFirstResponder()
-            inputAccessoryView.isHidden = true
+        if isMovingFromParent {
+            chatInputView.resignFirstResponder()
+            chatInputView.isHidden = true
             reloadInputViews()
         }
     }
@@ -323,7 +323,7 @@ class ChatViewController: ASAPPViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !isMovingToParentViewController {
+        if !isMovingToParent {
             chatMessagesView.focusAccessibilityOnLastMessage(delay: false)
         }
     }
@@ -331,7 +331,7 @@ class ChatViewController: ASAPPViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        if parent?.isMovingFromParentViewController == true || parent?.isBeingDismissed == true {
+        if parent?.isMovingFromParent == true || parent?.isBeingDismissed == true {
             ASAPP.delegate?.chatViewControllerDidDisappear()
         }
     }
@@ -339,9 +339,27 @@ class ChatViewController: ASAPPViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        let newBounds = CGRect(origin: .zero, size: size)
+        let longest = max(size.width, size.height)
+        let newBounds = CGRect(origin: .zero, size: CGSize(width: longest, height: longest))
         view.layer.frame = newBounds
         backgroundLayer?.frame = newBounds
+        
+        quickRepliesView.hideBlur()
+        
+        coordinator.animate(alongsideTransition: { [weak self] context in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.updateFramesAnimated(duration: context.transitionDuration, bounds: context.containerView.bounds)
+        }, completion: { [weak self] context in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.view.layer.frame = context.containerView.bounds
+            strongSelf.backgroundLayer?.frame = context.containerView.bounds
+            strongSelf.quickRepliesView.showBlur()
+            strongSelf.updateFrames()
+        })
     }
     
     // MARK: - Status Bar
@@ -389,6 +407,7 @@ extension ChatViewController {
         chatInputView.updateDisplay()
         
         if isViewLoaded {
+            updateFrames()
             view.setNeedsLayout()
         }
     }
@@ -521,11 +540,11 @@ extension ChatViewController {
                 self?.scrollToBottomBeforeAddingNextMessage()
             }
         })
-        endAction.accessibilityTraits += UIAccessibilityTraitStartsMediaSession
+        endAction.accessibilityTraits.insert(.startsMediaSession)
         alertController.addAction(endAction)
         
         alertController.addAction(UIAlertAction(title: ASAPPLocalizedString("Cancel"), style: .cancel, handler: { [weak self] _ in
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self?.chatInputView)
+            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: self?.chatInputView)
         }))
         
         let side = closeButtonSide(for: segue).opposite()
@@ -547,10 +566,10 @@ extension ChatViewController {
 
 extension ChatViewController {
     
-    func updateFrames() {
+    func updateFrames(in bounds: CGRect? = nil) {
+        let bounds = bounds ?? view.bounds
+        let viewWidth = bounds.width
         var minVisibleY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
-        
-        let viewWidth = view.bounds.width
         
         let connectionStatusHeight: CGFloat = 44
         let connectionStatusTop = shouldShowConnectionStatusView ? minVisibleY : -connectionStatusHeight
@@ -568,7 +587,7 @@ extension ChatViewController {
             }
         }
         
-        chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: view.bounds.height)
+        chatMessagesView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: bounds.height)
         chatMessagesView.setNeedsLayout()
         chatMessagesView.layoutIfNeeded()
         chatMessagesView.contentInsetTop = minVisibleY
@@ -584,7 +603,7 @@ extension ChatViewController {
         quickRepliesView.isRestartButtonVisible = !shouldHideNewQuestionButton && showRestartButton
         chatInputView.alpha = showRestartButton || actionSheet != nil || (chatMessagesView.isEmpty && quickRepliesMessage == nil) ? 0 : 1
         
-        var quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
+        var quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
         
         switch inputState {
         case .prechat, .chat:
@@ -611,10 +630,9 @@ extension ChatViewController {
         }
         
         let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both && chatInputView.alpha > 0 ? chatInputView.frame.height : 0)
-        quickRepliesView.frame = CGRect(x: 0, y: view.bounds.height - quickRepliesHeightWithChat, width: viewWidth, height: quickRepliesHeightWithChat)
-        if previousInputState != inputState {
-            quickRepliesView.updateFrames()
-        }
+        quickRepliesView.frame = CGRect(x: 0, y: bounds.height - quickRepliesHeightWithChat, width: viewWidth, height: quickRepliesHeightWithChat)
+        quickRepliesView.updateFrames()
+        quickRepliesView.layoutIfNeeded()
         
         if inputState != .both || quickRepliesView.frame.height > chatInputView.frame.height {
             quickRepliesView.isHidden = false
@@ -624,17 +642,19 @@ extension ChatViewController {
             chatInputView.becomeFirstResponder()
             chatInputView.needsToBecomeFirstResponder = false
         }
+        
+        actionSheet?.updateFrames(in: bounds)
     }
     
-    func updateFramesAnimated(_ animated: Bool = true, scrollToBottomIfNearBottom: Bool = true, completion: (() -> Void)? = nil) {
+    func updateFramesAnimated(_ animated: Bool = true, duration: TimeInterval = 0.3, scrollToBottomIfNearBottom: Bool = true, bounds: CGRect? = nil, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom() || chatMessagesView.isHidden
         if animated {
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottom(animated: true)
             }
             
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: { [weak self] in
-                self?.updateFrames()
+            UIView.animate(withDuration: duration, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+                self?.updateFrames(in: bounds)
             }, completion: { [weak self] _ in
                 if wasNearBottom && scrollToBottomIfNearBottom {
                     self?.chatMessagesView.scrollToBottom(animated: true)
@@ -643,7 +663,7 @@ extension ChatViewController {
                 completion?()
             })
         } else {
-            updateFrames()
+            updateFrames(in: bounds)
             
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottom(animated: false)
@@ -658,7 +678,7 @@ extension ChatViewController {
 
 extension ChatViewController: KeyboardObserverDelegate {
     
-    func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIViewAnimationOptions) {
+    func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIView.AnimationOptions) {
         guard keyboardOffset != height else {
             return
         }
@@ -1237,7 +1257,7 @@ extension ChatViewController: QuickRepliesViewDelegate {
     }
     
     func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ASAPPLocalizedString("Sent. Waiting for reply."))
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ASAPPLocalizedString("Sent. Waiting for reply."))
         updateInputState(.quickReplies, animated: true)
         
         let attributes = [
@@ -1280,7 +1300,7 @@ extension ChatViewController: ActionSheetDelegate {
     func actionSheetDidTapConfirm(_ actionSheet: BaseActionSheet) {
         shouldHideActionSheetOnNextMessage = true
         actionSheet.showSpinner()
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, ASAPPLocalizedString("Loading."))
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: ASAPPLocalizedString("Loading."))
         
         let eventName: AnalyticsEvent.Name = (actionSheet is WelcomeBackActionSheet) ? .continueSheetConfirmButtonTapped : .restartSheetConfirmButtonTapped
         recordEventWithLastReply(eventName, buttonTitle: actionSheet.confirmButton.titleLabel?.text)
@@ -1590,7 +1610,7 @@ extension ChatViewController: ConversationManagerDelegate {
             gatekeeper.frame = view.bounds
             view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
             view.accessibilityElements = [gatekeeper]
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, gatekeeper)
+            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: gatekeeper)
             spinner.alpha = 0
             updateInputState(.conversationEnd, animated: false)
             shouldReloadOnUserUpdate = true
@@ -1605,7 +1625,7 @@ extension ChatViewController: ConversationManagerDelegate {
         gatekeeperView?.removeFromSuperview()
         gatekeeperView = nil
         view.accessibilityElements = nil
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, view)
+        UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: view)
     }
     
     // Connection Status
@@ -1712,10 +1732,10 @@ extension ChatViewController: GatekeeperViewDelegate {
 
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.editedImage] as? UIImage {
             conversationManager.sendPictureMessage(image)
-        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        } else if let image = info[.originalImage] as? UIImage {
             conversationManager.sendPictureMessage(image)
         }
         

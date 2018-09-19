@@ -75,6 +75,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+// MARK: - Orientation
+
+extension AppDelegate {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let root = window?.rootViewController {
+            return root.supportedInterfaceOrientations
+        }
+        return .all
+    }
+}
+
 // MARK: - Notifications
 
 extension AppDelegate {

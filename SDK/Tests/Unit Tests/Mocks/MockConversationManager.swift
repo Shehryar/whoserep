@@ -80,7 +80,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledGetEventWithLimit = true
     }
     
-    func getRequestParameters(with params: [String : Any]?, requiresContext: Bool, contextKey: String, contextNeedsRefresh: Bool, completion: @escaping ([String : Any]) -> Void) {
+    func getRequestParameters(with params: [String: Any]?, requiresContext: Bool, contextKey: String, contextNeedsRefresh: Bool, completion: @escaping ([String: Any]) -> Void) {
         calledGetRequestParameters = true
     }
     

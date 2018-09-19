@@ -91,8 +91,8 @@ extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any {
     
     // MARK: ButtonType
     
-    func buttonType(for key: String) -> ButtonType? {
-        return ButtonType.from(self[key as! Key])
+    func buttonType(for key: String) -> ComponentButtonType? {
+        return ComponentButtonType.from(self[key as! Key])
     }
     
     // MARK: Strings

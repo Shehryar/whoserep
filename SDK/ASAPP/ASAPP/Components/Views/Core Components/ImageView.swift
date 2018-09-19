@@ -49,7 +49,7 @@ class ImageView: BaseComponentView {
     
     override func updateFrames() {
         let padding = imageItem?.style.padding ?? .zero
-        imageView.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        imageView.frame = bounds.inset(by: padding)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

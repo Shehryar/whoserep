@@ -21,19 +21,17 @@ class QuickRepliesListView: UIView {
     weak var delegate: QuickRepliesListViewDelegate?
     
     var onQuickReplySelected: ((QuickReply) -> Bool)?
-    
     var selectionDisabled: Bool = false
+    
+    var contentInsetTop: CGFloat {
+        return QuickReplyView.contentInset.top * 5 - 1
+    }
     
     var contentInsetBottom: CGFloat = 0 {
         didSet {
             scrollView.contentInset.bottom = contentInsetBottom
-            let scrollInsets = scrollView.scrollIndicatorInsets
-            scrollView.scrollIndicatorInsets = UIEdgeInsets(top: scrollInsets.top, left: scrollInsets.left, bottom: contentInsetBottom, right: scrollInsets.right)
+            scrollView.scrollIndicatorInsets = scrollView.contentInset
         }
-    }
-    
-    var contentInsetTop: CGFloat {
-        return scrollView.contentInset.top
     }
     
     var isEmpty: Bool {
@@ -47,12 +45,11 @@ class QuickRepliesListView: UIView {
     }
     
     private(set) var selectedQuickReply: QuickReply?
-    
     private(set) var quickReplies: [QuickReply]?
     
-    private let scrollView = UIScrollView()
-    
     private var quickReplyViews: [QuickReplyView] = []
+    private let scrollView = UIScrollView()
+    private let numberOfVisibleQuickReplies = 4
     
     private let initialDelay: TimeInterval = 0.3
     private let delayIncrement: TimeInterval = 0.2
@@ -67,7 +64,10 @@ class QuickRepliesListView: UIView {
         scrollView.scrollsToTop = false
         scrollView.alwaysBounceVertical = false
         scrollView.delegate = self
-        scrollView.contentInset = UIEdgeInsets(top: QuickReplyView.contentInset.top * 5 - 1, left: 0, bottom: QuickReplyView.contentInset.bottom * 2, right: 0)
+        if #available(iOS 11.0, *) {
+            scrollView.contentInsetAdjustmentBehavior = .never
+        }
+        scrollView.contentInset = UIEdgeInsets(top: contentInsetTop, left: 0, bottom: QuickReplyView.contentInset.bottom * 2, right: 0)
         addSubview(scrollView)
     }
     
@@ -107,8 +107,13 @@ class QuickRepliesListView: UIView {
     }
     
     func updateDisplay() {
-        for i in quickReplyViews.indices {
-            styleQuickReplyView(at: i)
+        if let quickReplies = quickReplies {
+            var totalHeight: CGFloat = 0
+            for (quickReply, view) in zip(quickReplies, quickReplyViews) {
+                view.frame.origin = CGPoint(x: 0, y: totalHeight)
+                styleQuickReplyView(view, for: quickReply)
+                totalHeight = view.frame.maxY
+            }
         }
         
         setNeedsLayout()
@@ -124,10 +129,42 @@ class QuickRepliesListView: UIView {
     
     // MARK: - Layout
     
+    func updateFrames(in bounds: CGRect) {
+        updateDisplay()
+        let layout = getFramesThatFit(bounds.size)
+        scrollView.frame = layout.scrollViewFrame
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        scrollView.frame = bounds
+        let layout = getFramesThatFit(bounds.size)
+        scrollView.frame = layout.scrollViewFrame
+    }
+    
+    private struct CalculatedLayout {
+        let scrollViewFrame: CGRect
+        let dummyQuickReplyViewFrames: [CGRect]
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
+        let scrollViewFrame = CGRect(origin: .zero, size: size)
+        
+        let dummyQuickReplyViewFrames = getDummyQuickReplyViewFramesThatFit(size)
+        
+        return CalculatedLayout(
+            scrollViewFrame: scrollViewFrame,
+            dummyQuickReplyViewFrames: dummyQuickReplyViewFrames)
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let layout = getFramesThatFit(size)
+        
+        guard let lastDummyFrame = layout.dummyQuickReplyViewFrames.last else {
+            return size
+        }
+        
+        return CGSize(width: size.width, height: contentInsetTop + lastDummyFrame.midY)
     }
     
     private func setQuickReplyViewEnabled(at index: Int, enabled: Bool) {
@@ -161,6 +198,7 @@ class QuickRepliesListView: UIView {
     private func styleQuickReplyView(_ view: QuickReplyView, for quickReply: QuickReply) {
         let enabled = (selectedQuickReply == nil && !selectionDisabled) || selectedQuickReply == quickReply
         view.update(for: quickReply, enabled: enabled)
+        view.frame = CGRect(origin: view.frame.origin, size: view.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude)))
         view.setNeedsLayout()
     }
     
@@ -180,7 +218,7 @@ class QuickRepliesListView: UIView {
     }
     
     func getTotalHeight() -> CGFloat {
-        var total: CGFloat = 0
+        var total: CGFloat = contentInsetTop
         
         for quickReply in quickReplies ?? [] {
             let view = QuickReplyView(frame: .zero)
@@ -190,6 +228,28 @@ class QuickRepliesListView: UIView {
         }
         
         return total
+    }
+    
+    private func getDummyQuickReplyViewFramesThatFit(_ size: CGSize) -> [CGRect] {
+        var frames: [CGRect] = []
+        var totalHeight: CGFloat = 0
+        
+        let dummyView = QuickReplyView(frame: .zero)
+        guard let action = Action(content: [:]) else {
+            return []
+        }
+        
+        let dummyQuickReply = QuickReply(title: "Testing", action: action, icon: nil)
+        dummyView.update(for: dummyQuickReply, enabled: true)
+        let size = dummyView.sizeThatFits(CGSize(width: size.width, height: .greatestFiniteMagnitude))
+        
+        for _ in 0..<numberOfVisibleQuickReplies {
+            let frame = CGRect(x: 0, y: totalHeight, width: size.width, height: size.height)
+            totalHeight += size.height
+            frames.append(frame)
+        }
+        
+        return frames
     }
 }
 

@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
         ASAPP.initialize(with: config)
         ASAPP.user = ASAPPUser(userIdentifier: "test", requestContextProvider: { _ in

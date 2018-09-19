@@ -113,8 +113,8 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
                 fillColor = ASAPP.styles.colors.replyMessageBackground
                 label.textColor = ASAPP.styles.colors.replyMessageText
                 label.linkTextAttributes = [
-                    NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.replyMessageText,
-                    NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
+                    .foregroundColor: ASAPP.styles.colors.replyMessageText,
+                    .underlineStyle: NSUnderlineStyle.single.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.replyMessageBorder
             } else {
@@ -122,8 +122,8 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
                 label.textColor = ASAPP.styles.colors.messageText
                 label.backgroundColor = UIColor.clear
                 label.linkTextAttributes = [
-                    NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.messageText,
-                    NSAttributedStringKey.underlineStyle.rawValue: NSUnderlineStyle.styleSingle.rawValue
+                    .foregroundColor: ASAPP.styles.colors.messageText,
+                    .underlineStyle: NSUnderlineStyle.single.rawValue
                 ]
                 bubbleView.strokeColor = ASAPP.styles.colors.messageBorder
             }

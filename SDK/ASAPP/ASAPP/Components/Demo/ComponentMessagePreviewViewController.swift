@@ -85,7 +85,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
             return
         }
         
-        let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
+        let quickRepliesHeight = quickRepliesView.sizeThatFits(view.bounds.size).height
         var quickRepliesTop = view.bounds.height
         var contentBottom = view.bounds.height
         if quickRepliesView.eventId != nil {
@@ -164,7 +164,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
     
     // MARK: Motion
     
-    public override func motionEnded(_ motion: UIEventSubtype,
+    public override func motionEnded(_ motion: UIEvent.EventSubtype,
                                      with event: UIEvent?) {
         if motion == .motionShake {
             refresh()

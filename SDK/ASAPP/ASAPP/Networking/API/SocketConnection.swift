@@ -81,7 +81,7 @@ class SocketConnection: NSObject {
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     deinit {
@@ -279,7 +279,7 @@ extension SocketConnection: ASAPPSRWebSocketDelegate {
                 if ASAPP.debugLogLevel.rawValue < ASAPPLogLevel.info.rawValue {
                     DebugLog.d("(Use info debug level to see long message)")
                 }
-                DebugLog.i("\(message)")
+                DebugLog.i("\(message ?? "nil")")
                 DebugLog.d("---------")
             } else {
                 DebugLog.d("\(message != nil ? message! : "EMPTY RESPONSE")\n---------")
@@ -287,7 +287,7 @@ extension SocketConnection: ASAPPSRWebSocketDelegate {
         }
         
         guard let messageString = message as? String else {
-            DebugLog.w(caller: SocketConnection.self, "Cannot downcast message \(message) to String for deserialization")
+            DebugLog.w(caller: SocketConnection.self, "Cannot downcast message \(message ?? "nil") to String for deserialization")
             return
         }
         
@@ -346,7 +346,7 @@ extension SocketConnection: ASAPPSRWebSocketDelegate {
     }
     
     func webSocket(_ webSocket: ASAPPSRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {
-        DebugLog.d("Socket Did Close: \(code) {\n  reason: \(reason),\n  wasClean: \(wasClean)\n}")
+        DebugLog.d("Socket Did Close: \(code) {\n  reason: \(String(describing: reason)),\n  wasClean: \(wasClean)\n}")
         
         isAuthenticated = false
         
@@ -354,7 +354,7 @@ extension SocketConnection: ASAPPSRWebSocketDelegate {
     }
     
     func webSocket(_ webSocket: ASAPPSRWebSocket!, didFailWithError error: Error!) {
-        DebugLog.d("Socket Did Fail: \(error)")
+        DebugLog.d("Socket Did Fail: \(String(describing: error))")
         
         isAuthenticated = false
         

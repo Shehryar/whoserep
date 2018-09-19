@@ -13,12 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let appearance = UINavigationBar.appearance()
         appearance.titleTextAttributes = [
-            NSFontAttributeName : UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight),
-            NSForegroundColorAttributeName : UIColor(hue: 0.619, saturation: 0.197, brightness: 0.278, alpha: 1),
-            NSKernAttributeName : 1,
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 20, weight: .light),
+            NSAttributedString.Key.foregroundColor : UIColor(hue: 0.619, saturation: 0.197, brightness: 0.278, alpha: 1),
+            NSAttributedString.Key.kern : 1,
         ]
         
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -52,4 +52,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

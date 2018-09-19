@@ -44,9 +44,6 @@ class ChatInputView: UIView, TextViewAutoExpanding {
             if oldValue.bottom != bubbleInset.bottom {
                 invalidateIntrinsicContentSize()
                 resizeIfNeeded(animated: true, notifyOfHeightChange: true)
-                if cornerRadius == 0 {
-                    cornerRadius = (inputHeight + contentInset.top + contentInset.bottom) / 2
-                }
             }
             setNeedsLayout()
         }
@@ -95,8 +92,6 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     var inputMinHeight: CGFloat = 26
     let inputMaxHeight: CGFloat = 108
     var inputHeight: CGFloat = 0
-    
-    private var cornerRadius: CGFloat = 0
     
     let mediaButtonSize = CGSize(width: 16, height: 16)
     let sendButtonSize = CGSize(width: 24, height: 24)
@@ -158,7 +153,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         textView.returnKeyType = .send
         textView.autocorrectionType = .no
         textView.isAccessibilityElement = true
-        textView.accessibilityTraits = UIAccessibilityTraitSearchField
+        textView.accessibilityTraits = UIAccessibilityTraits.searchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: sendButtonSize.width + 8)
         textView.scrollIndicatorInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
@@ -198,8 +193,6 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         applyColors()
         updateSendButtonForCurrentState()
         updateInputMinHeight()
-        
-        cornerRadius = bubbleView.frame.height / 2
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -248,7 +241,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         }
         
         if let sendButtonImage = sendButtonImage {
-            sendButton.setImage(sendButtonImage, for: UIControlState())
+            sendButton.setImage(sendButtonImage, for: UIControl.State())
             sendButton.setImage(sendButtonImage.withAlpha(0.7), for: .highlighted)
             sendButton.setImage(sendButtonImage.withAlpha(0.4), for: .disabled)
         }
@@ -261,6 +254,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         placeholderTextView.updateFont(for: .body)
         updateInputMinHeight()
         setNeedsLayout()
+        layoutIfNeeded()
     }
     
     func updateSendButtonForCurrentState() {
@@ -354,6 +348,7 @@ extension ChatInputView {
         
         placeholderTextView.frame = textView.frame
         
+        let cornerRadius = bubbleView.frame.height / 2
         bubbleView.layer.cornerRadius = isRounded ? cornerRadius : 0
         shadowView.layer.cornerRadius = isRounded ? cornerRadius : 0
     }

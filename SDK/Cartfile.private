@@ -1,5 +1,5 @@
-github "Quick/Nimble" == 7.1.2
-github "Quick/Quick" == 1.3.0
-github "ashfurrow/Nimble-Snapshots" == 6.7.0
-github "uber/ios-snapshot-test-case" == 3.0.0
+github "Quick/Nimble" == 7.3.0
+github "Quick/Quick" == 1.3.1
+github "ashfurrow/Nimble-Snapshots" == 6.8.1
+github "uber/ios-snapshot-test-case" "de1c714952ca6b7f1a40670135297fd761ba43cf"
 

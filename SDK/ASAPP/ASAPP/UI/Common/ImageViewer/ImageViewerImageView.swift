@@ -36,7 +36,7 @@ class ImageViewerImageView: UIView {
     // MARK: Init
     
     func commonInit() {
-        spinner.activityIndicatorViewStyle = .white
+        spinner.style = .white
         spinner.hidesWhenStopped = true
         addSubview(spinner)
         
@@ -160,7 +160,7 @@ extension ImageViewerImageView {
         })
     }
     
-    func setFrame(_ frame: CGRect, contentMode: UIViewContentMode) {
+    func setFrame(_ frame: CGRect, contentMode: UIView.ContentMode) {
         if !frame.equalTo(self.frame) || contentMode != self.contentMode {
             super.frame = frame
             super.contentMode = contentMode

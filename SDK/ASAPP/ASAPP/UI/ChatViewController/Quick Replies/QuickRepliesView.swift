@@ -124,12 +124,13 @@ class QuickRepliesView: UIView {
     
     func updateDisplay() {
         listView.updateDisplay()
+        updateRestartButtonDisplay()
     }
     
     func updateRestartButtonDisplay() {
         if isRestartButtonVisible,
             !listView.isEmpty,
-            listView.getTotalHeight() > containerView.frame.height - restartButton.defaultHeight {
+            listView.getTotalHeight() > listView.sizeThatFits(bounds.size).height - restartButton.frame.height {
             restartButton.showBlur()
         } else {
             restartButton.hideBlur()
@@ -146,32 +147,61 @@ extension QuickRepliesView {
         updateFrames()
     }
     
-    func updateFrames() {
-        // Separator Top
-        
-        separatorTopView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: separatorTopStroke)
-        
-        // listViews
-        
-        let containerTop = separatorTopView.frame.maxY
-        let containerHeight = bounds.height - containerTop
-        containerView.frame = CGRect(x: 0, y: containerTop, width: bounds.width, height: containerHeight)
-        listView.frame = containerView.bounds
-        
-        // the blur effect looks bad when growing from nothing. make it larger than necessary while the container is short.
-        blurredBackground.frame = containerView.frame.height > 5 ? containerView.frame : CGRect(x: containerView.frame.minX, y: -restartButton.defaultHeight, width: containerView.frame.width, height: restartButton.defaultHeight)
-        
-        restartButton.frame = CGRect(x: 0, y: containerView.frame.maxY - restartButton.defaultHeight, width: bounds.width, height: restartButton.defaultHeight)
+    private struct CalculatedLayout {
+        let separatorTopViewFrame: CGRect
+        let containerViewFrame: CGRect
+        let listViewFrame: CGRect
+        let blurredBackgroundFrame: CGRect
+        let restartButtonFrame: CGRect
     }
     
-    func preferredDisplayHeight() -> CGFloat {
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
+        let separatorTopViewFrame = CGRect(x: 0, y: 0, width: size.width, height: separatorTopStroke)
+        
+        let containerTop = separatorTopViewFrame.maxY
+        let containerHeight = size.height - containerTop
+        let containerViewFrame = CGRect(x: 0, y: containerTop, width: size.width, height: containerHeight)
+        
+        let listViewSize = listView.sizeThatFits(containerViewFrame.size)
+        let listViewFrame = CGRect(origin: .zero, size: listViewSize)
+        
+        // the blur effect looks bad when growing from nothing. make it larger than necessary while the container is short.
+        let blurredBackgroundFrame = containerViewFrame.height > 5
+            ? containerViewFrame
+            : CGRect(x: containerView.frame.minX,
+                     y: -restartButton.defaultHeight,
+                     width: containerViewFrame.width,
+                     height: restartButton.defaultHeight)
+        
+        let restartButtonFrame = CGRect(x: 0, y: containerViewFrame.maxY - restartButton.defaultHeight, width: size.width, height: restartButton.defaultHeight)
+        
+        return CalculatedLayout(
+            separatorTopViewFrame: separatorTopViewFrame,
+            containerViewFrame: containerViewFrame,
+            listViewFrame: listViewFrame,
+            blurredBackgroundFrame: blurredBackgroundFrame,
+            restartButtonFrame: restartButtonFrame)
+    }
+    
+    func updateFrames() {
+        let layout = getFramesThatFit(bounds.size)
+        
+        separatorTopView.frame = layout.separatorTopViewFrame
+        containerView.frame = layout.containerViewFrame
+        listView.frame = layout.listViewFrame
+        blurredBackground.frame = layout.blurredBackgroundFrame
+        restartButton.frame = layout.restartButtonFrame
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let restartButtonHeight = isRestartButtonVisible ? restartButton.defaultHeight : 0
+        
         if listView.isEmpty {
-            return isRestartButtonVisible ? restartButton.defaultHeight : 0
+            return CGSize(width: size.width, height: restartButtonHeight)
         }
         
-        let rowHeight = QuickRepliesListView.approximateRowHeight()
-        let restartButtonHeight = isRestartButtonVisible ? restartButton.defaultHeight : 0
-        return restartButtonHeight + rowHeight * 3.55
+        let layout = getFramesThatFit(size)
+        return CGSize(width: size.width, height: restartButtonHeight + layout.listViewFrame.height)
     }
 }
 
@@ -246,6 +276,16 @@ extension QuickRepliesView {
     
     func hideRestartSpinner() {
         restartButton.hideSpinner()
+    }
+    
+    func showBlur() {
+        blurredBackground.isHidden = false
+        backgroundColor = .clear
+    }
+    
+    func hideBlur() {
+        blurredBackground.isHidden = true
+        backgroundColor = .white
     }
 }
 

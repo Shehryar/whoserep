@@ -15,7 +15,7 @@ class ContainerViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         nav = NavigationController(rootViewController: rootViewController)
-        addChildViewController(nav)
+        addChild(nav)
     }
     
     override func loadView() {
@@ -40,7 +40,7 @@ class ContainerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             navigationController?.setNavigationBarHidden(false, animated: animated)
             nav.viewControllers = []
             nav = nil
@@ -59,5 +59,19 @@ class ContainerViewController: UIViewController {
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return nav.topViewController!.preferredStatusBarUpdateAnimation
+    }
+    
+    // Orientation
+    
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return nav.topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return nav.topViewController?.supportedInterfaceOrientations ?? .portrait
+    }
+    
+    override var shouldAutorotate: Bool {
+        return nav.topViewController?.shouldAutorotate ?? false
     }
 }
