@@ -79,9 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if let root = window?.rootViewController {
-            return root.supportedInterfaceOrientations
+        if let current = window?.rootViewController?.presentedViewController ?? window?.rootViewController,
+           let nav = current as? UINavigationController,
+           let top = nav.topViewController {
+            return top.supportedInterfaceOrientations
         }
+        
         return .all
     }
 }
@@ -91,8 +94,9 @@ extension AppDelegate {
 extension AppDelegate {
     
     func setupNotifications() {
-        let settings = UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil)
-        UIApplication.shared.registerUserNotificationSettings(settings)
+        ASAPP.enablePushNotifications(with: "test-uuid")
+//        let settings = UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil)
+//        UIApplication.shared.registerUserNotificationSettings(settings)
         
         // https://developer.apple.com/reference/usernotifications/unusernotificationcenterdelegate
         if #available(iOS 10.0, *) {

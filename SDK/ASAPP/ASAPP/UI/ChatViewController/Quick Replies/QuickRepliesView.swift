@@ -183,7 +183,8 @@ extension QuickRepliesView {
             restartButtonFrame: restartButtonFrame)
     }
     
-    func updateFrames() {
+    func updateFrames(in bounds: CGRect? = nil) {
+        let bounds = bounds ?? self.bounds
         let layout = getFramesThatFit(bounds.size)
         
         separatorTopView.frame = layout.separatorTopViewFrame
@@ -191,6 +192,8 @@ extension QuickRepliesView {
         listView.frame = layout.listViewFrame
         blurredBackground.frame = layout.blurredBackgroundFrame
         restartButton.frame = layout.restartButtonFrame
+        
+        listView.updateFrames(in: listView.bounds)
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

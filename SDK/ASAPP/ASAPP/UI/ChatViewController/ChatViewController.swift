@@ -44,6 +44,7 @@ class ChatViewController: ASAPPViewController {
     
     // MARK: Properties: Status
 
+    private(set) var doneTransitioningToPortrait = false
     private var didConnectAtLeastOnce = false
     private var isInitialLayout = true
     private var delayedDisconnectTime: Date?
@@ -306,6 +307,16 @@ class ChatViewController: ASAPPViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let rawOrientation = UIDevice.current.value(forKeyPath: "orientation") as? Int,
+            let orientation = UIInterfaceOrientation(rawValue: rawOrientation),
+            orientation == .portrait {
+            doneTransitioningToPortrait = true
+        } else {
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKeyPath: "orientation")
+            UIViewController.attemptRotationToDeviceOrientation()
+        }
+        
         keyboardObserver.registerForNotifications()
     }
     
@@ -339,6 +350,8 @@ class ChatViewController: ASAPPViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
+        doneTransitioningToPortrait = false
+        
         let longest = max(size.width, size.height)
         let newBounds = CGRect(origin: .zero, size: CGSize(width: longest, height: longest))
         view.layer.frame = newBounds
@@ -355,6 +368,7 @@ class ChatViewController: ASAPPViewController {
             guard let strongSelf = self else {
                 return
             }
+            strongSelf.doneTransitioningToPortrait = true
             strongSelf.view.layer.frame = context.containerView.bounds
             strongSelf.backgroundLayer?.frame = context.containerView.bounds
             strongSelf.quickRepliesView.showBlur()
@@ -631,7 +645,7 @@ extension ChatViewController {
         
         let quickRepliesHeightWithChat = quickRepliesHeight + (inputState == .both && chatInputView.alpha > 0 ? chatInputView.frame.height : 0)
         quickRepliesView.frame = CGRect(x: 0, y: bounds.height - quickRepliesHeightWithChat, width: viewWidth, height: quickRepliesHeightWithChat)
-        quickRepliesView.updateFrames()
+        quickRepliesView.updateFrames(in: bounds)
         quickRepliesView.layoutIfNeeded()
         
         if inputState != .both || quickRepliesView.frame.height > chatInputView.frame.height {
