@@ -9,7 +9,6 @@
 import UIKit
 
 class NavigationController: UINavigationController {
-    
     // MARK: Status Bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -31,5 +30,23 @@ class NavigationController: UINavigationController {
             return topViewController.preferredStatusBarUpdateAnimation
         }
         return super.preferredStatusBarUpdateAnimation
+    }
+    
+    // MARK: Orientation
+    
+    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+    
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if let top = topViewController as? ChatViewController {
+            let orientations: UIInterfaceOrientationMask = top.doneTransitioningToPortrait ? .portrait : .all
+            return orientations
+        }
+        return .portrait
+    }
+    
+    override public var shouldAutorotate: Bool {
+        return false
     }
 }

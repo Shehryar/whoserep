@@ -64,14 +64,14 @@ class ContainerViewController: UIViewController {
     // Orientation
     
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return nav.topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+        return nav.preferredInterfaceOrientationForPresentation
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return nav.topViewController?.supportedInterfaceOrientations ?? .portrait
+        return nav.supportedInterfaceOrientations
     }
     
     override var shouldAutorotate: Bool {
-        return nav.topViewController?.shouldAutorotate ?? false
+        return nav.shouldAutorotate
     }
 }

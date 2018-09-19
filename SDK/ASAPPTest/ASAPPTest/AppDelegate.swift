@@ -79,9 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if let root = window?.rootViewController {
-            return root.supportedInterfaceOrientations
+        if let current = window?.rootViewController?.presentedViewController ?? window?.rootViewController,
+           let nav = current as? UINavigationController,
+           let top = nav.topViewController {
+            return top.supportedInterfaceOrientations
         }
+        
         return .all
     }
 }
