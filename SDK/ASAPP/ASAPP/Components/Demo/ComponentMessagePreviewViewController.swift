@@ -85,7 +85,7 @@ class ComponentMessagePreviewViewController: ASAPPViewController {
             return
         }
         
-        let quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
+        let quickRepliesHeight = quickRepliesView.sizeThatFits(view.bounds.size).height
         var quickRepliesTop = view.bounds.height
         var contentBottom = view.bounds.height
         if quickRepliesView.eventId != nil {

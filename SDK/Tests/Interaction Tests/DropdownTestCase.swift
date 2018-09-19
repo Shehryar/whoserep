@@ -30,15 +30,16 @@ class DropdownTestCase: XCTestCase {
         app.toolbars.buttons.firstMatch.forceTap()
         
         XCTAssert(field.value as? String == "C")
-        let pickerWheel = app.pickerWheels.firstMatch
-        XCTAssert(waitForElementToDisappear(pickerWheel) || !pickerWheel.exists)
+        let picker2 = app.pickerWheels.firstMatch
+        XCTAssert(waitForElementToDisappear(picker2) || !picker2.exists)
         
         field.forceTap()
         picker.adjust(toPickerWheelValue: "A")
         app.toolbars.buttons.firstMatch.forceTap()
         
         XCTAssert(field.value as? String == "A")
-        XCTAssert(!app.pickerWheels.firstMatch.exists)
+        let picker3 = app.pickerWheels.firstMatch
+        XCTAssert(waitForElementToDisappear(picker3) || !picker3.exists)
     }
     
     func waitForElementToDisappear(_ element: XCUIElement) -> Bool {

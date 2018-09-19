@@ -407,6 +407,7 @@ extension ChatViewController {
         chatInputView.updateDisplay()
         
         if isViewLoaded {
+            updateFrames()
             view.setNeedsLayout()
         }
     }
@@ -602,7 +603,7 @@ extension ChatViewController {
         quickRepliesView.isRestartButtonVisible = !shouldHideNewQuestionButton && showRestartButton
         chatInputView.alpha = showRestartButton || actionSheet != nil || (chatMessagesView.isEmpty && quickRepliesMessage == nil) ? 0 : 1
         
-        var quickRepliesHeight: CGFloat = quickRepliesView.preferredDisplayHeight()
+        var quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
         
         switch inputState {
         case .prechat, .chat:
