@@ -64,6 +64,6 @@ class RadioButtonView: RootComponentWrapperView {
         
         isAccessibilityElement = true
         accessibilityLabel = label
-        accessibilityTraits = isSelected ? UIAccessibilityTraits.selected : UIAccessibilityTraits.button
+        accessibilityTraits = isSelected ? UIAccessibilityTraitSelected : UIAccessibilityTraitButton
     }
 }

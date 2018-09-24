@@ -121,7 +121,7 @@ class ChatCarouselView: UIView {
         if let container = containerViews?[page],
            let componentView = container.componentView {
             Dispatcher.delay {
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: componentView)
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, componentView)
             }
         }
     }

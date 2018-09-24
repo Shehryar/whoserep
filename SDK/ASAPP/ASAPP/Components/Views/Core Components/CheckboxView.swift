@@ -61,6 +61,6 @@ class CheckboxView: RootComponentWrapperView {
         
         isAccessibilityElement = true
         accessibilityLabel = label
-        accessibilityTraits = isChecked ? UIAccessibilityTraits.selected : UIAccessibilityTraits.button
+        accessibilityTraits = isChecked ? UIAccessibilityTraitSelected : UIAccessibilityTraitButton
     }
 }

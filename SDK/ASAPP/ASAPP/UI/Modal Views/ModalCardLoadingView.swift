@@ -39,7 +39,7 @@ class ModalCardLoadingView: UIView {
     
     let blurView = UIVisualEffectView(effect: nil)
     let vibrancyView = UIVisualEffectView(effect: nil)
-    let spinner = UIActivityIndicatorView(style: .gray)
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     // MARK: Initialization
     

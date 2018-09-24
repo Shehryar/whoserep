@@ -93,7 +93,7 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
 }
 
 extension ComponentNavigationController: KeyboardObserverDelegate {
-    func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIView.AnimationOptions) {
+    func keyboardWillUpdateVisibleHeight(_ height: CGFloat, withDuration duration: TimeInterval, animationCurve: UIViewAnimationOptions) {
         guard height != keyboardHeight else {
             return
         }

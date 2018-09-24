@@ -227,7 +227,7 @@ extension ModalCardPresentationAnimator: KeyboardObserverDelegate {
     
     func keyboardWillUpdateVisibleHeight(_ height: CGFloat,
                                          withDuration duration: TimeInterval,
-                                         animationCurve: UIView.AnimationOptions) {
+                                         animationCurve: UIViewAnimationOptions) {
         keyboardHeight = height
         
         if let containerView = containerView,

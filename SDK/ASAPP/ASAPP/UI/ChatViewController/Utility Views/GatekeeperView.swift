@@ -107,7 +107,7 @@ class GatekeeperView: UIView {
         activityIndicator = UIActivityIndicatorView(frame: button.frame)
         if let spinner = activityIndicator {
             spinner.backgroundColor = .clear
-            spinner.style = .gray
+            spinner.activityIndicatorViewStyle = .gray
             spinner.frame = button.frame
             insertSubview(spinner, belowSubview: button)
             spinner.startAnimating()

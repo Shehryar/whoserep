@@ -88,7 +88,7 @@ class ChatMessageCell: UITableViewCell {
             
             if let attachmentView = attachmentView {
                 contentView.addSubview(attachmentView)
-                contentView.sendSubviewToBack(timeLabel)
+                contentView.sendSubview(toBack: timeLabel)
                 setNeedsLayout()
             }
         }
@@ -118,7 +118,7 @@ class ChatMessageCell: UITableViewCell {
         commonInit()
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
     }

@@ -80,7 +80,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
         }
     }
     
-    private let spinnerView = UIActivityIndicatorView(style: .gray)
+    private let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     private let emptyView = ComponentViewEmptyReloadView()
     
