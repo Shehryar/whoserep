@@ -102,13 +102,14 @@ Handing off the SDK to a partner
 --------------------------------
 
 1. Do all tests pass?
-1. Do the Swift and Objective-C projects work in Xcode 9? Make sure to rebuild the framework (in Xcode 9).
-1. Has the version string been updated?
+1. Has the version string been updated in both the framework and the test app?
 1. Have the docs been updated?
-1. Make a pull request from `develop` to `master` and merge it(_do not squash or rebase_!) to automatically distribute a beta build.
+1. Do the Swift and Objective-C projects work in Xcode 9? Make sure to rebuild the framework (in Xcode 9).
+1. Make a pull request from `develop` to `master` and merge it—_do not squash or rebase!_—to automatically distribute a beta build.
 1. Does QA approve? If not, make changes and start over.
-1. Using *Xcode 9*'s Swift 4.1 compiler, build the framework by *archiving* the *Aggregate* scheme for a *Generic iOS Device*. If a partner needs a Swift 4.2-compatible binary, compile with Xcode 10's Swift 4.2 compiler. Note that the Aggregate target's build script assumes you have Xcode 9 installed as `Xcode.app` and automatically switches to it using `xcode-select`.
+1. Using **Xcode 9**'s Swift 4.1 compiler, build the framework by **archiving** the **Aggregate** scheme for a **Generic iOS Device**. If a partner needs a Swift 4.2-compatible binary, compile with Xcode 10's Swift 4.2 compiler. Note that the Aggregate target's build script assumes you have Xcode 9 installed as `Xcode.app` and automatically switches to it using `xcode-select`.
 1. Copy the `package` directory, rename it `ASAPP iOS Framework X.Y.Z`, and compress it.
 1. Send the ZIP file to the Product team for delivery to our partners.
-1. Tag the relevant commit and record the release [according to existing conventions](https://github.com/ASAPPinc/chat-sdk-ios/releases).
+1. Tag the relevant commit with `git tag X.Y.Z; git push --tags`.
+1. Record the release [according to existing conventions](https://github.com/ASAPPinc/chat-sdk-ios/releases).
 
