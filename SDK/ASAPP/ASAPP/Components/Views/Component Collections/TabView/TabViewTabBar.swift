@@ -76,7 +76,7 @@ class TabViewTabBar: UIView {
         updateDisplay()
         
         isAccessibilityElement = true
-        accessibilityTraits = UIAccessibilityTraits.adjustable
+        accessibilityTraits = UIAccessibilityTraitAdjustable
     }
     
     override init(frame: CGRect) {
@@ -166,12 +166,12 @@ class TabViewTabBar: UIView {
         
         for (tabIndex, tab) in tabs.enumerated() {
             if tabIndex == selectedIndex {
-                bringSubviewToFront(shadowView)
-                bringSubviewToFront(tab)
+                bringSubview(toFront: shadowView)
+                bringSubview(toFront: tab)
                 
                 tab.isSelected = true
                 applyShadowToView(tab)
-                bringSubviewToFront(tab)
+                bringSubview(toFront: tab)
                 
                 accessibilityValue = tab.accessibilityLabel
             } else {

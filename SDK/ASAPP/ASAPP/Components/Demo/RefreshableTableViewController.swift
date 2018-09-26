@@ -79,7 +79,7 @@ public class RefreshableTableViewController: ASAPPViewController {
     
     // MARK: Motion
     
-    public override func motionEnded(_ motion: UIEvent.EventSubtype,
+    public override func motionEnded(_ motion: UIEventSubtype,
                                      with event: UIEvent?) {
         if motion == .motionShake {
             refresh()

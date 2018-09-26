@@ -40,7 +40,7 @@ class SecureScreenCoverView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let maxLabelFrame = bounds.inset(by: contentInset)
+        let maxLabelFrame = UIEdgeInsetsInsetRect(bounds, contentInset)
         let labelHeight = ceil(label.sizeThatFits(maxLabelFrame.size).height)
         let labelTop = bounds.height - contentInset.bottom - labelHeight
         

@@ -18,14 +18,6 @@ Under your target's "Build Settings", set "Always Embed Swift Standard
 Libraries" to "Yes". This is necessary because the ASAPP iOS SDK is
 built using Swift.
 
-### User-Defined Setting *SWIFT\_VERSION* → 3.2 or 4
-
-This should not be required for most projects, but if you have used an
-older version of Swift in your project, you may need to add a
-user-defined setting to avoid any compiler issues. Go to the "Build
-Settings" of your target, scroll to "User-Defined" near the bottom, and
-add a new key "SWIFT_VERSION" with value "3.2" or "4".
-
 ### Add NSPhotoLibraryUsageDescription/NSCameraUsageDescription to Info.plist
 
 As of iOS 10, Apple requires a description for why your app uses the

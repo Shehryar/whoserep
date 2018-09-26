@@ -57,7 +57,7 @@ class ChatMessagesView: UIView {
     weak var delegate: ChatMessagesViewDelegate?
     
     private lazy var loadingView: UIView = {
-        let loadingView = UIActivityIndicatorView(style: .gray)
+        let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         loadingView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: loadingHeaderHeight)
         loadingView.startAnimating()
         return loadingView
@@ -659,7 +659,7 @@ extension ChatMessagesView {
             
             focusTimer?.cancel()
             focusTimer = Timer(delay: .defaultAnimationDuration) { [weak self] in
-                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: cell)
+                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, cell)
                 self?.previousFocusedReply = message
             }
             focusTimer?.start()

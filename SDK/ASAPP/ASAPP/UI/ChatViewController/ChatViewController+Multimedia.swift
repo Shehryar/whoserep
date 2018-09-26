@@ -68,7 +68,7 @@ extension ChatViewController {
         
         alert.addAction(UIAlertAction(title: ASAPP.strings.cameraPermissionsErrorCancelButton, style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: ASAPP.strings.cameraPermissionsErrorSettingsButton, style: .default, handler: { _ in
-            if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+            if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
                 UIApplication.shared.openURL(settingsURL)
             }
         }))
@@ -92,7 +92,7 @@ extension ChatViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    func createImagePickerController(withSourceType sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {
+    func createImagePickerController(withSourceType sourceType: UIImagePickerControllerSourceType) -> UIImagePickerController {
         let imagePickerController = UIImagePickerController()
         imagePickerController.allowsEditing = true
         

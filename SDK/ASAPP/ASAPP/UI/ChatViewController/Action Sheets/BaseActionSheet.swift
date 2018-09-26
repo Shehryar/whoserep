@@ -93,30 +93,69 @@ class BaseActionSheet: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private struct CalculatedLayout {
+        let blurredBackgroundFrame: CGRect
+        let titleLabelFrame: CGRect
+        let bodyLabelFrame: CGRect
+        let confirmButtonFrame: CGRect
+        let hideButtonFrame: CGRect
+        let contentViewFrame: CGRect
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
+        let blurredBackgroundFrame = CGRect(origin: .zero, size: size)
         
-        blurredBackground.frame = bounds
-        
-        let contentWidth = frame.width - sheetInsets.left - sheetInsets.right
+        let contentWidth = size.width - sheetInsets.left - sheetInsets.right
         let contentFitSize = CGSize(width: contentWidth - contentInsets.left - contentInsets.right, height: 0)
         
         let titleLabelSize = hasTitleLabel ? titleLabel.sizeThatFits(contentFitSize) : .zero
-        titleLabel.frame = CGRect(x: contentInsets.left, y: contentInsets.top, width: contentFitSize.width, height: titleLabelSize.height)
+        let titleLabelFrame = CGRect(x: round(contentWidth / 2 - titleLabelSize.width / 2), y: contentInsets.top, width: titleLabelSize.width, height: titleLabelSize.height)
         
         let bodyLabelSize = bodyLabel.sizeThatFits(contentFitSize)
-        bodyLabel.frame = CGRect(x: contentInsets.left, y: titleLabel.frame.maxY + bodyLabelPadding, width: contentFitSize.width, height: bodyLabelSize.height)
+        let bodyLabelFrame = CGRect(x: round(contentWidth / 2 - bodyLabelSize.width / 2), y: titleLabelFrame.maxY + bodyLabelPadding, width: bodyLabelSize.width, height: bodyLabelSize.height)
         
-        let restartButtonSize = confirmButton.sizeThatFits(contentFitSize)
-        confirmButton.frame = CGRect(x: contentWidth / 2 - restartButtonSize.width / 2, y: bodyLabel.frame.maxY + 36, width: restartButtonSize.width, height: restartButtonSize.height)
-        confirmButton.layer.cornerRadius = restartButtonSize.height / 2
+        let confirmButtonSize = confirmButton.sizeThatFits(contentFitSize)
+        let confirmButtonFrame = CGRect(x: round(contentWidth / 2 - confirmButtonSize.width / 2), y: bodyLabelFrame.maxY + 36, width: confirmButtonSize.width, height: confirmButtonSize.height)
         
         let hideButtonSize = hideButton.sizeThatFits(contentFitSize)
-        hideButton.frame = CGRect(x: contentWidth / 2 - hideButtonSize.width / 2, y: confirmButton.frame.maxY + 10, width: hideButtonSize.width, height: hideButtonSize.height)
-        hideButton.layer.cornerRadius = hideButtonSize.height / 2
+        let hideButtonFrame = CGRect(x: round(contentWidth / 2 - hideButtonSize.width / 2), y: confirmButtonFrame.maxY + 10, width: hideButtonSize.width, height: hideButtonSize.height)
         
-        let totalHeight = hideButton.frame.maxY + contentInsets.bottom
-        contentView.frame = CGRect(x: sheetInsets.left, y: frame.maxY - totalHeight, width: contentWidth, height: totalHeight)
+        let totalHeight = hideButtonFrame.maxY + contentInsets.bottom
+        let contentViewFrame = CGRect(x: sheetInsets.left, y: size.height - totalHeight, width: contentWidth, height: totalHeight)
+        
+        return CalculatedLayout(
+            blurredBackgroundFrame: blurredBackgroundFrame,
+            titleLabelFrame: titleLabelFrame,
+            bodyLabelFrame: bodyLabelFrame,
+            confirmButtonFrame: confirmButtonFrame,
+            hideButtonFrame: hideButtonFrame,
+            contentViewFrame: contentViewFrame)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
+    }
+    
+    func updateFrames(in bounds: CGRect? = nil) {
+        let bounds = bounds ?? self.bounds
+        let layout = getFramesThatFit(bounds.size)
+        
+        blurredBackground.frame = layout.blurredBackgroundFrame
+        titleLabel.frame = layout.titleLabelFrame
+        bodyLabel.frame = layout.bodyLabelFrame
+        confirmButton.frame = layout.confirmButtonFrame
+        activityIndicator?.frame = layout.confirmButtonFrame
+        hideButton.frame = layout.hideButtonFrame
+        contentView.frame = layout.contentViewFrame
+        
+        confirmButton.layer.cornerRadius = layout.confirmButtonFrame.height / 2
+        hideButton.layer.cornerRadius = layout.hideButtonFrame.height / 2
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return size
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -167,14 +206,8 @@ class BaseActionSheet: UIView {
             self?.contentView.frame = contentViewFinalFrame
         }, completion: { [weak self] _ in
             self?.accessibilityViewIsModal = true
-            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: self)
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self)
         })
-    }
-    
-    func updateFrames(in bounds: CGRect) {
-        frame = bounds
-        setNeedsLayout()
-        layoutIfNeeded()
     }
     
     func hide(_ completion: (() -> Void)? = nil) {
@@ -191,7 +224,7 @@ class BaseActionSheet: UIView {
                 return
             }
             self?.removeFromSuperview()
-            UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: superview)
+            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, superview)
             completion?()
         })
     }
@@ -202,7 +235,7 @@ class BaseActionSheet: UIView {
         activityIndicator = UIActivityIndicatorView(frame: confirmButton.frame)
         if let spinner = activityIndicator {
             spinner.backgroundColor = .clear
-            spinner.style = .gray
+            spinner.activityIndicatorViewStyle = .gray
             spinner.frame = confirmButton.frame
             contentView.insertSubview(spinner, belowSubview: confirmButton)
             spinner.startAnimating()

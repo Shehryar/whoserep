@@ -55,9 +55,9 @@ class COMTextInputCell: UITableViewCell {
         textField.text = ""
         textField.delegate = self
         textField.defaultTextAttributes = [
-            .foregroundColor: ASAPP.styles.colors.textPrimary,
-            .font: ASAPP.styles.textStyles.body.font,
-            .kern: ASAPP.styles.textStyles.body.letterSpacing
+            NSAttributedStringKey.foregroundColor.rawValue: ASAPP.styles.colors.textPrimary,
+            NSAttributedStringKey.font.rawValue: ASAPP.styles.textStyles.body.font,
+            NSAttributedStringKey.kern.rawValue: ASAPP.styles.textStyles.body.letterSpacing
         ]
         textField.addTarget(self, action: #selector(COMTextInputCell.textFieldDidChange(_:)), for: .editingChanged)
         
@@ -69,7 +69,7 @@ class COMTextInputCell: UITableViewCell {
         commonInit()
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
     }

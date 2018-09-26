@@ -16,7 +16,7 @@ class ImageViewer: UIViewController {
     
     var presentationImage: UIImage?
     
-    var presentationImageContentMode: UIView.ContentMode = .scaleAspectFill
+    var presentationImageContentMode: UIViewContentMode = .scaleAspectFill
     
     var presentationImageCornerRadius: CGFloat = 0
     
@@ -56,7 +56,7 @@ class ImageViewer: UIViewController {
     
     private let controlsView = ImageViewerControlsView()
     
-    private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [.interPageSpacing: 10])
+    private let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [UIPageViewControllerOptionInterPageSpacingKey: 10])
     
     // MARK: Initialization
     

@@ -117,19 +117,19 @@ class BinaryRatingView: BaseComponentView {
     
     func updateAccessibilityElements() {
         let yesElement = UIAccessibilityElement(accessibilityContainer: self)
-        yesElement.accessibilityFrame = UIAccessibility.convertToScreenCoordinates(yesView.frame, in: self)
+        yesElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(yesView.frame, self)
         yesElement.accessibilityLabel = yesView.titleLabel?.text ?? ASAPPLocalizedString("Positive")
-        yesElement.accessibilityTraits = UIAccessibilityTraits.button
+        yesElement.accessibilityTraits = UIAccessibilityTraitButton
         if currentChoice == true {
-            yesElement.accessibilityTraits.insert(.selected)
+            yesElement.accessibilityTraits += UIAccessibilityTraitSelected
         }
         
         let noElement = UIAccessibilityElement(accessibilityContainer: self)
-        noElement.accessibilityFrame = UIAccessibility.convertToScreenCoordinates(noView.frame, in: self)
+        noElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(noView.frame, self)
         noElement.accessibilityLabel = noView.titleLabel?.text ?? ASAPPLocalizedString("Negative")
-        noElement.accessibilityTraits = UIAccessibilityTraits.button
+        noElement.accessibilityTraits = UIAccessibilityTraitButton
         if currentChoice == false {
-            noElement.accessibilityTraits.insert(.selected)
+            noElement.accessibilityTraits += UIAccessibilityTraitSelected
         }
         
         accessibilityElements = isPositiveOnRight ? [noElement, yesElement] : [yesElement, noElement]
@@ -200,7 +200,7 @@ class BinaryRatingView: BaseComponentView {
         yesColorAnimation.fromValue = yesView.layer.borderColor
         yesColorAnimation.toValue = yesViewColor.cgColor
         yesColorAnimation.duration = animationDuration
-        yesColorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        yesColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         let yesGroup = CAAnimationGroup()
         yesGroup.animations = [yesColorAnimation]
         yesGroup.beginTime = CACurrentMediaTime()
@@ -211,7 +211,7 @@ class BinaryRatingView: BaseComponentView {
         noColorAnimation.fromValue = noView.layer.borderColor
         noColorAnimation.toValue = noViewColor.cgColor
         noColorAnimation.duration = animationDuration
-        noColorAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        noColorAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         let noGroup = CAAnimationGroup()
         noGroup.animations = [noColorAnimation]
         noGroup.beginTime = CACurrentMediaTime()

@@ -120,7 +120,7 @@ class QuickReplyView: UIView {
     
     func update(for quickReply: QuickReply?, enabled: Bool) {
         guard let quickReply = quickReply else {
-            accessibilityTraits = UIAccessibilityTraits.button
+            accessibilityTraits = UIAccessibilityTraitButton
             button.isEnabled = enabled
             return
         }
