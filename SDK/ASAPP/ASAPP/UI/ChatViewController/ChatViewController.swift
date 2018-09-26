@@ -398,6 +398,7 @@ class ChatViewController: ASAPPViewController {
                 strongSelf.reloadInputViews()
             }
             strongSelf.updateFrames()
+            strongSelf.updateNavigationBar()
         })
     }
     
