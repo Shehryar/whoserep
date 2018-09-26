@@ -284,11 +284,21 @@ extension QuickRepliesView {
     func showBlur() {
         blurredBackground.isHidden = false
         backgroundColor = .clear
+        
+        updateRestartButtonDisplay()
+        
+        setNeedsDisplay()
     }
     
     func hideBlur() {
         blurredBackground.isHidden = true
         backgroundColor = .white
+        
+        if isRestartButtonVisible {
+            restartButton.replaceBlur()
+        }
+        
+        setNeedsDisplay()
     }
 }
 

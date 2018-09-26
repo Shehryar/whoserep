@@ -24,6 +24,7 @@ class RestartButton: Button {
         
         blurredBackground.isHidden = true
         contentView.insertSubview(blurredBackground, at: 0)
+        blurredBackground.frame = contentView.bounds
         
         imageSize = CGSize(width: 18, height: 16.5)
         image = Images.getImage(.iconNewQuestion)
@@ -60,11 +61,28 @@ class RestartButton: Button {
     
     func hideBlur() {
         blurredBackground.isHidden = true
+        blurredBackground.removeFromSuperview()
+        contentView.backgroundColor = .clear
+        setNeedsLayout()
         setNeedsDisplay()
     }
     
+    func replaceBlur() {
+        if blurredBackground.superview == nil {
+            contentView.backgroundColor = .white
+            setNeedsLayout()
+            setNeedsDisplay()
+        }
+    }
+    
     func showBlur() {
+        if blurredBackground.superview == nil {
+            contentView.insertSubview(blurredBackground, at: 0)
+            blurredBackground.frame = contentView.bounds
+        }
         blurredBackground.isHidden = false
+        contentView.backgroundColor = .clear
+        setNeedsLayout()
         setNeedsDisplay()
     }
     

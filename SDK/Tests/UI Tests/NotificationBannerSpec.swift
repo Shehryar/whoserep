@@ -39,7 +39,7 @@ class NotificationBannerSpec: QuickSpec {
                     it("has a valid snapshot") {
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: nil, button: nil, icon: nil)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         expect(banner).to(haveValidSnapshot())
                     }
                 }
@@ -48,7 +48,7 @@ class NotificationBannerSpec: QuickSpec {
                     it("has a valid snapshot") {
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: nil)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         expect(banner).to(haveValidSnapshot())
                     }
                 }
@@ -57,7 +57,7 @@ class NotificationBannerSpec: QuickSpec {
                     it("has a valid snapshot") {
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: nil, button: nil, icon: icon)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         expect(banner).to(haveValidSnapshot())
                     }
                 }
@@ -66,7 +66,7 @@ class NotificationBannerSpec: QuickSpec {
                     it("has a valid snapshot") {
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: icon)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         expect(banner).to(haveValidSnapshot())
                     }
                 }
@@ -75,7 +75,7 @@ class NotificationBannerSpec: QuickSpec {
                     it("has a valid snapshot") {
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: nil, icon: icon)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
@@ -83,7 +83,7 @@ class NotificationBannerSpec: QuickSpec {
                                     button.sendActions(for: .touchUpInside)
                                 }
                             }
-                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                             banner.layoutIfNeeded()
                             expect(banner).to(haveValidSnapshot())
                             done()
@@ -96,7 +96,7 @@ class NotificationBannerSpec: QuickSpec {
                         let button = QuickReply(title: "Test", action: WebPageAction(content: ["url": "https://asapp.com/"])!, icon: nil)
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: button, icon: icon)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
@@ -104,7 +104,7 @@ class NotificationBannerSpec: QuickSpec {
                                     button.sendActions(for: .touchUpInside)
                                 }
                             }
-                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                             banner.layoutIfNeeded()
                             expect(banner).to(haveValidSnapshot())
                             done()
@@ -117,7 +117,7 @@ class NotificationBannerSpec: QuickSpec {
                         let button = QuickReply(title: "", action: WebPageAction(content: ["url": "https://asapp.com/"])!, icon: nil)
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: text, button: button, icon: icon)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
@@ -125,7 +125,7 @@ class NotificationBannerSpec: QuickSpec {
                                     button.sendActions(for: .touchUpInside)
                                 }
                             }
-                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                             banner.layoutIfNeeded()
                             expect(banner).to(haveValidSnapshot())
                             done()
@@ -138,7 +138,7 @@ class NotificationBannerSpec: QuickSpec {
                         let button = QuickReply(title: "Test", action: WebPageAction(content: ["url": "https://asapp.com/"])!, icon: nil)
                         let notification = ChatNotification(title: "Payment Due in 1 Day", text: nil, button: button, icon: icon)
                         let banner = NotificationBanner(notification: notification)
-                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                        banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                         banner.layoutIfNeeded()
                         waitUntil { done in
                             banner.subviews.forEach { subview in
@@ -146,7 +146,7 @@ class NotificationBannerSpec: QuickSpec {
                                     button.sendActions(for: .touchUpInside)
                                 }
                             }
-                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.preferredDisplayHeight())
+                            banner.frame = CGRect(x: 0, y: 0, width: 320, height: banner.sizeThatFits(CGSize(width: 320.0, height: .greatestFiniteMagnitude)).height)
                             banner.layoutIfNeeded()
                             expect(banner).to(haveValidSnapshot())
                             done()

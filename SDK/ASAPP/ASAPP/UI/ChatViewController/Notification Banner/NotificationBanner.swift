@@ -59,7 +59,7 @@ class NotificationBanner: UIView {
         
         let mask = CALayer()
         mask.backgroundColor = UIColor.black.cgColor
-        mask.frame = CGRect(x: 0, y: 0, width: superview?.frame.width ?? 1000, height: superview?.frame.height ?? 1000)
+        mask.frame = CGRect(x: 0, y: 0, width: superview?.frame.width ?? 9000, height: superview?.frame.height ?? 9000)
         layer.mask = mask
         
         bannerContainer.backgroundColor = UIColor.ASAPP.snow
@@ -161,58 +161,7 @@ class NotificationBanner: UIView {
         dismissButton.updateText(ASAPP.strings.notificationBannerDismissButton, textStyle: ASAPP.styles.textStyles.body2, colors: ASAPP.styles.colors.textButtonPrimary)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        bottomBorder.frame = CGRect(x: 0, y: bounds.height - 1, width: bounds.width, height: 1)
-        
-        // banner container
-        
-        bannerContainer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bannerContainerHeight)
-        overlayButton.frame = bannerContainer.frame
-        
-        let titleLabelLeft: CGFloat
-        if let iconView = iconView {
-            let iconSize = notification.icon?.size ?? CGSize(width: 21, height: 21)
-            iconView.frame = CGRect(x: contentInsets.left, y: 1 + bannerContainer.frame.midY - (iconSize.height) / 2, width: iconSize.width, height: iconSize.height)
-            titleLabelLeft = iconView.frame.maxX + 12
-        } else {
-            titleLabelLeft = contentInsets.left
-        }
-        
-        let availableHeight = bannerContainer.frame.height - contentInsets.top - contentInsets.bottom
-        expandIcon.frame = CGRect(x: bannerContainer.frame.width - contentInsets.right - expandIconSize.width + 5, y: ceil((bannerContainer.frame.height / 2) - (expandIconSize.height / 2)) + 1, width: expandIconSize.width, height: expandIconSize.height)
-        
-        titleLabel.frame = CGRect(x: titleLabelLeft, y: contentInsets.top, width: bannerContainer.frame.width - expandIcon.frame.width - contentInsets.right - contentInsets.left, height: availableHeight)
-        
-        // expanded container
-        
-        separator.frame = CGRect(x: contentInsets.left, y: 0, width: bounds.width - contentInsets.horizontal, height: 1)
-        
-        let bodyLabelSize = bodyLabel.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal - 16, height: 0))
-        bodyLabel.frame = CGRect(x: contentInsets.left + 8, y: 26, width: bodyLabelSize.width, height: bodyLabelSize.height)
-        
-        let buttonPadding: CGFloat = bodyLabel.superview != nil ? 24 : 0
-        let buttonTop = bodyLabel.frame.maxY + buttonPadding
-        let actionButtonSize = actionButton.superview == nil ? .zero : actionButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal, height: .greatestFiniteMagnitude))
-        let actionButtonWidth = actionButton.titleLabel?.text?.isEmpty ?? true ? 0 : actionButtonSize.width
-        actionButton.frame = CGRect(x: expandedContainer.frame.maxX - contentInsets.right - actionButtonSize.width + textButtonInsets.right, y: buttonTop, width: actionButtonWidth, height: actionButtonSize.height)
-        
-        let buttonSpace: CGFloat = actionButtonWidth == 0 ? 0 : 22 - textButtonInsets.horizontal
-        let buttonSeparatorHeight: CGFloat = 20
-        let buttonSeparatorWidth: CGFloat = buttonSpace == 0 ? 0 : 1
-        buttonSeparator.frame = CGRect(x: actionButton.frame.minX - (buttonSpace / 2), y: buttonTop + ((actionButton.frame.height / 2) - (buttonSeparatorHeight / 2)), width: buttonSeparatorWidth, height: buttonSeparatorHeight)
-        
-        let dismissButtonSize = dismissButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal - actionButtonSize.width - buttonSpace, height: .greatestFiniteMagnitude))
-        let dismissButtonLeft = buttonSeparator.frame.minX - dismissButtonSize.width - (buttonSpace / 2)
-        dismissButton.frame = CGRect(x: dismissButtonLeft, y: buttonTop, width: dismissButtonSize.width, height: dismissButtonSize.height)
-        
-        let expandedHeight = calculateExpandedContainerHeight()
-        expandedContainer.frame = CGRect(x: 0, y: bannerContainer.frame.maxY - (isExpanded ? 0 : expandedHeight), width: bounds.width, height: expandedHeight)
-        
-        bannerContainer.alpha = shouldHide ? 0 : 1
-        expandedContainer.isHidden = shouldHide
-        
+    private func configureAccessibility() {
         var elements: [Any] = [titleLabel]
         
         if overlayButton.superview != nil {
@@ -233,6 +182,116 @@ class NotificationBanner: UIView {
         }
         
         accessibilityElements = elements
+    }
+    
+    private struct CalculatedLayout {
+        let bottomBorderFrame: CGRect
+        let bannerContainerFrame: CGRect
+        let iconViewFrame: CGRect
+        let expandIconFrame: CGRect
+        let titleLabelFrame: CGRect
+        let separatorFrame: CGRect
+        let bodyLabelFrame: CGRect
+        let actionButtonFrame: CGRect
+        let buttonSeparatorFrame: CGRect
+        let dismissButtonFrame: CGRect
+        let expandedContainerFrame: CGRect
+    }
+    
+    private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
+        let bottomBorderFrame = CGRect(x: 0, y: size.height - 1, width: size.width, height: 1)
+        
+        // banner container
+        
+        let bannerContainerFrame = CGRect(x: 0, y: 0, width: size.width, height: bannerContainerHeight)
+        
+        let titleLabelLeft: CGFloat
+        let iconViewFrame: CGRect
+        if iconView != nil {
+            let iconSize = notification.icon?.size ?? CGSize(width: 21, height: 21)
+            iconViewFrame = CGRect(x: contentInsets.left, y: 1 + bannerContainerFrame.midY - (iconSize.height) / 2, width: iconSize.width, height: iconSize.height)
+            titleLabelLeft = iconViewFrame.maxX + 12
+        } else {
+            iconViewFrame = .zero
+            titleLabelLeft = contentInsets.left
+        }
+        
+        let availableHeight = bannerContainerFrame.height - contentInsets.top - contentInsets.bottom
+        let expandIconFrame = CGRect(x: bannerContainerFrame.width - contentInsets.right - expandIconSize.width + 5, y: ceil((bannerContainerFrame.height / 2) - (expandIconSize.height / 2)) + 1, width: expandIconSize.width, height: expandIconSize.height)
+        
+        let titleLabelFrame = CGRect(x: titleLabelLeft, y: contentInsets.top, width: bannerContainerFrame.width - expandIcon.frame.width - contentInsets.right - contentInsets.left, height: availableHeight)
+        
+        // expanded container
+        
+        let separatorFrame = CGRect(x: contentInsets.left, y: 0, width: size.width - contentInsets.horizontal, height: 1)
+        
+        let bodyLabelSize = bodyLabel.sizeThatFits(CGSize(width: size.width - contentInsets.horizontal - 16, height: 0))
+        let bodyLabelFrame = CGRect(x: contentInsets.left + 8, y: 26, width: bodyLabelSize.width, height: bodyLabelSize.height)
+        
+        let buttonPadding: CGFloat = bodyLabel.superview != nil ? 24 : 0
+        let buttonTop = bodyLabelFrame.maxY + buttonPadding
+        let actionButtonSize = actionButton.superview == nil ? .zero : actionButton.sizeThatFits(CGSize(width: size.width - contentInsets.horizontal, height: .greatestFiniteMagnitude))
+        let actionButtonWidth = actionButton.titleLabel?.text?.isEmpty ?? true ? 0 : actionButtonSize.width
+        let actionButtonFrame = CGRect(x: expandedContainer.frame.maxX - contentInsets.right - actionButtonSize.width + textButtonInsets.right, y: buttonTop, width: actionButtonWidth, height: actionButtonSize.height)
+        
+        let buttonSpace: CGFloat = actionButtonWidth == 0 ? 0 : 22 - textButtonInsets.horizontal
+        let buttonSeparatorHeight: CGFloat = 20
+        let buttonSeparatorWidth: CGFloat = buttonSpace == 0 ? 0 : 1
+        let buttonSeparatorFrame = CGRect(x: actionButtonFrame.minX - (buttonSpace / 2), y: buttonTop + ((actionButtonFrame.height / 2) - (buttonSeparatorHeight / 2)), width: buttonSeparatorWidth, height: buttonSeparatorHeight)
+        
+        let dismissButtonSize = dismissButton.sizeThatFits(CGSize(width: size.width - contentInsets.horizontal - actionButtonSize.width - buttonSpace, height: .greatestFiniteMagnitude))
+        let dismissButtonLeft = buttonSeparatorFrame.minX - dismissButtonSize.width - (buttonSpace / 2)
+        let dismissButtonFrame = CGRect(x: dismissButtonLeft, y: buttonTop, width: dismissButtonSize.width, height: dismissButtonSize.height)
+        
+        let expandedHeight = calculateExpandedContainerHeight()
+        let expandedContainerFrame = CGRect(x: 0, y: bannerContainerFrame.maxY - (isExpanded ? 0 : expandedHeight), width: size.width, height: expandedHeight)
+        
+        return CalculatedLayout(
+            bottomBorderFrame: bottomBorderFrame,
+            bannerContainerFrame: bannerContainerFrame,
+            iconViewFrame: iconViewFrame,
+            expandIconFrame: expandIconFrame,
+            titleLabelFrame: titleLabelFrame,
+            separatorFrame: separatorFrame,
+            bodyLabelFrame: bodyLabelFrame,
+            actionButtonFrame: actionButtonFrame,
+            buttonSeparatorFrame: buttonSeparatorFrame,
+            dismissButtonFrame: dismissButtonFrame,
+            expandedContainerFrame: expandedContainerFrame)
+    }
+    
+    func updateFrames(in bounds: CGRect? = nil) {
+        let bounds = bounds ?? self.bounds
+        let layout = getFramesThatFit(bounds.size)
+        
+        bottomBorder.frame = layout.bottomBorderFrame
+        bannerContainer.frame = layout.bannerContainerFrame
+        overlayButton.frame = layout.bannerContainerFrame
+        iconView?.frame = layout.iconViewFrame
+        expandIcon.frame = layout.expandIconFrame
+        titleLabel.frame = layout.titleLabelFrame
+        separator.frame = layout.separatorFrame
+        bodyLabel.frame = layout.bodyLabelFrame
+        actionButton.frame = layout.actionButtonFrame
+        buttonSeparator.frame = layout.buttonSeparatorFrame
+        dismissButton.frame = layout.dismissButtonFrame
+        expandedContainer.frame = layout.expandedContainerFrame
+        
+        bannerContainer.alpha = shouldHide ? 0 : 1
+        expandedContainer.isHidden = shouldHide
+        
+        configureAccessibility()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateFrames()
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let layout = getFramesThatFit(size)
+        return CGSize(width: size.width, height: layout.expandedContainerFrame.maxY)
     }
     
     private func calculateExpandedContainerHeight() -> CGFloat {
@@ -286,9 +345,5 @@ class NotificationBanner: UIView {
             return
         }
         delegate?.notificationBannerDidTapActionButton(self, button: button)
-    }
-    
-    func preferredDisplayHeight() -> CGFloat {
-        return bannerContainerHeight + (isExpanded ? calculateExpandedContainerHeight() : 0)
     }
 }
