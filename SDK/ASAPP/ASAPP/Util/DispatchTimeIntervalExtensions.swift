@@ -79,6 +79,11 @@ extension DispatchTimeInterval {
     }
     
     static func + (lhs: DispatchTimeInterval, rhs: DispatchTimeInterval) -> DispatchTimeInterval {
+        // prevent 32-bit integer overflow
+        if lhs.seconds + rhs.seconds > 2 {
+            return .seconds(lhs.seconds + rhs.seconds)
+        }
+        
         return .nanoseconds(lhs.nanoseconds + rhs.nanoseconds)
     }
     
