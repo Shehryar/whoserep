@@ -29,4 +29,18 @@ extension CALayer {
         
         return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
+    
+    func getSublayer(named name: String) -> CALayer? {
+        guard let sublayers = sublayers else {
+            return nil
+        }
+        
+        for layer in sublayers {
+            if layer.name == name {
+                return layer
+            }
+        }
+        
+        return nil
+    }
 }

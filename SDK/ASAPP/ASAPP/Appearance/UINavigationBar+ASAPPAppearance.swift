@@ -49,12 +49,18 @@ extension UINavigationBar {
     
     func replaceBottomBorder() {
         if let shadowImage = findShadowImage(in: self) {
+            let borderLayerName = "ASAPP nav bar bottom border"
             shadowImage.isHidden = true
             let borderLayer = CALayer()
             borderLayer.borderColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15).cgColor
             borderLayer.borderWidth = 1
             borderLayer.frame = CGRect(x: 0, y: layer.bounds.size.height, width: layer.bounds.size.width, height: 1)
-            layer.addSublayer(borderLayer)
+            borderLayer.name = borderLayerName
+            if let existing = layer.getSublayer(named: borderLayerName) {
+                layer.replaceSublayer(existing, with: borderLayer)
+            } else {
+                layer.addSublayer(borderLayer)
+            }
         }
     }
     

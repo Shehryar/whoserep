@@ -398,6 +398,7 @@ class ChatViewController: ASAPPViewController {
                 strongSelf.reloadInputViews()
             }
             strongSelf.updateFrames()
+            strongSelf.updateNavigationBar()
         })
     }
     
@@ -424,6 +425,7 @@ class ChatViewController: ASAPPViewController {
     
     @objc func appDidEnterBackground() {
         isAppInForeground = false
+        conversationManager.exitConversation()
     }
 }
 
