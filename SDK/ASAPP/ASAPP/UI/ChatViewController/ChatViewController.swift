@@ -425,6 +425,7 @@ class ChatViewController: ASAPPViewController {
     
     @objc func appDidEnterBackground() {
         isAppInForeground = false
+        conversationManager.exitConversation()
     }
 }
 
