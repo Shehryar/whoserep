@@ -38,7 +38,7 @@ class QuickRepliesView: UIView {
     var isRestartButtonVisible: Bool = false {
         didSet {
             restartButton.alpha = isRestartButtonVisible ? 1 : 0
-            listView.contentInsetBottom = isRestartButtonVisible ? restartButton.defaultHeight : 0
+            listView.contentInsetBottom = 0
             updateRestartButtonDisplay()
         }
     }
