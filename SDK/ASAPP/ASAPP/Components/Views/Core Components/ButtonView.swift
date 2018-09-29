@@ -181,12 +181,15 @@ class ButtonView: UIButton, ComponentView {
         super.layoutSubviews()
         updateFrames()
         
-        switch ASAPP.styles.primaryButtonRoundingStyle {
-        case .pill:
-            self.layer.cornerRadius = self.bounds.size.height / 2
-        case .radius(let radius):
-            self.layer.cornerRadius = radius
+        let style = ASAPP.styles.primaryButtonRoundingStyle
+        var cornerRadius: CGFloat = 0
+        if let radius = style.radius,
+           radius >= 0 {
+            cornerRadius = CGFloat(radius)
+        } else if style.pill {
+            cornerRadius = self.bounds.height / 2
         }
+        self.layer.cornerRadius = cornerRadius
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

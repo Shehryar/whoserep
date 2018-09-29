@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ASAPPViews Class Reference</title>
+    <title>ASAPPPrimaryButtonRoundingStyle Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/ASAPPViews" class="dashAnchor"></a>
-    <a title="ASAPPViews Class Reference"></a>
+    <a name="//apple_ref/swift/Class/ASAPPPrimaryButtonRoundingStyle" class="dashAnchor"></a>
+    <a title="ASAPPPrimaryButtonRoundingStyle Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">ASAPP Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">ASAPP Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ASAPPViews Class Reference
+        ASAPPPrimaryButtonRoundingStyle Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -112,16 +112,16 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ASAPPViews</h1>
+            <h1>ASAPPPrimaryButtonRoundingStyle</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">@objc(ASAPPViews)</span>
+                  <pre class="highlight swift"><code><span class="kd">@objc(ASAPPPrimaryButtonRoundingStyle)</span>
 <span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">ASAPPViews</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">ASAPPPrimaryButtonRoundingStyle</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                 </div>
               </div>
-            <p>Holds references to optional custom views.</p>
+            <p>Defines the corner rounding style of primary Component buttons.</p>
 
           </section>
           <section class="section task-group-section">
@@ -130,9 +130,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPViews(py)chatTitle"></a>
-                    <a name="//apple_ref/swift/Property/chatTitle" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPViews(py)chatTitle">chatTitle</a>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPPrimaryButtonRoundingStyle(cpy)pill"></a>
+                    <a name="//apple_ref/swift/Variable/pill" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPPrimaryButtonRoundingStyle(cpy)pill">pill</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -140,14 +140,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The title view displayed in the navigation bar when viewing live chat. Overrides <code><a href="../Classes/ASAPPStrings.html#/c:@M@ASAPP@objc(cs)ASAPPStrings(py)chatTitle">ASAPPStrings.chatTitle</a></code>.</p>
+                        <p>Fully rounded, equivalent to a radius of half the height of the button</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">chatTitle</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">pill</span><span class="p">:</span> <span class="kt">ASAPPPrimaryButtonRoundingStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPPPrimaryButtonRoundingStyle(cm)radius:"></a>
+                    <a name="//apple_ref/swift/Method/radius(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPPrimaryButtonRoundingStyle(cm)radius:">radius(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Custom corner radius</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">radius</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ASAPPPrimaryButtonRoundingStyle</span></code></pre>
 
                         </div>
                       </div>
