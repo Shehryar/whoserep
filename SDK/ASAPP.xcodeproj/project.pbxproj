@@ -296,6 +296,7 @@
 		3A621FC3208E854A00CB11D6 /* ScaleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC2208E854A00CB11D6 /* ScaleItem.swift */; };
 		3A621FC5208E861E00CB11D6 /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC4208E861E00CB11D6 /* ScaleView.swift */; };
 		3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */; };
+		3A757A3D215F386C00D2EEA0 /* ASAPPPrimaryButtonRoundingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A757A3C215F386C00D2EEA0 /* ASAPPPrimaryButtonRoundingStyle.swift */; };
 		3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */; };
 		3A7B8EC920ACC8B800DC5EAE /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */; };
 		3A7B8ECB20ACC97500DC5EAE /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */; };
@@ -695,6 +696,7 @@
 		3A621FC2208E854A00CB11D6 /* ScaleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleItem.swift; sourceTree = "<group>"; };
 		3A621FC4208E861E00CB11D6 /* ScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleView.swift; sourceTree = "<group>"; };
 		3A68110A1F7AFC6C00078E3F /* ASAPPFontFamily.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPFontFamily.swift; sourceTree = "<group>"; };
+		3A757A3C215F386C00D2EEA0 /* ASAPPPrimaryButtonRoundingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAPPPrimaryButtonRoundingStyle.swift; sourceTree = "<group>"; };
 		3A79BDB3205AB74000702EC8 /* MessageButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageButtonsView.swift; sourceTree = "<group>"; };
 		3A7B8EC820ACC8B800DC5EAE /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		3A7B8ECA20ACC97500DC5EAE /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
@@ -1329,6 +1331,7 @@
 				3A967FDB1F618E53000E9696 /* ASAPPNavBarStyles.swift */,
 				3A967FD91F606C78000E9696 /* ASAPPCustomImage.swift */,
 				3A967FD71F606A5D000E9696 /* ASAPPNavBarButtonImages.swift */,
+				3A757A3C215F386C00D2EEA0 /* ASAPPPrimaryButtonRoundingStyle.swift */,
 				30F6B4D81EC5331000ABA570 /* ComponentButtonType.swift */,
 				3A4FEEF81F55B61400338B00 /* NavBarButtonSide.swift */,
 				308CFF431ECA1F85008EA56C /* UINavigationBar+ASAPPAppearance.swift */,
@@ -2141,6 +2144,7 @@
 				30EF00871E82CB1B004B1492 /* TextInputView.swift in Sources */,
 				30756B441E562BFF00D78E8E /* ASAPPStrings.swift in Sources */,
 				302A20AF1E5DF542007C522A /* ModalCardLoadingView.swift in Sources */,
+				3A757A3D215F386C00D2EEA0 /* ASAPPPrimaryButtonRoundingStyle.swift in Sources */,
 				305FF5CC1E841E58004DD9D5 /* ComponentLayoutEngine.swift in Sources */,
 				307484C91EB39B10008CF3E4 /* QuickReply.swift in Sources */,
 				3AF5C38A20D31B3D0013A616 /* LinkAction.swift in Sources */,

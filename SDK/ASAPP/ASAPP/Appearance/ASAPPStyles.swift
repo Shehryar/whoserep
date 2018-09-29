@@ -14,15 +14,6 @@ import UIKit
 @objc(ASAPPStyles)
 @objcMembers
 public class ASAPPStyles: NSObject {
-    /// Style of rounding button corners.
-    public enum ASAPPButtonRoundingStyle {
-        /// Fully rounded by setting the corner radius to half the height of the button.
-        case pill
-        
-        /// Arbitrary, absolute corner radius.
-        case radius(CGFloat)
-    }
-    
     /// Customizable text styles.
     public var textStyles = ASAPPTextStyles()
     
@@ -32,6 +23,6 @@ public class ASAPPStyles: NSObject {
     /// Customizable navigation bar styles.
     public var navBarStyles = ASAPPNavBarStyles()
     
-    /// The corner rounding style of primary Component buttons. Can be set to .radius(x) or .pill. Defaults to .radius(0).
-    public var primaryButtonRoundingStyle: ASAPPButtonRoundingStyle = .radius(0)
+    /// The rounding style of primary Component buttons. .pill is equivalent to a radius of half the height of the button. Defaults to .radius(0).
+    public var primaryButtonRoundingStyle = ASAPPPrimaryButtonRoundingStyle.radius(0)
 }
