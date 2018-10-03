@@ -48,18 +48,8 @@ class ChatMessage: NSObject {
         
         self.text = text
         self.attachment = attachment
-        
-        let (filteredMessageActions, filteredQuickReplies) = quickReplies?.separate { quickReply -> Bool in
-            return quickReply.action.isMessageAction
-        } ?? ([], [])
-        
-        self.quickReplies = filteredQuickReplies.isEmpty ? nil : filteredQuickReplies
-        
-        let combinedButtons = filteredMessageActions.map {
-            return QuickReply(title: $0.title, action: $0.action, icon: $0.icon, isTransient: true)
-        } + (buttons ?? [])
-        self.buttons = combinedButtons.isEmpty ? nil : combinedButtons.withoutDuplicates()
-        
+        self.quickReplies = quickReplies
+        self.buttons = buttons
         self.metadata = metadata
         self.messageMetadata = messageMetadata
         self.userCanTypeResponse = userCanTypeResponse

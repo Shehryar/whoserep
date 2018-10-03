@@ -49,6 +49,7 @@ class ChatMessageSpec: QuickSpec {
                     it("is not nil") {
                         let msg = ChatMessage(text: "foo", attachment: attachment, buttons: nil, quickReplies: nil, metadata: metadata)
                         expect(msg).toNot(beNil())
+                        expect(msg!.quickReplies).to(beNil())
                     }
                 }
                 
@@ -56,7 +57,7 @@ class ChatMessageSpec: QuickSpec {
                     it("has a nil quickReplies property") {
                         let msg = ChatMessage(text: "", attachment: attachment, buttons: nil, quickReplies: [], metadata: metadata)
                         expect(msg).toNot(beNil())
-                        expect(msg!.quickReplies).to(beNil())
+                        expect(msg!.quickReplies).to(equal([]))
                     }
                 }
                 
@@ -72,7 +73,7 @@ class ChatMessageSpec: QuickSpec {
                 }
                 
                 context("with duplicate quick replies") {
-                    it("has the correct number of buttons and quick replies") {
+                    it("does not de-duplicate the quick replies") {
                         let msg = ChatMessage(text: "", attachment: nil, buttons: [
                             QuickReply(title: "First", action: Action(content: "1")!, icon: nil, isTransient: false),
                             QuickReply(title: "Second", action: Action(content: "2")!, icon: nil, isTransient: false)
@@ -84,7 +85,7 @@ class ChatMessageSpec: QuickSpec {
                         ], metadata: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.buttons!.count).to(equal(2))
-                        expect(msg!.quickReplies!.count).to(equal(3))
+                        expect(msg!.quickReplies!.count).to(equal(4))
                     }
                 }
             }
@@ -105,14 +106,15 @@ class ChatMessageSpec: QuickSpec {
                 }
                 
                 context("with JSON containing a quick reply with a component view action") {
-                    it("returns a ChatMessage with a quick reply that is a message action") {
+                    it("returns a ChatMessage with no message buttons and a quick reply that is a message action") {
                         let dict = TestUtil.dictForFile(named: "security-pin")
                         let msg = ChatMessage.fromJSON(dict, with: metadata)
                         expect(msg).toNot(beNil())
                         expect(msg!.text).to(contain("security PIN"))
                         
                         expect(msg!.hasQuickReplies).to(equal(true))
-                        let action = msg!.buttons?.first?.action as? ComponentViewAction
+                        expect(msg!.hasButtons).to(equal(false))
+                        let action = msg!.quickReplies?.first?.action as? ComponentViewAction
                         expect(action).toNot(beNil())
                         expect(action?.name).to(contain("new_pin"))
                     }
