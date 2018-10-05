@@ -49,7 +49,7 @@ public class ASAPPStrings: NSObject {
     public var endChatTitle = ASAPPLocalizedString("End Live Chat")
     
     /// The placeholder text for the input field of the chat view.
-    public var chatInputPlaceholder = ASAPPLocalizedString("Type your own question here")
+    public var chatInputPlaceholder = ASAPPLocalizedString("Type here")
     
     /// The text for the restart button in the quick replies view.
     public var quickRepliesRestartButton = ASAPPLocalizedString("New Question")
