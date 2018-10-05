@@ -13,7 +13,7 @@
  reducers you can combine them by initializng a `MainReducer` with all of your reducers as an
  argument.
  */
-open class Store<State: StateType>: StoreType {
+class Store<State: StateType>: StoreType {
 
     typealias SubscriptionType = SubscriptionBox<State>
 
@@ -33,7 +33,7 @@ open class Store<State: StateType>: StoreType {
         }
     }
 
-    public var dispatchFunction: DispatchFunction!
+    var dispatchFunction: DispatchFunction!
 
     private var reducer: Reducer<State>
 
@@ -57,7 +57,7 @@ open class Store<State: StateType>: StoreType {
     /// - parameter automaticallySkipsRepeats: If `true`, the store will attempt 
     ///   to skip idempotent state updates when a subscriber's state type 
     ///   implements `Equatable`. Defaults to `true`.
-    public required init(
+    required init(
         reducer: @escaping Reducer<State>,
         state: State?,
         middleware: [Middleware<State>] = [],
@@ -103,12 +103,12 @@ open class Store<State: StateType>: StoreType {
         }
     }
 
-    open func subscribe<S: StoreSubscriber>(_ subscriber: S)
+    func subscribe<S: StoreSubscriber>(_ subscriber: S)
         where S.StoreSubscriberStateType == State {
             _ = subscribe(subscriber, transform: nil)
     }
 
-    open func subscribe<SelectedState, S: StoreSubscriber>(
+    func subscribe<SelectedState, S: StoreSubscriber>(
         _ subscriber: S, transform: ((Subscription<State>) -> Subscription<SelectedState>)?)
         where S.StoreSubscriberStateType == SelectedState {
         // Create a subscription for the new subscriber.
@@ -134,14 +134,14 @@ open class Store<State: StateType>: StoreType {
         )
     }
 
-    open func unsubscribe(_ subscriber: AnyStoreSubscriber) {
+    func unsubscribe(_ subscriber: AnyStoreSubscriber) {
         if let index = subscriptions.index(where: { return $0.subscriber === subscriber }) {
             subscriptions.remove(at: index)
         }
     }
 
     // swiftlint:disable:next identifier_name
-    open func _defaultDispatch(change: Change) {
+    func _defaultDispatch(change: Change) {
         guard !isDispatching else {
             raiseFatalError(
                 "ReSwift:ConcurrentMutationError - Change has been dispatched while" +
@@ -158,21 +158,21 @@ open class Store<State: StateType>: StoreType {
         state = newState
     }
 
-    open func dispatch(_ change: Change) {
+    func dispatch(_ change: Change) {
         dispatchFunction(change)
     }
 
-    open func dispatch(_ changeCreatorProvider: @escaping ChangeCreator) {
+    func dispatch(_ changeCreatorProvider: @escaping ChangeCreator) {
         if let change = changeCreatorProvider(state, self) {
             dispatch(change)
         }
     }
 
-    open func dispatch(_ asyncChangeCreatorProvider: @escaping AsyncChangeCreator) {
+    func dispatch(_ asyncChangeCreatorProvider: @escaping AsyncChangeCreator) {
         dispatch(asyncChangeCreatorProvider, callback: nil)
     }
 
-    open func dispatch(_ changeCreatorProvider: @escaping AsyncChangeCreator,
+    func dispatch(_ changeCreatorProvider: @escaping AsyncChangeCreator,
                        callback: DispatchCallback?) {
         changeCreatorProvider(state, self) { changeProvider in
             let change = changeProvider(self.state, self)
@@ -184,11 +184,11 @@ open class Store<State: StateType>: StoreType {
         }
     }
 
-    public typealias DispatchCallback = (State) -> Void
+    typealias DispatchCallback = (State) -> Void
 
-    public typealias ChangeCreator = (_ state: State, _ store: Store) -> Change?
+    typealias ChangeCreator = (_ state: State, _ store: Store) -> Change?
 
-    public typealias AsyncChangeCreator = (
+    typealias AsyncChangeCreator = (
         _ state: State,
         _ store: Store,
         _ changeCreatorCallback: @escaping ((ChangeCreator) -> Void)
@@ -198,7 +198,7 @@ open class Store<State: StateType>: StoreType {
 // MARK: Skip Repeats for Equatable States
 
 extension Store where State: Equatable {
-    open func subscribe<S: StoreSubscriber>(_ subscriber: S)
+    func subscribe<S: StoreSubscriber>(_ subscriber: S)
         where S.StoreSubscriberStateType == State {
             guard subscriptionsAutomaticallySkipRepeats else {
                 _ = subscribe(subscriber, transform: nil)
@@ -207,7 +207,7 @@ extension Store where State: Equatable {
             _ = subscribe(subscriber, transform: { $0.skipRepeats() })
     }
 
-    open func subscribe<SelectedState: Equatable, S: StoreSubscriber>(_ subscriber: S, transform: ((Subscription<State>) -> Subscription<SelectedState>)?) where S.StoreSubscriberStateType == SelectedState {
+    func subscribe<SelectedState: Equatable, S: StoreSubscriber>(_ subscriber: S, transform: ((Subscription<State>) -> Subscription<SelectedState>)?) where S.StoreSubscriberStateType == SelectedState {
         let originalSubscription = Subscription<State>()
 
         var transformedSubscription = transform?(originalSubscription)

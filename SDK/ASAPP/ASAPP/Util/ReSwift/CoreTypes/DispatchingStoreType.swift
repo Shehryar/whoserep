@@ -5,7 +5,7 @@ import Foundation
  the default usage of this interface. Can be used for store variables where you don't
  care about the state, but want to be able to dispatch changes.
  */
-public protocol DispatchingStoreType {
+protocol DispatchingStoreType {
 
     /**
      Dispatches an change. This is the simplest way to modify the store's state.

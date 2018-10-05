@@ -6,12 +6,12 @@
 //  Copyright © 2015 Benjamin Encz. All rights reserved.
 //
 
-public protocol AnyStoreSubscriber: class {
+protocol AnyStoreSubscriber: class {
     // swiftlint:disable:next identifier_name
     func _newState(state: Any)
 }
 
-public protocol StoreSubscriber: AnyStoreSubscriber {
+protocol StoreSubscriber: AnyStoreSubscriber {
     associatedtype StoreSubscriberStateType
 
     func newState(state: StoreSubscriberStateType)
@@ -19,7 +19,7 @@ public protocol StoreSubscriber: AnyStoreSubscriber {
 
 extension StoreSubscriber {
     // swiftlint:disable:next identifier_name
-    public func _newState(state: Any) {
+    func _newState(state: Any) {
         if let typedState = state as? StoreSubscriberStateType {
             newState(state: typedState)
         }

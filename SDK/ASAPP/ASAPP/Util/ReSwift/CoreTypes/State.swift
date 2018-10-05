@@ -6,4 +6,4 @@
 //  Copyright © 2015 Benjamin Encz. All rights reserved.
 //
 
-public protocol StateType { }
+protocol StateType { }

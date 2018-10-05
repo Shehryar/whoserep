@@ -8,8 +8,8 @@
 
 /// All changes that want to be able to be dispatched to a store need to conform to this protocol
 /// Currently it is just a marker protocol with no requirements.
-public protocol Change { }
+protocol Change { }
 
 /// Initial Change that is dispatched as soon as the store is created.
 /// Reducers respond to this change by configuring their initial state.
-public struct ReSwiftInit: Change {}
+struct ReSwiftInit: Change {}

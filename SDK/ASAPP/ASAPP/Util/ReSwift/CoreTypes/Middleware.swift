@@ -6,6 +6,6 @@
 //  Copyright © 2015 Benjamin Encz. All rights reserved.
 //
 
-public typealias DispatchFunction = (Change) -> Void
-public typealias Middleware<State> = (@escaping DispatchFunction, @escaping () -> State?)
+typealias DispatchFunction = (Change) -> Void
+typealias Middleware<State> = (@escaping DispatchFunction, @escaping () -> State?)
     -> (@escaping DispatchFunction) -> DispatchFunction
