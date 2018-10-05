@@ -17,7 +17,7 @@ protocol ActionSheetDelegate: class {
 class BaseActionSheet: UIView {
     weak var delegate: ActionSheetDelegate?
     
-    let buttonAnimationDuration: TimeInterval = 0.6
+    let buttonAnimationDuration: TimeInterval = 0.26
     let contentView = UIView()
     
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -33,6 +33,7 @@ class BaseActionSheet: UIView {
     
     private var buttonAnimating = false
     private var onButtonAnimationComplete: (() -> Void)?
+    private var hiding = false
     
     private var hasTitleLabel: Bool {
         return titleLabel.superview != nil
@@ -139,6 +140,10 @@ class BaseActionSheet: UIView {
     }
     
     func updateFrames(in bounds: CGRect? = nil) {
+        guard !hiding else {
+            return
+        }
+        
         let bounds = bounds ?? self.bounds
         let layout = getFramesThatFit(bounds.size)
         
@@ -211,6 +216,7 @@ class BaseActionSheet: UIView {
     }
     
     func hide(_ completion: (() -> Void)? = nil) {
+        hiding = true
         var contentViewFinalFrame = contentView.frame
         contentViewFinalFrame.origin.y = contentView.frame.maxY
         
@@ -224,6 +230,7 @@ class BaseActionSheet: UIView {
                 return
             }
             self?.removeFromSuperview()
+            self?.hiding = false
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, superview)
             completion?()
         })
@@ -249,7 +256,7 @@ class BaseActionSheet: UIView {
         let rotation = CGAffineTransform(rotationAngle: .pi / -2)
         buttonAnimating = true
         
-        UIView.animate(withDuration: buttonAnimationDuration / 3, delay: 0, options: .curveEaseIn, animations: {[weak self] in
+        UIView.animate(withDuration: buttonAnimationDuration / 2, delay: 0, options: .curveEaseIn, animations: {[weak self] in
             guard let button = self?.confirmButton else { return }
             button.frame = finalButtonFrame
         }, completion: nil)

@@ -35,10 +35,8 @@ extension CALayer {
             return nil
         }
         
-        for layer in sublayers {
-            if layer.name == name {
-                return layer
-            }
+        for layer in sublayers where layer.name == name {
+            return layer
         }
         
         return nil

@@ -165,11 +165,10 @@ class NotificationBanner: UIView {
         var elements: [Any] = [titleLabel]
         
         if overlayButton.superview != nil {
-            let expandElement = UIAccessibilityElement(accessibilityContainer: self)
-            expandElement.accessibilityLabel = ASAPPLocalizedString(isExpanded ? "Collapse" : "Expand")
-            expandElement.accessibilityFrame = UIAccessibilityConvertFrameToScreenCoordinates(expandIcon.frame, bannerContainer)
-            expandElement.accessibilityTraits = UIAccessibilityTraitButton
-            elements.append(expandElement)
+            expandIcon.isAccessibilityElement = true
+            expandIcon.accessibilityTraits = UIAccessibilityTraitButton
+            expandIcon.accessibilityLabel = ASAPPLocalizedString(isExpanded ? "Collapse" : "Expand")
+            elements.append(expandIcon)
         }
         
         if isExpanded {
@@ -323,11 +322,13 @@ class NotificationBanner: UIView {
     }
     
     @objc func didTapExpand() {
+        accessibilityViewIsModal = true
         expand()
         delegate?.notificationBannerDidTapExpand(self)
     }
     
     @objc func didTapCollapse() {
+        accessibilityViewIsModal = false
         isExpanded = false
         updateExpandIcon()
         delegate?.notificationBannerDidTapCollapse(self)

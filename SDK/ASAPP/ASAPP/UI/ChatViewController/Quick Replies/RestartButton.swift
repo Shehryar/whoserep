@@ -89,6 +89,7 @@ class RestartButton: Button {
     func showSpinner() {
         isUserInteractionEnabled = false
         
+        activityIndicator?.removeFromSuperview()
         activityIndicator = UIActivityIndicatorView(frame: frame)
         if let spinner = activityIndicator {
             spinner.backgroundColor = .clear

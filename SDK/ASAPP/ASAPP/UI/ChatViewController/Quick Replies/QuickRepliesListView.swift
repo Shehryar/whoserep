@@ -450,7 +450,7 @@ extension QuickRepliesListView: UIScrollViewDelegate {
 
 extension QuickRepliesListView {
     func flashScrollIndicatorsIfNecessary() {
-        if scrollView.contentSize.height > scrollView.bounds.height + 30 {
+        if scrollView.contentSize.height > scrollView.bounds.height {
             Dispatcher.delay(.defaultAnimationDuration * 2) { [weak self] in
                 self?.scrollView.flashScrollIndicators()
             }
