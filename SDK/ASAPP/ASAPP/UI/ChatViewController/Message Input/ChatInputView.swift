@@ -477,15 +477,19 @@ extension ChatInputView {
     }
     
     func clearSuggestions() {
-        suggestionsView.clear()
-        invalidateIntrinsicContentSize()
-        setNeedsLayout()
-        layoutIfNeeded()
+        update(for: AutosuggestState())
     }
     
-    func showSuggestions(_ suggestions: [String], responseId: AutosuggestMetadata.ResponseId) {
-        suggestionsView.responseId = responseId
-        suggestionsView.reloadWithSuggestions(suggestions)
-        invalidateIntrinsicContentSize()
+    func update(for state: AutosuggestState) {
+        if state.shouldShow {
+            suggestionsView.responseId = state.responseId
+            suggestionsView.reloadWithSuggestions(state.suggestions)
+            invalidateIntrinsicContentSize()
+        } else {
+            suggestionsView.clear()
+            invalidateIntrinsicContentSize()
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
     }
 }

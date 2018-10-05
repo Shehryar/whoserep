@@ -503,6 +503,7 @@ extension ChatMessagesView {
                 return
             }
             
+            strongSelf.tableView.reloadData()
             strongSelf.scrollToRow(at: indexPath, animated: animated)
             
             if focus {

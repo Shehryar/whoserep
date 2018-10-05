@@ -58,23 +58,23 @@ class DebugLog: NSObject {
     // MARK: - Public API
     
     // Info
-    class func i(caller: Any? = nil, _ message: String) {
-        log(classObject: caller, logLevel: .info, message: message)
+    class func i(caller: Any? = nil, _ messages: String...) {
+        log(classObject: caller, logLevel: .info, message: messages.joined(separator: " "))
     }
     
     // Debug
-    class func d(caller: Any? = nil, _ message: String) {
-        log(classObject: caller, logLevel: .debug, message: message)
+    class func d(caller: Any? = nil, _ messages: String...) {
+        log(classObject: caller, logLevel: .debug, message: messages.joined(separator: " "))
     }
     
     // Warning
-    class func w(caller: Any? = nil, _ message: String) {
-        log(classObject: caller, logLevel: .warning, message: message)
+    class func w(caller: Any? = nil, _ messages: String...) {
+        log(classObject: caller, logLevel: .warning, message: messages.joined(separator: " "))
     }
     
     // Error
-    class func e(caller: Any? = nil, _ message: String) {
-        log(classObject: caller, logLevel: .errors, message: message)
+    class func e(caller: Any? = nil, _ messages: String...) {
+        log(classObject: caller, logLevel: .errors, message: messages.joined(separator: " "))
     }
     
     class func e(caller: Any? = nil, _ error: Error) {
