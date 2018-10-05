@@ -42,7 +42,7 @@ platform :ios do
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
       groups: groups,
       emails: emails,
-      notes: changelog_from_git_commits,
+      notes: changelog_from_git_commits(tag_match_pattern: "fastlane-builds/iosbeta/*"),
       notifications: true
     )
   end
