@@ -177,16 +177,16 @@ class ChatViewController: ASAPPViewController {
             return false
         }
         
+        if !didConnectAtLeastOnce {
+            return connectionStatus == .disconnected
+        }
+        
         if let delayedDisconnectTime = delayedDisconnectTime {
             if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
                 return true
             } else {
                 return false
             }
-        }
-        
-        if didConnectAtLeastOnce {
-            return connectionStatus == .connecting || connectionStatus == .disconnected
         }
         
         return connectionStatus == .connecting || connectionStatus == .disconnected
@@ -662,9 +662,8 @@ extension ChatViewController {
         chatMessagesView.layoutIfNeeded()
         chatMessagesView.contentInsetTop = minVisibleY
         
-        spinner.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil && connectionStatusView.isHidden && actionSheet == nil ? 1 : 0
-        spinner.frame = CGRect(x: 0, y: minVisibleY - view.frame.minY, width: chatMessagesView.bounds.width, height: chatMessagesView.bounds.height - minVisibleY - view.frame.minY)
+        spinner.center = view.superview?.convert(view.superview?.center ?? view.center, to: view) ?? view.center
         
         let quickRepliesHeight: CGFloat
         
