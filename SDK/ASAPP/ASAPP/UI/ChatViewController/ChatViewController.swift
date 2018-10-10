@@ -177,16 +177,16 @@ class ChatViewController: ASAPPViewController {
             return false
         }
         
+        if !didConnectAtLeastOnce {
+            return connectionStatus == .disconnected
+        }
+        
         if let delayedDisconnectTime = delayedDisconnectTime {
             if connectionStatus != .connected && delayedDisconnectTime.hasPassed() {
                 return true
             } else {
                 return false
             }
-        }
-        
-        if didConnectAtLeastOnce {
-            return connectionStatus == .connecting || connectionStatus == .disconnected
         }
         
         return connectionStatus == .connecting || connectionStatus == .disconnected
@@ -386,11 +386,17 @@ extension ChatViewController: StoreSubscriber {
             }
         }
         
+        if state.chatInputState != .newQuestionWithInset {
+            quickRepliesView.reset()
+        }
+        
         if [.both, .quickRepliesAlone, .quickRepliesWithNewQuestion].contains(state.chatInputState) {
             if let lastReply = state.lastReply {
                 showQuickRepliesView(with: lastReply, animated: animated)
                 shouldScroll = true
             }
+        } else if state.chatInputState == .newQuestionWithInset {
+            quickRepliesView.fadeOutToShowRestartButtonAlone(animated: animated)
         } else if ![.prechat].contains(state.chatInputState) {
             let shouldAnimate = state.chatInputState != .newQuestionAloneLoading
             clearQuickRepliesView(animated: shouldAnimate && animated)
@@ -662,9 +668,8 @@ extension ChatViewController {
         chatMessagesView.layoutIfNeeded()
         chatMessagesView.contentInsetTop = minVisibleY
         
-        spinner.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil && connectionStatusView.isHidden && actionSheet == nil ? 1 : 0
-        spinner.frame = CGRect(x: 0, y: minVisibleY - view.frame.minY, width: chatMessagesView.bounds.width, height: chatMessagesView.bounds.height - minVisibleY - view.frame.minY)
+        spinner.center = view.superview?.convert(view.superview?.center ?? view.center, to: view) ?? view.center
         
         let quickRepliesHeight: CGFloat
         
@@ -721,6 +726,14 @@ extension ChatViewController {
             quickRepliesView.isRestartButtonVisible = true
             quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
             chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight)
+            
+        case .newQuestionWithInset:
+            hideChatInput()
+            quickRepliesView.isHidden = false
+            quickRepliesView.isRestartButtonVisible = true
+            let inset = quickRepliesView.sizeThatFills(bounds.size).height
+            quickRepliesHeight = inset
+            chatMessagesView.contentInsetBottom = ceil(inset)
             
         case .empty:
             hideChatInput()
@@ -1770,12 +1783,12 @@ extension ChatViewController {
         }
         
         if store.state.chatInputState.isLiveChat {
+            store.dispatch(DidSendMessage())
             conversationManager.sendTextMessage(text)
         } else {
+            store.dispatch(DidSelectQuickReply())
             conversationManager.sendSRSQuery(text, isRequestFromPrediction: fromPrediction, autosuggestMetadata: autosuggestMetadata)
         }
-        
-        store.dispatch(DidSendMessage())
         
         PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: .seconds(3))
     }

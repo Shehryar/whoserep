@@ -123,7 +123,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .GET, path: "customer/pushchatstatus", headers: headers) { (data: [String: Any]?, response, error) in
+        HTTPClient.shared.sendRequest(method: .POST, path: "customer/pushchatstatus", headers: headers) { (data: [String: Any]?, response, error) in
             guard let data = data,
                   let count = data["UnreadMessages"] as? Int,
                   let isLiveChat = data["IsLiveChat"] as? Bool else {

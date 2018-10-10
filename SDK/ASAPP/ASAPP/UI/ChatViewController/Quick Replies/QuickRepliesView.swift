@@ -206,6 +206,11 @@ extension QuickRepliesView {
         let layout = getFramesThatFit(size)
         return CGSize(width: size.width, height: restartButtonHeight + layout.listViewFrame.height)
     }
+    
+    func sizeThatFills(_ size: CGSize) -> CGSize {
+        let layout = getFramesThatFit(size)
+        return CGSize(width: size.width, height: restartButton.defaultHeight + layout.listViewFrame.height)
+    }
 }
 
 // MARK: - Instance Methods
@@ -213,7 +218,7 @@ extension QuickRepliesView {
 extension QuickRepliesView {
   
     private func updateListView(with message: ChatMessage) {
-        listView.update(for: message, animated: true)
+        listView.update(for: message, shouldAnimateUp: true, animated: true)
         listView.onQuickReplySelected = { [weak self] (quickReply) in
             if let strongSelf = self,
                let delegate = strongSelf.delegate {
@@ -232,7 +237,7 @@ extension QuickRepliesView {
     
     func reloadButtons(for message: ChatMessage) {
         if listView.message?.metadata.eventId == message.metadata.eventId {
-            listView.update(for: message, animated: true)
+            listView.update(for: message, shouldAnimateUp: false, animated: true)
         }
     }
     
@@ -243,21 +248,29 @@ extension QuickRepliesView {
     }
     
     func clear(animated: Bool, completion: (() -> Void)? = nil) {
-        separatorTopView.alpha = 1
-        listView.update(for: nil, animated: animated, completion: completion)
+        listView.update(for: nil, shouldAnimateUp: false, animated: animated, completion: completion)
     }
     
     func showPrevious() {
         listView.showHidden()
     }
     
-    func showRestartButtonAlone(animated: Bool) {
-        clear(animated: animated)
+    func reset() {
+        separatorTopView.alpha = 1
+        containerView.alpha = 1
+        blurredBackground.alpha = 1
+    }
+    
+    func fadeOutToShowRestartButtonAlone(animated: Bool) {
+        listView.update(for: nil, shouldAnimateUp: true, animated: animated)
+        
+        blurredBackground.alpha = 0
         
         if animated {
             animating = true
             UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.separatorTopView.alpha = 1
+                self?.separatorTopView.alpha = 0
+                self?.containerView.alpha = 0
                 self?.isRestartButtonVisible = true
                 self?.setNeedsLayout()
                 self?.layoutIfNeeded()
@@ -265,7 +278,8 @@ extension QuickRepliesView {
                 self?.animating = false
             })
         } else {
-            separatorTopView.alpha = 1
+            separatorTopView.alpha = 0
+            containerView.alpha = 0
             isRestartButtonVisible = true
             setNeedsLayout()
             layoutIfNeeded()
