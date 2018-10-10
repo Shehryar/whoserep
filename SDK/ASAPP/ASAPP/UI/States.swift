@@ -33,6 +33,7 @@ enum InputState {
     case liveChat(keyboardIsVisible: Bool)
     case prechat
     case newQuestionAlone
+    case newQuestionWithInset
     case newQuestionAloneLoading
     case quickRepliesAlone
     case quickRepliesWithNewQuestion
@@ -94,6 +95,8 @@ func == (lhs: InputState, rhs: InputState) -> Bool {
         if case .prechat = rhs { return true }
     case .newQuestionAlone:
         if case .newQuestionAlone = rhs { return true }
+    case .newQuestionWithInset:
+        if case .newQuestionWithInset = rhs { return true }
     case .newQuestionAloneLoading:
         if case .newQuestionAloneLoading = rhs { return true }
     case .quickRepliesAlone:

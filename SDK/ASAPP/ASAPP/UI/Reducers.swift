@@ -61,7 +61,7 @@ class Reducers {
                 }
             }
         case _ as DidSelectQuickReply:
-            state.chatInputState = .quickRepliesWithNewQuestion
+            state.chatInputState = .newQuestionWithInset
             state.animationState = .needsToAnimate
         case _ as NoReplies:
             state.chatInputState = .newQuestionAlone

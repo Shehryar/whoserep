@@ -386,11 +386,17 @@ extension ChatViewController: StoreSubscriber {
             }
         }
         
+        if state.chatInputState != .newQuestionWithInset {
+            quickRepliesView.reset()
+        }
+        
         if [.both, .quickRepliesAlone, .quickRepliesWithNewQuestion].contains(state.chatInputState) {
             if let lastReply = state.lastReply {
                 showQuickRepliesView(with: lastReply, animated: animated)
                 shouldScroll = true
             }
+        } else if state.chatInputState == .newQuestionWithInset {
+            quickRepliesView.fadeOutToShowRestartButtonAlone(animated: animated)
         } else if ![.prechat].contains(state.chatInputState) {
             let shouldAnimate = state.chatInputState != .newQuestionAloneLoading
             clearQuickRepliesView(animated: shouldAnimate && animated)
@@ -720,6 +726,14 @@ extension ChatViewController {
             quickRepliesView.isRestartButtonVisible = true
             quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
             chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight)
+            
+        case .newQuestionWithInset:
+            hideChatInput()
+            quickRepliesView.isHidden = false
+            quickRepliesView.isRestartButtonVisible = true
+            let inset = quickRepliesView.sizeThatFills(bounds.size).height
+            quickRepliesHeight = inset
+            chatMessagesView.contentInsetBottom = ceil(inset)
             
         case .empty:
             hideChatInput()
@@ -1769,12 +1783,12 @@ extension ChatViewController {
         }
         
         if store.state.chatInputState.isLiveChat {
+            store.dispatch(DidSendMessage())
             conversationManager.sendTextMessage(text)
         } else {
+            store.dispatch(DidSelectQuickReply())
             conversationManager.sendSRSQuery(text, isRequestFromPrediction: fromPrediction, autosuggestMetadata: autosuggestMetadata)
         }
-        
-        store.dispatch(DidSendMessage())
         
         PushNotificationsManager.shared.requestAuthorizationIfNeeded(after: .seconds(3))
     }

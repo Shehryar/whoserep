@@ -51,6 +51,9 @@ class AuthenticationAPI: NSObject {
                 }
             } else {
                 demoLog("Unable to fetch auth token: \(String(describing: response))")
+                if let data = data, let body = String(data: data, encoding: .utf8) {
+                    demoLog(body)
+                }
                 DispatchQueue.main.async {
                     completion?(nil, nil, nil)
                 }

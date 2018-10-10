@@ -51,11 +51,11 @@ class QuickRepliesListView: UIView {
     private let scrollView = UIScrollView()
     private let numberOfVisibleQuickReplies = 4
     
-    private let initialDelay: TimeInterval = 0.3
-    private let delayIncrement: TimeInterval = 0.2
-    private let translationDuration: TimeInterval = 0.4
-    private let initialFadeDuration: TimeInterval = 0.6
-    private let fadeDurationIncrement: TimeInterval = 0.2
+    private let initialDelay: TimeInterval = 0.0
+    private let delayIncrement: TimeInterval = 0.035
+    private let translationDuration: TimeInterval = 0.3
+    private let initialFadeDuration: TimeInterval = 0.3
+    private let fadeDurationIncrement: TimeInterval = 0.0
     
     // MARK: Initialization
     
@@ -95,10 +95,10 @@ class QuickRepliesListView: UIView {
         addAll(animated: false, shouldDelay: false)
     }
     
-    func update(for message: ChatMessage?, animated: Bool, completion: (() -> Void)? = nil) {
+    func update(for message: ChatMessage?, shouldAnimateUp: Bool, animated: Bool, completion: (() -> Void)? = nil) {
         self.message = message
         quickReplies = message?.quickReplies
-        removeAll(animated: animated, shouldAnimateUp: message != nil) { [weak self] delayNext in
+        removeAll(animated: animated, shouldAnimateUp: shouldAnimateUp) { [weak self] delayNext in
             self?.addAll(animated: animated, shouldDelay: delayNext) { [weak self] in
                 self?.reset()
                 completion?()
@@ -130,7 +130,6 @@ class QuickRepliesListView: UIView {
     // MARK: - Layout
     
     func updateFrames(in bounds: CGRect) {
-        updateDisplay()
         let layout = getFramesThatFit(bounds.size)
         scrollView.frame = layout.scrollViewFrame
     }
@@ -258,21 +257,21 @@ extension QuickRepliesListView {
     
     func getTotalAnimationDuration(delay shouldDelay: Bool, direction: AnimationDirection) -> TimeInterval {
         let lastIndex = (quickReplyViews.count) - 1
-        let delay = getDelay(initial: shouldDelay, at: lastIndex)
+        let delay = getDelay(initial: shouldDelay, at: lastIndex, direction: direction)
         let translationDuration = getTranslationDuration(direction: direction)
         return delay + translationDuration
     }
     
-    private func getDelay(initial: Bool, at index: Int) -> TimeInterval {
-        return (initial ? initialDelay : 0) + delayIncrement * Double(index)
+    private func getDelay(initial: Bool, at index: Int, direction: AnimationDirection) -> TimeInterval {
+        return (initial ? initialDelay : 0) + delayIncrement * Double(index) * (direction == .in ? 1 : 0.7)
     }
     
     private func getFadeDuration(at index: Int, direction: AnimationDirection) -> TimeInterval {
-        return ((direction == .in ? 1 : 0.5) * initialFadeDuration) + Double(index) * fadeDurationIncrement
+        return ((direction == .in ? 1 : 0.83) * initialFadeDuration) + Double(index) * fadeDurationIncrement
     }
     
     private func getTranslationDuration(direction: AnimationDirection) -> TimeInterval {
-        return (direction == .in ? 1 : 0.5) * translationDuration
+        return (direction == .in ? 1 : 0.83) * translationDuration
     }
     
     private func getTranslationOffset(for view: QuickReplyView) -> CGFloat {
@@ -306,7 +305,7 @@ extension QuickRepliesListView {
         for (i, view) in views.enumerated() {
             let oper: (CGFloat, CGFloat) -> CGFloat = shouldAnimateUp ? (-) : (+)
             let targetY = oper(view.center.y, getTranslationOffset(for: view))
-            let delay = getDelay(initial: false, at: i)
+            let delay = getDelay(initial: false, at: i, direction: .out)
             let fadeDuration = getFadeDuration(at: i, direction: .out)
             let translationDuration = getTranslationDuration(direction: .out)
             
@@ -370,7 +369,7 @@ extension QuickRepliesListView {
             view.setNeedsLayout()
             view.layoutIfNeeded()
             
-            let delay = getDelay(initial: shouldDelay, at: i)
+            let delay = getDelay(initial: shouldDelay, at: i, direction: .in)
             let fadeDuration = getFadeDuration(at: i, direction: .in)
             let translationDuration = getTranslationDuration(direction: .in)
             
@@ -419,7 +418,6 @@ extension QuickRepliesListView: QuickReplyViewDelegate {
             selectedQuickReply = nil
         }
         updateViewsAnimated(false)
-        hideAll()
     }
 }
 
