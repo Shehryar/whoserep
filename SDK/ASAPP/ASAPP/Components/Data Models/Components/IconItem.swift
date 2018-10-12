@@ -20,12 +20,15 @@ enum ComponentIcon: String {
     case navClose
     case navExitFill
     case networkAlert
+    case networkSignal
     case notificationAlert
     case ratingStar
     case ratingThumbsUpFill
     case ratingThumbsDownFill
+    case securityLock
     case soundOffFill
     case soundOnFill
+    case techLaptop
     case techRouterOn
     case timeClock
     case timeClockArrow
