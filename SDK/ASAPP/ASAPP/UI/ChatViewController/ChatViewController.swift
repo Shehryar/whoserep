@@ -93,7 +93,6 @@ class ChatViewController: ASAPPViewController {
         self.user = user
         self.conversationManager.delegate = self
         self.conversationManager.pushNotificationPayload = pushNotificationPayload
-        store.dispatch(DidChangeLiveChatStatus(isLiveChat: conversationManager.isLiveChat, updateInput: false))
         
         automaticallyAdjustsScrollViewInsets = false
         
@@ -263,13 +262,13 @@ class ChatViewController: ASAPPViewController {
         view.addSubview(connectionStatusView)
         view.addSubview(spinner)
         
-        updateFramesAnimated(false)
-        
         // Load Events
         if conversationManager.isConnected {
             reloadMessageEvents()
+            updateFramesAnimated(false)
         } else {
             connectionStatus = .connecting
+            updateFramesAnimated(false)
             delayedDisconnectTime = Date(timeIntervalSinceNow: disconnectedTimeThreshold)
             conversationManager.enterConversation()
             Dispatcher.delay(.seconds(disconnectedTimeThreshold) + .defaultAnimationDuration) { [weak self] in
@@ -669,7 +668,7 @@ extension ChatViewController {
         chatMessagesView.contentInsetTop = minVisibleY
         
         spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil && connectionStatusView.isHidden && actionSheet == nil ? 1 : 0
-        spinner.center = view.superview?.convert(view.superview?.center ?? view.center, to: view) ?? view.center
+        spinner.center = view.center
         
         let quickRepliesHeight: CGFloat
         
