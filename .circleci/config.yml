@@ -12,6 +12,7 @@ jobs:
       LC_ALL: "en_US.UTF-8"
       XCODE_SCHEME: Tests
       XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
+      TZ: "/usr/share/zoneinfo/America/New_York"
     shell: /bin/bash --login -o pipefail
     steps:
       - run:
@@ -83,6 +84,7 @@ jobs:
       LC_ALL: "en_US.UTF-8"
       XCODE_SCHEME: ASAPPTest
       XCODE_WORKSPACE: SDK/ASAPP.xcworkspace
+      TZ: "/usr/share/zoneinfo/America/New_York"
     shell: /bin/bash --login -o pipefail
     steps:
       - add_ssh_keys:

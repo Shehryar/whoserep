@@ -2,7 +2,10 @@
 
 ## Next
 
-* Nothing yet!
+* Run [second_curtain](https://github.com/ashfurrow/second_curtain) in the pipeline of `xcodebuild` - @Vkt0r
+* Xcode 10 Support (Swift 4 & Swift 4.2). @freak4pc
+* Add [second_curtain](https://github.com/ashfurrow/second_curtain) to the project - @Vkt0r
+* Set image diff directory from environment variable if present - @flobories
 
 ## 6.8.1
 
