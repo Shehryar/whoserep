@@ -135,6 +135,7 @@ class QuickRepliesView: UIView {
         } else {
             restartButton.hideBlur()
         }
+        restartButton.updateDisplay()
     }
 }
 

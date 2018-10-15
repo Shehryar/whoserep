@@ -640,10 +640,9 @@ extension ChatViewController {
         let viewWidth = bounds.width
         var minVisibleY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
         
-        let connectionStatusHeight: CGFloat = 44
-        let connectionStatusTop = shouldShowConnectionStatusView ? minVisibleY - view.frame.minY : -connectionStatusHeight
+        let connectionStatusViewSize = connectionStatusView.sizeThatFits(CGSize(width: viewWidth, height: .greatestFiniteMagnitude))
+        let connectionStatusTop = shouldShowConnectionStatusView ? minVisibleY - view.frame.minY : -connectionStatusViewSize.height
         connectionStatusView.isHidden = !shouldShowConnectionStatusView
-        let connectionStatusViewSize = CGSize(width: viewWidth, height: connectionStatusHeight)
         
         func updateConnectionStatusView() {
             connectionStatusView.frame = CGRect(origin: CGPoint(x: 0, y: connectionStatusTop), size: connectionStatusViewSize)
