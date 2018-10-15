@@ -191,22 +191,27 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
     func commonInit() {
         backgroundColor = .clear
         isAccessibilityElement = false
+        isUserInteractionEnabled = true
         
         bubbleView.fillColor = ASAPP.styles.colors.messageBackground
         bubbleView.clipsToBounds = false
         bubbleView.cornerRadius = 20
+        bubbleView.isUserInteractionEnabled = true
         addSubview(bubbleView)
         
         label.isEditable = false
         label.isSelectable = true
         label.isScrollEnabled = false
+        label.delaysContentTouches = false
         label.scrollsToTop = false
+        label.isUserInteractionEnabled = true
         label.clipsToBounds = false
         label.updateFont(for: .body)
         label.textContainerInset = textInset
         label.textContainer.lineFragmentPadding = 0.0
         label.backgroundColor = UIColor.clear
         label.dataDetectorTypes = dataDetectorTypes
+        label.delegate = self
         label.isAccessibilityElement = true
         bubbleView.addSubview(label)
         
@@ -222,6 +227,32 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return bounds.contains(point)
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if let messageButtonsView = messageButtonsView {
+            let convertedPoint = convert(point, to: messageButtonsView)
+            if messageButtonsView.point(inside: convertedPoint, with: event) {
+                return messageButtonsView.hitTest(convertedPoint, with: event)
+            }
+        }
+        
+        var adjusted = point
+        adjusted.x -= label.frame.minX + label.textContainerInset.left
+        adjusted.y -= label.frame.minY + label.textContainerInset.top
+        
+        let index = label.layoutManager.characterIndex(for: adjusted, in: label.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        if index < label.textStorage.length {
+            if label.textStorage.attribute(.link, at: index, effectiveRange: nil) != nil {
+                return label
+            }
+        }
+        
+        return nil
     }
 }
 
@@ -350,14 +381,21 @@ extension ChatTextBubbleView {
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return action == #selector(ChatMessagesView.copy(_:))
     }
-    
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return messageButtonsView?.frame.contains(point) ?? false
-    }
 }
 
 extension ChatTextBubbleView: MessageButtonsViewDelegate {
     func messageButtonsView(_ messageButtonsView: MessageButtonsView, didTap button: QuickReply) {
         delegate?.messageButtonsViewContainer(self, didTap: button)
+    }
+}
+
+extension ChatTextBubbleView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        return true
+    }
+    
+    @available(iOS 10.0, *)
+    func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        return true
     }
 }
