@@ -90,7 +90,7 @@ class ChatConnectionStatusView: UIView {
             label.textColor = ASAPP.styles.colors.textSecondary
             
         case .disconnected:
-            backgroundColor = UIColor.ASAPP.errorRed
+            backgroundColor = ASAPP.styles.colors.warning
             label.textColor = UIColor.white
         }
         

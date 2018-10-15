@@ -1692,6 +1692,7 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         if isConnected {
+            shouldReloadOnUserUpdate = false
             didConnectAtLeastOnce = true
             delayedDisconnectTime = nil
         } else if delayedDisconnectTime == nil {

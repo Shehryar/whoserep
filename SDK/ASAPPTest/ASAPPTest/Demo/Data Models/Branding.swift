@@ -180,6 +180,8 @@ extension Branding {
         styles.textStyles.detail1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 13, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.55))
         styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.55))
         
+        styles.colors.warning = UIColor(red: 0.8, green: 0.02, blue: 0.04, alpha: 1)
+        
         return styles
     }
     
