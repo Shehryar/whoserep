@@ -212,7 +212,9 @@ class ChatViewController: ASAPPViewController {
         self.user = user
         conversationManager = type(of: conversationManager).init(config: config, user: user, userLoginAction: userLoginAction)
         conversationManager.delegate = self
-        store.dispatch(DidChangeLiveChatStatus(isLiveChat: conversationManager.isLiveChat, updateInput: false))
+        if conversationManager.isLiveChat != store.state.isLiveChat {
+            store.dispatch(DidChangeLiveChatStatus(isLiveChat: conversationManager.isLiveChat, updateInput: false))
+        }
         
         func reEnter() {
             shouldReloadOnUserUpdate = false
@@ -1086,8 +1088,10 @@ extension ChatViewController: ChatMessagesViewDelegate {
             }
             
             strongSelf.chatMessagesView.appendEvents(fetchedEvents)
-            strongSelf.store.dispatch(DidChangeLiveChatStatus(isLiveChat: strongSelf.conversationManager.isLiveChat, updateInput: true))
-            strongSelf.updateViewForLiveChat(animated: true)
+            let newStatus = strongSelf.conversationManager.isLiveChat
+            if newStatus != strongSelf.store.state.isLiveChat {
+                strongSelf.store.dispatch(DidChangeLiveChatStatus(isLiveChat: newStatus, updateInput: true))
+            }
             
             if let lastChatMessage = fetchedEvents.reversed().first(where: { $0.chatMessage != nil })?.chatMessage {
                 strongSelf.handle(message: lastChatMessage, shouldAdd: false)
@@ -1839,7 +1843,7 @@ extension ChatViewController {
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.updateStateForLastEvent()
                 
-                if strongSelf.conversationManager.isLiveChat {
+                if strongSelf.conversationManager.isLiveChat && !strongSelf.store.state.isLiveChat {
                     strongSelf.store.dispatch(DidChangeLiveChatStatus(isLiveChat: true, updateInput: true))
                 }
                 
