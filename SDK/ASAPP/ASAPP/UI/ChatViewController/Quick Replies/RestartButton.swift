@@ -32,7 +32,6 @@ class RestartButton: Button {
         title = ASAPP.strings.quickRepliesRestartButton
         accessibilityLabel = title
         
-        font = ASAPP.styles.textStyles.body.font.changingOnlySize(14)
         setForegroundColor(ASAPP.styles.colors.textButtonPrimary.textNormal, forState: .normal)
         setForegroundColor(ASAPP.styles.colors.textButtonPrimary.textHighlighted, forState: .highlighted)
         
@@ -47,6 +46,8 @@ class RestartButton: Button {
         imageView.layer.shadowColor = label.layer.shadowColor
         imageView.layer.shadowOpacity = label.layer.shadowOpacity
         imageView.layer.shadowRadius = label.layer.shadowRadius
+        
+        updateDisplay()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,6 +58,10 @@ class RestartButton: Button {
         super.layoutSubviews()
 
         blurredBackground.frame = contentView.bounds
+    }
+    
+    func updateDisplay() {
+        font = ASAPP.styles.textStyles.body.font.changingOnlySize(14)
     }
     
     func hideBlur() {

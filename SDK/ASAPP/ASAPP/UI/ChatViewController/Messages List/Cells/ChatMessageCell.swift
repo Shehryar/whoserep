@@ -102,6 +102,8 @@ class ChatMessageCell: UITableViewCell {
         selectionStyle = .none
         isOpaque = true
         backgroundColor = .clear
+        isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
     
         textBubbleView.delegate = self
         contentView.addSubview(textBubbleView)

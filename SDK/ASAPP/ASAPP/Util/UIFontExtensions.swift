@@ -10,6 +10,6 @@ import Foundation
 
 extension UIFont {
     func changingOnlySize(_ size: CGFloat) -> UIFont {
-        return UIFont(descriptor: self.fontDescriptor, size: size)
+        return UIFont(descriptor: self.fontDescriptor, size: TextSizeCategory.dynamicFontSize(size))
     }
 }

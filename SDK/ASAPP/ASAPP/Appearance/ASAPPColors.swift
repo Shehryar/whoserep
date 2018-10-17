@@ -83,6 +83,9 @@ public class ASAPPColors: NSObject {
     /// The default color of the background of a selected button representing a negative choice (such as in a BinaryRatingView).
     public var negativeSelectedBackground = UIColor.ASAPP.errorRed
     
+    /// The color of the connection status view's background while disconnected.
+    public var warning = UIColor.ASAPP.errorRed
+    
     // MARK: - Chat: Buttons
     
     /// The color of text buttons, usually an accent color.

@@ -32,7 +32,7 @@ public class ASAPPTextStyle: NSObject {
     let letterSpacing: CGFloat
     
     var font: UIFont {
-        return fontRef.changingOnlySize(size)
+        return fontRef.changingOnlySize(defaultSize)
     }
     
     private(set) var defaultSize: CGFloat

@@ -90,7 +90,7 @@ class ChatConnectionStatusView: UIView {
             label.textColor = ASAPP.styles.colors.textSecondary
             
         case .disconnected:
-            backgroundColor = UIColor.ASAPP.errorRed
+            backgroundColor = ASAPP.styles.colors.warning
             label.textColor = UIColor.white
         }
         
@@ -106,6 +106,7 @@ class ChatConnectionStatusView: UIView {
     func updateDisplay() {
         label.font = ASAPP.styles.textStyles.detail1.font.changingOnlySize(15)
         label.textAlignment = .center
+        label.numberOfLines = 0
         
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.07).cgColor
@@ -124,19 +125,21 @@ class ChatConnectionStatusView: UIView {
     
     private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
         let spinnerSize = spinner.sizeThatFits(size)
-        let spinnerFrame = CGRect(
-            x: round(size.width - contentInset.right - spinnerSize.width),
-            y: round(size.height / 2 - spinnerSize.height / 2),
-            width: spinnerSize.width,
-            height: spinnerSize.height)
         
-        let horizontalInset = size.width - spinnerFrame.minX - 8
+        let interItemPadding: CGFloat = 8
+        let horizontalInset = contentInset.right + spinnerSize.width + interItemPadding
         let labelSize = label.sizeThatFits(CGSize(width: size.width - 2 * horizontalInset, height: size.height))
         let labelFrame = CGRect(
             x: round(size.width / 2 - labelSize.width / 2),
-            y: round(size.height / 2 - labelSize.height / 2),
+            y: contentInset.top,
             width: labelSize.width,
             height: labelSize.height)
+        
+        let spinnerFrame = CGRect(
+            x: round(size.width - contentInset.right - spinnerSize.width),
+            y: round(contentInset.top + labelSize.height / 2 - spinnerSize.height / 2),
+            width: spinnerSize.width,
+            height: spinnerSize.height)
         
         return CalculatedLayout(spinnerFrame: spinnerFrame, labelFrame: labelFrame)
     }
@@ -156,6 +159,12 @@ class ChatConnectionStatusView: UIView {
         label.frame = layout.labelFrame
         
         configureAccessibility()
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        let layout = getFramesThatFit(size)
+        let bottom = max(layout.labelFrame.maxY, layout.spinnerFrame.maxY)
+        return CGSize(width: size.width, height: bottom + contentInset.bottom)
     }
     
     func configureAccessibility() {

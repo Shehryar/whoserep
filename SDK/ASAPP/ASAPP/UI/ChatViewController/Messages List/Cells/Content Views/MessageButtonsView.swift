@@ -47,6 +47,20 @@ class MessageButtonsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return bounds.contains(point)
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        for button in buttons {
+            if button.frame.contains(point) {
+                return button
+            }
+        }
+        
+        return nil
+    }
+    
     private func updateViews() {
         subviews.forEach { view in
             view.removeFromSuperview()

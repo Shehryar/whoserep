@@ -127,11 +127,21 @@ class QuickRepliesListView: UIView {
         setNeedsLayout()
     }
     
+    private func updateQuickReplyFrames(in size: CGSize) {
+        var totalHeight: CGFloat = 0
+        for view in quickReplyViews {
+            view.frame.origin = CGPoint(x: 0, y: totalHeight)
+            view.frame = CGRect(origin: view.frame.origin, size: view.sizeThatFits(CGSize(width: size.width, height: .greatestFiniteMagnitude)))
+            totalHeight = view.frame.maxY
+        }
+    }
+    
     // MARK: - Layout
     
     func updateFrames(in bounds: CGRect) {
         let layout = getFramesThatFit(bounds.size)
         scrollView.frame = layout.scrollViewFrame
+        updateQuickReplyFrames(in: bounds.size)
     }
     
     override func layoutSubviews() {
