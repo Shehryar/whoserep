@@ -1203,7 +1203,7 @@ extension ChatViewController: ChatInputViewDelegate {
                 }
             } else {
                 autosuggestThrottler.cancel()
-                chatInputView.clearSuggestions()
+                store.dispatch(DidClearChatInput())
             }
         }
     }

@@ -111,8 +111,12 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     private var sendButtonImage: UIImage?
     private let sendButton = UIButton()
     
+    private var cornerRadius: CGFloat {
+        return (inputMinHeight + contentInset.vertical) / 2
+    }
+    
     fileprivate var verticalInsets: CGFloat {
-        return contentInset.top + contentInset.bottom + bubbleInset.top + bubbleInset.bottom
+        return contentInset.vertical + bubbleInset.vertical
     }
     
     // MARK: - Initialization
@@ -348,7 +352,6 @@ extension ChatInputView {
         
         placeholderTextView.frame = textView.frame
         
-        let cornerRadius = bubbleView.frame.height / 2
         bubbleView.layer.cornerRadius = isRounded ? cornerRadius : 0
         shadowView.layer.cornerRadius = isRounded ? cornerRadius : 0
     }

@@ -33,6 +33,7 @@ struct WillTransition: Change {
     let coordinator: UIViewControllerTransitionCoordinator
 }
 
+struct DidClearChatInput: Change {}
 struct DidSelectSuggestion: Change {}
 struct DidBeginEditing: Change {}
 struct DidSelectQuickReply: Change {}

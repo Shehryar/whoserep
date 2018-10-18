@@ -47,6 +47,8 @@ class Reducers {
         case let autosuggestChange as FetchedSuggestions:
             state.autosuggestState = AutosuggestState(shouldShow: true, suggestions: autosuggestChange.suggestions, responseId: autosuggestChange.responseId)
             state.animationState = .withoutAnimation
+        case _ as DidClearChatInput:
+            state.animationState = .needsToAnimate
         case _ as DidSelectSuggestion:
             state.autosuggestState.shouldShow = false
             state.animationState = .withoutAnimation
