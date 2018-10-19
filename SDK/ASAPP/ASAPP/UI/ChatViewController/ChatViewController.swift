@@ -379,6 +379,18 @@ extension ChatViewController: StoreSubscriber {
             chatInputView?.resignFirstResponder()
         }
         
+        if [.prechat,
+            .chatInput(keyboardIsVisible: true),
+            .chatInput(keyboardIsVisible: false),
+            .liveChat(keyboardIsVisible: true),
+            .liveChat(keyboardIsVisible: false)].contains(state.chatInputState) {
+            if #available(iOS 11.0, *) {
+                chatInputView?.prepareForFocus(in: view.safeAreaInsets)
+            } else {
+                chatInputView?.prepareForFocus()
+            }
+        }
+        
         if (previousState?.isLiveChat ?? false) != state.isLiveChat {
             DebugLog.d("Chat Mode Changed: \(state.isLiveChat ? "LIVE CHAT" : "SRS")")
             conversationManager.currentSRSClassification = state.isLiveChat ? nil : quickRepliesView.currentSRSClassification
@@ -681,11 +693,6 @@ extension ChatViewController {
         
         switch inputState {
         case .prechat, .chatInput, .liveChat:
-            if #available(iOS 11.0, *) {
-                chatInputView?.prepareForFocus(in: view.safeAreaInsets)
-            } else {
-                chatInputView?.prepareForFocus()
-            }
             chatInputView?.alpha = 1
             quickRepliesHeight = 0
             quickRepliesView.isHidden = true
