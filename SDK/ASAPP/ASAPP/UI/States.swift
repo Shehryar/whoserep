@@ -9,12 +9,10 @@
 import Foundation
 
 struct UIState: StateType {
-    var inputState: InputState = .empty
-    var autosuggestState = AutosuggestState()
+    var queryUI = QueryUIState()
     var lastReply: ChatMessage?
     var shouldShowActionSheet: Bool = false
-    var shouldConfirmRestart: Bool = true
-    var animationState: AnimationState = .done
+    var animation: AnimationState = .done
     var transitionCoordinator: UIViewControllerTransitionCoordinator?
     var transitionSize: CGSize?
     var isLiveChat: Bool = false
@@ -24,6 +22,13 @@ enum AnimationState {
     case withoutAnimation
     case needsToAnimate
     case done
+}
+
+struct QueryUIState: StateType {
+    var input: InputState = .empty
+    var autosuggest = AutosuggestState()
+    var text: String = ""
+    var shouldConfirmRestart: Bool = true
 }
 
 enum InputState {
