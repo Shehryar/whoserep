@@ -44,4 +44,5 @@ struct DidSendMessage: Change {}
 struct DidTransition: Change {}
 struct WillRestart: Change {}
 struct DidFailToRestart: Change {}
+struct DidWaitInInsetState: Change {}
 struct AnimationEnded: Change {}

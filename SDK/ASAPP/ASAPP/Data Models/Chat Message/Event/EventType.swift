@@ -33,22 +33,6 @@ enum EventType: Int {
 }
 
 extension EventType {
-    
-    // MARK: Chat Message
-    
-    static func typeMayContainMessage(_ type: EventType) -> Bool {
-        return [
-            srsResponse,
-            srsEcho,
-            srsAction,
-            newRep,
-            conversationEnd,
-            conversationTimedOut,
-            switchSRSToChat,
-            switchChatToSRS
-        ].contains(type)
-    }
-    
     // MARK: Live Chat
     
     static func getLiveChatStatus(for type: EventType) -> Bool? {

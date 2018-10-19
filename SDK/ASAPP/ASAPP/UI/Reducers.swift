@@ -20,26 +20,29 @@ class Reducers {
             DebugLog.d(message.metadata.isReply ? "> RECEIVED:" : "< SENT:", message.text ?? "nil")
             
             if current.shouldShowActionSheet {
-                state.chatInputState = .empty
+                state.inputState = .empty
                 state.animationState = .withoutAnimation
             } else if message.metadata.isReply {
                 state.lastReply = message
                 let showChatInput = current.isLiveChat || message.userCanTypeResponse == true
                 if showChatInput && message.hasQuickReplies {
-                    state.chatInputState = .both
+                    state.inputState = .chatInputWithQuickReplies
                     state.animationState = .needsToAnimate
                 } else if message.hasQuickReplies {
-                    state.chatInputState = message.hideNewQuestionButton ? .quickRepliesAlone : .quickRepliesWithNewQuestion
+                    state.inputState = message.hideNewQuestionButton ? .quickRepliesAlone : .quickRepliesWithNewQuestion
                     state.animationState = .needsToAnimate
                 } else if showChatInput {
-                    state.chatInputState = current.isLiveChat ? .liveChat(keyboardIsVisible: true) : .chatInput(keyboardIsVisible: true)
+                    state.inputState = current.isLiveChat ? .liveChat(keyboardIsVisible: true) : .chatInput(keyboardIsVisible: true)
                     state.lastReply = nil
                     state.animationState = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
-                } else if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) || !message.hideNewQuestionButton {
-                    state.chatInputState = .newQuestionAlone
-                    state.animationState = current.chatInputState == .empty ? .withoutAnimation : .needsToAnimate
+                } else if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) {
+                    state.inputState = .newQuestionAlone
+                    state.animationState = current.inputState == .empty ? .withoutAnimation : .needsToAnimate
+                } else if !message.hideNewQuestionButton {
+                    state.inputState = .inset
+                    state.animationState = current.inputState == .empty ? .withoutAnimation : .needsToAnimate
                 } else {
-                    state.chatInputState = .empty
+                    state.inputState = .empty
                     state.animationState = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
                 }
                 state.shouldConfirmRestart = !message.suppressNewQuestionConfirmation
@@ -54,45 +57,50 @@ class Reducers {
             state.animationState = .withoutAnimation
         case _ as DidBeginEditing:
             if !state.shouldShowActionSheet {
-                if state.chatInputState == .both {
-                    state.chatInputState = .prechat
+                if state.inputState == .chatInputWithQuickReplies {
+                    state.inputState = .prechat
                     state.animationState = .needsToAnimate
                 } else {
-                    state.chatInputState = current.chatInputState.withKeyboard
+                    state.inputState = current.inputState.withKeyboard
                     state.animationState = .withoutAnimation
                 }
             }
         case _ as DidSelectQuickReply:
-            state.chatInputState = .newQuestionWithInset
+            state.inputState = .inset
             state.animationState = .needsToAnimate
         case _ as NoReplies:
-            state.chatInputState = .newQuestionAlone
+            state.inputState = .newQuestionAlone
             state.shouldConfirmRestart = false
             state.animationState = .needsToAnimate
         case let liveChatChange as DidChangeLiveChatStatus:
             state.isLiveChat = liveChatChange.isLiveChat
             if liveChatChange.updateInput && !state.shouldShowActionSheet {
-                state.chatInputState = liveChatChange.isLiveChat ? .liveChat(keyboardIsVisible: true) : .newQuestionAlone
+                state.inputState = liveChatChange.isLiveChat ? .liveChat(keyboardIsVisible: true) : .newQuestionAlone
             }
             state.animationState = liveChatChange.updateInput ? .needsToAnimate : .withoutAnimation
         case _ as GatekeeperViewDidAppear:
-            state.chatInputState = .newQuestionAlone
+            state.inputState = .newQuestionAlone
             state.animationState = .withoutAnimation
         case _ as KeyboardDidDisappear:
-            state.chatInputState = current.chatInputState.withoutKeyboard
+            state.inputState = current.inputState.withoutKeyboard
             state.animationState = .needsToAnimate
         case let actionSheetChange as ActionSheetChange:
             state.shouldShowActionSheet = actionSheetChange.isVisible
             if !actionSheetChange.isVisible && current.isLiveChat {
-                state.chatInputState = .liveChat(keyboardIsVisible: true)
+                state.inputState = .liveChat(keyboardIsVisible: true)
             }
             state.animationState = .withoutAnimation
         case _ as WillRestart:
-            state.chatInputState = .newQuestionAloneLoading
+            state.inputState = .newQuestionAloneLoading
             state.animationState = .needsToAnimate
         case _ as DidFailToRestart:
-            state.chatInputState = .newQuestionAlone
+            state.inputState = .newQuestionAlone
             state.animationState = .needsToAnimate
+        case _ as DidWaitInInsetState:
+            if current.inputState == .inset {
+                state.inputState = .newQuestionWithInset
+                state.animationState = .needsToAnimate
+            }
         case let transition as WillTransition:
             state.transitionCoordinator = transition.coordinator
             state.transitionSize = transition.size
@@ -108,7 +116,7 @@ class Reducers {
         
         DebugLog.d("\(change)")
         if !(change is AnimationEnded) {
-            DebugLog.d("\(state.chatInputState)")
+            DebugLog.d("\(state.inputState)")
         }
         return state
     }
