@@ -614,7 +614,9 @@ extension ChatMessagesView {
         
         tableView.reloadData()
         
-        if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
+        if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell,
+           let cellMessage = cell.message,
+           messagesThatShouldAnimate.contains(cellMessage) {
             cell.prepareForAnimation()
         }
         

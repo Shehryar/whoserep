@@ -12,7 +12,7 @@ class Reducers {
     static func reduceUIState(_ change: Change, state: UIState?) -> UIState {
         let current = state ?? UIState()
         var state = current
-        state.autosuggestState = AutosuggestState()
+        state.queryUI.autosuggest = AutosuggestState()
         
         switch change {
         case let chatInputChange as MessageReceived:
@@ -20,95 +20,111 @@ class Reducers {
             DebugLog.d(message.metadata.isReply ? "> RECEIVED:" : "< SENT:", message.text ?? "nil")
             
             if current.shouldShowActionSheet {
-                state.chatInputState = .empty
-                state.animationState = .withoutAnimation
+                state.queryUI.input = .empty
+                state.animation = .withoutAnimation
             } else if message.metadata.isReply {
                 state.lastReply = message
                 let showChatInput = current.isLiveChat || message.userCanTypeResponse == true
                 if showChatInput && message.hasQuickReplies {
-                    state.chatInputState = .both
-                    state.animationState = .needsToAnimate
+                    state.queryUI.input = .chatInputWithQuickReplies
+                    state.animation = .needsToAnimate
                 } else if message.hasQuickReplies {
-                    state.chatInputState = message.hideNewQuestionButton ? .quickRepliesAlone : .quickRepliesWithNewQuestion
-                    state.animationState = .needsToAnimate
+                    state.queryUI.input = message.hideNewQuestionButton ? .quickRepliesAlone : .quickRepliesWithNewQuestion
+                    state.animation = .needsToAnimate
                 } else if showChatInput {
-                    state.chatInputState = current.isLiveChat ? .liveChat(keyboardIsVisible: true) : .chatInput(keyboardIsVisible: true)
+                    state.queryUI.input = current.isLiveChat ? .liveChat(keyboardIsVisible: true) : .chatInput(keyboardIsVisible: true)
                     state.lastReply = nil
-                    state.animationState = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
-                } else if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) || !message.hideNewQuestionButton {
-                    state.chatInputState = .newQuestionAlone
-                    state.animationState = current.chatInputState == .empty ? .withoutAnimation : .needsToAnimate
+                    state.animation = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
+                } else if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) {
+                    state.queryUI.input = .newQuestionAlone
+                    state.animation = current.queryUI.input == .empty ? .withoutAnimation : .needsToAnimate
+                } else if !message.hideNewQuestionButton {
+                    state.queryUI.input = .inset
+                    state.animation = current.queryUI.input == .empty ? .withoutAnimation : .needsToAnimate
                 } else {
-                    state.chatInputState = .empty
-                    state.animationState = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
+                    state.queryUI.input = .empty
+                    state.animation = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
                 }
-                state.shouldConfirmRestart = !message.suppressNewQuestionConfirmation
+                state.queryUI.shouldConfirmRestart = !message.suppressNewQuestionConfirmation
             }
         case let autosuggestChange as FetchedSuggestions:
-            state.autosuggestState = AutosuggestState(shouldShow: true, suggestions: autosuggestChange.suggestions, responseId: autosuggestChange.responseId)
-            state.animationState = .withoutAnimation
-        case _ as DidClearChatInput:
-            state.animationState = .needsToAnimate
+            if !current.queryUI.text.isEmpty {
+                state.queryUI.autosuggest = AutosuggestState(shouldShow: true, suggestions: autosuggestChange.suggestions, responseId: autosuggestChange.responseId)
+                state.animation = .withoutAnimation
+            }
+        case let textChange as DidUpdateChatInputText:
+            state.queryUI.text = textChange.text
+            if textChange.text.isEmpty {
+                state.queryUI.autosuggest = AutosuggestState()
+                state.animation = .needsToAnimate
+            } else {
+                state.queryUI.autosuggest = current.queryUI.autosuggest
+            }
         case _ as DidSelectSuggestion:
-            state.autosuggestState.shouldShow = false
-            state.animationState = .withoutAnimation
+            state.queryUI.autosuggest.shouldShow = false
+            state.animation = .withoutAnimation
         case _ as DidBeginEditing:
             if !state.shouldShowActionSheet {
-                if state.chatInputState == .both {
-                    state.chatInputState = .prechat
-                    state.animationState = .needsToAnimate
+                if state.queryUI.input == .chatInputWithQuickReplies {
+                    state.queryUI.input = .prechat
+                    state.animation = .needsToAnimate
                 } else {
-                    state.chatInputState = current.chatInputState.withKeyboard
-                    state.animationState = .withoutAnimation
+                    state.queryUI.input = current.queryUI.input.withKeyboard
+                    state.animation = .withoutAnimation
                 }
             }
         case _ as DidSelectQuickReply:
-            state.chatInputState = .newQuestionWithInset
-            state.animationState = .needsToAnimate
+            state.queryUI.input = .inset
+            state.animation = .needsToAnimate
         case _ as NoReplies:
-            state.chatInputState = .newQuestionAlone
-            state.shouldConfirmRestart = false
-            state.animationState = .needsToAnimate
+            state.queryUI.input = .newQuestionAlone
+            state.queryUI.shouldConfirmRestart = false
+            state.animation = .needsToAnimate
         case let liveChatChange as DidChangeLiveChatStatus:
             state.isLiveChat = liveChatChange.isLiveChat
             if liveChatChange.updateInput && !state.shouldShowActionSheet {
-                state.chatInputState = liveChatChange.isLiveChat ? .liveChat(keyboardIsVisible: true) : .newQuestionAlone
+                state.queryUI.input = liveChatChange.isLiveChat ? .liveChat(keyboardIsVisible: true) : .newQuestionAlone
             }
-            state.animationState = liveChatChange.updateInput ? .needsToAnimate : .withoutAnimation
+            state.animation = liveChatChange.updateInput ? .needsToAnimate : .withoutAnimation
         case _ as GatekeeperViewDidAppear:
-            state.chatInputState = .newQuestionAlone
-            state.animationState = .withoutAnimation
+            state.queryUI.input = .newQuestionAlone
+            state.animation = .withoutAnimation
         case _ as KeyboardDidDisappear:
-            state.chatInputState = current.chatInputState.withoutKeyboard
-            state.animationState = .needsToAnimate
+            state.queryUI.input = current.queryUI.input.withoutKeyboard
+            state.animation = .needsToAnimate
         case let actionSheetChange as ActionSheetChange:
             state.shouldShowActionSheet = actionSheetChange.isVisible
             if !actionSheetChange.isVisible && current.isLiveChat {
-                state.chatInputState = .liveChat(keyboardIsVisible: true)
+                state.queryUI.input = .liveChat(keyboardIsVisible: true)
             }
-            state.animationState = .withoutAnimation
+            state.animation = .withoutAnimation
         case _ as WillRestart:
-            state.chatInputState = .newQuestionAloneLoading
-            state.animationState = .needsToAnimate
+            state.queryUI.input = .newQuestionAloneLoading
+            state.animation = .needsToAnimate
         case _ as DidFailToRestart:
-            state.chatInputState = .newQuestionAlone
-            state.animationState = .needsToAnimate
+            state.queryUI.input = .newQuestionAlone
+            state.animation = .needsToAnimate
+        case _ as DidWaitInInsetState:
+            if current.queryUI.input == .inset {
+                state.queryUI.input = .newQuestionWithInset
+                state.animation = .needsToAnimate
+            }
         case let transition as WillTransition:
             state.transitionCoordinator = transition.coordinator
             state.transitionSize = transition.size
-            state.animationState = .withoutAnimation
+            state.animation = .withoutAnimation
         case _ as DidTransition:
             state.transitionCoordinator = nil
             state.transitionSize = nil
-            state.animationState = .withoutAnimation
+            state.animation = .withoutAnimation
         case _ as AnimationEnded:
-            state.animationState = .done
+            state.animation = .done
         default: break
         }
         
         DebugLog.d("\(change)")
         if !(change is AnimationEnded) {
-            DebugLog.d("\(state.chatInputState)")
+            DebugLog.d("\(state.queryUI.input)")
         }
         return state
     }

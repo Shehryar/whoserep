@@ -89,6 +89,7 @@
 		3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */; };
 		3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
 		3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */; };
+		3A58E5CA21791D3B00012FEB /* ChatPictureViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A58E5C921791D3B00012FEB /* ChatPictureViewSpec.swift */; };
 		3A621FC1208E79EC00CB11D6 /* GatekeeperViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A621FC0208E79EC00CB11D6 /* GatekeeperViewSpec.swift */; };
 		3A621FCB208E8E5900CB11D6 /* feedback-form-scale.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */; };
 		3A621FCC208E8E5900CB11D6 /* feedback-form-scale.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */; };
@@ -190,6 +191,9 @@
 		3AA8DAF120DD84400062A370 /* censor-email.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8DAF020DD84400062A370 /* censor-email.json */; };
 		3AB876DA2150221C00DC0CEC /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; };
 		3AB876DB2150223500DC0CEC /* Nimble_Snapshots.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AB8F163217671E100785326 /* SliderViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB8F162217671E100785326 /* SliderViewSpec.swift */; };
+		3AB8F165217678EF00785326 /* QuickRepliesListViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB8F164217678EF00785326 /* QuickRepliesListViewSpec.swift */; };
+		3AB8F167217683A600785326 /* ChatConnectionStatusViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB8F166217683A600785326 /* ChatConnectionStatusViewSpec.swift */; };
 		3AB92C7F1FED8B25000AE21A /* EventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C7E1FED8B25000AE21A /* EventSpec.swift */; };
 		3AB92C811FF192FD000AE21A /* HTTPClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C801FF192FD000AE21A /* HTTPClientSpec.swift */; };
 		3AB92C831FF1BC74000AE21A /* TabViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */; };
@@ -366,6 +370,7 @@
 		3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTestCase.swift; sourceTree = "<group>"; };
 		3A4FC28A1FE1AE680098BAE2 /* DropdownViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownViewSpec.swift; sourceTree = "<group>"; };
+		3A58E5C921791D3B00012FEB /* ChatPictureViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPictureViewSpec.swift; sourceTree = "<group>"; };
 		3A621FC0208E79EC00CB11D6 /* GatekeeperViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatekeeperViewSpec.swift; sourceTree = "<group>"; };
 		3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form-scale.json"; sourceTree = "<group>"; };
 		3A621FD2208E8F8300CB11D6 /* ScaleViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleViewSpec.swift; sourceTree = "<group>"; };
@@ -414,6 +419,9 @@
 		3AA8DAEE20DD81900062A370 /* CensorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorSpec.swift; sourceTree = "<group>"; };
 		3AA8DAF020DD84400062A370 /* censor-email.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "censor-email.json"; sourceTree = "<group>"; };
 		3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble_Snapshots.framework; path = ../Carthage/Build/iOS/Nimble_Snapshots.framework; sourceTree = "<group>"; };
+		3AB8F162217671E100785326 /* SliderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewSpec.swift; sourceTree = "<group>"; };
+		3AB8F164217678EF00785326 /* QuickRepliesListViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRepliesListViewSpec.swift; sourceTree = "<group>"; };
+		3AB8F166217683A600785326 /* ChatConnectionStatusViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusViewSpec.swift; sourceTree = "<group>"; };
 		3AB92C7E1FED8B25000AE21A /* EventSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSpec.swift; sourceTree = "<group>"; };
 		3AB92C801FF192FD000AE21A /* HTTPClientSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpec.swift; sourceTree = "<group>"; };
 		3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewSpec.swift; sourceTree = "<group>"; };
@@ -653,10 +661,12 @@
 				3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */,
 				3A8790FC20B3551000AD81E5 /* ChatCarouselMessageCellSpec.swift */,
 				3A4B48F81FF2E2E100988491 /* ChatComponentViewMessageCellSpec.swift */,
+				3AB8F166217683A600785326 /* ChatConnectionStatusViewSpec.swift */,
 				3A26997B206063C9007C0EC6 /* ChatInputViewTestCase.swift */,
 				3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */,
 				3AA1E4F41FF569E300548E3D /* ChatMessagesViewSpec.swift */,
 				3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */,
+				3A58E5C921791D3B00012FEB /* ChatPictureViewSpec.swift */,
 				3A4B48FA1FF2F1DB00988491 /* ChatTextBubbleViewSpec.swift */,
 				3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */,
 				3A7AE86920509FA90087DA45 /* ChatViewControllerSpec.swift */,
@@ -671,6 +681,7 @@
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
 				3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */,
 				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
+				3AB8F164217678EF00785326 /* QuickRepliesListViewSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */,
 				3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */,
 				3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */,
@@ -679,6 +690,7 @@
 				3A621FD2208E8F8300CB11D6 /* ScaleViewSpec.swift */,
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
+				3AB8F162217671E100785326 /* SliderViewSpec.swift */,
 				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
 				3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */,
 				3A4B48F61FF2CB2200988491 /* TableViewSpec.swift */,
@@ -1079,6 +1091,7 @@
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
 				3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */,
 				3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */,
+				3AB8F165217678EF00785326 /* QuickRepliesListViewSpec.swift in Sources */,
 				3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */,
 				3AED18EC1FA0EACE005955DA /* SingleComponentViewController.swift in Sources */,
 				3ADD608E1FE84DFD00FC783C /* ScrollViewSpec.swift in Sources */,
@@ -1096,6 +1109,7 @@
 				3AED18F91FA0FD1C005955DA /* RequiredComponentsSpec.swift in Sources */,
 				3ADD60881FE461A900FC783C /* ProgressBarViewSpec.swift in Sources */,
 				3ADD608C1FE8412C00FC783C /* StackViewSpec.swift in Sources */,
+				3AB8F167217683A600785326 /* ChatConnectionStatusViewSpec.swift in Sources */,
 				3ACAAA9420518EF100963DD3 /* MockConversationManager.swift in Sources */,
 				3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */,
 				3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */,
@@ -1103,11 +1117,13 @@
 				3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */,
 				3A0521741F9E56FE0072D089 /* TestUtil.swift in Sources */,
 				3A26997C206063C9007C0EC6 /* ChatInputViewTestCase.swift in Sources */,
+				3A58E5CA21791D3B00012FEB /* ChatPictureViewSpec.swift in Sources */,
 				3A621FC1208E79EC00CB11D6 /* GatekeeperViewSpec.swift in Sources */,
 				3AE183AB2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift in Sources */,
 				3AF5C39220D85B480013A616 /* SingleMessageViewController.swift in Sources */,
 				3A05216A1F9937630072D089 /* QuickReplyViewSpec.swift in Sources */,
 				3A05217A1F9E9A000072D089 /* LabelViewSpec.swift in Sources */,
+				3AB8F163217671E100785326 /* SliderViewSpec.swift in Sources */,
 				3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */,
 				3A7AE86F20518C630087DA45 /* ChatViewControllerSpec.swift in Sources */,
 				3A9EF228202A60510092A1AA /* NotificationBannerSpec.swift in Sources */,

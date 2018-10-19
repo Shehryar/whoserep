@@ -107,13 +107,13 @@ jobs:
           command: bundle exec fastlane beta
       - store_artifacts:
           path: ../Library/Logs/gym/ASAPPTest-ASAPPTest.log
-          destination: gym
+          destination: gym.txt
       - store_artifacts:
           path: ./build/ASAPPTest.ipa
-          destination: ipa
+          destination: ASAPPTest.ipa
       - store_artifacts:
           path: ./build/ASAPPTest.app.dSYM.zip
-          destination: dSYM
+          destination: dSYM.zip
 
 workflows:
   version: 2

@@ -9,12 +9,10 @@
 import Foundation
 
 struct UIState: StateType {
-    var chatInputState: InputState = .empty
-    var autosuggestState = AutosuggestState()
+    var queryUI = QueryUIState()
     var lastReply: ChatMessage?
     var shouldShowActionSheet: Bool = false
-    var shouldConfirmRestart: Bool = true
-    var animationState: AnimationState = .done
+    var animation: AnimationState = .done
     var transitionCoordinator: UIViewControllerTransitionCoordinator?
     var transitionSize: CGSize?
     var isLiveChat: Bool = false
@@ -26,8 +24,15 @@ enum AnimationState {
     case done
 }
 
+struct QueryUIState: StateType {
+    var input: InputState = .empty
+    var autosuggest = AutosuggestState()
+    var text: String = ""
+    var shouldConfirmRestart: Bool = true
+}
+
 enum InputState {
-    case both
+    case chatInputWithQuickReplies
     case chatInput(keyboardIsVisible: Bool)
     case empty
     case liveChat(keyboardIsVisible: Bool)
@@ -35,13 +40,14 @@ enum InputState {
     case newQuestionAlone
     case newQuestionWithInset
     case newQuestionAloneLoading
+    case inset
     case quickRepliesAlone
     case quickRepliesWithNewQuestion
     
     var withoutKeyboard: InputState {
         switch self {
         case .prechat:
-            return .both
+            return .chatInputWithQuickReplies
         case .chatInput:
             return .chatInput(keyboardIsVisible: false)
         case .liveChat:
@@ -53,7 +59,7 @@ enum InputState {
     
     var withKeyboard: InputState {
         switch self {
-        case .both:
+        case .chatInputWithQuickReplies:
             return .prechat
         case .chatInput:
             return .chatInput(keyboardIsVisible: true)
@@ -83,8 +89,8 @@ extension InputState: Equatable {}
 
 func == (lhs: InputState, rhs: InputState) -> Bool {
     switch lhs {
-    case .both:
-        if case .both = rhs { return true }
+    case .chatInputWithQuickReplies:
+        if case .chatInputWithQuickReplies = rhs { return true }
     case .chatInput:
         if case .chatInput = rhs { return true }
     case .empty:
@@ -99,6 +105,8 @@ func == (lhs: InputState, rhs: InputState) -> Bool {
         if case .newQuestionWithInset = rhs { return true }
     case .newQuestionAloneLoading:
         if case .newQuestionAloneLoading = rhs { return true }
+    case .inset:
+        if case .inset = rhs { return true }
     case .quickRepliesAlone:
         if case .quickRepliesAlone = rhs { return true }
     case .quickRepliesWithNewQuestion:

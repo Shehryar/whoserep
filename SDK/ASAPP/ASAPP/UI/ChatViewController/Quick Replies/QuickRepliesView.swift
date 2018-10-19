@@ -262,7 +262,7 @@ extension QuickRepliesView {
         blurredBackground.alpha = 1
     }
     
-    func fadeOutToShowRestartButtonAlone(animated: Bool) {
+    func fadeOut(showRestartButton: Bool, animated: Bool) {
         listView.update(for: nil, shouldAnimateUp: true, animated: animated)
         
         blurredBackground.alpha = 0
@@ -272,7 +272,7 @@ extension QuickRepliesView {
             UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 self?.separatorTopView.alpha = 0
                 self?.containerView.alpha = 0
-                self?.isRestartButtonVisible = true
+                self?.isRestartButtonVisible = showRestartButton
                 self?.setNeedsLayout()
                 self?.layoutIfNeeded()
             }, completion: { [weak self] _ in
@@ -281,7 +281,7 @@ extension QuickRepliesView {
         } else {
             separatorTopView.alpha = 0
             containerView.alpha = 0
-            isRestartButtonVisible = true
+            isRestartButtonVisible = showRestartButton
             setNeedsLayout()
             layoutIfNeeded()
         }
