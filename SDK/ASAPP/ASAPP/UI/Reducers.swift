@@ -38,10 +38,10 @@ class Reducers {
                 } else if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) {
                     state.queryUI.input = .newQuestionAlone
                     state.animation = current.queryUI.input == .empty ? .withoutAnimation : .needsToAnimate
-                } else if !message.hideNewQuestionButton {
+                } else if !message.hideNewQuestionButton && current.queryUI.input != .newQuestionWithInset {
                     state.queryUI.input = .inset
                     state.animation = current.queryUI.input == .empty ? .withoutAnimation : .needsToAnimate
-                } else {
+                } else if current.queryUI.input != .newQuestionWithInset {
                     state.queryUI.input = .empty
                     state.animation = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
                 }
