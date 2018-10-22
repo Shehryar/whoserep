@@ -164,7 +164,7 @@ extension QuickRepliesView {
         let containerViewFrame = CGRect(x: 0, y: containerTop, width: size.width, height: containerHeight)
         
         let listViewSize = listView.sizeThatFits(containerViewFrame.size)
-        let listViewFrame = CGRect(origin: .zero, size: listViewSize)
+        let listViewFrame = CGRect(x: 0, y: 0, width: listViewSize.width, height: listViewSize.height + contentInsetBottom)
         
         // the blur effect looks bad when growing from nothing. make it larger than necessary while the container is short.
         let blurredBackgroundFrame = containerViewFrame.height > 5
