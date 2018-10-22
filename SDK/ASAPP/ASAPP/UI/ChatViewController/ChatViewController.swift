@@ -432,6 +432,9 @@ extension ChatViewController: StoreSubscriber {
                 if animated {
                     self?.store.dispatch(AnimationEnded())
                 }
+                if [.newQuestionWithInset, .inset].contains(state.queryUI.input) {
+                    self?.updateHeightOfQuickRepliesView()
+                }
             }
         }
         
@@ -793,6 +796,14 @@ extension ChatViewController {
                 updateConnectionStatusView()
             }
         }
+    }
+    
+    private func updateHeightOfQuickRepliesView() {
+        let bounds = view.frame
+        let quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
+        quickRepliesView.frame = CGRect(x: 0, y: bounds.maxY - quickRepliesHeight, width: bounds.width, height: quickRepliesHeight)
+        quickRepliesView.updateFrames(in: bounds)
+        quickRepliesView.layoutIfNeeded()
     }
     
     func updateFramesAnimated(_ animated: Bool = true, duration: TimeInterval = 0.3, scrollToBottomIfNearBottom: Bool = true, bounds: CGRect? = nil, completion: (() -> Void)? = nil) {

@@ -128,7 +128,7 @@ class QuickRepliesView: UIView {
     }
     
     func updateRestartButtonDisplay() {
-        let quickRepliesAreCutOff = !listView.isEmpty && listView.getTotalHeight() > listView.sizeThatFits(bounds.size).height - restartButton.frame.height
+        let quickRepliesAreCutOff = !listView.isEmpty && listView.getTotalHeight() > sizeThatFits(bounds.size).height - restartButton.frame.height
         if isRestartButtonVisible,
             containerView.alpha == 0 || quickRepliesAreCutOff {
             restartButton.showBlur()
@@ -201,7 +201,7 @@ extension QuickRepliesView {
         let restartButtonHeight = isRestartButtonVisible ? restartButton.defaultHeight : 0
         
         if listView.isEmpty {
-            return CGSize(width: size.width, height: restartButtonHeight)
+            return CGSize(width: size.width, height: restartButtonHeight + 1)
         }
         
         let layout = getFramesThatFit(size)
@@ -276,10 +276,13 @@ extension QuickRepliesView {
                 self?.setNeedsLayout()
                 self?.layoutIfNeeded()
             }, completion: { [weak self] _ in
+                if showRestartButton {
+                    self?.separatorTopView.alpha = 1
+                }
                 self?.animating = false
             })
         } else {
-            separatorTopView.alpha = 0
+            separatorTopView.alpha = showRestartButton ? 1 : 0
             containerView.alpha = 0
             isRestartButtonVisible = showRestartButton
             setNeedsLayout()
