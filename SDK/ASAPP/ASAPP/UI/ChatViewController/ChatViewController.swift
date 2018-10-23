@@ -702,6 +702,8 @@ extension ChatViewController {
         
         let quickRepliesHeight: CGFloat
         
+        quickRepliesView.contentInsetBottom = 0
+        
         func hideChatInput() {
             chatInputView?.prepareForNormalState()
             chatInputView?.hideBlur()
