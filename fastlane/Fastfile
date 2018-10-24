@@ -3,8 +3,13 @@ fastlane_version "2.104.0"
 default_platform :ios
 
 platform :ios do
+  def getPackageName(version)
+    "ASAPP\ iOS\ Framework\ #{version}"
+  end
+
   before_all do
     ENV['GYM_WORKSPACE'] = "SDK/ASAPP.xcworkspace"
+    FRAMEWORK_PROJECT = "SDK/ASAPP.xcodeproj"
     TEST_APP_PROJECT = "SDK/ASAPPTest/ASAPPTest.xcodeproj"
     setup_circle_ci
   end
@@ -48,7 +53,7 @@ platform :ios do
   end
 
   lane :cleanTagAndPush do |options|
-    current_branch = (options[:branch] ? options[:branch] : "master")
+    current_branch = (options[:branch] ? options[:branch] : "staging")
 
     clean_build_artifacts
 
@@ -62,17 +67,14 @@ platform :ios do
     buildAndDistribute
 
     # copy build directory so CircleCI can save artifacts"
-    sh "mkdir -p ~/output/build"
-    sh 'cp "$IPA_OUTPUT_PATH" ~/output/build/'
-    sh 'cp "$DSYM_OUTPUT_PATH" ~/output/build/'
+    sh "mkdir -p ../build"
+    sh 'cp "$IPA_OUTPUT_PATH" ../build/'
+    sh 'cp "$DSYM_OUTPUT_PATH" ../build/'
     
     cleanTagAndPush
 
-    # update develop
-    sh "git checkout develop"
-    sh "git pull origin develop"
-    sh "git merge --ff-only master"
-    sh "git push origin develop"
+    buildNumber = get_build_number(xcodeproj: TEST_APP_PROJECT)
+    sh "cd ../ && scripts/circleci_slack_rc_distributed.sh #{buildNumber}"
   end
 
   lane :alpha do |options|
@@ -95,5 +97,170 @@ platform :ios do
     UI.user_error!("To distribute a one-off alpha build, you must specify at least one email address to receive the build: bundle exec fastlane oneOff emails:foo@example.com,bar@example.com") if emails.to_s.empty?
 
     alpha(groups: [], emails: emails)
+  end
+
+  lane :checkDocumentation do
+    version = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
+    sh "cd ../ && scripts/circleci_slack_rc_held.sh #{version}"
+
+    ensure_git_status_clean
+    
+    sh "cd ../ && scripts/generate_docs.sh"
+    sh(
+      "diff -b undocumented.json.ref ../package/docs/swift/undocumented.json",
+      log: true,
+      error_callback: ->(result) {
+        sh "cd ../ && scripts/circleci_slack_rc_undocumented.sh"
+        UI.user_error!("There are undocumented symbols!")
+      })
+  end
+
+  lane :checkVersionString do
+    ensure_git_status_clean
+
+    currentFrameworkVersion = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
+    currentTestAppVersion = get_version_number(xcodeproj: TEST_APP_PROJECT, target: "ASAPPTest")
+
+    if git_tag_exists(tag: currentFrameworkVersion)
+      UI.user_error!("A tag already exists for #{currentFrameworkVersion}")
+    end
+
+    commit = last_git_commit
+    result = github_api(
+      server_url: "https://api.github.com",
+      api_token: ENV['GITHUB_API_TOKEN'],
+      http_method: "GET",
+      path: "/repos/ASAPPinc/chat-sdk-ios/pulls?state=closed&base=staging"
+    )
+    pullRequest = result[:json][0]
+
+    if commit[:commit_hash] != pullRequest['merge_commit_sha']
+      # if there have been commits since the pull request was merged, 
+      # don't change the version again
+      puts "There have been commits since the last merged pull request. Not bumping version."
+      next
+    end
+
+    title = pullRequest['title']
+
+    if title.empty?
+      UI.user_error!("Could not get title for last pull request into staging")
+    end
+
+    bumpType = ""
+
+    if title =~ /major/i
+      bumpType = "major"
+    elsif title =~ /minor/i
+      bumpType = "minor"
+    elsif title =~ /patch/i
+      bumpType = "patch"
+    end
+
+    if bumpType.empty?
+      puts "Pull request title did not contain either major, minor, or patch. Not bumping version."
+      next
+    end
+
+    increment_version_number(bump_type: bumpType, xcodeproj: TEST_APP_PROJECT)
+    increment_version_number(bump_type: bumpType, xcodeproj: FRAMEWORK_PROJECT)
+
+    newFrameworkVersion = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
+    newTestAppVersion = get_version_number(xcodeproj: TEST_APP_PROJECT, target: "ASAPPTest")
+
+    if newFrameworkVersion != currentFrameworkVersion || newTestAppVersion != currentTestAppVersion
+      sh "git add .; git commit -am \"#{bumpType} bump to #{newFrameworkVersion} [skip ci]\""
+      sh "git push origin staging"
+    end
+  end
+
+  lane :archiveFramework do
+    sh "git stash clear"
+    sh "git stash"
+    sh "git pull origin staging"
+    sh "git stash pop"
+    
+    ensure_xcode_version(version: "9.4.1")
+    ENV['XCODE_VERSION_CORRECT'] = "1"
+
+    buildDirectory = "../build"
+    sh "mkdir -p #{buildDirectory}"
+
+    sh "cd ../ && xcodebuild -workspace #{ENV['GYM_WORKSPACE']} -scheme Aggregate"
+
+    # create ZIP file using version string
+    version = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
+    packageName = getPackageName version
+    sh "rm -rf #{buildDirectory}/package"
+    sh "cp -R ../package #{buildDirectory}/package"
+    sh "cd #{buildDirectory} && mv package \"#{packageName}\""
+    sh "cd #{buildDirectory} && zip -r \"#{packageName}.zip\" \"#{packageName}\""
+    sh "cd #{buildDirectory} && rm -rf \"#{packageName}\""
+  end
+
+  lane :release do
+    # docs were updated in checkDocumentation
+    # build number could have been updated
+    sh "git stash clear"
+    sh "git stash"
+    sh "git pull origin staging"
+    sh "git stash pop"
+    git_commit(
+      path: "package",
+      message: "update documentation [skip ci]"
+    )
+    push_to_git_remote
+
+    # check that tag doesn't exist
+    version = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
+
+    if git_tag_exists(tag: version)
+      UI.user_error!("A tag already exists for #{version}")
+    end
+
+    # add tag based on version string
+    ensure_git_status_clean
+    add_git_tag(tag: version)
+    push_to_git_remote
+
+    # create GitHub release with tag.
+    packageName = getPackageName version
+    set_github_release(
+      repository_name: "ASAPPinc/chat-sdk-ios",
+      api_token: ENV['GITHUB_API_TOKEN'],
+      tag_name: version,
+      name: version,
+      description: "Not yet delivered",
+      commitish: "staging",
+      is_prerelease: true,
+      upload_assets: ["build/#{packageName}.zip"]
+    )
+
+    releaseUrl = lane_context[SharedValues::SET_GITHUB_RELEASE_HTML_LINK]
+    sh "cd ../ && scripts/circleci_slack_release.sh \"#{version}\" \"#{releaseUrl}\""
+
+    # merge staging to master.
+    sh "git fetch origin master:master"
+    sh "git checkout master"
+    sh(
+      "git merge --ff-only staging",
+      log: true,
+      error_callback: ->(result) {
+        sh "cd ../ && scripts/circleci_slack_warning.sh \":rotating_light: Could not merge staging into master. Fix it now! :red_circle:\""
+        UI.user_error!("Could not merge staging into master!")
+      })
+    sh "git push origin master"
+
+    # merge staging to develop. 
+    sh "git fetch origin develop:develop"
+    sh "git checkout develop"
+    sh(
+      "git merge staging",
+      log: true,
+      error_callback: ->(result) {
+        sh "cd ../ && scripts/circleci_slack_warning.sh \":boom: Could not merge staging into develop. :boom: Do it manually to resolve conflicts!\""
+        UI.user_error!("Could not merge staging into develop!")
+      })
+    sh "git push origin develop"
   end
 end
