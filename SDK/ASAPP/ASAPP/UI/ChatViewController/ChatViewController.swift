@@ -1550,7 +1550,7 @@ extension ChatViewController: ConversationManagerDelegate {
         provideHapticFeedbackForMessageIfNecessary(message)
         
         if message.metadata.isReply {
-            chatMessagesView.updateTypingStatus(false, shouldRemove: false)
+            chatMessagesView.updateTypingStatus(false, immediately: false)
         }
         
         if message.metadata.eventType == .newRep {
@@ -1670,7 +1670,7 @@ extension ChatViewController: ConversationManagerDelegate {
     
     // Typing Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool) {
-        chatMessagesView.updateTypingStatus(isTyping)
+        chatMessagesView.updateTypingStatus(isTyping, shouldScrollToBottom: manager.isLiveChat)
     }
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith event: Event) {

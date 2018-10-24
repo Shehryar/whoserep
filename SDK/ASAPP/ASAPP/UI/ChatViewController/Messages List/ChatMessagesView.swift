@@ -101,33 +101,22 @@ class ChatMessagesView: UIView {
     
     // MARK: - Private Properties
     
-    private let cellAnimationsEnabled = true
-    
-    private var otherParticipantIsTyping: Bool = false
-    
-    private var isMoving = false
-    
     internal var contentInset: UIEdgeInsets {
         set { tableView.contentInset = newValue }
         get { return tableView.contentInset }
     }
     
+    private let cellAnimationsEnabled = true
+    private var shouldHideTypingIndicatorOnNextMessage = false
+    private var isMoving = false
     private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
-    
     private let bottomPadding: CGFloat = -10
-    
     private let loadingHeaderHeight: CGFloat = 60
-    
     private var cellMaster: ChatMessagesViewCellMaster!
-    
     private var dataSource: ChatMessagesViewDataSource!
-    
     private let tableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
     private var messagesThatShouldAnimate = Set<ChatMessage>()
-    
     private var focusTimer: Timer?
-    
     private var previousFocusedReply: ChatMessage?
     
     // MARK: - Initialization
@@ -238,17 +227,10 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     // MARK: Number of Item
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        let numberOfSections = dataSource.numberOfSections()
-        
-        // typing indicator cell is always in the last section
-        return max((otherParticipantIsTyping ? 1 : 0), numberOfSections)
+        return dataSource.numberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let lastSection = dataSource.numberOfSections() - 1
-        if section == lastSection && otherParticipantIsTyping {
-            return dataSource.numberOfRowsInSection(section) + 1
-        }
         return dataSource.numberOfRowsInSection(section)
     }
     
@@ -413,20 +395,18 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
         
         // Hide timestamp on previous cell
         if let previousMessage = previousMessage,
-            let previousIndexPath = dataSource.getIndexPath(of: previousMessage),
-            let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatMessageCell {
-                showTimeStampForMessage = nil
-                previousCell.setTimeLabelVisible(false, animated: true)
+           let previousIndexPath = dataSource.getIndexPath(of: previousMessage),
+           let previousCell = tableView.cellForRow(at: previousIndexPath) as? ChatMessageCell {
+            showTimeStampForMessage = nil
+            previousCell.setTimeLabelVisible(false, animated: true)
         }
 
-        if let nextMessage = dataSource.getMessage(for: indexPath) {
-            // Show timestamp on next cell
-            if previousMessage == nil || nextMessage != previousMessage {
-                if let nextCell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
-                    showTimeStampForMessage = nextMessage
-                    nextCell.setTimeLabelVisible(true, animated: true)
-                }
-            }
+        // Show timestamp on next cell
+        if let nextMessage = dataSource.getMessage(for: indexPath),
+           previousMessage == nil || nextMessage != previousMessage,
+           let nextCell = tableView.cellForRow(at: indexPath) as? ChatMessageCell {
+            showTimeStampForMessage = nextMessage
+            nextCell.setTimeLabelVisible(true, animated: true)
         }
         
         tableView.beginUpdates()
@@ -521,28 +501,31 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func updateTypingStatus(_ isTyping: Bool, shouldRemove: Bool = true) {
-        let isDifferent = isTyping != otherParticipantIsTyping
-        let shouldScrollToBottom = isNearBottom() && isDifferent
+    func updateTypingStatus(_ isTyping: Bool, immediately: Bool = true, shouldScrollToBottom: Bool = false) {
+        let isDifferent = isTyping != dataSource.isTypingIndicatorVisible
         
-        otherParticipantIsTyping = isTyping
+        if isDifferent && !isTyping && !immediately {
+            shouldHideTypingIndicatorOnNextMessage = true
+        }
         
-        guard isDifferent && (isTyping || shouldRemove) else {
+        guard isDifferent && immediately else {
             return
         }
         
-        let lastSection = dataSource.numberOfSections() - 1
-        let lastRow = dataSource.numberOfRowsInSection(lastSection)
+        let lastSection = numberOfSections(in: tableView) - 1
+        let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
+        
         tableView.beginUpdates()
+        dataSource.isTypingIndicatorVisible = isTyping
         if isTyping {
-            tableView.insertRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
+            tableView.insertRows(at: [IndexPath(row: lastRow + 1, section: lastSection)], with: .fade)
         } else {
-            tableView.deleteRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
+            tableView.deleteRows(at: [IndexPath(row: lastRow - 1, section: lastSection)], with: .fade)
         }
         tableView.endUpdates()
-
-        if shouldScrollToBottom {
-            tableView.scrollToRow(at: IndexPath(row: lastRow - 1, section: lastSection), at: .top, animated: true)
+        
+        if isNearBottom() && shouldScrollToBottom {
+            scrollToBottom(animated: true)
         }
     }
 }
@@ -599,6 +582,11 @@ extension ChatMessagesView {
     }
     
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
+        if shouldHideTypingIndicatorOnNextMessage {
+            shouldHideTypingIndicatorOnNextMessage = false
+            updateTypingStatus(false, immediately: true)
+        }
+        
         guard let indexPath = dataSource.addMessage(message) else {
             DebugLog.w(caller: self, "Failed to add message to view.")
             return

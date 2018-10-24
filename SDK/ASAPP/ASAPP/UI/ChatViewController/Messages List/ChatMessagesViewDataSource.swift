@@ -9,14 +9,11 @@
 import UIKit
 
 class ChatMessagesViewDataSource: NSObject {
-
     // MARK: Properties
-    
     private let secondsBetweenSections: TimeInterval = (4 * 60)
-    
     private(set) var allMessages = [ChatMessage]()
-    
     private var sections = [[ChatMessage]]()
+    var isTypingIndicatorVisible = false
 }
 
 // MARK: - Accessing Content
@@ -24,12 +21,18 @@ class ChatMessagesViewDataSource: NSObject {
 extension ChatMessagesViewDataSource {
     
     func numberOfSections() -> Int {
-        return sections.count
+        // typing indicator cell is always in the last section
+        return max((isTypingIndicatorVisible ? 1 : 0), sections.count)
     }
     
     func numberOfRowsInSection(_ section: Int) -> Int {
         guard section >= 0 && section < sections.count else {
             return 0
+        }
+        
+        let lastSection = sections.count - 1
+        if section == lastSection && isTypingIndicatorVisible {
+            return sections[section].count + 1
         }
         
         return sections[section].count
