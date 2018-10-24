@@ -121,10 +121,6 @@ platform :ios do
     currentFrameworkVersion = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
     currentTestAppVersion = get_version_number(xcodeproj: TEST_APP_PROJECT, target: "ASAPPTest")
 
-    if git_tag_exists(tag: currentFrameworkVersion)
-      UI.user_error!("A tag already exists for #{currentFrameworkVersion}")
-    end
-
     commit = last_git_commit
     result = github_api(
       server_url: "https://api.github.com",
@@ -167,6 +163,10 @@ platform :ios do
 
     newFrameworkVersion = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
     newTestAppVersion = get_version_number(xcodeproj: TEST_APP_PROJECT, target: "ASAPPTest")
+
+    if git_tag_exists(tag: newFrameworkVersion)
+      UI.user_error!("A tag already exists for #{newFrameworkVersion}")
+    end
 
     if newFrameworkVersion != currentFrameworkVersion || newTestAppVersion != currentTestAppVersion
       sh "git add .; git commit -am \"#{bumpType} bump to #{newFrameworkVersion} [skip ci]\""
