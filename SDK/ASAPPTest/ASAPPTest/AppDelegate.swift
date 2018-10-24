@@ -94,9 +94,9 @@ extension AppDelegate {
 extension AppDelegate {
     
     func setupNotifications() {
-        ASAPP.enablePushNotifications(with: "test-uuid")
-//        let settings = UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil)
-//        UIApplication.shared.registerUserNotificationSettings(settings)
+//        ASAPP.enablePushNotifications(with: "test-uuid")
+        let settings = UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(settings)
         
         // https://developer.apple.com/reference/usernotifications/unusernotificationcenterdelegate
         if #available(iOS 10.0, *) {
