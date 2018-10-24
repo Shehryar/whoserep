@@ -100,6 +100,9 @@ platform :ios do
   end
 
   lane :checkDocumentation do
+    # pull in case version changed
+    sh "git pull origin staging"
+
     version = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
     sh "cd ../ && scripts/circleci_slack_rc_held.sh #{version}"
 
