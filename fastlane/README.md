@@ -51,6 +51,26 @@ fastlane ios accessibility_testing
 fastlane ios oneOff
 ```
 
+### ios checkDocumentation
+```
+fastlane ios checkDocumentation
+```
+
+### ios checkVersionString
+```
+fastlane ios checkVersionString
+```
+
+### ios archiveFramework
+```
+fastlane ios archiveFramework
+```
+
+### ios release
+```
+fastlane ios release
+```
+
 
 ----
 

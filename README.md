@@ -34,14 +34,21 @@ Xcode   | 10.0 GM
 1. Press the play button to build and run the application
 
 
-GitFlow and automatic beta distribution
----------------------------------------
+Development, QA, and release process
+------------------------------------
 
-Loosely following [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/), `develop` is the default branch. We merge feature branches into `develop` and merge `develop` into `master` when we're ready to release a beta build for QA. `master` is built automatically by [CircleCI](https://circleci.com/gh/ASAPPinc/ASAPP-iOS) using [fastlane](https://fastlane.tools/) and distributed using Crashlytics/Fabric. While the build number is automatically incremented, the version is not. Be sure to update the version number before distributing a beta build to minimize confusion.
+We develop and test using Xcode 10 but build releases with Xcode 9 due to partner requirements.
 
-1. Create a pull request from `develop` into `master` (the "base" branch should be `master`)
-1. Merge the pull request (**do not** squash or rebase)
-1. If necessary, edit release notes [via Fabric](https://www.fabric.io/asapp/ios/apps/com.asappinc.testapp/beta/releases/latest).
+Loosely following [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/), `develop` is the default branch. We merge `develop` into `staging` to prepare a release candidate. Once a release candidate has been approved, `staging` will be merged into `master`.
+
+`staging` is built automatically by [CircleCI](https://circleci.com/gh/ASAPPinc/ASAPP-iOS) using [fastlane](https://fastlane.tools/) and distributed using Crashlytics/Fabric. The build number is automatically incremented. The version string is updated based on the pull request title.
+
+1. Make a [pull request from `develop` to `staging`](https://github.com/ASAPPinc/chat-sdk-ios/compare/staging...develop?expand=1). We follow [SemVer](https://semver.org/) to define our versions. To increment the _patch_, _minor_, or _major_ versions, include "patch", "minor", or "major", respectively, in the pull request title. If none of these keywords are present in the title, the version will not be incremented.
+1. On every commit to `staging`, our CircleCI workflow will check and update the version string, run tests, check that the public API is fully documented, and hold the release candidate for approval. Notifications will be sent to _#chat-sdk-ios-builds_ in Slack.
+1. Unpause the `rc-approval` job to distribute a release candidate via Fabric.
+1. Wait for QA approval. If changes need to be made, push changes or merge a pull request into `staging` again.
+1. Unpause the `release-approval` job to archive the framework, tag the commit, create a GitHub release, and merge to master and develop. If there are conflicts, the channel will be notified.
+1. Download `ASAPP iOS Framework X.Y.Z.zip` from either the CircleCI job or the GitHub release and send it to the relevant deployment manager.
 
 
 Manually distributing a beta build of the test app (for QA)
@@ -96,20 +103,3 @@ scripts/generate_docs.sh
 ```
 
 The reference website can be found at `package/docs/swift/index.html`.
-
-
-Handing off the SDK to a partner
---------------------------------
-
-1. Do all tests pass?
-1. Has the version string been updated in both the framework and the test app?
-1. Have the docs been updated?
-1. Do the Swift and Objective-C projects work in Xcode 9? Make sure to rebuild the framework (in Xcode 9).
-1. Make a [pull request from `develop` to `master`](https://github.com/ASAPPinc/chat-sdk-ios/compare/master...develop?expand=1) and merge it—_do not squash or rebase!_—to automatically distribute a beta build.
-1. Does QA approve? If not, make changes and start over.
-1. Using **Xcode 9**'s Swift 4.1 compiler, build the framework by **archiving** the **Aggregate** scheme for a **Generic iOS Device**. If a partner needs a Swift 4.2-compatible binary, compile with Xcode 10's Swift 4.2 compiler. Note that the Aggregate target's build script assumes you have Xcode 9 installed as `Xcode.app` and automatically switches to it using `xcode-select`.
-1. Copy the `package` directory, rename it `ASAPP iOS Framework X.Y.Z`, and compress it.
-1. Send the ZIP file to the Product team for delivery to our partners.
-1. Tag the relevant commit with `git tag X.Y.Z; git push --tags`.
-1. Record the release [according to existing conventions](https://github.com/ASAPPinc/chat-sdk-ios/releases).
-
