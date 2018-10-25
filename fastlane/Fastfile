@@ -189,7 +189,7 @@ platform :ios do
     buildDirectory = "../build"
     sh "mkdir -p #{buildDirectory}"
 
-    sh "cd ../ && xcodebuild -workspace #{ENV['GYM_WORKSPACE']} -scheme Aggregate"
+    sh "cd ../ && xcodebuild -workspace #{ENV['GYM_WORKSPACE']} -scheme Aggregate -configuration Release"
 
     # create ZIP file using version string
     version = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
@@ -243,10 +243,8 @@ platform :ios do
     sh "cd ../ && scripts/circleci_slack_release.sh \"#{version}\" \"#{releaseUrl}\""
 
     # merge staging to master.
-    sh "git fetch origin master:master"
-    sh "git checkout master"
     sh(
-      "git merge --ff-only staging",
+      "git fetch origin && git checkout master && git reset --hard origin/master && git merge --ff-only staging",
       log: true,
       error_callback: ->(result) {
         sh "cd ../ && scripts/circleci_slack_warning.sh \":rotating_light: Could not merge staging into master. Fix it now! :red_circle:\""
@@ -254,11 +252,9 @@ platform :ios do
       })
     sh "git push origin master"
 
-    # merge staging to develop. 
-    sh "git fetch origin develop:develop"
-    sh "git checkout develop"
+    # merge staging to develop.
     sh(
-      "git merge staging",
+      "git fetch origin && git checkout develop && git reset --hard origin/develop && git merge staging",
       log: true,
       error_callback: ->(result) {
         sh "cd ../ && scripts/circleci_slack_warning.sh \":boom: Could not merge staging into develop. :boom: Do it manually to resolve conflicts!\""
