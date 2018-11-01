@@ -114,6 +114,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "message:chat-ended-only-child-weight"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "form:tab-view"
             isEnabled = "NO">
          </CommandLineArgument>
@@ -147,7 +151,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:cancelled-auto-pay"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:carousel-uneven"

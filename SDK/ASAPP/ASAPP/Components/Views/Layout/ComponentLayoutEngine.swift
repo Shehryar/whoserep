@@ -13,6 +13,37 @@ class ComponentLayoutEngine: NSObject {
         let frames: [CGRect]
         let maxX: CGFloat
         let maxY: CGFloat
+        
+        init(frames: [CGRect], maxX: CGFloat, maxY: CGFloat) {
+            var frames = frames
+            var maxX = maxX
+            var maxY = maxY
+
+            func clampIfTooBig(_ num: CGFloat, to dest: CGFloat) -> CGFloat {
+                return (num.isInfinite
+                        || num == CGFloat.greatestFiniteMagnitude
+                        || num.isNaN
+                        || num == CGFloat.nan)
+                    ? dest
+                    : num
+            }
+
+            frames = frames.map { rect in
+                return CGRect(
+                    x: clampIfTooBig(rect.minX, to: 0),
+                    y: clampIfTooBig(rect.minY, to: 0),
+                    width: clampIfTooBig(rect.width, to: UIScreen.main.bounds.width),
+                    height: clampIfTooBig(rect.height, to: UIScreen.main.bounds.height)
+                )
+            }
+
+            maxX = clampIfTooBig(maxX, to: UIScreen.main.bounds.maxX)
+            maxY = clampIfTooBig(maxY, to: UIScreen.main.bounds.maxY)
+            
+            self.frames = frames
+            self.maxX = maxX
+            self.maxY = maxY
+        }
     }
 }
 
@@ -238,7 +269,7 @@ extension ComponentLayoutEngine {
             let style = (view as? ComponentView)?.component?.style ?? ComponentStyle()
             let margin = style.margin
             let weight = style.weight
-            let gravity = style.gravity ?? (weight == 0 ? .top : .fill)
+            let gravity = style.gravity ?? ((weight == 0 || views.count == 1) ? .top : .fill)
             
             let maxSize = sizes[idx].maxSize
             var size = sizes[idx].fittedSize
