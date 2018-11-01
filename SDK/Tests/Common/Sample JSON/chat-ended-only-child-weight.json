@@ -1,0 +1,91 @@
+{
+    "attachment": {
+        "content": {
+            "root": {
+                "content": {
+                    "items": [
+                        {
+                            "content": {
+                                "icon": "user_cancel"
+                            },
+                            "style": {
+                                "gravity": "middle",
+                                "height": 24,
+                                "marginRight": 20,
+                                "weight": 0,
+                                "width": 24
+                            },
+                            "type": "icon"
+                        },
+                        {
+                            "content": {
+                                "items": [
+                                    {
+                                        "content": {
+                                            "text": "Your chat has ended"
+                                        },
+                                        "style": {
+                                            "paddingTop": 4,
+                                            "textType": "header3",
+                                            "weight": 1
+                                        },
+                                        "type": "label"
+                                    }
+                                ],
+                                "orientation": "vertical"
+                            },
+                            "style": {
+                                "gravity": "middle"
+                            },
+                            "type": "stackView"
+                        }
+                    ],
+                    "orientation": "horizontal"
+                },
+                "style": {
+                    "padding": "36 24 36 32"
+                },
+                "type": "stackView"
+            },
+            "type": "view"
+        },
+        "type": "componentView"
+    },
+    "buttons": [
+        {
+            "action": {
+                "content": {
+                    "data": {
+                        "_flowId": "fd1b6524-19e1-4495-b78b-14c2744c9651",
+                        "_flowName": "LiveChatEndFlow",
+                        "feedbackEnabled": true,
+                        "issueId": "5660001",
+                        "repId": "1120001",
+                        "requireTargetIssueId": true
+                    },
+                    "metadata": {
+                        "flowId": "fd1b6524-19e1-4495-b78b-14c2744c9651",
+                        "flowName": "LiveChatEndFlow",
+                        "text": "Leave Feedback"
+                    },
+                    "name": "FEEDBACK"
+                },
+                "performImmediately": true,
+                "type": "componentView"
+            },
+            "isTransient": true,
+            "title": "Leave Feedback"
+        }
+    ],
+    "metadata": {
+        "flowId": "fd1b6524-19e1-4495-b78b-14c2744c9651",
+        "flowName": "LiveChatEndFlow",
+        "intent": "_LIVE_CHAT_END",
+        "isEnd": true,
+        "isStart": true,
+        "issueId": "5660001",
+        "messageName": "LiveChatEndMessage"
+    },
+    "suppressNewQuestionConfirmation": true,
+    "text": ""
+}

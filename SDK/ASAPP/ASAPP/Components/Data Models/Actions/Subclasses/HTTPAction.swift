@@ -37,7 +37,7 @@ class HTTPAction: Action {
     
     // MARK: Init
     
-    required init?(content: Any?) {
+    required init?(content: Any?, performImmediately: Bool = false) {
         if let content = content as? [String: Any],
            let method = HTTPMethod.from(content[JSONKey.method.rawValue] as? String),
            let urlString = content[JSONKey.url.rawValue] as? String,
@@ -49,6 +49,6 @@ class HTTPAction: Action {
             DebugLog.w(caller: HTTPAction.self, "Unable to create HTTPAction without valid method and url: \(String(describing: content))")
             return nil
         }
-        super.init(content: content)
+        super.init(content: content, performImmediately: performImmediately)
     }
 }

@@ -39,7 +39,7 @@ class ComponentViewAction: Action {
     
     // MARK: Init
     
-    required init?(content: Any?) {
+    required init?(content: Any?, performImmediately: Bool = false) {
         guard let content = content as? [String: Any] else {
             return nil
         }
@@ -52,6 +52,6 @@ class ComponentViewAction: Action {
         self.displayStyle = ComponentViewDisplayStyle.from(content[JSONKey.displayStyle.rawValue])
             ?? ComponentViewDisplayStyle.defaultValue
 
-        super.init(content: content)
+        super.init(content: content, performImmediately: performImmediately)
     }
 }

@@ -20,6 +20,7 @@ class AppSettings: NSObject {
         case userName = "asapp_user_name"
         case userImageName = "asapp_user_image_name"
         case appearanceConfig = "asapp_appearance_config"
+        case pushServiceIdentifier = "asapp_push_service_identifier"
         
         case apiHostNameList = "asapp_api_host_name_list"
         case appIdList = "asapp_app_id_list"
@@ -53,6 +54,10 @@ class AppSettings: NSObject {
     
     var authToken: String {
         return AppSettings.getString(forKey: .authToken, defaultValue: AppSettings.fakeToken)
+    }
+    
+    var pushServiceIdentifier: [String: Any] {
+        return AppSettings.getDict(forKey: .pushServiceIdentifier, defaultValue: AppSettings.defaultPushIdentifier)
     }
     
     var branding = Branding(appearanceConfig: AppSettings.defaultAppearanceConfig)
@@ -116,6 +121,8 @@ extension AppSettings {
     static let defaultUserImageName = "user-anonymous"
     
     static let defaultAppearanceConfig = defaultAppearanceConfigs.first!
+    
+    static let defaultPushIdentifier: [String: Any] = ["Service": 0, "key": "dummyToken"]
     
     class var defaultAPIHostNames: [String] {
         return [
@@ -301,6 +308,13 @@ extension AppSettings {
         // DemoLog("Found string array: \(String(describing: stringArray)), for key: \(key.rawValue)")
         
         return (getDefaultStringArray(forKey: key) ?? []).union(stringArray ?? [])
+    }
+    
+    class func getDict(forKey key: Key, defaultValue: [String: Any]) -> [String: Any] {
+        if let dictionary = UserDefaults.standard.dictionary(forKey: key.rawValue) {
+            return dictionary
+        }
+        return defaultValue
     }
     
     class func getDefaultStringArray(forKey key: Key) -> [String]? {

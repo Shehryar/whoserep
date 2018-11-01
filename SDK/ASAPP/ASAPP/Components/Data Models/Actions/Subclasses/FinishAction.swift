@@ -20,12 +20,12 @@ class FinishAction: Action {
     
     // MARK: Init
     
-    required init?(content: Any?) {
+    required init?(content: Any?, performImmediately: Bool = false) {
         if let content = content as? [String: Any] {
             self.nextAction = ActionFactory.action(with: content[JSONKey.nextAction.rawValue])
         } else {
             self.nextAction = nil
         }
-        super.init(content: content)
+        super.init(content: content, performImmediately: performImmediately)
     }
 }

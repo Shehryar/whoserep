@@ -42,6 +42,10 @@ class BaseTableViewController: BaseViewController {
         return  TextInputCell()
     }()
     
+    fileprivate lazy var textInputCheckmarkSizingCell: TextInputCheckmarkCell = {
+        return TextInputCheckmarkCell()
+    }()
+    
     fileprivate lazy var titleCheckmarkSizingCell: TitleCheckmarkCell = {
         return TitleCheckmarkCell()
     }()
@@ -64,6 +68,7 @@ class BaseTableViewController: BaseViewController {
         tableView.register(TextInputCell.self, forCellReuseIdentifier: TextInputCell.reuseId)
         tableView.register(TitleCheckmarkCell.self, forCellReuseIdentifier: TitleCheckmarkCell.reuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: TitleDetailValueCell.reuseId)
+        tableView.register(TextInputCheckmarkCell.self, forCellReuseIdentifier: TextInputCheckmarkCell.reuseId)
         
         tableView.backgroundColor = AppSettings.shared.branding.colors.secondaryBackgroundColor
         tableView.dataSource = self
@@ -307,6 +312,37 @@ extension BaseTableViewController {
         cell?.onReturnKey = onReturnKey
         
         return cell ?? TextInputCell()
+    }
+    
+    func textInputCheckmarkCell(text: String? = nil,
+                                isChecked: Bool,
+                                placeholder: String? = nil,
+                                labelText: String? = nil,
+                                autocapitalizationType: UITextAutocapitalizationType = .none,
+                                isSecureTextEntry: Bool = false,
+                                onTextChange: ((_ text: String) -> Void)? = nil,
+                                onReturnKey: ((_ text: String) -> Void)? = nil,
+                                onDidBeginEditing: ((_ text: String) -> Void)? = nil,
+                                for indexPath: IndexPath,
+                                sizingOnly: Bool) -> TextInputCheckmarkCell {
+        
+        let cell = sizingOnly
+            ? textInputCheckmarkSizingCell
+            : tableView.dequeueReusableCell(withIdentifier: TextInputCheckmarkCell.reuseId, for: indexPath) as? TextInputCheckmarkCell
+        
+        cell?.isChecked = isChecked
+        cell?.appSettings = AppSettings.shared
+        cell?.currentText = text ?? ""
+        cell?.placeholderText = placeholder
+        cell?.textField.text = labelText
+        cell?.textField.autocorrectionType = .no
+        cell?.textField.autocapitalizationType = autocapitalizationType
+        cell?.textField.returnKeyType = .done
+        cell?.textField.isSecureTextEntry = isSecureTextEntry
+        cell?.onTextFieldTapped = onDidBeginEditing
+        cell?.onTextChange = onTextChange
+
+        return cell ?? TextInputCheckmarkCell()
     }
     
     func titleCheckMarkCell(title: String?,

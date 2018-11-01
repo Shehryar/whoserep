@@ -16,6 +16,7 @@ protocol HomeTableViewDelegate: class {
     func homeTableViewDidTapRegionCode(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAuthentication(_ homeTableView: HomeTableView)
     func homeTableViewDidTapAppearance(_ homeTableView: HomeTableView)
+    func homeTableViewDidTapPushService(_ homeTableView: HomeTableView)
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
@@ -37,6 +38,7 @@ class HomeTableView: UIView {
         case regionCode
         case authentication
         case appearance
+        case pushService
     }
     
     enum OtherRow: Int, CountableEnum {
@@ -189,6 +191,17 @@ extension HomeTableView {
             case .some(.appearance):
                 title = "Appearance"
                 value = AppSettings.shared.appearanceConfig.name
+                
+            case .some(.pushService):
+                var pushVal: String
+                let pushSettings = AppSettings.shared.pushServiceIdentifier
+                if pushSettings["Service"] as? Int == 0 {
+                    pushVal = PushRegistration.apnsKey
+                } else {
+                    pushVal = pushSettings["key"] as? String ?? PushRegistration.uuidKey
+                }
+                title = "Push Service"
+                value = pushVal
                 
             case .none:
                 demoLog("Missing cell for index path: \(indexPath)")
@@ -392,6 +405,9 @@ extension HomeTableView: UITableViewDelegate {
                 
             case .some(.appearance):
                 delegate?.homeTableViewDidTapAppearance(self)
+                
+            case .some(.pushService):
+                delegate?.homeTableViewDidTapPushService(self)
                 
             case .none: break
             }

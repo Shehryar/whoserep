@@ -94,7 +94,6 @@ extension AppDelegate {
 extension AppDelegate {
     
     func setupNotifications() {
-//        ASAPP.enablePushNotifications(with: "test-uuid")
         let settings = UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil)
         UIApplication.shared.registerUserNotificationSettings(settings)
         
@@ -116,7 +115,14 @@ extension AppDelegate {
         
         demoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(bundleId))\n  device token: \(token)")
         
-        ASAPP.enablePushNotifications(with: deviceToken)
+        let pushIdentifier = AppSettings.shared.pushServiceIdentifier
+        if pushIdentifier[PushRegistration.pushServiceKey] as? String == PushRegistration.apnsKey {
+            ASAPP.enablePushNotifications(with: deviceToken)
+        } else {
+            if let uuid = pushIdentifier["key"] as? String {
+                ASAPP.enablePushNotifications(with: uuid)
+            }
+        }
         
         Answers.logCustomEvent(withName: "Registered for Push Notifications", customAttributes: [
             "deviceToken": token,

@@ -120,6 +120,8 @@
 		3AFB74CD1FDA006200AF0442 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C51FDA006200AF0442 /* Roboto-Medium.ttf */; };
 		3AFB74CE1FDA006200AF0442 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C61FDA006200AF0442 /* Roboto-MediumItalic.ttf */; };
 		3AFB74CF1FDA006200AF0442 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C71FDA006200AF0442 /* Roboto-Regular.ttf */; };
+		5FCC65422188DD8E006805E4 /* PushServiceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC65412188DD8E006805E4 /* PushServiceSelectionViewController.swift */; };
+		5FCC654421890597006805E4 /* TextInputCheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC654321890597006805E4 /* TextInputCheckmarkCell.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -256,6 +258,8 @@
 		3AFB74C51FDA006200AF0442 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		3AFB74C61FDA006200AF0442 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
 		3AFB74C71FDA006200AF0442 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		5FCC65412188DD8E006805E4 /* PushServiceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushServiceSelectionViewController.swift; sourceTree = "<group>"; };
+		5FCC654321890597006805E4 /* TextInputCheckmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCheckmarkCell.swift; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8D8B1C1D107A19001B420B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -285,6 +289,7 @@
 				281D8DFD1DC9681300E4A65B /* TableHeaderView.swift */,
 				281D8DFE1DC9681300E4A65B /* TableViewCell.swift */,
 				30D883761E60BE8C00A1A5C3 /* TextInputCell.swift */,
+				5FCC654321890597006805E4 /* TextInputCheckmarkCell.swift */,
 				30CBACB21DCA883C003D9CD7 /* TitleCheckmarkCell.swift */,
 				281D8E021DC9696A00E4A65B /* TitleDetailValueCell.swift */,
 				3A2E5C4B1FD6167800687928 /* TitleImageCell.swift */,
@@ -403,6 +408,7 @@
 			isa = PBXGroup;
 			children = (
 				3A43A8CF20D16F16007A90D5 /* AddAccountViewController.swift */,
+				5FCC65412188DD8E006805E4 /* PushServiceSelectionViewController.swift */,
 				3A43A8CB20D076FF007A90D5 /* AuthenticationViewController.swift */,
 				3A43A8D120D19484007A90D5 /* AuthenticationAPI.swift */,
 				3089940E1EFB2B800068D616 /* OptionsForKeyViewController.swift */,
@@ -751,7 +757,9 @@
 				3A5C403F1FD9965600F63797 /* AppearanceConfig.swift in Sources */,
 				281D8E081DC973F500E4A65B /* ImageNameCell.swift in Sources */,
 				3A2E5C531FD73AED00687928 /* EditAppearanceViewController.swift in Sources */,
+				5FCC654421890597006805E4 /* TextInputCheckmarkCell.swift in Sources */,
 				3A2E5C551FD740D500687928 /* ImageCheckmarkCell.swift in Sources */,
+				5FCC65422188DD8E006805E4 /* PushServiceSelectionViewController.swift in Sources */,
 				30C24C361DCA39E100529785 /* RandomNameGenerator.swift in Sources */,
 				3A5C403D1FD888EF00F63797 /* ColorPickerViewController.swift in Sources */,
 				30C24C2C1DC921AE00529785 /* UIImageExtensions.swift in Sources */,
