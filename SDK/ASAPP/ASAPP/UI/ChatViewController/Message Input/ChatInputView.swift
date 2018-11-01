@@ -370,6 +370,7 @@ extension ChatInputView {
 
 extension ChatInputView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
+        textView.isScrollEnabled = !textView.text.isEmpty
         invalidateIntrinsicContentSize()
         resizeIfNeeded(animated: true, notifyOfHeightChange: true)
         updateSendButtonForCurrentState()
@@ -471,7 +472,7 @@ extension ChatInputView {
     
     func prepareForNormalState() {
         inputHeight = inputMinHeight
-        textView.isScrollEnabled = true
+        textView.isScrollEnabled = !textView.text.isEmpty
         textView.bounces = true
         textView.scrollRangeToVisible(NSRange(location: max(0, textView.text.count - 1), length: 1))
         displayBorderTop = false
