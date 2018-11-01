@@ -1606,6 +1606,7 @@ extension ChatViewController: ConversationManagerDelegate {
     
     func performActionImmediatelyIfNecessary(message: ChatMessage) {
         guard
+            message.metadata.isReply,
             let buttons = message.buttons,
             let action = buttons.map({ $0.action }).first(where: { $0.performImmediately })
         else {
