@@ -520,7 +520,7 @@ extension ChatMessagesView {
         if isTyping {
             tableView.insertRows(at: [IndexPath(row: lastRow + 1, section: lastSection)], with: .fade)
         } else {
-            tableView.deleteRows(at: [IndexPath(row: lastRow - 1, section: lastSection)], with: .fade)
+            tableView.deleteRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
         }
         tableView.endUpdates()
         

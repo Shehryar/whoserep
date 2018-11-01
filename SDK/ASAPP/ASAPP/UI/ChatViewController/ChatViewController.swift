@@ -1764,6 +1764,8 @@ extension ChatViewController: ConversationManagerDelegate {
             if chatMessagesView.isEmpty {
                 chatMessagesView.reloadWithEvents(conversationManager.events)
                 spinner.alpha = 0
+            } else {
+                chatMessagesView.updateTypingStatus(false, shouldScrollToBottom: true)
             }
             
             if !didConnectAtLeastOnce {
