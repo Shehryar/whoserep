@@ -177,6 +177,15 @@ platform :ios do
     end
   end
 
+  lane :stagingBeta do
+    sh "git stash clear"
+    sh "git stash"
+    sh "git pull origin staging"
+    sh "git stash pop"
+    
+    beta
+  end
+
   lane :archiveFramework do
     sh "git stash clear"
     sh "git stash"

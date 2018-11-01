@@ -120,8 +120,8 @@ jobs:
       - run: *install_gems
       - save_cache: *cache_gems
       - run:
-          name: Fastlane distribute beta
-          command: bundle exec fastlane beta
+          name: Fastlane distribute beta from staging
+          command: bundle exec fastlane stagingBeta
       - store_artifacts:
           path: ../Library/Logs/gym/ASAPPTest-ASAPPTest.log
           destination: gym.txt
