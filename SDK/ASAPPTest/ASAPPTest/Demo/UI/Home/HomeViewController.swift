@@ -347,6 +347,25 @@ extension HomeViewController: HomeTableViewDelegate {
         navigationController?.pushViewController(optionsVC, animated: true)
     }
     
+    func homeTableViewDidTapPushService(_ homeTableView: HomeTableView) {
+        let pushServiceVC = PushServiceSelectionViewController()
+        
+        pushServiceVC.onFinish = { [weak self] (pushService) in
+            if pushService == "APNS" {
+                UIApplication.shared.registerForRemoteNotifications()
+            } else {
+                ASAPP.enablePushNotifications(with: pushService ?? "")
+            }
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.navigationController?.popToViewController(strongSelf, animated: true)
+        }
+        
+        navigationController?.pushViewController(pushServiceVC, animated: true)
+    }
+    
     func homeTableViewDidTapAuthentication(_ homeTableView: HomeTableView) {
         let authVC = AuthenticationViewController()
         authVC.onSuccess = { [weak self] in
