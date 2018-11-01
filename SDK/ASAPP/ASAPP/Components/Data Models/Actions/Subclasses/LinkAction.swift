@@ -17,7 +17,7 @@ class LinkAction: Action {
     
     let link: PlatformIndependentLink
     
-    required init?(content: Any?) {
+    required init?(content: Any?, performImmediately: Bool = false) {
         guard
             let content = content as? [String: Any],
             let link = content.string(for: JSONKey.link.rawValue)
@@ -28,6 +28,6 @@ class LinkAction: Action {
         
         self.link = link
         
-        super.init(content: content)
+        super.init(content: content, performImmediately: performImmediately)
     }
 }

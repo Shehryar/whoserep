@@ -13,6 +13,7 @@ enum ActionFactory {
     enum JSONKey: String {
         case content
         case type
+        case performImmediately
     }
     
     static func action(with json: Any?) -> Action? {
@@ -30,6 +31,8 @@ enum ActionFactory {
             return nil
         }
         
-        return type.getActionClass().init(content: json[JSONKey.content.rawValue])
+        let performImmediately = json.bool(for: JSONKey.performImmediately.rawValue) ?? false
+        
+        return type.getActionClass().init(content: json[JSONKey.content.rawValue], performImmediately: performImmediately)
     }
 }

@@ -21,20 +21,22 @@ class UserLoginAction: Action {
     
     // MARK: Init
     
-    required init?(content: Any?) {
+    required init?(content: Any?, performImmediately: Bool = false) {
         guard let content = content as? [String: Any] else {
                 return nil
         }
         
         self.nextAction = ActionFactory.action(with: content[JSONKey.nextAction.rawValue])
         self.previousSession = nil
-        super.init(content: content)
+        
+        super.init(content: content, performImmediately: performImmediately)
     }
     
     init?(session: Session, nextAction: Action? = nil) {
         self.nextAction = nextAction
         self.previousSession = session
-        super.init(content: nil)
+        
+        super.init(content: nil, performImmediately: false)
     }
 
 }

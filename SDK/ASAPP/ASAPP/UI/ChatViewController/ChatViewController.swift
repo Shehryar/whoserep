@@ -1601,6 +1601,18 @@ extension ChatViewController: ConversationManagerDelegate {
     // New Messages
     func conversationManager(_ manager: ConversationManagerProtocol, didReceive message: ChatMessage) {
         handle(message: message)
+        performActionImmediatelyIfNecessary(message: message)
+    }
+    
+    func performActionImmediatelyIfNecessary(message: ChatMessage) {
+        guard
+            let buttons = message.buttons,
+            let action = buttons.map({ $0.action }).first(where: { $0.performImmediately })
+        else {
+            return
+        }
+        
+        performAction(action, fromMessage: message)
     }
     
     private func showNotificationBannerIfNecessary(_ notification: ChatNotification?) {

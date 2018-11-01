@@ -22,7 +22,7 @@ class APIAction: Action {
     
     // MARK: Init
     
-    required init?(content: Any?) {
+    required init?(content: Any?, performImmediately: Bool = false) {
         guard let content = content as? [String: Any] else {
             return nil
         }
@@ -32,7 +32,7 @@ class APIAction: Action {
         }
         self.requestPath = requestPath
         
-        super.init(content: content)
+        super.init(content: content, performImmediately: performImmediately)
     }
 }
 

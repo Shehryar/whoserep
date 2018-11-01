@@ -20,10 +20,11 @@ class Action: NSObject {
 
     private(set) var data: [String: Any]?
     let metadata: Metadata?
+    let performImmediately: Bool
     
     // MARK: Init
     
-    required init?(content: Any?) {
+    required init?(content: Any?, performImmediately: Bool = false) {
         if let content = content as? [String: Any] {
             self.data = content[JSONKey.data.rawValue] as? [String: Any]
             self.metadata = content.codableDict(for: JSONKey.metadata.rawValue, type: Metadata.self)
@@ -31,6 +32,8 @@ class Action: NSObject {
             self.data = nil
             self.metadata = nil
         }
+        
+        self.performImmediately = performImmediately
         
         super.init()
     }
