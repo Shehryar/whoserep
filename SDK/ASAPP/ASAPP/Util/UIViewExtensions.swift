@@ -9,6 +9,10 @@
 import UIKit
 
 extension UIView {
+    static var minimumTargetLength: CGFloat {
+        return 44
+    }
+    
     @discardableResult
     func setLinearGradient(degrees: Float = 0, colors: UIColor...) -> CALayer {
         let gradient = createLinearGradient(degrees: degrees, colors: colors)

@@ -19,7 +19,7 @@ class NotificationBanner: UIView {
     weak var delegate: NotificationBannerDelegate?
     
     let notification: ChatNotification
-    let bannerContainerHeight: CGFloat = 44
+    let bannerContainerHeight: CGFloat = UIView.minimumTargetLength
     var shouldHide = false {
         didSet {
             if oldValue != shouldHide {
