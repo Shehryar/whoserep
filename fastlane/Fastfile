@@ -178,10 +178,7 @@ platform :ios do
   end
 
   lane :stagingBeta do
-    sh "git stash clear"
-    sh "git stash"
     sh "git pull origin staging"
-    sh "git stash pop"
     
     beta
   end
