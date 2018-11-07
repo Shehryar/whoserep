@@ -103,3 +103,17 @@ scripts/generate_docs.sh
 ```
 
 The reference website can be found at `package/docs/swift/index.html`.
+
+Running tests
+----------------------------------------------------------
+
+### Pre-requisites
+
+1. `brew install carthage`
+2. `cd SDK && carthage bootstrap`
+
+### Running
+
+1. Select either `All Tests` or `Fast Tests`
+2. Select iPhone SE as target device
+3. Run tests
