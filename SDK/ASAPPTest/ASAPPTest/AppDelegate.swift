@@ -116,10 +116,10 @@ extension AppDelegate {
         demoLog("application:didRegisterForRemoteNotificationsWithDeviceToken:\n  bundleId: \(bundleId))\n  device token: \(token)")
         
         let pushIdentifier = AppSettings.shared.pushServiceIdentifier
-        if pushIdentifier[PushRegistration.pushServiceKey] as? String == PushRegistration.apnsKey {
+        if pushIdentifier[PushRegistration.serviceKey] as? Int == PushRegistration.apns.rawValue {
             ASAPP.enablePushNotifications(with: deviceToken)
         } else {
-            if let uuid = pushIdentifier["key"] as? String {
+            if let uuid = pushIdentifier[PushRegistration.tokenKey] as? String {
                 ASAPP.enablePushNotifications(with: uuid)
             }
         }
