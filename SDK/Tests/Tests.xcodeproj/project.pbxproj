@@ -191,6 +191,10 @@
 		3AA8643B218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA86439218A38CB006F0971 /* chat-ended-only-child-weight.json */; };
 		3AA8643C218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA86439218A38CB006F0971 /* chat-ended-only-child-weight.json */; };
 		3AA8643D218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA86439218A38CB006F0971 /* chat-ended-only-child-weight.json */; };
+		3AA8643F218CB94E006F0971 /* checkbox-with-label.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8643E218CB94E006F0971 /* checkbox-with-label.json */; };
+		3AA86440218CB94E006F0971 /* checkbox-with-label.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8643E218CB94E006F0971 /* checkbox-with-label.json */; };
+		3AA86441218CB94E006F0971 /* checkbox-with-label.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8643E218CB94E006F0971 /* checkbox-with-label.json */; };
+		3AA86442218CB94E006F0971 /* checkbox-with-label.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8643E218CB94E006F0971 /* checkbox-with-label.json */; };
 		3AA8DAEF20DD81900062A370 /* CensorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8DAEE20DD81900062A370 /* CensorSpec.swift */; };
 		3AA8DAF120DD84400062A370 /* censor-email.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AA8DAF020DD84400062A370 /* censor-email.json */; };
 		3AB876DA2150221C00DC0CEC /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; };
@@ -421,6 +425,7 @@
 		3AA1E4FD1FFC769800548E3D /* MockOutgoingMessageSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOutgoingMessageSerializer.swift; sourceTree = "<group>"; };
 		3AA1E4FF1FFDBD9600548E3D /* MockSRWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSRWebSocket.swift; sourceTree = "<group>"; };
 		3AA86439218A38CB006F0971 /* chat-ended-only-child-weight.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "chat-ended-only-child-weight.json"; sourceTree = "<group>"; };
+		3AA8643E218CB94E006F0971 /* checkbox-with-label.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "checkbox-with-label.json"; sourceTree = "<group>"; };
 		3AA8DAEE20DD81900062A370 /* CensorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CensorSpec.swift; sourceTree = "<group>"; };
 		3AA8DAF020DD84400062A370 /* censor-email.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "censor-email.json"; sourceTree = "<group>"; };
 		3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble_Snapshots.framework; path = ../Carthage/Build/iOS/Nimble_Snapshots.framework; sourceTree = "<group>"; };
@@ -539,6 +544,7 @@
 				3A675C03211C88B50077BC00 /* tab-view.json */,
 				3A675BF9211B9A280077BC00 /* ultimate-collection.json */,
 				3AA86439218A38CB006F0971 /* chat-ended-only-child-weight.json */,
+				3AA8643E218CB94E006F0971 /* checkbox-with-label.json */,
 			);
 			path = "Sample JSON";
 			sourceTree = "<group>";
@@ -895,6 +901,7 @@
 				3A675BFA211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */,
 				3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */,
+				3AA8643F218CB94E006F0971 /* checkbox-with-label.json in Resources */,
 				3A4B43C821403D5B00D729CF /* Lato-Regular.ttf in Resources */,
 				3A391B3C1FA14EB20085C2DA /* change-pin-form.json in Resources */,
 				3AA0D3B620AA160B00A04206 /* feedback-form-radio.json in Resources */,
@@ -927,6 +934,7 @@
 				3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3ADF49392113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A675C05211C88B50077BC00 /* tab-view.json in Resources */,
+				3AA86440218CB94E006F0971 /* checkbox-with-label.json in Resources */,
 				3A99523420DDDA7700343D10 /* censor-password.json in Resources */,
 				3ADF49342113B33500315E87 /* card-and-buttons.json in Resources */,
 				3A87910020B3559E00AD81E5 /* carousel-uneven.json in Resources */,
@@ -965,6 +973,7 @@
 				3AED18F71FA0FC18005955DA /* change-pin-form.json in Resources */,
 				3A675C01211C840E0077BC00 /* data-usage.json in Resources */,
 				3A391B4B1FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
+				3AA86441218CB94E006F0971 /* checkbox-with-label.json in Resources */,
 				3A127DBA1FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
 				3A675C06211C88B50077BC00 /* tab-view.json in Resources */,
 				3A621FCD208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
@@ -997,6 +1006,7 @@
 				3AA0D40620AA448100A04206 /* feedback-form-scale.json in Resources */,
 				3ADF49362113B33600315E87 /* card-and-buttons.json in Resources */,
 				3AA8643D218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */,
+				3AA86442218CB94E006F0971 /* checkbox-with-label.json in Resources */,
 				3A87910220B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A675C07211C88B50077BC00 /* tab-view.json in Resources */,
 			);
