@@ -61,6 +61,11 @@ fastlane ios checkDocumentation
 fastlane ios checkVersionString
 ```
 
+### ios stagingBeta
+```
+fastlane ios stagingBeta
+```
+
 ### ios archiveFramework
 ```
 fastlane ios archiveFramework
