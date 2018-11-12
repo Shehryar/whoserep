@@ -1,0 +1,159 @@
+{
+  "root": {
+    "content": {
+      "items": [
+        {
+          "content": {
+            "root": {
+              "content": {
+                "items": [
+                  {
+                    "content": {},
+                    "style": {
+                      "gravity": "middle",
+                      "marginRight": 16
+                    },
+                    "type": "radioButton"
+                  },
+                  {
+                    "content": {
+                      "items": [
+                        {
+                          "content": {
+                            "text": "Yes"
+                          },
+                          "style": {
+                            "marginTop": 0,
+                            "textType": "body"
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1
+                    },
+                    "type": "stackView"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            }
+          },
+          "style": {
+            "align": "fill",
+            "borderWidth": 1,
+            "cornerRadius": 6,
+            "marginTop": 0,
+            "padding": 20
+          },
+          "type": "radioButtonView",
+          "value": "yes"
+        },
+        {
+          "content": {
+            "root": {
+              "content": {
+                "items": [
+                  {
+                    "content": {},
+                    "style": {
+                      "gravity": "middle",
+                      "marginRight": 16
+                    },
+                    "type": "radioButton"
+                  },
+                  {
+                    "content": {
+                      "items": [
+                        {
+                          "content": {
+                            "text": "No"
+                          },
+                          "style": {
+                            "marginTop": 0,
+                            "textType": "body"
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1
+                    },
+                    "type": "stackView"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            }
+          },
+          "style": {
+            "align": "fill",
+            "borderWidth": 1,
+            "cornerRadius": 6,
+            "marginTop": 10,
+            "padding": 20
+          },
+          "type": "radioButtonView",
+          "value": "no"
+        },
+        {
+          "content": {
+            "root": {
+              "content": {
+                "items": [
+                  {
+                    "content": {},
+                    "style": {
+                      "gravity": "middle",
+                      "marginRight": 16
+                    },
+                    "type": "radioButton"
+                  },
+                  {
+                    "content": {
+                      "items": [
+                        {
+                          "content": {
+                            "text": "I Don't Know"
+                          },
+                          "style": {
+                            "marginTop": 0,
+                            "textType": "body"
+                          },
+                          "type": "label"
+                        }
+                      ]
+                    },
+                    "style": {
+                      "gravity": "middle",
+                      "weight": 1
+                    },
+                    "type": "stackView"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "type": "stackView"
+            }
+          },
+          "style": {
+            "align": "fill",
+            "borderWidth": 1,
+            "cornerRadius": 6,
+            "marginTop": 10,
+            "padding": 20
+          },
+          "type": "radioButtonView",
+          "value": "unsure"
+        }
+      ]
+    },
+    "type": "stackView"
+  }
+}
