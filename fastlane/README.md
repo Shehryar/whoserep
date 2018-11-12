@@ -15,6 +15,14 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
+### archive_framework_local
+```
+fastlane archive_framework_local
+```
+
+
+----
+
 ## iOS
 ### ios test
 ```
