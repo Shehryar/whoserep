@@ -118,6 +118,7 @@ class ChatMessagesView: UIView {
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     private var focusTimer: Timer?
     private var previousFocusedReply: ChatMessage?
+    private var scrollDebouncer = Debouncer(interval: .seconds(0.5))
     
     // MARK: - Initialization
     
@@ -473,7 +474,20 @@ extension ChatMessagesView {
             return
         }
         
-        tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+        func scrollHelper(_ tableView: UITableView?) {
+            tableView?.scrollToRow(at: indexPath, at: .top, animated: animated)
+        }
+        
+        if animated {
+            scrollDebouncer.debounce { [weak self] in
+                Dispatcher.performOnMainThread { [weak self] in
+                    scrollHelper(self?.tableView)
+                }
+            }
+        } else {
+            scrollDebouncer.cancel()
+            scrollHelper(tableView)
+        }
     }
     
     func scrollToBottom(animated: Bool, focus: Bool = false) {
@@ -483,7 +497,9 @@ extension ChatMessagesView {
                 return
             }
             
-            strongSelf.layer.removeAllAnimations()
+            if !animated {
+                strongSelf.layer.removeAllAnimations()
+            }
             strongSelf.scrollToRow(at: indexPath, animated: animated)
             
             if focus {

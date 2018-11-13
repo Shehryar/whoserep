@@ -1,14 +1,14 @@
 //
-//  Throttler.swift
+//  Debouncer.swift
 //  ASAPP
 //
-//  Created by Hans Hyttinen on 5/9/18.
+//  Created by Hans Hyttinen on 11/12/18.
 //  Copyright © 2018 asappinc. All rights reserved.
 //
 
 import Foundation
 
-class Throttler {
+class Debouncer {
     private let queue = DispatchQueue.global(qos: .utility)
     private var workItem = DispatchWorkItem(block: {})
     private var lastExecuted = Date.distantPast
@@ -19,15 +19,17 @@ class Throttler {
         self.interval = interval.seconds
     }
     
-    func throttle(handler: @escaping (() -> Void)) {
+    func debounce(handler: @escaping (() -> Void)) {
+        guard Date().timeIntervalSince(lastExecuted) > interval else {
+            return
+        }
+        
         workItem.cancel()
         workItem = DispatchWorkItem { [weak self] in
             self?.lastExecuted = Date()
             handler()
         }
-        
-        let delay = Date().timeIntervalSince(lastExecuted) > interval ? 0 : interval
-        queue.asyncAfter(deadline: .now() + delay, execute: workItem)
+        queue.async(execute: workItem)
     }
     
     func cancel() {
