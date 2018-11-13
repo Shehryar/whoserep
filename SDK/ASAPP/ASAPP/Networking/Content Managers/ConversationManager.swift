@@ -122,15 +122,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     
     weak var delegate: ConversationManagerDelegate?
     
-    var originalSearchQuery: String? {
-        set {
-            simpleStore.updateSRSOriginalSearchQuery(query: newValue)
-        }
-        get {
-            return simpleStore.getSRSOriginalSearchQuery()
-        }
-    }
-    
     var currentSRSClassification: String? {
         didSet {
             DebugLog.d(caller: self, "Updating currentSRSClassification: \(currentSRSClassification ?? "nil")")
@@ -140,8 +131,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     var isConnected: Bool {
         return socketConnection.isConnected
     }
-    
-    private let simpleStore: ChatSimpleStore
     
     private let secureStorage: SecureStorageProtocol
     
@@ -163,7 +152,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         self.config = config
         self.user = user
         self.sessionManager = SessionManager(config: config, user: user)
-        self.simpleStore = ChatSimpleStore(config: config, user: user)
         self.secureStorage = SecureStorage.default
         self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
         self.httpClient = HTTPClient.shared
@@ -488,8 +476,7 @@ extension ConversationManager {
                 query = censor.process(query)
             }
             var params: [String: Any] = [
-                "Text": query,
-                "SearchQuery": query
+                "Text": query
             ]
             
             if let data = try? JSONEncoder().encode(autosuggestMetadata),

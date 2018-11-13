@@ -46,7 +46,6 @@
 		3A1A13B31F97D4B700B647C7 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429171F97A2DF0031CD78 /* ASAPP.framework */; };
 		3A26997C206063C9007C0EC6 /* ChatInputViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A26997B206063C9007C0EC6 /* ChatInputViewTestCase.swift */; };
 		3A304C44207FFAB60072BA56 /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A304C43207FFAB60072BA56 /* MockUserDefaults.swift */; };
-		3A304C46207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A304C45207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift */; };
 		3A33A5AF1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */; };
 		3A391B381FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
 		3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A391B371FA14E080085C2DA /* FormValidation.swift */; };
@@ -366,7 +365,6 @@
 		3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = ../Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
 		3A26997B206063C9007C0EC6 /* ChatInputViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputViewTestCase.swift; sourceTree = "<group>"; };
 		3A304C43207FFAB60072BA56 /* MockUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
-		3A304C45207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSimpleStoreSpec.swift; sourceTree = "<group>"; };
 		3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageDeserializerSpec.swift; sourceTree = "<group>"; };
 		3A391B371FA14E080085C2DA /* FormValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidation.swift; sourceTree = "<group>"; };
 		3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationTestCase.swift; sourceTree = "<group>"; };
@@ -655,7 +653,6 @@
 				3AA8DAEE20DD81900062A370 /* CensorSpec.swift */,
 				3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */,
 				3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */,
-				3A304C45207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift */,
 				3AD60A9D204F41ED00C0F2C2 /* CodableStorageSpec.swift */,
 				3A127DB41FC4DCAE00EEF9E0 /* ComponentLayoutEngineSpec.swift */,
 				3AB92C7E1FED8B25000AE21A /* EventSpec.swift */,
@@ -1100,7 +1097,6 @@
 				3A0F04B2201040250064E76F /* SocketRequestSpec.swift in Sources */,
 				3A04291F1F97C1B70031CD78 /* TestUtil.swift in Sources */,
 				3A0F04B0200F057E0064E76F /* APIActionErrorSpec.swift in Sources */,
-				3A304C46207FFE1E0072BA56 /* ChatSimpleStoreSpec.swift in Sources */,
 				3AD7BB752107C334006FBB7D /* MockSecureCodableStorage.swift in Sources */,
 				3AA1E4FE1FFC769800548E3D /* MockOutgoingMessageSerializer.swift in Sources */,
 				3AD60A9C204F3CE100C0F2C2 /* MockFileManager.swift in Sources */,

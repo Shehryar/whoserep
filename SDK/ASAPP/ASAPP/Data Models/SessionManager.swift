@@ -8,6 +8,16 @@
 
 import UIKit
 
+protocol UserDefaultsProtocol {
+    func set(_ value: Any?, forKey defaultName: String)
+    func removeObject(forKey defaultName: String)
+    func object(forKey defaultName: String) -> Any?
+    func string(forKey defaultName: String) -> String?
+    func integer(forKey defaultName: String) -> Int
+}
+
+extension UserDefaults: UserDefaultsProtocol {}
+
 class SessionManager: NSObject {
 
     let config: ASAPPConfig
