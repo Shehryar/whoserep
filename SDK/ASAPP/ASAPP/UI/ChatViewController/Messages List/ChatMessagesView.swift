@@ -118,7 +118,7 @@ class ChatMessagesView: UIView {
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     private var focusTimer: Timer?
     private var previousFocusedReply: ChatMessage?
-    private var scrollDebouncer = Debouncer(interval: .seconds(0.5))
+    private var scrollDebouncer: Debouncer? = Debouncer(interval: .seconds(0.5))
     
     // MARK: - Initialization
     
@@ -160,6 +160,8 @@ class ChatMessagesView: UIView {
     deinit {
         focusTimer?.cancel()
         focusTimer = nil
+        scrollDebouncer?.cancel()
+        scrollDebouncer = nil
     }
     
     // MARK: Layout
@@ -479,13 +481,13 @@ extension ChatMessagesView {
         }
         
         if animated {
-            scrollDebouncer.debounce { [weak self] in
+            scrollDebouncer?.debounce { [weak self] in
                 Dispatcher.performOnMainThread { [weak self] in
                     scrollHelper(self?.tableView)
                 }
             }
         } else {
-            scrollDebouncer.cancel()
+            scrollDebouncer?.cancel()
             scrollHelper(tableView)
         }
     }

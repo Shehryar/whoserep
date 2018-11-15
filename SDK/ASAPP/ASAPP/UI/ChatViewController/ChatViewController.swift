@@ -63,7 +63,7 @@ class ChatViewController: ASAPPViewController {
     private var partialAutosuggestMetadataByResponseId: [AutosuggestMetadata.ResponseId: AutosuggestMetadata] = [:]
     private var keystrokesBeforeSelection = 0
     private var keystrokesAfterSelection = 0
-    private let autosuggestThrottler = Throttler(interval: .milliseconds(100))
+    private var autosuggestThrottler: Throttler? = Throttler(interval: .milliseconds(100))
     private var pendingAutosuggestRequestQueries: [String] = []
     private let maxPendingAutosuggestRequests = 10
     
@@ -155,6 +155,8 @@ class ChatViewController: ASAPPViewController {
     // MARK: Deinit
     
     deinit {
+        autosuggestThrottler?.cancel()
+        autosuggestThrottler = nil
         insetStateTimer?.cancel()
         insetStateTimer = nil
         conversationManager.exitConversation()
@@ -441,7 +443,7 @@ extension ChatViewController: StoreSubscriber {
         insetStateTimer?.cancel()
         
         if state.queryUI.input == .inset {
-            insetStateTimer = Timer(delay: .seconds(3.5)) {
+            insetStateTimer = Timer(delay: .seconds(3.5)) { [weak self] in
                 Dispatcher.performOnMainThread { [weak self] in
                     self?.store.dispatch(DidWaitInInsetState())
                 }
@@ -1215,7 +1217,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
 
 extension ChatViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didSelectSuggestion suggestion: String, at index: Int, count: Int, responseId: AutosuggestMetadata.ResponseId) {
-        autosuggestThrottler.cancel()
+        autosuggestThrottler?.cancel()
         
         store.dispatch(DidSelectSuggestion())
         
@@ -1240,12 +1242,12 @@ extension ChatViewController: ChatInputViewDelegate {
             conversationManager.sendUserTypingStatus(isTyping: isTyping, with: text)
         } else {
             if let text = text, !text.isEmpty {
-                autosuggestThrottler.throttle { [weak self] in
+                autosuggestThrottler?.throttle { [weak self] in
                     self?.fetchSuggestions(for: text)
                 }
                 store.dispatch(DidUpdateChatInputText(text: text))
             } else {
-                autosuggestThrottler.cancel()
+                autosuggestThrottler?.cancel()
                 store.dispatch(DidUpdateChatInputText(text: ""))
             }
         }
