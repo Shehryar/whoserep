@@ -111,7 +111,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "form:checkbox-with-label"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "form:feedback-form"
@@ -135,7 +135,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithScale"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithRadio"

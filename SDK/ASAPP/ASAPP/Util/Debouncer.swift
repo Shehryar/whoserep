@@ -8,9 +8,10 @@
 
 import Foundation
 
+/// Executes the given handler if at least *interval* has passed since the last execution.
+/// Otherwise, does nothing.
+/// Handlers are executed immediately in the current thread.
 class Debouncer {
-    private let queue = DispatchQueue.global(qos: .utility)
-    private var workItem = DispatchWorkItem(block: {})
     private var lastExecuted = Date.distantPast
     
     let interval: TimeInterval
@@ -24,15 +25,11 @@ class Debouncer {
             return
         }
         
-        workItem.cancel()
-        workItem = DispatchWorkItem { [weak self] in
-            self?.lastExecuted = Date()
-            handler()
-        }
-        queue.async(execute: workItem)
+        lastExecuted = Date()
+        handler()
     }
     
     func cancel() {
-        workItem.cancel()
+        lastExecuted = .distantPast
     }
 }

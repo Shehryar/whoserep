@@ -8,6 +8,14 @@
 
 import Foundation
 
+/// Executes no more often than once per interval.
+/// If it has been less than the interval since the last execution,
+/// the handler will be executed once the remainder of the interval has passed.
+/// Subsequent calls within the interval will cancel the previous item and delay the
+/// execution of the provided handler as appropriate.
+/// If it has been longer than the interval since the last execution,
+/// the handler will be executed immediately.
+/// All handlers are asynchronously executed in a background (QoS: utility) thread.
 class Throttler {
     private let queue = DispatchQueue.global(qos: .utility)
     private var workItem = DispatchWorkItem(block: {})
