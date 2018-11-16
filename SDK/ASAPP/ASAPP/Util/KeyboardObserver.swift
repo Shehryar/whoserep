@@ -46,6 +46,13 @@ class KeyboardObserver: NSObject {
             return
         }
         
+        // Note:
+        // If the app launches in landscape, and then transitions to portrait for chat the input accessory view's
+        // frame will be incorrect. Though the keyboard is hidden the last notification to fire
+        // is `UIKeyboardWillShow`, the keyboards height then comes back incorrect and the
+        // accessory is placed in the wrong location
+        // Similar open radar: https://openradar.appspot.com/34912123
+        // Relevant stack overflow: https://stackoverflow.com/questions/51889141/ios-keyboard-input-accessory-view-wrong-orientation-when-we-start-the-applicat
         let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardHeight = keyboardFrame.height
         let duration = TimeInterval(truncating: userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber)

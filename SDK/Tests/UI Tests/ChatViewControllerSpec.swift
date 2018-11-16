@@ -100,7 +100,7 @@ class ChatViewControllerSpec: QuickSpec {
                 context("default state") {
                     it("is initialized and loaded properly") {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, supportedOrientations: .portraitLocked)
                         window.rootViewController = viewController
                         _ = viewController.view
                         
@@ -128,7 +128,7 @@ class ChatViewControllerSpec: QuickSpec {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
                         mockConversationManager.events = [event]
                         
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, supportedOrientations: .portraitLocked)
                         window.rootViewController = viewController
                         _ = viewController.view
                         
@@ -157,7 +157,7 @@ class ChatViewControllerSpec: QuickSpec {
                         mockConversationManager.events = [event]
                         mockConversationManager.isConnected = true
                         
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, supportedOrientations: .portraitLocked)
                         window.rootViewController = viewController
                         mockConversationManager.delegate = viewController
                         mockConversationManager.delegate?.conversationManager(mockConversationManager, didChangeConnectionStatus: true)
@@ -187,7 +187,7 @@ class ChatViewControllerSpec: QuickSpec {
                         let mockConversationManager = MockConversationManager(config: config, user: user, userLoginAction: nil)
                         mockConversationManager.events = [event]
                         
-                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager)
+                        let viewController = ChatViewController(config: config, user: user, segue: .push, conversationManager: mockConversationManager, supportedOrientations: .portraitLocked)
                         window.rootViewController = viewController
                         mockConversationManager.delegate = viewController
                         _ = viewController.view

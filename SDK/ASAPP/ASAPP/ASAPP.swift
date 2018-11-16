@@ -96,7 +96,7 @@ public class ASAPP: NSObject {
     public class func createChatViewControllerForPushing(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
         
-        let chat = createBareChatViewController(fromNotificationWith: userInfo, segue: .push)
+        let chat = createBareChatViewController(fromNotificationWith: userInfo, segue: .push, supportedOrientations: styles.allowedOrientations)
         let container = ContainerViewController(rootViewController: chat)
         
         return container
@@ -111,7 +111,7 @@ public class ASAPP: NSObject {
     public class func createChatViewControllerForPresenting(fromNotificationWith userInfo: [AnyHashable: Any]?) -> UIViewController {
         assertSetupComplete()
         
-        let chat = createBareChatViewController(fromNotificationWith: userInfo)
+        let chat = createBareChatViewController(fromNotificationWith: userInfo, supportedOrientations: styles.allowedOrientations)
         let nav = NavigationController(rootViewController: chat)
         
         return nav
@@ -207,14 +207,15 @@ internal extension ASAPP {
         assert(user != nil, "ASAPP.user must be set before calling this method.")
     }
     
-    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: Segue = .present) -> UIViewController {
+    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: Segue = .present, supportedOrientations: ASAPPAllowedOrientations) -> UIViewController {
         let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(
             config: config,
             user: user,
             segue: segue,
             conversationManager: conversationManager,
-            pushNotificationPayload: userInfo)
+            pushNotificationPayload: userInfo,
+            supportedOrientations: supportedOrientations)
         
         return chatViewController
     }

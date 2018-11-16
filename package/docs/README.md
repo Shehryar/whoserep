@@ -128,6 +128,17 @@ when creating the chat view controller.
 
     present(viewController, animated: true, completion: nil)
 
+### Customize chat orientation
+Currently this is defaulted to `.portraitLocked`. iPhones only support the `.portraitLocked` orientation, iPads can change this to be `.iPadLandscapeAllowed`.
+
+Lock the chat into portrait mode:
+
+    ASAPP.styles.allowedOrientations = .portraitLocked
+
+Support landscape orientation as well:
+
+    ASAPP.styles.allowedOrientations = .iPadLandscapeAllowed
+
 ### Push Notifications
 
 ASAPP can send your users push notifications when they receive a message

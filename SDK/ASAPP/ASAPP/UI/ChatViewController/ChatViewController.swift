@@ -22,6 +22,7 @@ class ChatViewController: ASAPPViewController {
     
     private(set) var conversationManager: ConversationManagerProtocol!
     private var quickRepliesMessage: ChatMessage?
+    private let supportedOrientations: ASAPPAllowedOrientations
 
     // MARK: Properties: Views / UI
 
@@ -83,10 +84,11 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: Segue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: Segue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil, supportedOrientations: ASAPPAllowedOrientations) {
         self.config = config
         self.segue = segue
         self.conversationManager = conversationManager
+        self.supportedOrientations = supportedOrientations
         self.store = Store<UIState>(reducer: Reducers.reduceUIState, state: nil)
         super.init(nibName: nil, bundle: nil)
         
@@ -286,19 +288,26 @@ class ChatViewController: ASAPPViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let rawOrientation = UIDevice.current.value(forKeyPath: "orientation") as? Int,
-            let orientation = UIInterfaceOrientation(rawValue: rawOrientation),
-            orientation == .portrait {
-            store.dispatch(DidTransition())
-        } else if UIDevice.current.userInterfaceIdiom == .phone {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKeyPath: "orientation")
-            UIViewController.attemptRotationToDeviceOrientation()
-        } else {
-            store.dispatch(DidTransition())
-        }
-        
         keyboardObserver.registerForNotifications()
+    }
+
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return supportedOrientations.orientationMask
+    }
+    
+    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return supportedOrientations.preferredPresentationOrientation
+    }
+    
+    func configureOrientation() {
+        if UIDevice.current.userInterfaceIdiom == .phone || supportedOrientations == .portraitLocked {
+            rotateTo(orientation: .portrait)
+            return
+        }
+    }
+    
+    func rotateTo(orientation: UIInterfaceOrientationMask) {
+        UIDevice.current.setValue(orientation.rawValue, forKeyPath: "orientation")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -314,7 +323,7 @@ class ChatViewController: ASAPPViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        configureOrientation()
         if !isMovingToParentViewController {
             chatMessagesView.focusAccessibilityOnLastMessage(delay: false)
         }
@@ -330,7 +339,6 @@ class ChatViewController: ASAPPViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
         store.dispatch(WillTransition(size: size, coordinator: coordinator))
     }
     
