@@ -16,7 +16,7 @@ protocol ConversationManagerDelegate: class {
     
     func conversationManager(_ manager: ConversationManagerProtocol, didUpdate message: ChatMessage)
     
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event)
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event?)
     
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool)
     
@@ -30,5 +30,9 @@ protocol ConversationManagerDelegate: class {
 extension ConversationManagerDelegate {
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool) {
         conversationManager(manager, didChangeConnectionStatus: isConnected, authError: nil)
+    }
+    
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool) {
+        conversationManager(manager, didChangeLiveChatStatus: isLiveChat, with: nil)
     }
 }

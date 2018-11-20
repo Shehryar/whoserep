@@ -519,7 +519,7 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func updateTypingStatus(_ isTyping: Bool, immediately: Bool = true, shouldScrollToBottom: Bool = false) {
+    func updateTypingStatus(_ isTyping: Bool, immediately: Bool = true, shouldScrollToBottom: Bool = false, shouldBatch: Bool = true) {
         let isDifferent = isTyping != dataSource.isTypingIndicatorVisible
         
         if isDifferent && !isTyping && !immediately {
@@ -533,14 +533,20 @@ extension ChatMessagesView {
         let lastSection = numberOfSections(in: tableView) - 1
         let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
         
-        tableView.beginUpdates()
+        if shouldBatch {
+            tableView.beginUpdates()
+        }
+        
         dataSource.isTypingIndicatorVisible = isTyping
         if isTyping {
             tableView.insertRows(at: [IndexPath(row: lastRow + 1, section: lastSection)], with: .fade)
         } else {
             tableView.deleteRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
         }
-        tableView.endUpdates()
+        
+        if shouldBatch {
+            tableView.endUpdates()
+        }
         
         if isNearBottom() && shouldScrollToBottom {
             scrollToBottom(animated: true)
@@ -600,13 +606,17 @@ extension ChatMessagesView {
     }
     
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
+        tableView.beginUpdates()
+        
         if shouldHideTypingIndicatorOnNextMessage {
             shouldHideTypingIndicatorOnNextMessage = false
-            updateTypingStatus(false, immediately: true)
+            updateTypingStatus(false, immediately: true, shouldScrollToBottom: false, shouldBatch: false)
         }
         
+        let oldSectionCount = dataSource.numberOfSections()
         guard let indexPath = dataSource.addMessage(message) else {
             DebugLog.w(caller: self, "Failed to add message to view.")
+            tableView.endUpdates()
             return
         }
         
@@ -618,7 +628,11 @@ extension ChatMessagesView {
             messagesThatShouldAnimate.insert(message)
         }
         
-        tableView.reloadData()
+        tableView.insertRows(at: [indexPath], with: .none)
+        if indexPath.section == oldSectionCount {
+            tableView.insertSections(IndexSet(integer: indexPath.section), with: .none)
+        }
+        tableView.endUpdates()
         
         if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell,
            let cellMessage = cell.message,

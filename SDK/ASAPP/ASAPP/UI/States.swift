@@ -35,7 +35,6 @@ enum InputState {
     case chatInputWithQuickReplies
     case chatInput(keyboardIsVisible: Bool)
     case empty
-    case liveChat(keyboardIsVisible: Bool)
     case prechat
     case newQuestionAlone
     case newQuestionWithInset
@@ -50,8 +49,6 @@ enum InputState {
             return .chatInputWithQuickReplies
         case .chatInput:
             return .chatInput(keyboardIsVisible: false)
-        case .liveChat:
-            return .liveChat(keyboardIsVisible: false)
         default:
             return self
         }
@@ -63,18 +60,8 @@ enum InputState {
             return .prechat
         case .chatInput:
             return .chatInput(keyboardIsVisible: true)
-        case .liveChat:
-            return .liveChat(keyboardIsVisible: true)
         default:
             return self
-        }
-    }
-    
-    var isLiveChat: Bool {
-        if case .liveChat = self {
-            return true
-        } else {
-            return false
         }
     }
 }
@@ -95,8 +82,6 @@ func == (lhs: InputState, rhs: InputState) -> Bool {
         if case .chatInput = rhs { return true }
     case .empty:
         if case .empty = rhs { return true }
-    case .liveChat:
-        if case .liveChat = rhs { return true }
     case .prechat:
         if case .prechat = rhs { return true }
     case .newQuestionAlone:

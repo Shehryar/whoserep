@@ -42,7 +42,6 @@ protocol ConversationManagerProtocol: class {
     var delegate: ConversationManagerDelegate? { get set }
     var events: [Event] { get }
     var currentSRSClassification: String? { get set }
-    var isLiveChat: Bool { get }
     var isConnected: Bool { get }
     var pushNotificationPayload: [AnyHashable: Any]? { get set }
     
@@ -137,8 +136,6 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     private(set) var events: [Event] = []
     
     private var censor: CensorProtocol?
-    
-    private(set) var isLiveChat: Bool = false
     
     // MARK: Private Properties
     
@@ -268,7 +265,7 @@ extension ConversationManager {
         getEvents(before: nil, after: nil, limit: limit, completion: completion)
     }
     
-    private func detectIsLiveChat(flag: Bool, events: IncomingMessage.Events) -> Bool {
+    private func detectIsLiveChat(flag: Bool, events: IncomingMessage.Events) -> Bool? {
         if flag {
             return true
         }
@@ -283,7 +280,7 @@ extension ConversationManager {
             }
         }
         
-        return false
+        return nil
     }
     
     private func getEvents(before firstEvent: Event?, after lastEvent: Event?, limit: Int?, completion: @escaping ConversationManagerProtocol.FetchedEventsCompletion) {
@@ -319,8 +316,11 @@ extension ConversationManager {
                 message.type = .response
                 
                 let parsedEvents = message.parseEvents()
+                var isLiveChat: Bool?
                 if let events = parsedEvents.events {
-                    strongSelf.isLiveChat = strongSelf.detectIsLiveChat(flag: data["IsLiveChat"] as? Bool ?? false, events: events)
+                    if firstEvent == nil {
+                        isLiveChat = strongSelf.detectIsLiveChat(flag: data["IsLiveChat"] as? Bool ?? false, events: events)
+                    }
                     
                     if shouldInsert {
                         strongSelf.events.insert(contentsOf: events, at: 0)
@@ -333,6 +333,12 @@ extension ConversationManager {
                 
                 Dispatcher.performOnMainThread {
                     completion(parsedEvents.events, parsedEvents.errorMessage)
+                    
+                    if let isLiveChat = isLiveChat {
+                        Dispatcher.delay {
+                            strongSelf.delegate?.conversationManager(strongSelf, didChangeLiveChatStatus: isLiveChat)
+                        }
+                    }
                 }
             }
         }
@@ -522,11 +528,7 @@ extension ConversationManager: SocketConnectionDelegate {
         
         // Entering / Exiting Live Chat
         if let liveChatStatus = EventType.getLiveChatStatus(for: event.eventType) {
-            let wasLiveChat = isLiveChat
-            isLiveChat = liveChatStatus
-            if wasLiveChat != isLiveChat {
-                delegate?.conversationManager(self, didChangeLiveChatStatus: liveChatStatus, with: event)
-            }
+            delegate?.conversationManager(self, didChangeLiveChatStatus: liveChatStatus, with: event)
         }
         
         // Auth Expired

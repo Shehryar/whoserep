@@ -219,9 +219,6 @@ class ChatViewController: ASAPPViewController {
         self.user = user
         conversationManager = type(of: conversationManager).init(config: config, user: user, userLoginAction: userLoginAction)
         conversationManager.delegate = self
-        if conversationManager.isLiveChat != store.state.isLiveChat {
-            store.dispatch(DidChangeLiveChatStatus(isLiveChat: conversationManager.isLiveChat, updateInput: false))
-        }
         
         func reEnter() {
             shouldReloadOnUserUpdate = false
@@ -388,15 +385,13 @@ extension ChatViewController: StoreSubscriber {
             shouldScroll = true
         }
         
-        if ![.prechat, .chatInput(keyboardIsVisible: true), .liveChat(keyboardIsVisible: true)].contains(state.queryUI.input) {
+        if ![.prechat, .chatInput(keyboardIsVisible: true)].contains(state.queryUI.input) {
             chatInputView?.resignFirstResponder()
         }
         
         if [.prechat,
             .chatInput(keyboardIsVisible: true),
-            .chatInput(keyboardIsVisible: false),
-            .liveChat(keyboardIsVisible: true),
-            .liveChat(keyboardIsVisible: false)].contains(state.queryUI.input) {
+            .chatInput(keyboardIsVisible: false)].contains(state.queryUI.input) {
             if #available(iOS 11.0, *) {
                 chatInputView?.prepareForFocus(in: view.safeAreaInsets)
             } else {
@@ -407,6 +402,7 @@ extension ChatViewController: StoreSubscriber {
         if (previousState?.isLiveChat ?? false) != state.isLiveChat {
             DebugLog.d("Chat Mode Changed: \(state.isLiveChat ? "LIVE CHAT" : "SRS")")
             conversationManager.currentSRSClassification = state.isLiveChat ? nil : quickRepliesView.currentSRSClassification
+            shouldScroll = true
             if isViewLoaded {
                 updateViewForLiveChat(animated: animated)
             }
@@ -591,19 +587,19 @@ extension ChatViewController {
         
         updateMoreButton()
         
-        if store.state.queryUI.input.isLiveChat {
+        if store.state.isLiveChat {
             chatInputView?.needsToBecomeFirstResponder = true
         } else {
             chatInputView?.resignFirstResponder()
         }
         
-        chatInputView?.displayMediaButton = store.state.queryUI.input.isLiveChat
+        chatInputView?.displayMediaButton = store.state.isLiveChat
         
         let selected = chatInputView?.textView.selectedTextRange ?? .init()
         let wasFirstResponder = chatInputView?.isFirstResponder ?? false
         keyboardObserver.deregisterForNotification()
         chatInputView?.resignFirstResponder()
-        chatInputView?.textView.autocorrectionType = store.state.queryUI.input.isLiveChat ? .default : .no
+        chatInputView?.textView.autocorrectionType = store.state.isLiveChat ? .default : .no
         chatInputView?.textView.selectedTextRange = selected
         keyboardObserver.registerForNotifications()
         if wasFirstResponder {
@@ -721,7 +717,7 @@ extension ChatViewController {
         }
         
         switch inputState {
-        case .prechat, .chatInput, .liveChat:
+        case .prechat, .chatInput:
             chatInputView?.alpha = 1
             quickRepliesHeight = 0
             quickRepliesView.isHidden = true
@@ -1140,10 +1136,6 @@ extension ChatViewController: ChatMessagesViewDelegate {
             }
             
             strongSelf.chatMessagesView.appendEvents(fetchedEvents)
-            let newStatus = strongSelf.conversationManager.isLiveChat
-            if newStatus != strongSelf.store.state.isLiveChat {
-                strongSelf.store.dispatch(DidChangeLiveChatStatus(isLiveChat: newStatus, updateInput: true))
-            }
             
             if let lastChatMessage = fetchedEvents.reversed().first(where: { $0.chatMessage != nil })?.chatMessage {
                 strongSelf.handle(message: lastChatMessage, shouldAdd: false)
@@ -1245,7 +1237,7 @@ extension ChatViewController: ChatInputViewDelegate {
             return
         }
         
-        if store.state.queryUI.input.isLiveChat {
+        if store.state.isLiveChat {
             let isTyping = text != nil && !text!.isEmpty
             conversationManager.sendUserTypingStatus(isTyping: isTyping, with: text)
         } else {
@@ -1693,7 +1685,7 @@ extension ChatViewController: ConversationManagerDelegate {
     
     // Typing Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool) {
-        chatMessagesView.updateTypingStatus(isTyping, shouldScrollToBottom: manager.isLiveChat)
+        chatMessagesView.updateTypingStatus(isTyping, shouldScrollToBottom: store.state.isLiveChat)
     }
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith event: Event) {
@@ -1705,8 +1697,10 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Live Chat Status
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
-        store.dispatch(DidChangeLiveChatStatus(isLiveChat: isLiveChat, updateInput: true))
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event?) {
+        if store.state.isLiveChat != isLiveChat {
+            store.dispatch(DidChangeLiveChatStatus(isLiveChat: isLiveChat, updateInput: true))
+        }
     }
     
     func showGatekeeperViewIfNecessary(_ type: GatekeeperView.ContentType) {
@@ -1853,7 +1847,7 @@ extension ChatViewController {
             scrollToBottomBeforeAddingNextMessage()
         }
         
-        if store.state.queryUI.input.isLiveChat {
+        if store.state.isLiveChat {
             store.dispatch(DidSendMessage())
             conversationManager.sendTextMessage(text)
         } else {
@@ -1910,10 +1904,6 @@ extension ChatViewController {
                 strongSelf.chatMessagesView.shouldShowLoadingHeader = strongSelf.shouldFetchEarlier
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.updateStateForLastEvent()
-                
-                if strongSelf.conversationManager.isLiveChat && !strongSelf.store.state.isLiveChat {
-                    strongSelf.store.dispatch(DidChangeLiveChatStatus(isLiveChat: true, updateInput: true))
-                }
                 
                 Dispatcher.delay { [weak self] in
                     self?.spinner.alpha = self?.chatMessagesView.isEmpty == true ? 1 : 0
