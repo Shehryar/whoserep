@@ -477,6 +477,12 @@ extension ChatMessagesView {
         }
         
         func scrollHelper(_ tableView: UITableView?) {
+            guard
+                indexPath.section < tableView?.numberOfSections ?? 0,
+                indexPath.row < tableView?.numberOfRows(inSection: indexPath.section) ?? 0
+            else {
+                return
+            }
             tableView?.scrollToRow(at: indexPath, at: .top, animated: animated)
         }
         
