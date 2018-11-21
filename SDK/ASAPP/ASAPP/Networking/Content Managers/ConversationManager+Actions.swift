@@ -132,9 +132,6 @@ extension ConversationManager {
             "Text": text,
             "Classification": action.classification
         ]
-        if let originalSearchQuery = originalSearchQuery {
-            params["SearchQuery"] = originalSearchQuery
-        }
         if let eventId = parentMessage?.metadata.eventId {
             params["ParentEventLogSeq"] = eventId
         }

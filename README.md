@@ -14,7 +14,7 @@ Organization
 ├── scripts         Utility scripts
 ```
 
-iOS Development
+Running the test app locally
 ---------------
 
 ### Pre-requisites
@@ -23,11 +23,11 @@ Program | Version
 --------|---------
 Xcode   | 10.0 GM
 
-### Steps for running the apps
+### Steps
 
-1. Open SDK/ASAPP.xcworkspace
+1. Open `SDK/ASAPP.xcworkspace`
 
-1. Select 'ASAPPTest' from the schemes dropdown menu (near the stop button in the upper-left hand corner)
+1. Select *ASAPPTest* from the schemes dropdown menu (near the stop button in the upper-left hand corner)
 
 1. Select the device or simulator you'd like to to test on using the dropdown menu next to the scheme you just selected
 
@@ -103,3 +103,24 @@ scripts/generate_docs.sh
 ```
 
 The reference website can be found at `package/docs/swift/index.html`.
+
+Running tests
+----------------------------------------------------------
+
+### Pre-requisites
+
+1. `brew install carthage`
+2. `cd SDK && carthage bootstrap`
+
+### Steps
+
+1. Select either `All Tests` or `Fast Tests`
+2. Select iPhone SE as target device
+3. Run tests
+
+Running the Objective-C example project
+----------------------------------------------------------
+
+1. Open Xcode 9.4.1
+2. Archive the *Aggregate* scheme for a *Generic iOS Device*. The framework will be updated automatically.
+3. Open and run the example Objective-C project at `/package/Objective-C Example/ASAPPChatDemoObjc.xcodeproj`

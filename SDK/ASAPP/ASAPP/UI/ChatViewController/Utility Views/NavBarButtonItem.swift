@@ -135,9 +135,9 @@ class NavBarButtonItem: UIBarButtonItem {
         var insets = customImage.insets
         switch side {
         case .left:
-            insets.right += 6
+            insets.right += 20
         case .right:
-            insets.left += 6
+            insets.left += 20
         }
         
         if styles.backgroundColor != nil {

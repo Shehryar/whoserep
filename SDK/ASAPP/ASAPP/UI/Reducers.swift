@@ -32,7 +32,7 @@ class Reducers {
                     state.queryUI.input = message.hideNewQuestionButton ? .quickRepliesAlone : .quickRepliesWithNewQuestion
                     state.animation = .needsToAnimate
                 } else if showChatInput {
-                    state.queryUI.input = current.isLiveChat ? .liveChat(keyboardIsVisible: true) : .chatInput(keyboardIsVisible: true)
+                    state.queryUI.input = .chatInput(keyboardIsVisible: true)
                     state.lastReply = nil
                     state.animation = chatInputChange.animated ? .needsToAnimate : .withoutAnimation
                 } else if [EventType.conversationEnd, .conversationTimedOut].contains(message.metadata.eventType) {
@@ -70,6 +70,9 @@ class Reducers {
                     state.animation = .needsToAnimate
                 } else {
                     state.queryUI.input = current.queryUI.input.withKeyboard
+                    if state.queryUI.input == current.queryUI.input {
+                        return current
+                    }
                     state.animation = .withoutAnimation
                 }
             }
@@ -83,7 +86,7 @@ class Reducers {
         case let liveChatChange as DidChangeLiveChatStatus:
             state.isLiveChat = liveChatChange.isLiveChat
             if liveChatChange.updateInput && !state.shouldShowActionSheet {
-                state.queryUI.input = liveChatChange.isLiveChat ? .liveChat(keyboardIsVisible: true) : .newQuestionAlone
+                state.queryUI.input = liveChatChange.isLiveChat ? .chatInput(keyboardIsVisible: true) : .newQuestionAlone
             }
             state.animation = liveChatChange.updateInput ? .needsToAnimate : .withoutAnimation
         case _ as GatekeeperViewDidAppear:
@@ -95,7 +98,7 @@ class Reducers {
         case let actionSheetChange as ActionSheetChange:
             state.shouldShowActionSheet = actionSheetChange.isVisible
             if !actionSheetChange.isVisible && current.isLiveChat {
-                state.queryUI.input = .liveChat(keyboardIsVisible: true)
+                state.queryUI.input = .chatInput(keyboardIsVisible: true)
             }
             state.animation = .withoutAnimation
         case _ as WillRestart:

@@ -110,12 +110,16 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
+            argument = "form:checkbox-with-label"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "form:feedback-form"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:chat-ended-only-child-weight"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "form:tab-view"
@@ -131,7 +135,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithScale"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithRadio"

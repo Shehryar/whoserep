@@ -51,16 +51,16 @@ class Branding: NSObject {
             views.chatTitle = Branding.createChatTitle(image: #imageLiteral(resourceName: "asapp-logo"), frame: CGRect(x: 0, y: 7, width: 76, height: 14.6))
             
         case .boost:
-            styles = Branding.createBoostStyles(appearanceConfig)
+            styles = Branding.createSpearStyles(appearanceConfig)
             
         case .cairo:
             styles = Branding.createCairoStyles(appearanceConfig)
             
         case .telstra:
-            styles = Branding.createTelstraStyles(appearanceConfig)
+            styles = Branding.createTetrisStyles(appearanceConfig)
             
         case .verizon:
-            styles = Branding.createVerizonStyles(appearanceConfig)
+            styles = Branding.createRomeStyles(appearanceConfig)
             views.chatTitle = Branding.createChatTitle(image: #imageLiteral(resourceName: "fios-logo"), frame: CGRect(x: 0, y: 5, width: 48, height: 20))
         
         case .custom:
@@ -96,7 +96,7 @@ extension Branding {
         return styles
     }
     
-    fileprivate class func createBoostStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+    fileprivate class func createSpearStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = createCustomStyles(config)
         
         // Boost special cases
@@ -150,7 +150,7 @@ extension Branding {
         return styles
     }
     
-    fileprivate class func createTelstraStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+    fileprivate class func createTetrisStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = createCustomStyles(config)
         
         // Telstra special cases
@@ -162,7 +162,7 @@ extension Branding {
         return styles
     }
     
-    fileprivate class func createVerizonStyles(_ config: AppearanceConfig) -> ASAPPStyles {
+    fileprivate class func createRomeStyles(_ config: AppearanceConfig) -> ASAPPStyles {
         let styles = createCustomStyles(config)
         
         // Verizon special cases
@@ -181,6 +181,7 @@ extension Branding {
         styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0, color: UIColor.black.withAlphaComponent(0.55))
         
         styles.colors.warning = UIColor(red: 0.8, green: 0.02, blue: 0.04, alpha: 1)
+        styles.allowedOrientations = .iPadLandscapeAllowed
         
         return styles
     }

@@ -22,6 +22,7 @@ class ChatViewController: ASAPPViewController {
     
     private(set) var conversationManager: ConversationManagerProtocol!
     private var quickRepliesMessage: ChatMessage?
+    private let supportedOrientations: ASAPPAllowedOrientations
 
     // MARK: Properties: Views / UI
 
@@ -63,7 +64,7 @@ class ChatViewController: ASAPPViewController {
     private var partialAutosuggestMetadataByResponseId: [AutosuggestMetadata.ResponseId: AutosuggestMetadata] = [:]
     private var keystrokesBeforeSelection = 0
     private var keystrokesAfterSelection = 0
-    private let autosuggestThrottler = Throttler(interval: 0.1)
+    private var autosuggestThrottler: Throttler? = Throttler(interval: .milliseconds(100))
     private var pendingAutosuggestRequestQueries: [String] = []
     private let maxPendingAutosuggestRequests = 10
     
@@ -83,10 +84,11 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: Segue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: Segue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil, supportedOrientations: ASAPPAllowedOrientations) {
         self.config = config
         self.segue = segue
         self.conversationManager = conversationManager
+        self.supportedOrientations = supportedOrientations
         self.store = Store<UIState>(reducer: Reducers.reduceUIState, state: nil)
         super.init(nibName: nil, bundle: nil)
         
@@ -155,6 +157,8 @@ class ChatViewController: ASAPPViewController {
     // MARK: Deinit
     
     deinit {
+        autosuggestThrottler?.cancel()
+        autosuggestThrottler = nil
         insetStateTimer?.cancel()
         insetStateTimer = nil
         conversationManager.exitConversation()
@@ -215,9 +219,6 @@ class ChatViewController: ASAPPViewController {
         self.user = user
         conversationManager = type(of: conversationManager).init(config: config, user: user, userLoginAction: userLoginAction)
         conversationManager.delegate = self
-        if conversationManager.isLiveChat != store.state.isLiveChat {
-            store.dispatch(DidChangeLiveChatStatus(isLiveChat: conversationManager.isLiveChat, updateInput: false))
-        }
         
         func reEnter() {
             shouldReloadOnUserUpdate = false
@@ -284,19 +285,26 @@ class ChatViewController: ASAPPViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let rawOrientation = UIDevice.current.value(forKeyPath: "orientation") as? Int,
-            let orientation = UIInterfaceOrientation(rawValue: rawOrientation),
-            orientation == .portrait {
-            store.dispatch(DidTransition())
-        } else if UIDevice.current.userInterfaceIdiom == .phone {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKeyPath: "orientation")
-            UIViewController.attemptRotationToDeviceOrientation()
-        } else {
-            store.dispatch(DidTransition())
-        }
-        
         keyboardObserver.registerForNotifications()
+    }
+
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return supportedOrientations.orientationMask
+    }
+    
+    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return supportedOrientations.preferredPresentationOrientation
+    }
+    
+    func configureOrientation() {
+        if UIDevice.current.userInterfaceIdiom == .phone || supportedOrientations == .portraitLocked {
+            rotateTo(orientation: .portrait)
+            return
+        }
+    }
+    
+    func rotateTo(orientation: UIInterfaceOrientationMask) {
+        UIDevice.current.setValue(orientation.rawValue, forKeyPath: "orientation")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -312,7 +320,7 @@ class ChatViewController: ASAPPViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        configureOrientation()
         if !isMovingToParentViewController {
             chatMessagesView.focusAccessibilityOnLastMessage(delay: false)
         }
@@ -328,7 +336,6 @@ class ChatViewController: ASAPPViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
         store.dispatch(WillTransition(size: size, coordinator: coordinator))
     }
     
@@ -378,15 +385,13 @@ extension ChatViewController: StoreSubscriber {
             shouldScroll = true
         }
         
-        if ![.prechat, .chatInput(keyboardIsVisible: true), .liveChat(keyboardIsVisible: true)].contains(state.queryUI.input) {
+        if ![.prechat, .chatInput(keyboardIsVisible: true)].contains(state.queryUI.input) {
             chatInputView?.resignFirstResponder()
         }
         
         if [.prechat,
             .chatInput(keyboardIsVisible: true),
-            .chatInput(keyboardIsVisible: false),
-            .liveChat(keyboardIsVisible: true),
-            .liveChat(keyboardIsVisible: false)].contains(state.queryUI.input) {
+            .chatInput(keyboardIsVisible: false)].contains(state.queryUI.input) {
             if #available(iOS 11.0, *) {
                 chatInputView?.prepareForFocus(in: view.safeAreaInsets)
             } else {
@@ -397,6 +402,7 @@ extension ChatViewController: StoreSubscriber {
         if (previousState?.isLiveChat ?? false) != state.isLiveChat {
             DebugLog.d("Chat Mode Changed: \(state.isLiveChat ? "LIVE CHAT" : "SRS")")
             conversationManager.currentSRSClassification = state.isLiveChat ? nil : quickRepliesView.currentSRSClassification
+            shouldScroll = true
             if isViewLoaded {
                 updateViewForLiveChat(animated: animated)
             }
@@ -441,7 +447,7 @@ extension ChatViewController: StoreSubscriber {
         insetStateTimer?.cancel()
         
         if state.queryUI.input == .inset {
-            insetStateTimer = Timer(delay: .seconds(3.5)) {
+            insetStateTimer = Timer(delay: .seconds(3.5)) { [weak self] in
                 Dispatcher.performOnMainThread { [weak self] in
                     self?.store.dispatch(DidWaitInInsetState())
                 }
@@ -581,19 +587,19 @@ extension ChatViewController {
         
         updateMoreButton()
         
-        if store.state.queryUI.input.isLiveChat {
+        if store.state.isLiveChat {
             chatInputView?.needsToBecomeFirstResponder = true
         } else {
             chatInputView?.resignFirstResponder()
         }
         
-        chatInputView?.displayMediaButton = store.state.queryUI.input.isLiveChat
+        chatInputView?.displayMediaButton = store.state.isLiveChat
         
         let selected = chatInputView?.textView.selectedTextRange ?? .init()
         let wasFirstResponder = chatInputView?.isFirstResponder ?? false
         keyboardObserver.deregisterForNotification()
         chatInputView?.resignFirstResponder()
-        chatInputView?.textView.autocorrectionType = store.state.queryUI.input.isLiveChat ? .default : .no
+        chatInputView?.textView.autocorrectionType = store.state.isLiveChat ? .default : .no
         chatInputView?.textView.selectedTextRange = selected
         keyboardObserver.registerForNotifications()
         if wasFirstResponder {
@@ -711,7 +717,7 @@ extension ChatViewController {
         }
         
         switch inputState {
-        case .prechat, .chatInput, .liveChat:
+        case .prechat, .chatInput:
             chatInputView?.alpha = 1
             quickRepliesHeight = 0
             quickRepliesView.isHidden = true
@@ -1130,10 +1136,6 @@ extension ChatViewController: ChatMessagesViewDelegate {
             }
             
             strongSelf.chatMessagesView.appendEvents(fetchedEvents)
-            let newStatus = strongSelf.conversationManager.isLiveChat
-            if newStatus != strongSelf.store.state.isLiveChat {
-                strongSelf.store.dispatch(DidChangeLiveChatStatus(isLiveChat: newStatus, updateInput: true))
-            }
             
             if let lastChatMessage = fetchedEvents.reversed().first(where: { $0.chatMessage != nil })?.chatMessage {
                 strongSelf.handle(message: lastChatMessage, shouldAdd: false)
@@ -1215,7 +1217,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
 
 extension ChatViewController: ChatInputViewDelegate {
     func chatInputView(_ chatInputView: ChatInputView, didSelectSuggestion suggestion: String, at index: Int, count: Int, responseId: AutosuggestMetadata.ResponseId) {
-        autosuggestThrottler.cancel()
+        autosuggestThrottler?.cancel()
         
         store.dispatch(DidSelectSuggestion())
         
@@ -1235,17 +1237,17 @@ extension ChatViewController: ChatInputViewDelegate {
             return
         }
         
-        if store.state.queryUI.input.isLiveChat {
+        if store.state.isLiveChat {
             let isTyping = text != nil && !text!.isEmpty
             conversationManager.sendUserTypingStatus(isTyping: isTyping, with: text)
         } else {
             if let text = text, !text.isEmpty {
-                autosuggestThrottler.throttle { [weak self] in
+                autosuggestThrottler?.throttle { [weak self] in
                     self?.fetchSuggestions(for: text)
                 }
                 store.dispatch(DidUpdateChatInputText(text: text))
             } else {
-                autosuggestThrottler.cancel()
+                autosuggestThrottler?.cancel()
                 store.dispatch(DidUpdateChatInputText(text: ""))
             }
         }
@@ -1683,7 +1685,7 @@ extension ChatViewController: ConversationManagerDelegate {
     
     // Typing Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool) {
-        chatMessagesView.updateTypingStatus(isTyping, shouldScrollToBottom: manager.isLiveChat)
+        chatMessagesView.updateTypingStatus(isTyping, shouldScrollToBottom: store.state.isLiveChat)
     }
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith event: Event) {
@@ -1695,8 +1697,10 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Live Chat Status
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event) {
-        store.dispatch(DidChangeLiveChatStatus(isLiveChat: isLiveChat, updateInput: true))
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event?) {
+        if store.state.isLiveChat != isLiveChat {
+            store.dispatch(DidChangeLiveChatStatus(isLiveChat: isLiveChat, updateInput: true))
+        }
     }
     
     func showGatekeeperViewIfNecessary(_ type: GatekeeperView.ContentType) {
@@ -1843,7 +1847,7 @@ extension ChatViewController {
             scrollToBottomBeforeAddingNextMessage()
         }
         
-        if store.state.queryUI.input.isLiveChat {
+        if store.state.isLiveChat {
             store.dispatch(DidSendMessage())
             conversationManager.sendTextMessage(text)
         } else {
@@ -1900,10 +1904,6 @@ extension ChatViewController {
                 strongSelf.chatMessagesView.shouldShowLoadingHeader = strongSelf.shouldFetchEarlier
                 strongSelf.chatMessagesView.reloadWithEvents(fetchedEvents)
                 strongSelf.updateStateForLastEvent()
-                
-                if strongSelf.conversationManager.isLiveChat && !strongSelf.store.state.isLiveChat {
-                    strongSelf.store.dispatch(DidChangeLiveChatStatus(isLiveChat: true, updateInput: true))
-                }
                 
                 Dispatcher.delay { [weak self] in
                     self?.spinner.alpha = self?.chatMessagesView.isEmpty == true ? 1 : 0

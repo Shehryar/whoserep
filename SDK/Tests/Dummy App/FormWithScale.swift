@@ -26,7 +26,7 @@ class FormWithScale: ComponentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let json = TestUtil.dictForFile(named: "feedback-form")
+        let json = TestUtil.dictForFile(named: "feedback-form-scale")
         componentViewContainer = ComponentViewContainer.from(json)
         delegate = self
     }

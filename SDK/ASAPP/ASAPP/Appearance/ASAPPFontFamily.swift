@@ -50,6 +50,30 @@ public class ASAPPFontFamily: NSObject {
     }
     
     /**
+     Creates an `ASAPPFontFamily` instance given the font name for each weight.
+     
+     - parameter light: name of light font file.
+     - parameter regular: name of regular font file.
+     - parameter medium: name of medium or semi-bold font file.
+     - parameter bold: name of bold font file.
+     */
+    public init?(lightFontName: String,
+                 regularFontName: String,
+                 mediumFontName: String,
+                 boldFontName: String) {
+        guard let light = UIFont(name: lightFontName, size: 16),
+            let medium = UIFont(name: lightFontName, size: 16),
+            let regular = UIFont(name: lightFontName, size: 16),
+            let bold = UIFont(name: lightFontName, size: 16) else { return nil }
+        self.light = light
+        self.medium = medium
+        self.regular = regular
+        self.bold = bold
+        
+        super.init()
+    }
+    
+    /**
      Creates an `ASAPPFontFamily` instance representing the SDK's default font family (the system font).
      */
     public override init() {

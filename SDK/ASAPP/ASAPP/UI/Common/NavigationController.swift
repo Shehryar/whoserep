@@ -35,20 +35,24 @@ class NavigationController: UINavigationController {
     // MARK: Orientation
     
     override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        if let top = topViewController as? ChatViewController {
+            return top.preferredInterfaceOrientationForPresentation
+        }
+        
         return UIDevice.current.userInterfaceIdiom == .phone
             ? .portrait
             : UIApplication.shared.statusBarOrientation
     }
     
     override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if let top = topViewController as? ChatViewController {
+            return top.supportedInterfaceOrientations
+        }
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             return .all
         }
         
-        if let top = topViewController as? ChatViewController {
-            let orientations: UIInterfaceOrientationMask = top.doneTransitioning ? .portrait : .all
-            return orientations
-        }
         return .portrait
     }
     

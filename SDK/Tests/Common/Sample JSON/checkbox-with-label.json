@@ -1,0 +1,106 @@
+{
+  "root": {
+    "type": "stackView",
+    "style": {
+      "gravity": "fill"
+    },
+    "content": {
+      "items": [
+        {
+          "type": "separator",
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "marginTop": 50
+          }
+        },
+        {
+          "type": "checkboxView",
+          "name": "tosAccepted",
+          "value": "tosAcceptedValue",
+          "style": {
+            "padding": 20,
+            "cornerRadius": 12,
+            "borderWidth": 1,
+            "align": "fill",
+            "marginTop": 32,
+            "marginLeft": 24,
+            "marginRight": 24
+          },
+          "content": {
+            "root": {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "checkbox",
+                    "style": {
+                      "gravity": "middle"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "I agree to the terms of service"
+                    },
+                    "style": {
+                      "marginLeft": 16,
+                      "gravity": "middle"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "separator",
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "marginTop": 50
+          }
+        },
+        {
+          "type": "checkboxView",
+          "name": "tosAccepted",
+          "value": "tosAcceptedValue",
+          "style": {
+            "padding": 20,
+            "paddingLeft": 0,
+            "cornerRadius": 12
+          },
+          "content": {
+            "root": {
+              "type": "stackView",
+              "content": {
+                "orientation": "horizontal",
+                "items": [
+                  {
+                    "type": "checkbox",
+                    "style": {
+                      "gravity": "middle"
+                    }
+                  },
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "I agree to the terms of service"
+                    },
+                    "style": {
+                      "marginLeft": 16,
+                      "gravity": "middle"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

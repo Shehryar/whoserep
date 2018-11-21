@@ -336,11 +336,13 @@ extension ChatInputView {
         bubbleView.frame = CGRect(x: bubbleInset.left, y: bounds.height - bubbleHeight - bubbleInset.bottom, width: bounds.width - bubbleInset.left - bubbleInset.right, height: bubbleHeight)
         shadowView.frame = bubbleView.frame
         
-        let sendButtonLeft = bubbleView.bounds.width - sendButtonSize.width - contentInset.right
-        let buttonTop = bubbleView.bounds.height - inputMinHeight - contentInset.bottom
-        sendButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: sendButtonSize.width, height: ceil(inputMinHeight))
+        let minLength = UIView.minimumTargetLength
+        let sendButtonLeft = bubbleView.bounds.width - sendButtonSize.width - contentInset.right - (minLength - sendButtonSize.width) / 2
+        let buttonTop = bubbleView.bounds.height - inputMinHeight - contentInset.bottom - (minLength - inputMinHeight) / 2
+        let sendButtonWidth = max(sendButtonSize.width, minLength)
+        sendButton.frame = CGRect(x: ceil(sendButtonLeft), y: ceil(buttonTop), width: sendButtonWidth, height: minLength)
         
-        mediaButton.frame = CGRect(x: sendButtonLeft, y: buttonTop, width: sendButtonSize.width, height: sendButton.frame.height)
+        mediaButton.frame = sendButton.frame
         let insetX: CGFloat = ceil((sendButton.frame.width - mediaButtonSize.width) / 2)
         let insetY: CGFloat = ceil((sendButton.frame.height - mediaButtonSize.height) / 2)
         mediaButton.imageEdgeInsets = UIEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX)

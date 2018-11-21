@@ -269,3 +269,15 @@ platform :ios do
     sh "git push origin develop"
   end
 end
+
+lane :archive_framework_local do
+  xcode_select("/Applications/Xcode-9.4.1.app")
+  gym(
+    scheme: "Aggregate",
+    configuration: "release",
+    workspace: "SDK/ASAPP.xcworkspace",
+    output_directory: "package/",
+    output_name: "ASAPP.framework"
+  )
+  xcode_select("/Applications/Xcode.app")
+end

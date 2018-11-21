@@ -53,6 +53,16 @@ class ComponentLayoutEngineSpec: QuickSpec {
                     expect(cell).to(haveValidSnapshot())
                 }
             }
+            
+            context("containing two examples of a checkbox with a label") {
+                it("has a valid snapshot") {
+                    let dict = TestUtil.dictForFile(named: "checkbox-with-label")
+                    let container = ComponentViewContainer.from(dict)
+                    let viewController = ComponentViewController()
+                    viewController.componentViewContainer = container
+                    expect(viewController.view).to(haveValidSnapshot())
+                }
+            }
         }
     }
 }

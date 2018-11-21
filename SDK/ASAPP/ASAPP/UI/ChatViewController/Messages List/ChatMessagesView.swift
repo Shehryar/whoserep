@@ -118,6 +118,7 @@ class ChatMessagesView: UIView {
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     private var focusTimer: Timer?
     private var previousFocusedReply: ChatMessage?
+    private var scrollDebouncer: Debouncer? = Debouncer(interval: .seconds(0.5))
     
     // MARK: - Initialization
     
@@ -159,6 +160,8 @@ class ChatMessagesView: UIView {
     deinit {
         focusTimer?.cancel()
         focusTimer = nil
+        scrollDebouncer?.cancel()
+        scrollDebouncer = nil
     }
     
     // MARK: Layout
@@ -473,7 +476,26 @@ extension ChatMessagesView {
             return
         }
         
-        tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+        func scrollHelper(_ tableView: UITableView?) {
+            guard
+                indexPath.section < tableView?.numberOfSections ?? 0,
+                indexPath.row < tableView?.numberOfRows(inSection: indexPath.section) ?? 0
+            else {
+                return
+            }
+            tableView?.scrollToRow(at: indexPath, at: .top, animated: animated)
+        }
+        
+        if animated {
+            scrollDebouncer?.debounce { [weak self] in
+                Dispatcher.performOnMainThread { [weak self] in
+                    scrollHelper(self?.tableView)
+                }
+            }
+        } else {
+            scrollDebouncer?.cancel()
+            scrollHelper(tableView)
+        }
     }
     
     func scrollToBottom(animated: Bool, focus: Bool = false) {
@@ -483,7 +505,9 @@ extension ChatMessagesView {
                 return
             }
             
-            strongSelf.layer.removeAllAnimations()
+            if !animated {
+                strongSelf.layer.removeAllAnimations()
+            }
             strongSelf.scrollToRow(at: indexPath, animated: animated)
             
             if focus {
@@ -501,7 +525,7 @@ extension ChatMessagesView {
 
 extension ChatMessagesView {
     
-    func updateTypingStatus(_ isTyping: Bool, immediately: Bool = true, shouldScrollToBottom: Bool = false) {
+    func updateTypingStatus(_ isTyping: Bool, immediately: Bool = true, shouldScrollToBottom: Bool = false, shouldBatch: Bool = true) {
         let isDifferent = isTyping != dataSource.isTypingIndicatorVisible
         
         if isDifferent && !isTyping && !immediately {
@@ -515,14 +539,20 @@ extension ChatMessagesView {
         let lastSection = numberOfSections(in: tableView) - 1
         let lastRow = tableView(tableView, numberOfRowsInSection: lastSection) - 1
         
-        tableView.beginUpdates()
+        if shouldBatch {
+            tableView.beginUpdates()
+        }
+        
         dataSource.isTypingIndicatorVisible = isTyping
         if isTyping {
             tableView.insertRows(at: [IndexPath(row: lastRow + 1, section: lastSection)], with: .fade)
         } else {
             tableView.deleteRows(at: [IndexPath(row: lastRow, section: lastSection)], with: .fade)
         }
-        tableView.endUpdates()
+        
+        if shouldBatch {
+            tableView.endUpdates()
+        }
         
         if isNearBottom() && shouldScrollToBottom {
             scrollToBottom(animated: true)
@@ -582,13 +612,17 @@ extension ChatMessagesView {
     }
     
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
+        tableView.beginUpdates()
+        
         if shouldHideTypingIndicatorOnNextMessage {
             shouldHideTypingIndicatorOnNextMessage = false
-            updateTypingStatus(false, immediately: true)
+            updateTypingStatus(false, immediately: true, shouldScrollToBottom: false, shouldBatch: false)
         }
         
+        let oldSectionCount = dataSource.numberOfSections()
         guard let indexPath = dataSource.addMessage(message) else {
             DebugLog.w(caller: self, "Failed to add message to view.")
+            tableView.endUpdates()
             return
         }
         
@@ -600,7 +634,11 @@ extension ChatMessagesView {
             messagesThatShouldAnimate.insert(message)
         }
         
-        tableView.reloadData()
+        tableView.insertRows(at: [indexPath], with: .none)
+        if indexPath.section == oldSectionCount {
+            tableView.insertSections(IndexSet(integer: indexPath.section), with: .none)
+        }
+        tableView.endUpdates()
         
         if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell,
            let cellMessage = cell.message,

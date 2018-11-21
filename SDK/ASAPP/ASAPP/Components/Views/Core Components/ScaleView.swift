@@ -65,12 +65,12 @@ class RatingButton: UIButton {
 }
 
 class ScaleView: BaseComponentView {
-    
     var buttonsByValue = [Int: RatingButton]()
     
     private var currentSelection: RatingButton?
     private let numButtons = 5
     private var scaleType: ScaleItem.ScaleType = .fiveNumber
+    private let tapDebouncer = Debouncer(interval: .defaultAnimationDuration)
     
     // MARK: ComponentView Properties
     
@@ -191,7 +191,7 @@ class ScaleView: BaseComponentView {
     
     // MARK: - Actions
     
-    @objc func didTapButton(sender: RatingButton) {
+    private func handleTap(sender: RatingButton) {
         if currentSelection == sender {
             currentSelection = nil
         } else {
@@ -215,5 +215,11 @@ class ScaleView: BaseComponentView {
         }
         
         component?.value = currentSelection?.value
+    }
+    
+    @objc func didTapButton(sender: RatingButton) {
+        tapDebouncer.debounce { [weak self] in
+            self?.handleTap(sender: sender)
+        }
     }
 }
