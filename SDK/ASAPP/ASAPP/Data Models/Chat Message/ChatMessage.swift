@@ -30,6 +30,10 @@ class ChatMessage: NSObject {
     var hasButtons: Bool {
         return !(buttons?.isEmpty ?? true)
     }
+    
+    var hasTransientButtons: Bool {
+        return !(buttons?.filter({ $0.isTransient }).isEmpty ?? true)
+    }
    
     // MARK: Init
     

@@ -107,7 +107,7 @@ class ChatMessagesView: UIView {
     }
     
     private let cellAnimationsEnabled = true
-    private var shouldHideTypingIndicatorOnNextMessage = false
+    private var shouldHideTypingIndicatorOnNextReply = false
     private var isMoving = false
     private let defaultContentInset = UIEdgeInsets(top: 12, left: 0, bottom: 24, right: 0)
     private let bottomPadding: CGFloat = -10
@@ -529,7 +529,7 @@ extension ChatMessagesView {
         let isDifferent = isTyping != dataSource.isTypingIndicatorVisible
         
         if isDifferent && !isTyping && !immediately {
-            shouldHideTypingIndicatorOnNextMessage = true
+            shouldHideTypingIndicatorOnNextReply = true
         }
         
         guard isDifferent && immediately else {
@@ -611,21 +611,37 @@ extension ChatMessagesView {
         }
     }
     
+    private func getNextIndexPath(_ indexPath: IndexPath?) -> IndexPath? {
+        if let indexPath = indexPath,
+            indexPath.section < dataSource.numberOfSections(),
+            indexPath.row + 1 < dataSource.numberOfRowsInSection(indexPath.section) {
+            return IndexPath(row: indexPath.row + 1, section: indexPath.section)
+        } else {
+            return nil
+        }
+    }
+    
     func addMessage(_ message: ChatMessage, completion: (() -> Void)? = nil) {
         tableView.beginUpdates()
         
-        if shouldHideTypingIndicatorOnNextMessage {
-            shouldHideTypingIndicatorOnNextMessage = false
+        let typingIndicatorWasVisible = dataSource.isTypingIndicatorVisible
+        if shouldHideTypingIndicatorOnNextReply && message.metadata.isReply {
+            shouldHideTypingIndicatorOnNextReply = false
             updateTypingStatus(false, immediately: true, shouldScrollToBottom: false, shouldBatch: false)
         }
         
         let oldSectionCount = dataSource.numberOfSections()
+        let oldLastIndexPath = dataSource.getLastIndexPath()
+        let oldLastMessage = dataSource.getLastMessage()
+        let oldTypingIndicatorIndexPath = getNextIndexPath(oldLastIndexPath)
+        
         guard let indexPath = dataSource.addMessage(message) else {
             DebugLog.w(caller: self, "Failed to add message to view.")
             tableView.endUpdates()
             return
         }
         
+        let newSectionIsNeeded = indexPath.section == oldSectionCount
         hideTransientMessageButtons = false
         
         // Only animate the message if the user is near the bottom
@@ -634,10 +650,29 @@ extension ChatMessagesView {
             messagesThatShouldAnimate.insert(message)
         }
         
-        tableView.insertRows(at: [indexPath], with: .none)
-        if indexPath.section == oldSectionCount {
+        let shouldMoveTypingIndicator = typingIndicatorWasVisible && dataSource.isTypingIndicatorVisible && newSectionIsNeeded
+        if shouldMoveTypingIndicator,
+           let oldTypingIndicator = oldTypingIndicatorIndexPath {
+            tableView.deleteRows(at: [oldTypingIndicator], with: .fade)
+        }
+        
+        if newSectionIsNeeded {
             tableView.insertSections(IndexSet(integer: indexPath.section), with: .none)
         }
+        tableView.insertRows(at: [indexPath], with: .none)
+        
+        if let oldLastMessage = oldLastMessage,
+           oldLastMessage.metadata.isReply,
+           oldLastMessage.hasTransientButtons,
+           let oldLastIndexPath = oldLastIndexPath {
+            tableView.reloadRows(at: [oldLastIndexPath], with: .fade)
+        }
+        
+        if shouldMoveTypingIndicator,
+           let newTypingIndicator = getNextIndexPath(indexPath) {
+            tableView.insertRows(at: [newTypingIndicator], with: .fade)
+        }
+        
         tableView.endUpdates()
         
         if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell,
