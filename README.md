@@ -26,12 +26,19 @@ Xcode   | 10.0 GM
 ### Steps
 
 1. Open `SDK/ASAPP.xcworkspace`
-
 1. Select *ASAPPTest* from the schemes dropdown menu (near the stop button in the upper-left hand corner)
-
 1. Select the device or simulator you'd like to to test on using the dropdown menu next to the scheme you just selected
-
 1. Press the play button to build and run the application
+
+
+Generating Component UI layout snapshots
+---------------------------
+
+Run `scripts/snapshots.sh`. It will open `SDK/Tests/Component UI Layout Tests`, validate existing snapshot images, and record snapshots for any `.json` files in the directory describing a [Component View](https://asappinc.atlassian.net/wiki/spaces/EN/pages/26559024/Component+View) that lack a corresponding snapshot image file.
+
+To generate a snapshot for a new layout, add the `.json` file to the `SDK/Tests/Component UI Layout Tests` directory and run `scripts/snapshots.sh` again.
+
+Note that when a snapshot is generated for a new `.json` file, the test runner will report a failure—this is expected. It will report a success if you run the script again once the snapshot exists.
 
 
 Development, QA, and release process

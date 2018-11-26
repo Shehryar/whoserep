@@ -183,6 +183,21 @@
 		3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CE6219F4BB00072D267 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA19CD8219F49D70072D267 /* Images.swift */; };
+		3AA19CE821A30B930072D267 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
+		3AA19CE921A30B9F0072D267 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; };
+		3AA19CEA21A30BA10072D267 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
+		3AA19CEE21A30D490072D267 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CEF21A30D4B0072D267 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CF121A30D630072D267 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CF521A322A80072D267 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291E1F97C1B70031CD78 /* TestUtil.swift */; };
+		3AA19CF621A322AB0072D267 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B43AD2140396300D729CF /* FontLoader.swift */; };
+		3AA19CF921A340C40072D267 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */; };
+		3AA19CFA21A340C40072D267 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C321403D5B00D729CF /* Lato-Black.ttf */; };
+		3AA19CFB21A340C40072D267 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */; };
+		3AA19CFC21A340C40072D267 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C521403D5B00D729CF /* Lato-Light.ttf */; };
+		3AA19CFD21A486050072D267 /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; };
+		3AA19CFE21A4860A0072D267 /* Nimble_Snapshots.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */; };
 		3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */; };
 		3AA1E4F11FF429C700548E3D /* ChatMessageCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */; };
@@ -281,6 +296,13 @@
 			remoteGlobalIDString = 3A797B691F97A29D00883ABF;
 			remoteInfo = Tests;
 		};
+		3AA19CE2219F4B9C0072D267 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A797B621F97A29D00883ABF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A797B691F97A29D00883ABF;
+			remoteInfo = Tests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -328,6 +350,19 @@
 				3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */,
 				3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */,
 				3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AA19CEC21A30D360072D267 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3AA19CFE21A4860A0072D267 /* Nimble_Snapshots.framework in CopyFiles */,
+				3AA19CF121A30D630072D267 /* Quick.framework in CopyFiles */,
+				3AA19CEE21A30D490072D267 /* FBSnapshotTestCase.framework in CopyFiles */,
+				3AA19CEF21A30D4B0072D267 /* Nimble.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +457,9 @@
 		3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewSpec.swift; sourceTree = "<group>"; };
 		3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Interaction Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA0D41220AA454E00A04206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AA19CD8219F49D70072D267 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		3AA19CDD219F4B9C0072D267 /* Component UI Layout Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Component UI Layout Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AA19CE1219F4B9C0072D267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderViewSpec.swift; sourceTree = "<group>"; };
 		3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCellSpec.swift; sourceTree = "<group>"; };
 		3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCellSpec.swift; sourceTree = "<group>"; };
@@ -508,6 +546,17 @@
 				3AA0D3F720AA448100A04206 /* FBSnapshotTestCase.framework in Frameworks */,
 				3AA0D3F820AA448100A04206 /* Nimble.framework in Frameworks */,
 				3AA0D3F920AA448100A04206 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AA19CDA219F4B9C0072D267 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA19CFD21A486050072D267 /* Nimble_Snapshots.framework in Frameworks */,
+				3AA19CE821A30B930072D267 /* FBSnapshotTestCase.framework in Frameworks */,
+				3AA19CE921A30B9F0072D267 /* Nimble.framework in Frameworks */,
+				3AA19CEA21A30BA10072D267 /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +650,7 @@
 				3A0429171F97A2DF0031CD78 /* ASAPP.framework */,
 				3A797B6C1F97A29D00883ABF /* Dummy App */,
 				3A04291D1F97C1860031CD78 /* Common */,
+				3AA19CD7219F49910072D267 /* Component UI Layout Tests */,
 				3AA0D41120AA44B900A04206 /* Interaction Tests */,
 				3A797B811F97A29D00883ABF /* Unit Tests */,
 				3A797B8C1F97A29D00883ABF /* UI Tests */,
@@ -616,6 +666,7 @@
 				3A797B7E1F97A29D00883ABF /* Unit Tests.xctest */,
 				3A797B891F97A29D00883ABF /* UI Tests.xctest */,
 				3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */,
+				3AA19CDD219F4B9C0072D267 /* Component UI Layout Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -736,6 +787,15 @@
 			path = "Interaction Tests";
 			sourceTree = "<group>";
 		};
+		3AA19CD7219F49910072D267 /* Component UI Layout Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3AA19CD8219F49D70072D267 /* Images.swift */,
+				3AA19CE1219F4B9C0072D267 /* Info.plist */,
+			);
+			path = "Component UI Layout Tests";
+			sourceTree = "<group>";
+		};
 		3AA1E4F81FFC761000548E3D /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,13 +892,33 @@
 			productReference = 3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		3AA19CDC219F4B9C0072D267 /* Component UI Layout Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AA19CE4219F4B9C0072D267 /* Build configuration list for PBXNativeTarget "Component UI Layout Tests" */;
+			buildPhases = (
+				3AA19CD9219F4B9C0072D267 /* Sources */,
+				3AA19CDA219F4B9C0072D267 /* Frameworks */,
+				3AA19CDB219F4B9C0072D267 /* Resources */,
+				3AA19CEC21A30D360072D267 /* CopyFiles */,
+				3AA19CF421A314980072D267 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AA19CE3219F4B9C0072D267 /* PBXTargetDependency */,
+			);
+			name = "Component UI Layout Tests";
+			productName = "Component UI Layout Tests";
+			productReference = 3AA19CDD219F4B9C0072D267 /* Component UI Layout Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3A797B621F97A29D00883ABF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = ASAPP;
 				TargetAttributes = {
@@ -864,6 +944,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3A797B691F97A29D00883ABF;
 					};
+					3AA19CDC219F4B9C0072D267 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3A797B691F97A29D00883ABF;
+					};
 				};
 			};
 			buildConfigurationList = 3A797B651F97A29D00883ABF /* Build configuration list for PBXProject "Tests" */;
@@ -883,6 +968,7 @@
 				3A797B7D1F97A29D00883ABF /* Unit Tests */,
 				3A797B881F97A29D00883ABF /* UI Tests */,
 				3AA0D3BE20AA448100A04206 /* Interaction Tests */,
+				3AA19CDC219F4B9C0072D267 /* Component UI Layout Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1025,6 +1111,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AA19CDB219F4B9C0072D267 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA19CFA21A340C40072D267 /* Lato-Black.ttf in Resources */,
+				3AA19CFB21A340C40072D267 /* Lato-Regular.ttf in Resources */,
+				3AA19CF921A340C40072D267 /* Lato-Bold.ttf in Resources */,
+				3AA19CFC21A340C40072D267 /* Lato-Light.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1053,6 +1150,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"copying std libs\"\n\n${TOOLCHAIN_DIR}/usr/bin/swift-stdlib-tool \\\n--copy --verbose --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" \\\n--scan-executable \"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\" \\\n--scan-executable \"${BUILT_PRODUCTS_DIR}/ASAPP.framework/ASAPP\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\" \\\n--platform \"${PLATFORM_NAME}\" \\\n--toolchain \"${TOOLCHAIN_DIR}\" \\\n--destination \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--strip-bitcode --resource-destination \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \\\n--resource-library libswiftRemoteMirror.dylib\n\necho \"copied std libs\"";
+		};
+		3AA19CF421A314980072D267 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"copying std libs\"\n\n${TOOLCHAIN_DIR}/usr/bin/swift-stdlib-tool \\\n--copy --verbose --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" \\\n--scan-executable \"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\" \\\n--scan-executable \"${BUILT_PRODUCTS_DIR}/ASAPP.framework/ASAPP\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\" \\\n--platform \"${PLATFORM_NAME}\" \\\n--toolchain \"${TOOLCHAIN_DIR}\" \\\n--destination \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--strip-bitcode --resource-destination \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \\\n--resource-library libswiftRemoteMirror.dylib\n\necho \"copied std libs\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1206,6 +1320,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AA19CD9219F4B9C0072D267 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA19CE6219F4BB00072D267 /* Images.swift in Sources */,
+				3AA19CF621A322AB0072D267 /* FontLoader.swift in Sources */,
+				3AA19CF521A322A80072D267 /* TestUtil.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1223,6 +1347,11 @@
 			isa = PBXTargetDependency;
 			target = 3A797B691F97A29D00883ABF /* Tests */;
 			targetProxy = 3AA0D3C020AA448100A04206 /* PBXContainerItemProxy */;
+		};
+		3AA19CE3219F4B9C0072D267 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A797B691F97A29D00883ABF /* Tests */;
+			targetProxy = 3AA19CE2219F4B9C0072D267 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1379,6 +1508,27 @@
 			};
 			name = Debug;
 		};
+		3AA19CE5219F4B9C0072D267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GHJ79KTB8D;
+				INFOPLIST_FILE = "Component UI Layout Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LAYOUT_SNAPSHOTS_DIR = "$(PROJECT_DIR)/Component UI Layout Tests";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ASAPP.Component-UI-Layout-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tests;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1418,6 +1568,14 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3AA0D40E20AA448100A04206 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3AA19CE4219F4B9C0072D267 /* Build configuration list for PBXNativeTarget "Component UI Layout Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AA19CE5219F4B9C0072D267 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
