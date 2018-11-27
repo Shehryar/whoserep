@@ -15,12 +15,23 @@ protocol PushNotificationsManagerProtocol {
     var deviceId: Int? { get set }
     func enableIfSessionExists()
     func register()
-    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler)
+    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler?)
     func requestAuthorization()
     func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval)
 }
 
+extension PushNotificationsManagerProtocol {
+    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler? = nil) {
+        return getChatStatus(handler, failureHandler)
+    }
+}
+
 class PushNotificationsManager: PushNotificationsManagerProtocol {
+    
+    enum PushNotificationsManagerError: Error {
+        case getChatStatusError
+    }
+    
     static let shared = PushNotificationsManager()
     
     private let userDefaults: UserDefaultsProtocol
@@ -110,7 +121,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler) {
+    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler? = nil) {
         ASAPP.assertSetupComplete()
         
         guard let session = session ?? SavedSessionManager.shared.getSession() else {
@@ -129,8 +140,10 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
                   let isLiveChat = data["IsLiveChat"] as? Bool else {
                 if let error = error {
                     DebugLog.e(error)
+                    failureHandler?(PushNotificationsManagerError.getChatStatusError)
                 } else {
                     DebugLog.e("Received error trying to get chat status.\n\(String(describing: response))")
+                    failureHandler?(PushNotificationsManagerError.getChatStatusError)
                 }
                 return
             }
