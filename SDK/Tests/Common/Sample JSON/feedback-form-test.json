@@ -1,0 +1,453 @@
+{
+	"root": {
+		"content": {
+			"items": [{
+				"content": {
+					"root": {
+						"content": {
+							"items": [{
+								"content": {
+									"text": "Feedback Survey"
+								},
+								"style": {
+									"padding": "0 24 32 24",
+									"textType": "header2"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"text": "Please take a moment to fill out the survey. It should only take about 1 minute to complete. Your response will help us better serve your future needs. Your individual survey answers may be shared internally for service improvement purposes."
+								},
+								"style": {
+									"padding": "0 24 16 24",
+									"textType": "body"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"text": "Thank you!"
+								},
+								"style": {
+									"padding": "0 24 32 24",
+									"textType": "body"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"separatorStyle": "horizontal"
+								},
+								"style": {
+									"align": "fill",
+									"margin": "16 0 32 0"
+								},
+								"type": "separator"
+							}, {
+								"content": {
+									"text": "How likely are you to recommend Boost Mobile to friends or family?"
+								},
+								"style": {
+									"padding": "0 24 8 24",
+									"textType": "header3"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"text": "* This field is required."
+								},
+								"style": {
+									"padding": "0 24 32 24",
+									"textType": "detail2"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"scaleType": "nrs11"
+								},
+								"style": {
+									"align": "center"
+								},
+								"name": "rating",
+								"type": "scale"
+							}, {
+								"content": {
+									"separatorStyle": "horizontal"
+								},
+								"style": {
+									"align": "fill",
+									"margin": "16 0 32 0"
+								},
+								"type": "separator"
+							}, {
+								"content": {
+									"text": "Do you feel your question\/issue was fully resolved?"
+								},
+								"style": {
+									"padding": "0 24 32 24",
+									"textType": "header3"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"root": {
+										"content": {
+											"items": [{
+												"value": "Yes",
+												"content": {
+													"root": {
+														"content": {
+															"items": [{
+																"style": {
+																	"gravity": "middle",
+																	"marginRight": 16
+																},
+																"type": "radioButton"
+															}, {
+																"content": {
+																	"text": "Yes"
+																},
+																"style": {
+																	"gravity": "middle",
+																	"textType": "body2"
+																},
+																"type": "label"
+															}],
+															"orientation": "horizontal"
+														},
+														"type": "stackView"
+													}
+												},
+												"style": {
+													"align": "fill",
+													"padding": 20,
+													"borderWidth": 1,
+													"cornerRadius": 6
+												},
+												"type": "radioButtonView"
+											}, {
+												"value": "No",
+												"content": {
+													"root": {
+														"content": {
+															"items": [{
+																"style": {
+																	"gravity": "middle",
+																	"marginRight": 16
+																},
+																"type": "radioButton"
+															}, {
+																"content": {
+																	"text": "No"
+																},
+																"style": {
+																	"gravity": "middle",
+																	"textType": "body2"
+																},
+																"type": "label"
+															}],
+															"orientation": "horizontal"
+														},
+														"type": "stackView"
+													}
+												},
+												"style": {
+													"align": "fill",
+													"marginTop": 10,
+													"padding": 20,
+													"borderWidth": 1,
+													"cornerRadius": 6
+												},
+												"type": "radioButtonView"
+											}, {
+												"value": "I Don't Know",
+												"content": {
+													"root": {
+														"content": {
+															"items": [{
+																"style": {
+																	"gravity": "middle",
+																	"marginRight": 16
+																},
+																"type": "radioButton"
+															}, {
+																"content": {
+																	"text": "I Don't Know"
+																},
+																"style": {
+																	"gravity": "middle",
+																	"textType": "body2"
+																},
+																"type": "label"
+															}],
+															"orientation": "horizontal"
+														},
+														"type": "stackView"
+													}
+												},
+												"style": {
+													"align": "fill",
+													"marginTop": 10,
+													"padding": 20,
+													"borderWidth": 1,
+													"cornerRadius": 6
+												},
+												"type": "radioButtonView"
+											}]
+										},
+										"style": {
+											"align": "fill",
+											"weight": 0
+										},
+										"type": "stackView"
+									}
+								},
+								"style": {
+									"align": "fill",
+									"padding": "0 24"
+								},
+								"name": "questionResolved",
+								"type": "radioButtonsContainer"
+							}, {
+								"content": {
+									"separatorStyle": "horizontal"
+								},
+								"style": {
+									"align": "fill",
+									"margin": "16 0 32 0"
+								},
+								"type": "separator"
+							}, {
+								"content": {
+									"text": "Did this chat increase, decrease or not change your likelihood to recommend Boost Mobile?"
+								},
+								"style": {
+									"padding": "0 24 32 24",
+									"textType": "header3"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"root": {
+										"content": {
+											"items": [{
+												"value": "Increase",
+												"content": {
+													"root": {
+														"content": {
+															"items": [{
+																"style": {
+																	"gravity": "middle",
+																	"marginRight": 16
+																},
+																"type": "radioButton"
+															}, {
+																"content": {
+																	"text": "Increase"
+																},
+																"style": {
+																	"gravity": "middle",
+																	"textType": "body2"
+																},
+																"type": "label"
+															}],
+															"orientation": "horizontal"
+														},
+														"type": "stackView"
+													}
+												},
+												"style": {
+													"align": "fill",
+													"padding": 20,
+													"borderWidth": 1,
+													"cornerRadius": 6
+												},
+												"type": "radioButtonView"
+											}, {
+												"value": "Decrease",
+												"content": {
+													"root": {
+														"content": {
+															"items": [{
+																"style": {
+																	"gravity": "middle",
+																	"marginRight": 16
+																},
+																"type": "radioButton"
+															}, {
+																"content": {
+																	"text": "Decrease"
+																},
+																"style": {
+																	"gravity": "middle",
+																	"textType": "body2"
+																},
+																"type": "label"
+															}],
+															"orientation": "horizontal"
+														},
+														"type": "stackView"
+													}
+												},
+												"style": {
+													"align": "fill",
+													"marginTop": 10,
+													"padding": 20,
+													"borderWidth": 1,
+													"cornerRadius": 6
+												},
+												"type": "radioButtonView"
+											}, {
+												"value": "No Change",
+												"content": {
+													"root": {
+														"content": {
+															"items": [{
+																"style": {
+																	"gravity": "middle",
+																	"marginRight": 16
+																},
+																"type": "radioButton"
+															}, {
+																"content": {
+																	"text": "No Change"
+																},
+																"style": {
+																	"gravity": "middle",
+																	"textType": "body2"
+																},
+																"type": "label"
+															}],
+															"orientation": "horizontal"
+														},
+														"type": "stackView"
+													}
+												},
+												"style": {
+													"align": "fill",
+													"marginTop": 10,
+													"padding": 20,
+													"borderWidth": 1,
+													"cornerRadius": 6
+												},
+												"type": "radioButtonView"
+											}]
+										},
+										"style": {
+											"align": "fill",
+											"weight": 0
+										},
+										"type": "stackView"
+									}
+								},
+								"style": {
+									"align": "fill",
+									"padding": "0 24"
+								},
+								"name": "recommendationChange",
+								"type": "radioButtonsContainer"
+							}, {
+								"content": {
+									"separatorStyle": "horizontal"
+								},
+								"style": {
+									"align": "fill",
+									"margin": "16 0 32 0"
+								},
+								"type": "separator"
+							}, {
+								"content": {
+									"text": "Can you briefly explain why?"
+								},
+								"style": {
+									"padding": "0 24 32 24",
+									"textType": "header3"
+								},
+								"type": "label"
+							}, {
+								"content": {
+									"placeholder": "Leave a comment (optional)"
+								},
+								"style": {
+									"padding": "0 24"
+								},
+								"name": "comment",
+								"type": "textArea"
+							}, {
+								"content": {
+									"separatorStyle": "horizontal"
+								},
+								"style": {
+									"align": "fill",
+									"margin": "16 0 32 0"
+								},
+								"type": "separator"
+							}, {
+								"content": {
+									"text": "Thank you for your time & valuable feedback. We may contact you to help us serve you better in the future. Have a wonderful day!"
+								},
+								"style": {
+									"align": "center",
+									"padding": "0 24 32 24",
+									"textAlign": "center",
+									"textType": "body"
+								},
+								"type": "label"
+							}]
+						},
+						"style": {
+							"padding": "32 0"
+						},
+						"type": "stackView"
+					}
+				},
+				"style": {
+					"gravity": "fill",
+					"weight": 1
+				},
+				"type": "scrollView"
+			}, {
+				"content": {
+					"items": [{
+						"content": {
+							"title": "Submit",
+							"action": {
+								"content": {
+									"requestPath": "srs\/SubmitFeedback",
+									"data": {
+										"issueId": "1627590001",
+										"metaData": "{\"dataFields\":[{\"name\":\"rating\",\"question\":\"How likely are you to recommend Boost Mobile to friends or family?\",\"type\":\"rating\",\"meta\":{\"type\":\"star\",\"min\":0,\"max\":10}},{\"name\":\"questionResolved\",\"question\":\"Do you feel your question\/issue was fully resolved?\",\"type\":\"radio\",\"meta\":{\"optionLabels\":[{\"label\":\"Yes\",\"value\":\"Yes\"},{\"label\":\"No\",\"value\":\"No\"},{\"label\":\"I Don't Know\",\"value\":\"I Don't Know\"}]}},{\"name\":\"recommendationChange\",\"question\":\"Did this chat increase, decrease or not change your likelihood to recommend Boost Mobile?\",\"type\":\"radio\",\"meta\":{\"optionLabels\":[{\"label\":\"Increase\",\"value\":\"Increase\"},{\"label\":\"Decrease\",\"value\":\"Decrease\"},{\"label\":\"No Change\",\"value\":\"No Change\"}]}},{\"name\":\"comment\",\"question\":\"Can you briefly explain why?\",\"type\":\"string\"}]}",
+										"_flowId": "d7823e1a-9470-465f-a5a0-8bcc544c504c",
+										"requireTargetIssueId": true,
+										"_flowName": "LiveChatEndFlow",
+										"_viewName": "FEEDBACK",
+										"feedbackEnabled": true,
+										"text": "upload feedback",
+										"repId": "150001"
+									},
+									"metadata": {
+										"intentCode": "_LIVE_CHAT_END",
+										"flowId": "d7823e1a-9470-465f-a5a0-8bcc544c504c",
+										"flowName": "LiveChatEndFlow"
+									}
+								},
+								"type": "api"
+							}
+						},
+						"style": {
+							"align": "center",
+							"padding": "12 48",
+							"textType": "body2"
+						},
+						"type": "button"
+					}]
+				},
+				"style": {
+					"align": "fill",
+					"padding": "16 48 24 48",
+					"weight": 0
+				},
+				"type": "stackView"
+			}]
+		},
+		"type": "stackView"
+	}
+}

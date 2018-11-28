@@ -17,4 +17,24 @@ extension XCUIElement {
             coordinate.tap()
         }
     }
+    
+    func scrollToElement() {
+        while !isVisible {
+           XCUIApplication().swipeUp()
+        }
+    }
+    
+    var isVisible: Bool {
+        guard exists && !frame.isEmpty else { return false }
+        return XCUIApplication().windows.element(boundBy: 0).frame.contains(frame)
+    }
+}
+
+extension XCTestCase {
+    @discardableResult func findElementContaining(type: XCUIElement.ElementType, name: String) -> XCUIElement {
+        let elements = XCUIApplication().descendants(matching: type).containing(type, identifier: name)
+        return elements.element(boundBy: 0)
+    }
+    
+    
 }

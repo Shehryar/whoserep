@@ -71,7 +71,6 @@ class ScaleView: BaseComponentView {
     private let numButtons = 5
     private var scaleType: ScaleItem.ScaleType = .fiveNumber
     private let tapDebouncer = Debouncer(interval: .defaultAnimationDuration)
-    
     // MARK: ComponentView Properties
     
     override var component: Component? {
@@ -92,16 +91,26 @@ class ScaleView: BaseComponentView {
         super.commonInit()
         
         clipsToBounds = true
-        
+        isAccessibilityElement = false
+        configureAccessibility()
         for i in 1...numButtons {
             let button = RatingButton()
             button.clipsToBounds = true
             button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
             buttonsByValue[i] = button
             addSubview(button)
+            updateAccessibilityElements(button)
         }
         
         updateButtons()
+    }
+    
+    private func configureAccessibility() {
+        accessibilityElements = []
+    }
+    
+    private func updateAccessibilityElements(_ button: UIButton) {
+        accessibilityElements?.append(button)
     }
     
     private func updateButtons() {
