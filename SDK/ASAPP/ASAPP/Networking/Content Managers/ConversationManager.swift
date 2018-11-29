@@ -531,6 +531,12 @@ extension ConversationManager: SocketConnectionDelegate {
             delegate?.conversationManager(self, didChangeLiveChatStatus: liveChatStatus, with: event)
         }
         
+        // Partner Event aka "Chat Event"
+        if event.ephemeralType == .partnerEvent {
+            delegate?.conversationManager(self, didReceivePartnerEventWith: event)
+            return
+        }
+        
         // Auth Expired
         if event.ephemeralType == .contextNeedsRefresh {
             sendRequest(path: "customer/updateContext", contextNeedsRefresh: true)
@@ -541,16 +547,6 @@ extension ConversationManager: SocketConnectionDelegate {
         if event.ephemeralType == .typingStatus {
             if let typingStatus = event.typingStatus {
                 delegate?.conversationManager(self, didChangeTypingStatus: typingStatus)
-            }
-            return
-        }
-        
-        // Updated Event
-        if event.ephemeralType == .eventStatus {
-            if let message = event.chatMessage {
-                delegate?.conversationManager(self, didUpdate: message)
-            } else {
-                DebugLog.d("Missing message on updated event")
             }
             return
         }

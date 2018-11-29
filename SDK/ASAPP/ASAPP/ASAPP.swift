@@ -21,6 +21,9 @@ import Foundation
     
     /// Called when a user taps on a web link. Please return `true` if ASAPP should open the web link or `false` otherwise.
     func chatViewControllerShouldHandleWebLink(url: URL) -> Bool
+    
+    /// Called when certain agreed-upon events occur during a chat.
+    func chatViewControllerDidReceiveChatEvent(name: String, data: [String: Any]?)
 }
 
 /**

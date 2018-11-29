@@ -1696,6 +1696,17 @@ extension ChatViewController: ConversationManagerDelegate {
         showNotificationBannerIfNecessary(notification)
     }
     
+    // Partner Event
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceivePartnerEventWith event: Event) {
+        guard let partnerEvent = event.partnerEvent else {
+            DebugLog.e(caller: self, "No partner event was parsed from event: \(event)")
+            return
+        }
+        Dispatcher.performOnBackgroundThread {
+            ASAPP.delegate?.chatViewControllerDidReceiveChatEvent(name: partnerEvent.name, data: partnerEvent.data)
+        }
+    }
+    
     // Live Chat Status
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event?) {
         if store.state.isLiveChat != isLiveChat {

@@ -168,6 +168,10 @@ extension HomeViewController: ASAPPDelegate {
     func chatViewControllerShouldHandleWebLink(url: URL) -> Bool {
         return true
     }
+    
+    func chatViewControllerDidReceiveChatEvent(name: String, data: [String: Any]?) {
+        demoLog("Received chat event named", name, "with data:", data?.debugDescription ?? "nil")
+    }
 }
 
 // MARK: - Styling

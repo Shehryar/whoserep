@@ -18,7 +18,6 @@ extension Event {
         case companyId = "CompanyId"
         case customerEventLogSeq = "CustomerEventLogSeq"
         case customerId = "CustomerId"
-        case echo = "Echo"
         case ephemeralType = "EphemeralType"
         case eventFlags = "EventFlags"
         case eventJSON = "EventJSON"
@@ -87,7 +86,9 @@ extension Event {
             eventFlags: eventFlags,
             eventJSON: eventJSON)
         
-        if event.ephemeralType == .continue {
+        if event.ephemeralType == .partnerEvent {
+            event.partnerEvent = getPartnerEvent(from: eventJSON)
+        } else if event.ephemeralType == .continue {
             event.continuePrompt = getContinuePrompt(from: eventJSON)
         } else if event.ephemeralType == .typingStatus {
             event.typingStatus = getTypingStatus(from: eventJSON)
@@ -111,25 +112,20 @@ extension Event {
     
     private class func getEventTypeAndContent(from json: [String: Any], eventType originalEventType: EventType, ephemeralType: EphemeralEventType) -> (EventType, [String: Any]?) {
         var eventType = originalEventType
-        var eventJSONString = json[JSONKey.eventJSON.rawValue] as? String
+        let eventJSONString = json[JSONKey.eventJSON.rawValue] as? String
         
         // All actions & updates should be considered chat messages.
-        if eventType == EventType.srsAction ||
-            (ephemeralType == EphemeralEventType.eventStatus && eventType == .none) {
+        if eventType == EventType.srsAction {
             eventType = .srsResponse
-        }
-        
-        // Echo are messages, but the content is nested differently
-        if eventType == EventType.srsEcho,
-           let tempJSON = eventJSONString?.toJSONObject(),
-           let echoJSONString = tempJSON.string(for: JSONKey.echo.rawValue) {
-            eventType = .srsResponse
-            eventJSONString = echoJSONString
         }
         
         let eventJSON = eventJSONString?.toJSONObject()
         
         return (eventType, eventJSON)
+    }
+    
+    private class func getPartnerEvent(from dict: [String: Any]?) -> PartnerEvent? {
+        return PartnerEvent.fromDict(dict ?? [:])
     }
     
     private class func getTypingStatus(from dict: [String: Any]?) -> Bool? {

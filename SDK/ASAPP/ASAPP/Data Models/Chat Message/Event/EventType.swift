@@ -17,9 +17,7 @@ enum EventType: Int {
     case pictureMessage = 5
     case conversationTimedOut = 10
     case srsResponse = 22
-    case srsEcho = 23
     case srsAction = 24
-    case scheduleAppointment = 27
     case switchSRSToChat = 28
     case accountMerge = 30
     case switchChatToSRS = 31

@@ -58,7 +58,7 @@ class EventSpec: QuickSpec {
             }
             
             describe(".makeMetadata()") {
-                context("with no parentEventLogSeq and ephemeralType that isn't .eventstatus") {
+                context("with no parentEventLogSeq") {
                     it("creates a correct EventMetadata instance") {
                         let event = Event(eventId: 0, parentEventLogSeq: nil, eventType: .newRep, ephemeralType: .none, eventTime: 1, issueId: 2, companyId: 3, customerId: 4, repId: 5, eventFlags: 1, eventJSON: [:])
                         let metadata = event.makeMetadata()
@@ -66,18 +66,6 @@ class EventSpec: QuickSpec {
                         expect(metadata.isReply).to(equal(false))
                         expect(metadata.isAutomatedMessage).to(equal(false))
                         expect(metadata.eventId).to(equal(0))
-                        expect(metadata.issueId).to(equal(2))
-                        expect(metadata.sendTime).to(equal(Date(timeIntervalSince1970: 1)))
-                        expect(metadata.classification).to(beNil())
-                    }
-                }
-                context("with a parentEventLogSeq and ephemeralType that is .eventstatus") {
-                    it("creates a correct EventMetadata instance") {
-                        let event = Event(eventId: 0, parentEventLogSeq: 99, eventType: .newRep, ephemeralType: .eventStatus, eventTime: 1, issueId: 2, companyId: 3, customerId: 4, repId: 5, eventFlags: 6, eventJSON: [:])
-                        let metadata = event.makeMetadata()
-                        expect(metadata.isReply).to(equal(true))
-                        expect(metadata.isAutomatedMessage).to(equal(false))
-                        expect(metadata.eventId).to(equal(99))
                         expect(metadata.issueId).to(equal(2))
                         expect(metadata.sendTime).to(equal(Date(timeIntervalSince1970: 1)))
                         expect(metadata.classification).to(beNil())
@@ -265,36 +253,6 @@ class EventSpec: QuickSpec {
                         expect(metadata.issueId).to(equal(2))
                         expect(metadata.sendTime).to(equal(Date(timeIntervalSince1970: time / 1000000)))
                         expect(metadata.classification).to(beNil())
-                    }
-                }
-                
-                context("with a dictionary describing an srsEcho message") {
-                    it("returns a correct Event instance") {
-                        let time = Date().timeIntervalSince1970
-                        var dict = createTestEventDict(time: time)
-                        dict[Event.JSONKey.eventType.rawValue] = EventType.srsEcho.rawValue
-                        dict[Event.JSONKey.ephemeralType.rawValue] = EphemeralEventType.none.rawValue
-                        dict[Event.JSONKey.eventJSON.rawValue] = "{\"\(Event.JSONKey.echo.rawValue)\": \"\"}"
-                        let event = Event.fromJSON(dict)!
-                        expect(event.typingStatus).to(beNil())
-                        expect(event.switchToSRSClassification).to(beNil())
-                        expect(event.chatMessage).to(beNil())
-                        expect(event.eventType).to(equal(EventType.srsResponse))
-                    }
-                }
-                
-                context("with a dictionary describing an eventStatus") {
-                    it("returns a correct Event instance") {
-                        let time = Date().timeIntervalSince1970
-                        var dict = createTestEventDict(time: time)
-                        dict[Event.JSONKey.eventType.rawValue] = EventType.none.rawValue
-                        dict[Event.JSONKey.ephemeralType.rawValue] = EphemeralEventType.eventStatus.rawValue
-                        dict[Event.JSONKey.eventJSON.rawValue] = "{\"\(Event.JSONKey.echo.rawValue)\": \"\"}"
-                        let event = Event.fromJSON(dict)!
-                        expect(event.typingStatus).to(beNil())
-                        expect(event.switchToSRSClassification).to(beNil())
-                        expect(event.chatMessage).to(beNil())
-                        expect(event.eventType).to(equal(EventType.srsResponse))
                     }
                 }
             }

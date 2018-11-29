@@ -9,22 +9,15 @@
 import UIKit
 
 protocol ConversationManagerDelegate: class {
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didReceive message: ChatMessage)
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didReceiveEventOutOfOrder event: Event)
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didUpdate message: ChatMessage)
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event?)
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool)
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authError: SocketConnection.AuthError?)
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didReturnAfterInactivityWith: Event)
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith: Event)
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceivePartnerEventWith: Event)
 }
 
 extension ConversationManagerDelegate {

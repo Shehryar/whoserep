@@ -9,5 +9,9 @@
 import UIKit
 
 func demoLog(_ message: String) {
-    print("[ASAPP DEMO] \(message)\n")
+    print("[ASAPP TEST] \(message)\n")
+}
+
+func demoLog(_ messages: String...) {
+    print("[ASAPP TEST] \(messages.joined(separator: " "))\n")
 }
