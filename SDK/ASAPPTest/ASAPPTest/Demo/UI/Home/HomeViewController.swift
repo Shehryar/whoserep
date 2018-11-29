@@ -168,6 +168,10 @@ extension HomeViewController: ASAPPDelegate {
     func chatViewControllerShouldHandleWebLink(url: URL) -> Bool {
         return true
     }
+    
+    func chatViewControllerDidReceiveChatEvent(name: String, data: [String: Any]?) {
+        demoLog("Received chat event named", name, "with data:", data?.debugDescription ?? "nil")
+    }
 }
 
 // MARK: - Styling
@@ -229,7 +233,7 @@ extension HomeViewController {
     }
     
     func refreshChatBadge() {
-        ASAPP.getChatStatus { [weak self] (unread, isLive) in
+        ASAPP.getChatStatus(success: { [weak self] (unread, isLive) in
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.chatBadge.update(unread: unread, isLiveChat: isLive)
@@ -237,7 +241,9 @@ extension HomeViewController {
                 let x = (strongSelf.chatBadge.superview?.bounds.width ?? 0) - badgeSize.width / 2
                 strongSelf.chatBadge.frame = CGRect(x: x, y: strongSelf.chatBadge.frame.minY, width: badgeSize.width, height: strongSelf.chatBadge.frame.height)
             }
-        }
+        }, failure: { error in
+            demoLog("Could not get chat status: \(error)")
+        })
     }
 }
 

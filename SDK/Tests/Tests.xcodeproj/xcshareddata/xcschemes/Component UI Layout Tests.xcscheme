@@ -21,7 +21,7 @@
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "YES"
+            buildForTesting = "NO"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -42,9 +42,23 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3AA19CDC219F4B9C0072D267"
-               BuildableName = "Component UI Layout Tests.xctest"
-               BlueprintName = "Component UI Layout Tests"
+               BlueprintIdentifier = "3A797B7D1F97A29D00883ABF"
+               BuildableName = "Unit Tests.xctest"
+               BlueprintName = "Unit Tests"
+               ReferencedContainer = "container:Tests.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3A797B881F97A29D00883ABF"
+               BuildableName = "UI Tests.xctest"
+               BlueprintName = "UI Tests"
                ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -61,29 +75,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3A797B7D1F97A29D00883ABF"
-               BuildableName = "Unit Tests.xctest"
-               BlueprintName = "Unit Tests"
-               ReferencedContainer = "container:Tests.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3A797B881F97A29D00883ABF"
-               BuildableName = "UI Tests.xctest"
-               BlueprintName = "UI Tests"
-               ReferencedContainer = "container:Tests.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3AA0D3BE20AA448100A04206"
-               BuildableName = "Interaction Tests.xctest"
-               BlueprintName = "Interaction Tests"
+               BlueprintIdentifier = "3AA19CDC219F4B9C0072D267"
+               BuildableName = "Component UI Layout Tests.xctest"
+               BlueprintName = "Component UI Layout Tests"
                ReferencedContainer = "container:Tests.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -134,15 +128,55 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "imageLayout"
+            argument = "form:checkbox-with-label"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "feedbackForm"
-            isEnabled = "YES">
+            argument = "form:feedback-form"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:chat-ended-only-child-weight"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:tab-view"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:ultimate-collection"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:data-usage"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "formWithScale"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "formWithRadio"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formValidation"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:image-and-buttons"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:card-and-buttons"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:cancelled-auto-pay"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:carousel-uneven"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>

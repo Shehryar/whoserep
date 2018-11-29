@@ -100,18 +100,9 @@ class ScrollView: UIScrollView, ComponentView {
         return CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
     }
     
-    private func isNearBottom() -> Bool {
-        return contentSize.height - contentOffset.y - frame.height < 100
-    }
-    
     func willUpdateFrames() {
-        if isNearBottom() {
             previousOffset = contentOffset
             previousFrame = frame
-        } else {
-            previousOffset = .zero
-            previousFrame = .zero
-        }
     }
     
     func updateFrames() {

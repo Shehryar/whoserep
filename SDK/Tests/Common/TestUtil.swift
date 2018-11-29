@@ -14,13 +14,8 @@ class TestUtil: NSObject {
     static let bundle = Bundle(for: TestUtil.self)
     
     // MARK: - JSON
-
-    class func dictForFile(named fileName: String) -> [String: Any]? {
-        guard let filePath = bundle.path(forResource: fileName, ofType: "json") else {
-            log(caller: self, "Unable to generate filePath for file named: \(fileName)")
-            return nil
-        }
-        
+    
+    class func dictForFile(at filePath: String) -> [String: Any]? {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else {
             log(caller: self, "Unable to parse data from file with path: \(filePath)")
             return nil
@@ -32,6 +27,15 @@ class TestUtil: NSObject {
         }
         
         return dict
+    }
+
+    class func dictForFile(named fileName: String) -> [String: Any]? {
+        guard let filePath = bundle.path(forResource: fileName, ofType: "json") else {
+            log(caller: self, "Unable to generate filePath for file named: \(fileName)")
+            return nil
+        }
+        
+        return dictForFile(at: filePath)
     }
     
     class func stringForFile(named fileName: String) -> String? {
@@ -69,6 +73,10 @@ class TestUtil: NSObject {
     
     // MARK: - Test config
     
+    class func getBundle() -> Bundle {
+        return Bundle(identifier: "ASAPP.UITests") ?? Bundle(identifier: "ASAPP.UnitTests") ?? Bundle(identifier: "ASAPP.Component-UI-Layout-Tests") ?? Bundle.main
+    }
+    
     class func setUpASAPP() {
         NSTimeZone.default = TimeZone(identifier: "America/New_York")!
         let config = ASAPPConfig(appId: "test", apiHostName: "test.example.com", clientSecret: "test")
@@ -77,7 +85,7 @@ class TestUtil: NSObject {
             return [:]
         })
         
-        FontLoader.load(bundle: Bundle(identifier: "ASAPP.UITests") ?? Bundle(identifier: "ASAPP.UnitTests") ?? Bundle.main)
+        FontLoader.load(bundle: getBundle())
         let lato = ASAPPFontFamily(
             light: UIFont(name: "Lato-Light", size: 14)!,
             regular: UIFont(name: "Lato-Regular", size: 14)!,
@@ -92,7 +100,7 @@ class TestUtil: NSObject {
         
         ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.2, color: .blue)
         
-        FontLoader.load(bundle: Bundle(identifier: "ASAPP.UITests") ?? Bundle(identifier: "ASAPP.UnitTests") ?? Bundle.main)
+        FontLoader.load(bundle: getBundle())
         let lato = ASAPPFontFamily(
             light: UIFont(name: "Lato-Light", size: 14)!,
             regular: UIFont(name: "Lato-Regular", size: 14)!,

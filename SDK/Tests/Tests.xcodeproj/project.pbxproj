@@ -183,6 +183,21 @@
 		3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CE6219F4BB00072D267 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA19CD8219F49D70072D267 /* Images.swift */; };
+		3AA19CE821A30B930072D267 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
+		3AA19CE921A30B9F0072D267 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; };
+		3AA19CEA21A30BA10072D267 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
+		3AA19CEE21A30D490072D267 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CEF21A30D4B0072D267 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CF121A30D630072D267 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3AA19CF521A322A80072D267 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291E1F97C1B70031CD78 /* TestUtil.swift */; };
+		3AA19CF621A322AB0072D267 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B43AD2140396300D729CF /* FontLoader.swift */; };
+		3AA19CF921A340C40072D267 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C221403D5B00D729CF /* Lato-Bold.ttf */; };
+		3AA19CFA21A340C40072D267 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C321403D5B00D729CF /* Lato-Black.ttf */; };
+		3AA19CFB21A340C40072D267 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C421403D5B00D729CF /* Lato-Regular.ttf */; };
+		3AA19CFC21A340C40072D267 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A4B43C521403D5B00D729CF /* Lato-Light.ttf */; };
+		3AA19CFD21A486050072D267 /* Nimble_Snapshots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; };
+		3AA19CFE21A4860A0072D267 /* Nimble_Snapshots.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3AB876D92150221C00DC0CEC /* Nimble_Snapshots.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */; };
 		3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */; };
 		3AA1E4F11FF429C700548E3D /* ChatMessageCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */; };
@@ -257,6 +272,13 @@
 		3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */; };
 		3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */; };
 		3AF5C39820D85F4B0013A616 /* cancelled-auto-pay.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */; };
+		5FE2357121ACAB9A008461A7 /* FeedbackFormTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2357021ACAB9A008461A7 /* FeedbackFormTestCases.swift */; };
+		5FE2357321AD8B7B008461A7 /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */; };
+		5FE2357421AD8B7B008461A7 /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */; };
+		5FE2357521AD8B7B008461A7 /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */; };
+		5FE2357721AD94B9008461A7 /* feedback-form-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FE2357621AD94B9008461A7 /* feedback-form-test.json */; };
+		5FE2357821AD94B9008461A7 /* feedback-form-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FE2357621AD94B9008461A7 /* feedback-form-test.json */; };
+		5FE2357921AD94B9008461A7 /* feedback-form-test.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FE2357621AD94B9008461A7 /* feedback-form-test.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +297,13 @@
 			remoteInfo = Tests;
 		};
 		3AA0D3C020AA448100A04206 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A797B621F97A29D00883ABF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A797B691F97A29D00883ABF;
+			remoteInfo = Tests;
+		};
+		3AA19CE2219F4B9C0072D267 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A797B621F97A29D00883ABF /* Project object */;
 			proxyType = 1;
@@ -328,6 +357,19 @@
 				3AA0D40920AA448100A04206 /* FBSnapshotTestCase.framework in CopyFiles */,
 				3AA0D40A20AA448100A04206 /* Quick.framework in CopyFiles */,
 				3AA0D40B20AA448100A04206 /* Nimble.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AA19CEC21A30D360072D267 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3AA19CFE21A4860A0072D267 /* Nimble_Snapshots.framework in CopyFiles */,
+				3AA19CF121A30D630072D267 /* Quick.framework in CopyFiles */,
+				3AA19CEE21A30D490072D267 /* FBSnapshotTestCase.framework in CopyFiles */,
+				3AA19CEF21A30D4B0072D267 /* Nimble.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +464,9 @@
 		3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonViewSpec.swift; sourceTree = "<group>"; };
 		3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Interaction Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA0D41220AA454E00A04206 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AA19CD8219F49D70072D267 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		3AA19CDD219F4B9C0072D267 /* Component UI Layout Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Component UI Layout Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3AA19CE1219F4B9C0072D267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AA1E4EC1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesTimeHeaderViewSpec.swift; sourceTree = "<group>"; };
 		3AA1E4EE1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTypingIndicatorCellSpec.swift; sourceTree = "<group>"; };
 		3AA1E4F01FF429C700548E3D /* ChatMessageCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCellSpec.swift; sourceTree = "<group>"; };
@@ -470,6 +515,9 @@
 		3AED18F81FA0FD1C005955DA /* RequiredComponentsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredComponentsSpec.swift; sourceTree = "<group>"; };
 		3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMessageViewController.swift; sourceTree = "<group>"; };
 		3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "cancelled-auto-pay.json"; sourceTree = "<group>"; };
+		5FE2357021ACAB9A008461A7 /* FeedbackFormTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormTestCases.swift; sourceTree = "<group>"; };
+		5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackForm.swift; sourceTree = "<group>"; };
+		5FE2357621AD94B9008461A7 /* feedback-form-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "feedback-form-test.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -511,6 +559,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3AA19CDA219F4B9C0072D267 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA19CFD21A486050072D267 /* Nimble_Snapshots.framework in Frameworks */,
+				3AA19CE821A30B930072D267 /* FBSnapshotTestCase.framework in Frameworks */,
+				3AA19CE921A30B9F0072D267 /* Nimble.framework in Frameworks */,
+				3AA19CEA21A30BA10072D267 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -527,6 +586,7 @@
 		3A0429361F97C1E30031CD78 /* Sample JSON */ = {
 			isa = PBXGroup;
 			children = (
+				5FE2357621AD94B9008461A7 /* feedback-form-test.json */,
 				3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */,
 				3ADF49322113B31A00315E87 /* card-and-buttons.json */,
 				3A8790FE20B3559E00AD81E5 /* carousel-uneven.json */,
@@ -601,6 +661,7 @@
 				3A0429171F97A2DF0031CD78 /* ASAPP.framework */,
 				3A797B6C1F97A29D00883ABF /* Dummy App */,
 				3A04291D1F97C1860031CD78 /* Common */,
+				3AA19CD7219F49910072D267 /* Component UI Layout Tests */,
 				3AA0D41120AA44B900A04206 /* Interaction Tests */,
 				3A797B811F97A29D00883ABF /* Unit Tests */,
 				3A797B8C1F97A29D00883ABF /* UI Tests */,
@@ -616,6 +677,7 @@
 				3A797B7E1F97A29D00883ABF /* Unit Tests.xctest */,
 				3A797B891F97A29D00883ABF /* UI Tests.xctest */,
 				3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */,
+				3AA19CDD219F4B9C0072D267 /* Component UI Layout Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -632,6 +694,7 @@
 				3A4FC2841FE1A3550098BAE2 /* Dropdown.swift */,
 				3A7B8ED420ACDDCB00DC5EAE /* ImageLayout.swift */,
 				3A391B371FA14E080085C2DA /* FormValidation.swift */,
+				5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */,
 				3AA0D3B920AA16AC00A04206 /* FormWithRadio.swift */,
 				3A621FD4208E93E800CB11D6 /* FormWithScale.swift */,
 				3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */,
@@ -727,6 +790,7 @@
 			isa = PBXGroup;
 			children = (
 				3A4FC2871FE1A4020098BAE2 /* DropdownTestCase.swift */,
+				5FE2357021ACAB9A008461A7 /* FeedbackFormTestCases.swift */,
 				3A391B421FA14ED90085C2DA /* FormValidationTestCase.swift */,
 				3A0521811F9FD8550072D089 /* TextAreaViewTestCase.swift */,
 				3AED18F01FA0EB64005955DA /* TextInputViewTestCase.swift */,
@@ -734,6 +798,15 @@
 				3AA0D41220AA454E00A04206 /* Info.plist */,
 			);
 			path = "Interaction Tests";
+			sourceTree = "<group>";
+		};
+		3AA19CD7219F49910072D267 /* Component UI Layout Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3AA19CD8219F49D70072D267 /* Images.swift */,
+				3AA19CE1219F4B9C0072D267 /* Info.plist */,
+			);
+			path = "Component UI Layout Tests";
 			sourceTree = "<group>";
 		};
 		3AA1E4F81FFC761000548E3D /* Mocks */ = {
@@ -832,13 +905,33 @@
 			productReference = 3AA0D40F20AA448100A04206 /* Interaction Tests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		3AA19CDC219F4B9C0072D267 /* Component UI Layout Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3AA19CE4219F4B9C0072D267 /* Build configuration list for PBXNativeTarget "Component UI Layout Tests" */;
+			buildPhases = (
+				3AA19CD9219F4B9C0072D267 /* Sources */,
+				3AA19CDA219F4B9C0072D267 /* Frameworks */,
+				3AA19CDB219F4B9C0072D267 /* Resources */,
+				3AA19CEC21A30D360072D267 /* CopyFiles */,
+				3AA19CF421A314980072D267 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3AA19CE3219F4B9C0072D267 /* PBXTargetDependency */,
+			);
+			name = "Component UI Layout Tests";
+			productName = "Component UI Layout Tests";
+			productReference = 3AA19CDD219F4B9C0072D267 /* Component UI Layout Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3A797B621F97A29D00883ABF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = ASAPP;
 				TargetAttributes = {
@@ -864,6 +957,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3A797B691F97A29D00883ABF;
 					};
+					3AA19CDC219F4B9C0072D267 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3A797B691F97A29D00883ABF;
+					};
 				};
 			};
 			buildConfigurationList = 3A797B651F97A29D00883ABF /* Build configuration list for PBXProject "Tests" */;
@@ -883,6 +981,7 @@
 				3A797B7D1F97A29D00883ABF /* Unit Tests */,
 				3A797B881F97A29D00883ABF /* UI Tests */,
 				3AA0D3BE20AA448100A04206 /* Interaction Tests */,
+				3AA19CDC219F4B9C0072D267 /* Component UI Layout Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -910,6 +1009,7 @@
 				3A62F1AF219625680050D0CC /* radio-buttons-container.json in Resources */,
 				3A675BFA211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A391B401FA14EB20085C2DA /* schedule-appointment-5-day.json in Resources */,
+				5FE2357721AD94B9008461A7 /* feedback-form-test.json in Resources */,
 				3A797B751F97A29D00883ABF /* Assets.xcassets in Resources */,
 				3AA8643F218CB94E006F0971 /* checkbox-with-label.json in Resources */,
 				3A4B43C821403D5B00D729CF /* Lato-Regular.ttf in Resources */,
@@ -980,6 +1080,7 @@
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3A87910120B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A4B43CE21403DC200D729CF /* Lato-Bold.ttf in Resources */,
+				5FE2357821AD94B9008461A7 /* feedback-form-test.json in Resources */,
 				3A0429461F97C24C0031CD78 /* security-pin.json in Resources */,
 				3A9F51C31FB122F9009C68AE /* event-list.json in Resources */,
 				3AED18F71FA0FC18005955DA /* change-pin-form.json in Resources */,
@@ -1021,7 +1122,19 @@
 				3AA86442218CB94E006F0971 /* checkbox-with-label.json in Resources */,
 				3A62F1B2219625680050D0CC /* radio-buttons-container.json in Resources */,
 				3A87910220B3559E00AD81E5 /* carousel-uneven.json in Resources */,
+				5FE2357921AD94B9008461A7 /* feedback-form-test.json in Resources */,
 				3A675C07211C88B50077BC00 /* tab-view.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AA19CDB219F4B9C0072D267 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA19CFA21A340C40072D267 /* Lato-Black.ttf in Resources */,
+				3AA19CFB21A340C40072D267 /* Lato-Regular.ttf in Resources */,
+				3AA19CF921A340C40072D267 /* Lato-Bold.ttf in Resources */,
+				3AA19CFC21A340C40072D267 /* Lato-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1054,6 +1167,23 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"copying std libs\"\n\n${TOOLCHAIN_DIR}/usr/bin/swift-stdlib-tool \\\n--copy --verbose --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" \\\n--scan-executable \"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\" \\\n--scan-executable \"${BUILT_PRODUCTS_DIR}/ASAPP.framework/ASAPP\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\" \\\n--platform \"${PLATFORM_NAME}\" \\\n--toolchain \"${TOOLCHAIN_DIR}\" \\\n--destination \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--strip-bitcode --resource-destination \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \\\n--resource-library libswiftRemoteMirror.dylib\n\necho \"copied std libs\"";
 		};
+		3AA19CF421A314980072D267 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"copying std libs\"\n\n${TOOLCHAIN_DIR}/usr/bin/swift-stdlib-tool \\\n--copy --verbose --sign \"${EXPANDED_CODE_SIGN_IDENTITY}\" \\\n--scan-executable \"${TARGET_BUILD_DIR}/${EXECUTABLE_PATH}\" \\\n--scan-executable \"${BUILT_PRODUCTS_DIR}/ASAPP.framework/ASAPP\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--scan-folder \"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\" \\\n--platform \"${PLATFORM_NAME}\" \\\n--toolchain \"${TOOLCHAIN_DIR}\" \\\n--destination \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}\" \\\n--strip-bitcode --resource-destination \"${TARGET_BUILD_DIR}/${FULL_PRODUCT_NAME}\" \\\n--resource-library libswiftRemoteMirror.dylib\n\necho \"copied std libs\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1074,6 +1204,7 @@
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
 				3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
 				3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */,
+				5FE2357321AD8B7B008461A7 /* FeedbackForm.swift in Sources */,
 				3A391B3A1FA14EAC0085C2DA /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1122,6 +1253,7 @@
 				3A7B8ED620ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */,
 				3ADD60821FE4485A00FC783C /* IconViewSpec.swift in Sources */,
+				5FE2357421AD8B7B008461A7 /* FeedbackForm.swift in Sources */,
 				3ADD60801FE42F1800FC783C /* CheckboxViewSpec.swift in Sources */,
 				3AB8F165217678EF00785326 /* QuickRepliesListViewSpec.swift in Sources */,
 				3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */,
@@ -1185,11 +1317,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A675BF8211B914F0077BC00 /* ComponentViewContainerController.swift in Sources */,
+				5FE2357521AD8B7B008461A7 /* FeedbackForm.swift in Sources */,
 				3AA0D3C220AA448100A04206 /* DropdownTestCase.swift in Sources */,
 				3AA0D3C320AA448100A04206 /* TextAreaMaxLength.swift in Sources */,
 				3A7B8ED320ACDDAF00DC5EAE /* FormWithRadio.swift in Sources */,
 				3AA0D3C720AA448100A04206 /* SingleComponentViewController.swift in Sources */,
 				3AA0D3C920AA448100A04206 /* TextInputViewTestCase.swift in Sources */,
+				5FE2357121ACAB9A008461A7 /* FeedbackFormTestCases.swift in Sources */,
 				3AA0D3D120AA448100A04206 /* IdentifiableTestCase.swift in Sources */,
 				3AA0D3D820AA448100A04206 /* MockConversationManager.swift in Sources */,
 				3AA0D3DA20AA448100A04206 /* FormValidation.swift in Sources */,
@@ -1203,6 +1337,16 @@
 				3AA0D3F220AA448100A04206 /* FormValidationTestCase.swift in Sources */,
 				3A4B43AF2140396400D729CF /* FontLoader.swift in Sources */,
 				3AA0D3F320AA448100A04206 /* Dropdown.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3AA19CD9219F4B9C0072D267 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AA19CE6219F4BB00072D267 /* Images.swift in Sources */,
+				3AA19CF621A322AB0072D267 /* FontLoader.swift in Sources */,
+				3AA19CF521A322A80072D267 /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1223,6 +1367,11 @@
 			isa = PBXTargetDependency;
 			target = 3A797B691F97A29D00883ABF /* Tests */;
 			targetProxy = 3AA0D3C020AA448100A04206 /* PBXContainerItemProxy */;
+		};
+		3AA19CE3219F4B9C0072D267 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A797B691F97A29D00883ABF /* Tests */;
+			targetProxy = 3AA19CE2219F4B9C0072D267 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1379,6 +1528,27 @@
 			};
 			name = Debug;
 		};
+		3AA19CE5219F4B9C0072D267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GHJ79KTB8D;
+				INFOPLIST_FILE = "Component UI Layout Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LAYOUT_SNAPSHOTS_DIR = "$(PROJECT_DIR)/Component UI Layout Tests";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ASAPP.Component-UI-Layout-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tests;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1418,6 +1588,14 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3AA0D40E20AA448100A04206 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3AA19CE4219F4B9C0072D267 /* Build configuration list for PBXNativeTarget "Component UI Layout Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AA19CE5219F4B9C0072D267 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

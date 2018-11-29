@@ -21,6 +21,9 @@ import Foundation
     
     /// Called when a user taps on a web link. Please return `true` if ASAPP should open the web link or `false` otherwise.
     func chatViewControllerShouldHandleWebLink(url: URL) -> Bool
+    
+    /// Called when certain agreed-upon events occur during a chat.
+    func chatViewControllerDidReceiveChatEvent(name: String, data: [String: Any]?)
 }
 
 /**
@@ -157,13 +160,27 @@ public class ASAPP: NSObject {
     /// A `Void` closure type that takes an `Int`, the number of unread messages; and a `Bool`, whether the user is in a live chat.
     public typealias ChatStatusHandler = ((_ unread: Int, _ isLiveChat: Bool) -> Void)
     
+    /// A `Void` closure type that takes an `Error`, if an error occurs.
+    public typealias FailureHandler = ((_ error: Error) -> Void)
+    
     /**
      Gets the number of messages the user received while offline as well as whether user is currently in a live chat.
      
      - parameter handler: A `ChatStatusHandler` that receives the number of unread ASAPP push notifications and the live chat status.
      */
+    @available(*, deprecated, message: "Please use getChatStatus(success:failure:) instead")
     public class func getChatStatus(_ handler: @escaping ChatStatusHandler) {
         return PushNotificationsManager.shared.getChatStatus(handler)
+    }
+    
+    /**
+     Gets the number of messages the user received while offline as well as whether user is currently in a live chat.
+     
+     - parameter success: A `ChatStatusHandler` that receives the number of unread ASAPP push notifications and the live chat status.
+     - parameter failure: A `FailureHandler` that receives an error if one occurs
+     */
+    public class func getChatStatus(success: @escaping ChatStatusHandler, failure: @escaping FailureHandler) {
+        return PushNotificationsManager.shared.getChatStatus(success, failure)
     }
     
     /**

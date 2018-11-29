@@ -40,6 +40,7 @@ class Event: NSObject {
     var switchToSRSClassification: String?
     var continuePrompt: ContinuePrompt?
     var notification: ChatNotification?
+    var partnerEvent: PartnerEvent?
     
     // MARK: - Init
     
@@ -115,12 +116,7 @@ class Event: NSObject {
     // MARK: - Metadata
     
     func makeMetadata() -> EventMetadata {
-        let eventId: Int
-        if ephemeralType == .eventStatus, let parentId = parentEventLogSeq {
-            eventId = parentId
-        } else {
-            eventId = eventLogSeq
-        }
+        let eventId = eventLogSeq
         
         return EventMetadata(isReply: isReply,
                              isAutomatedMessage: isAutomatedMessage,

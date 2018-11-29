@@ -18,7 +18,8 @@ let testCaseViewControllers: [TestCaseViewController.Type] = [
     FormWithScale.self,
     FormWithRadio.self,
     ImageLayout.self,
-    Dropdown.self
+    Dropdown.self,
+    FeedbackForm.self
 ]
 
 @UIApplicationMain
