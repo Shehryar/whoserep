@@ -214,6 +214,7 @@ platform :ios do
     sh "git stash"
     sh "git pull origin staging"
     sh "git stash pop"
+    git_add(path: "package")
     git_commit(
       path: "package",
       message: "update documentation [skip ci]"
