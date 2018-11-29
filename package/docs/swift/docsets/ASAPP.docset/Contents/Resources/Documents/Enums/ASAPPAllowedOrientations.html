@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ASAPPStyles Class Reference</title>
+    <title>ASAPPAllowedOrientations Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/ASAPPStyles" class="dashAnchor"></a>
-    <a title="ASAPPStyles Class Reference"></a>
+    <a name="//apple_ref/swift/Enum/ASAPPAllowedOrientations" class="dashAnchor"></a>
+    <a title="ASAPPAllowedOrientations Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">ASAPP Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">ASAPP Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ASAPPStyles Class Reference
+        ASAPPAllowedOrientations Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -115,16 +115,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ASAPPStyles</h1>
+            <h1>ASAPPAllowedOrientations</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">@objc(ASAPPStyles)</span>
-<span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">ASAPPStyles</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ASAPPAllowedOrientations</span> <span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                 </div>
               </div>
-            <p>Holds customizable styles and other visual SDK settings.</p>
+            <p>Allowed orientations to display ASAPP, defaults to <code>.portraitLocked</code>.</p>
 
           </section>
           <section class="section task-group-section">
@@ -133,9 +132,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPStyles(py)textStyles"></a>
-                    <a name="//apple_ref/swift/Property/textStyles" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPStyles(py)textStyles">textStyles</a>
+                    <a name="/c:@M@ASAPP@E@ASAPPAllowedOrientations@ASAPPAllowedOrientationsPortraitLocked"></a>
+                    <a name="//apple_ref/swift/Element/portraitLocked" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@E@ASAPPAllowedOrientations@ASAPPAllowedOrientationsPortraitLocked">portraitLocked</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -143,14 +142,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Customizable text styles.</p>
+                        <p>Only portrait.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">textStyles</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPTextStyles.html">ASAPPTextStyles</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">portraitLocked</span></code></pre>
 
                         </div>
                       </div>
@@ -160,9 +159,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPStyles(py)colors"></a>
-                    <a name="//apple_ref/swift/Property/colors" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPStyles(py)colors">colors</a>
+                    <a name="/c:@M@ASAPP@E@ASAPPAllowedOrientations@ASAPPAllowedOrientationsIPadLandscapeAllowed"></a>
+                    <a name="//apple_ref/swift/Element/iPadLandscapeAllowed" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@E@ASAPPAllowedOrientations@ASAPPAllowedOrientationsIPadLandscapeAllowed">iPadLandscapeAllowed</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -170,105 +169,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Customizable colors.</p>
+                        <p>Landscape left/right and portrait.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">colors</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPColors.html">ASAPPColors</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPStyles(py)navBarStyles"></a>
-                    <a name="//apple_ref/swift/Property/navBarStyles" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPStyles(py)navBarStyles">navBarStyles</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Customizable navigation bar styles.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">navBarStyles</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPNavBarStyles.html">ASAPPNavBarStyles</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPStyles(py)primaryButtonRoundingStyle"></a>
-                    <a name="//apple_ref/swift/Property/primaryButtonRoundingStyle" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPStyles(py)primaryButtonRoundingStyle">primaryButtonRoundingStyle</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The rounding style of primary Component buttons. .pill is equivalent to a radius of half the height of the button. Defaults to .radius(0).</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">primaryButtonRoundingStyle</span><span class="p">:</span> <span class="kt"><a href="../Classes/ASAPPPrimaryButtonRoundingStyle.html">ASAPPPrimaryButtonRoundingStyle</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:@M@ASAPP@objc(cs)ASAPPStyles(py)allowedOrientations"></a>
-                    <a name="//apple_ref/swift/Property/allowedOrientations" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPPStyles(py)allowedOrientations">allowedOrientations</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The orientation(s) in which ASAPP is allowed to appear.
-Defaults to <code>.portraitLocked</code>.
-Notes:</p>
-
-<ol>
-<li>Landscape orientation is not supported on iPhone.</li>
-<li>With iOS 11+ when the client app is launched in Landscape mode, then ASAPP is presented
-in Landscape and a transition is made to portrait.
-The keyboard input will detach from the keyboard.
-To avoid this known issue, please rotate to the desired orientation before presenting ASAPP.</li>
-</ol>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">allowedOrientations</span><span class="p">:</span> <span class="kt"><a href="../Enums/ASAPPAllowedOrientations.html">ASAPPAllowedOrientations</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">iPadLandscapeAllowed</span></code></pre>
 
                         </div>
                       </div>
