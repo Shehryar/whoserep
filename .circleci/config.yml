@@ -164,6 +164,9 @@ jobs:
     steps:
       - add_ssh_keys: *git_key
       - checkout
+      - run:
+          name: Set Ruby version
+          command: echo "ruby-2.4.4" > .ruby-version
       - restore_cache: *restore_gems
       - run: *install_gems
       - save_cache: *cache_gems
