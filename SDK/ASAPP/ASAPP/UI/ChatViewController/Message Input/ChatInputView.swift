@@ -157,6 +157,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         textView.returnKeyType = .send
         textView.autocorrectionType = .no
         textView.isAccessibilityElement = true
+        textView.spellCheckingType = .yes
         textView.accessibilityTraits = UIAccessibilityTraitSearchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: sendButtonSize.width + 8)
