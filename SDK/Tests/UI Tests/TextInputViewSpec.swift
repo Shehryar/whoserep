@@ -27,16 +27,8 @@ class TextInputViewSpec: QuickSpec {
             }
             
             context("on its own") {
-                var style: ComponentStyle!
-                
-                beforeEach {
-                    ASAPP.styles = ASAPPStyles()
-                    ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .blue)
-                    ASAPP.styles.colors.controlSecondary = .blue
-                    ASAPP.styles.colors.controlTint = .brown
-                    
-                    style = TestUtil.createStyle()
-                }
+                let style = TestUtil.createStyle()
+                ASAPP.styles.textStyles.body = ASAPPTextStyle(font: Fonts.default.regular, size: 15, letterSpacing: 0.5, color: .blue)
                 
                 context("with a placeholder") {
                     it("has a valid snapshot") {
@@ -148,6 +140,72 @@ class TextInputViewSpec: QuickSpec {
                         textInputView.textInputView.textFieldTextDidChange()
                         expect(textInputView.isInvalid).to(equal(false))
                         expect(textInputView).to(haveValidSnapshot())
+                    }
+                }
+                
+                context("as a date picker") {
+                    context("with default settings") {
+                        it("has a valid snapshot") {
+                            let content = [
+                                "textInputType": "date"
+                            ]
+                            let textInputItem = TextInputItem(style: style, content: content)
+                            let textInputView = TextInputView(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
+                            textInputView.component = textInputItem
+                            expect(textInputView).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("with a custom placeholder") {
+                        it("has a valid snapshot") {
+                            let content = [
+                                "textInputType": "date",
+                                "placeholder": "A custom placeholder"
+                            ]
+                            let textInputItem = TextInputItem(style: style, content: content)
+                            let textInputView = TextInputView(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
+                            textInputView.component = textInputItem
+                            expect(textInputView).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("with a selected date") {
+                        it("has a valid snapshot") {
+                            let content = [
+                                "textInputType": "date"
+                            ]
+                            let textInputItem = TextInputItem(style: style, content: content)
+                            let textInputView = TextInputView(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
+                            textInputItem?.value = Date(timeIntervalSince1970: 327511937).asString(with: "yyyy-MM-dd")
+                            textInputView.component = textInputItem
+                            expect(textInputView).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("marked invalid") {
+                        it("has a valid snapshot") {
+                            let content = [
+                                "textInputType": "date"
+                            ]
+                            let textInputItem = TextInputItem(style: style, content: content)
+                            let textInputView = TextInputView(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
+                            textInputView.component = textInputItem
+                            textInputView.textInputView.invalid = true
+                            expect(textInputView).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("marked invalid with an error message") {
+                        it("has a valid snapshot") {
+                            let content = [
+                                "textInputType": "date"
+                            ]
+                            let textInputItem = TextInputItem(style: style, content: content)
+                            let textInputView = TextInputView(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
+                            textInputView.component = textInputItem
+                            textInputView.updateError(for: "CANNOT BE EMPTY")
+                            expect(textInputView).to(haveValidSnapshot())
+                        }
                     }
                 }
                 

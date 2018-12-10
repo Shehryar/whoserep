@@ -267,6 +267,9 @@
 		3A0E7F9C1FB4C3C0008F9544 /* BinaryRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0E7F9B1FB4C3C0008F9544 /* BinaryRatingView.swift */; };
 		3A0F04B42017DD4E0064E76F /* NotificationNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */; };
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
+		3A17D19E21B5969500D94491 /* time_calendar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D19B21B5969400D94491 /* time_calendar@3x.png */; };
+		3A17D19F21B5969500D94491 /* time_calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D19C21B5969400D94491 /* time_calendar@2x.png */; };
+		3A17D1A021B5969500D94491 /* time_calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D19D21B5969500D94491 /* time_calendar.png */; };
 		3A19E17820DC4069000B46DC /* Censor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19E17720DC4069000B46DC /* Censor.swift */; };
 		3A24FD2220F7AC030075B6CD /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A24FD2020F7ABDA0075B6CD /* hourglass.png */; };
 		3A24FD2320F7AC030075B6CD /* hourglass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A24FD2120F7ABDA0075B6CD /* hourglass@2x.png */; };
@@ -432,6 +435,9 @@
 		3ACCE581211DE61300934931 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACCE580211DE61300934931 /* Timer.swift */; };
 		3AD183031FAA7E2F00A3A2F0 /* CodableStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */; };
 		3AD183051FACE7B700A3A2F0 /* SavedSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */; };
+		3AD5F91D21AF0401005AB4AF /* DatePickerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD5F91C21AF0401005AB4AF /* DatePickerConfig.swift */; };
+		3AD5F91F21AF056C005AB4AF /* DateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD5F91E21AF056C005AB4AF /* DateFormatterExtensions.swift */; };
+		3AD5F92121AF0694005AB4AF /* UIToolbarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD5F92021AF0694005AB4AF /* UIToolbarExtensions.swift */; };
 		3AD7BB7321077509006FBB7D /* SecureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7BB7221077509006FBB7D /* SecureStorage.swift */; };
 		3ADD607C1FE1CD9900FC783C /* icon-dropdown-chevron.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD607B1FE1CD7A00FC783C /* icon-dropdown-chevron.png */; };
 		3ADD607D1FE1CD9900FC783C /* icon-dropdown-chevron@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ADD607A1FE1CD7900FC783C /* icon-dropdown-chevron@2x.png */; };
@@ -691,6 +697,9 @@
 		3A0E7F9B1FB4C3C0008F9544 /* BinaryRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryRatingView.swift; sourceTree = "<group>"; };
 		3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtensions.swift; sourceTree = "<group>"; };
 		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
+		3A17D19B21B5969400D94491 /* time_calendar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time_calendar@3x.png"; sourceTree = "<group>"; };
+		3A17D19C21B5969400D94491 /* time_calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time_calendar@2x.png"; sourceTree = "<group>"; };
+		3A17D19D21B5969500D94491 /* time_calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_calendar.png; sourceTree = "<group>"; };
 		3A19E17720DC4069000B46DC /* Censor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Censor.swift; sourceTree = "<group>"; };
 		3A24FD1F20F7ABDA0075B6CD /* hourglass@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hourglass@3x.png"; sourceTree = "<group>"; };
 		3A24FD2020F7ABDA0075B6CD /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
@@ -856,6 +865,9 @@
 		3ACCE580211DE61300934931 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		3AD183021FAA7E2F00A3A2F0 /* CodableStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableStorage.swift; sourceTree = "<group>"; };
 		3AD183041FACE7B700A3A2F0 /* SavedSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSessionManager.swift; sourceTree = "<group>"; };
+		3AD5F91C21AF0401005AB4AF /* DatePickerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerConfig.swift; sourceTree = "<group>"; };
+		3AD5F91E21AF056C005AB4AF /* DateFormatterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtensions.swift; sourceTree = "<group>"; };
+		3AD5F92021AF0694005AB4AF /* UIToolbarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIToolbarExtensions.swift; sourceTree = "<group>"; };
 		3AD7BB7221077509006FBB7D /* SecureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStorage.swift; sourceTree = "<group>"; };
 		3ADD60791FE1CD7900FC783C /* icon-dropdown-chevron@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dropdown-chevron@3x.png"; sourceTree = "<group>"; };
 		3ADD607A1FE1CD7900FC783C /* icon-dropdown-chevron@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-dropdown-chevron@2x.png"; sourceTree = "<group>"; };
@@ -1056,6 +1068,7 @@
 				3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */,
 				3019F5DE1D5B92760036D74E /* ColorExtensions.swift */,
 				3029A6AC1D4BDFE4000B6404 /* DateExtensions.swift */,
+				3AD5F91E21AF056C005AB4AF /* DateFormatterExtensions.swift */,
 				3AA19CD5219A20FC0072D267 /* Debouncer.swift */,
 				3049CD231D42AD8500F0C0E6 /* DebugLog.swift */,
 				305C6C961DB6A4BE00FF0AF4 /* DictionaryExtensions.swift */,
@@ -1080,6 +1093,7 @@
 				3A28113E206B2B6F00B7CE04 /* UIViewExtensions.swift */,
 				3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */,
 				3A2F49DB212362CD000B0542 /* UIResponderExtensions.swift */,
+				3AD5F92021AF0694005AB4AF /* UIToolbarExtensions.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1161,6 +1175,7 @@
 			isa = PBXGroup;
 			children = (
 				30131FB51EB10F9C009E7299 /* ComponentJSONUtil.swift */,
+				3AD5F91C21AF0401005AB4AF /* DatePickerConfig.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1471,6 +1486,9 @@
 				3AC819E420BDF18C00F345F9 /* tech_router_on.png */,
 				3AC819C520BDF18500F345F9 /* tech_router_on@2x.png */,
 				3AC81A0820BDF19700F345F9 /* tech_router_on@3x.png */,
+				3A17D19D21B5969500D94491 /* time_calendar.png */,
+				3A17D19C21B5969400D94491 /* time_calendar@2x.png */,
+				3A17D19B21B5969400D94491 /* time_calendar@3x.png */,
 				3AC819C120BDF18400F345F9 /* time_clock_arrow.png */,
 				3AC819E120BDF18B00F345F9 /* time_clock_arrow@2x.png */,
 				3AC819D420BDF18800F345F9 /* time_clock_arrow@3x.png */,
@@ -1966,6 +1984,7 @@
 				3A26997920603CD6007C0EC6 /* icon-arrow-left@2x.png in Resources */,
 				3AC81A1C20BDF19700F345F9 /* notification_alert.png in Resources */,
 				3AC81A4D20BDF19700F345F9 /* money_card_recurring@2x.png in Resources */,
+				3A17D19E21B5969500D94491 /* time_calendar@3x.png in Resources */,
 				285F7AE51DA9AD3B008C2EF6 /* button-bg-close@2x.png in Resources */,
 				3AC81A5320BDF19700F345F9 /* tech_router_on@3x.png in Resources */,
 				3AC81A2820BDF19700F345F9 /* user_cancel-2@3x.png in Resources */,
@@ -2005,6 +2024,7 @@
 				3AC81A5220BDF19700F345F9 /* nav_check.png in Resources */,
 				285F7AE41DA9AD3B008C2EF6 /* button-bg-close.png in Resources */,
 				3AC81A1420BDF19700F345F9 /* user_confirm.png in Resources */,
+				3A17D1A021B5969500D94491 /* time_calendar.png in Resources */,
 				3AC81A1120BDF19700F345F9 /* user_user@3x.png in Resources */,
 				3AC81A2D20BDF19700F345F9 /* user_user_standing.png in Resources */,
 				3AC81A2A20BDF19700F345F9 /* mail_paper.png in Resources */,
@@ -2019,6 +2039,7 @@
 				3AB8F15F217124C100785326 /* tech_laptop.png in Resources */,
 				3A26997320603B4E007C0EC6 /* icon-send@3x.png in Resources */,
 				3ADD607C1FE1CD9900FC783C /* icon-dropdown-chevron.png in Resources */,
+				3A17D19F21B5969500D94491 /* time_calendar@2x.png in Resources */,
 				3AC81A2520BDF19700F345F9 /* sound_off_fill@2x.png in Resources */,
 				3AC81A3420BDF19700F345F9 /* user_cancel-2@2x.png in Resources */,
 				3AC81A4520BDF19700F345F9 /* user_user@2x.png in Resources */,
@@ -2175,6 +2196,7 @@
 				302A20AB1E5DF110007C522A /* ModalCardPresentationAnimator.swift in Sources */,
 				3A68110B1F7AFC6C00078E3F /* ASAPPFontFamily.swift in Sources */,
 				289E04141EC792DB00CAC413 /* RadioButtonsContainerItem.swift in Sources */,
+				3AD5F91F21AF056C005AB4AF /* DateFormatterExtensions.swift in Sources */,
 				30226CD91D4933F200871453 /* SocketConnection.swift in Sources */,
 				303699A61EAFA9FB00A819DF /* ASAPPStyles.swift in Sources */,
 				306CA6641E968DF100CFE17D /* ASAPPUser.swift in Sources */,
@@ -2307,6 +2329,7 @@
 				3A4FEEF91F55B61400338B00 /* NavBarButtonSide.swift in Sources */,
 				3A621FBD208E38DA00CB11D6 /* GatekeeperView.swift in Sources */,
 				285F7B101DAB3726008C2EF6 /* DemoUtils.swift in Sources */,
+				3AD5F92121AF0694005AB4AF /* UIToolbarExtensions.swift in Sources */,
 				3A9C755B216420EC0079D807 /* Changes.swift in Sources */,
 				3A8790FB20AF63B800AD81E5 /* ComponentMessageCardView.swift in Sources */,
 				3A4FEEF51F54C87800338B00 /* ContainerViewController.swift in Sources */,
@@ -2322,6 +2345,7 @@
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				3A0801A7215C2B7B00C1826A /* StoreSubscriber.swift in Sources */,
 				281C34A11E7F092C001A2AA3 /* ButtonView.swift in Sources */,
+				3AD5F91D21AF0401005AB4AF /* DatePickerConfig.swift in Sources */,
 				3A9EF22A202E59B60092A1AA /* ContinuePrompt.swift in Sources */,
 				3A79BDB4205AB74000702EC8 /* MessageButtonsView.swift in Sources */,
 				3A5B019A209CB4C800178E15 /* RepeatingTimer.swift in Sources */,

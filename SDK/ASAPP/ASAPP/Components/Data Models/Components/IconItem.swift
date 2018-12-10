@@ -30,6 +30,7 @@ enum ComponentIcon: String {
     case soundOnFill
     case techLaptop
     case techRouterOn
+    case timeCalendar
     case timeClock
     case timeClockArrow
     case userCancel

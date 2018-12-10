@@ -149,6 +149,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithScale"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:date-pickers"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

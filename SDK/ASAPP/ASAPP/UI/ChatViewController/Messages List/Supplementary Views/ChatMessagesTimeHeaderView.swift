@@ -31,7 +31,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
         isOpaque = true
         
         timeLabel.backgroundColor = .clear
-        timeLabel.textColor = ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5)
+        timeLabel.textColor = ASAPP.styles.colors.dark.withAlphaComponent(0.5)
         timeLabel.textAlignment = .center
         contentView.addSubview(timeLabel)
     }

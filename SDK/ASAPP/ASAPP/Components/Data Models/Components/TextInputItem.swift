@@ -19,28 +19,24 @@ class TextInputItem: Component {
         case placeholder
         case textInputType
         case maxLength
+        
+        // date picker
+        case selectedDateFormat
+        case minDate
+        case maxDate
+        case disabledDates
     }
     
     // MARK: - Enums
     
     enum InputType: String {
         case email
+        case date
         case decimal
         case text // Default
         case number
         case phone
         case url
-        
-        func keyboardType() -> UIKeyboardType {
-            switch self {
-            case .email: return .emailAddress
-            case .decimal: return .decimalPad
-            case .text: return .default
-            case .number: return .numberPad
-            case .phone: return .phonePad
-            case .url: return .URL
-            }
-        }
         
         static func from(_ string: Any?) -> InputType? {
             guard let string = string as? String,
@@ -54,25 +50,18 @@ class TextInputItem: Component {
     // MARK: - Defaults
     
     static let defaultAutocorrectionEnabled = true
-    
     static let defaultCapitalizationType = CapitalizationType.none
-    
     static let defaultInputType = InputType.text
-    
     static let defaultIsSecure = false
+    static let defaultSelectedDateFormat = "yyyy-MM-dd"
     
     // MARK: - Properties
 
     let autocapitalizationType: UITextAutocapitalizationType
-    
     let autocorrectionType: UITextAutocorrectionType
-    
     let isSecure: Bool
-    
-    let keyboardType: UIKeyboardType
-    
+    let inputControlType: InputControlType
     let placeholder: String?
-    
     let maxLength: Int?
     
     // MARK: - Component Properties
@@ -109,9 +98,26 @@ class TextInputItem: Component {
         
         let inputType = InputType.from(content?.string(for: JSONKey.textInputType.rawValue))
             ?? TextInputItem.defaultInputType
-        self.keyboardType = inputType.keyboardType()
+        
+        switch inputType {
+        case .date:
+            self.inputControlType = .datePicker(.from(content))
+        case .decimal:
+            self.inputControlType = .keyboard(.decimalPad)
+        case .email:
+            self.inputControlType = .keyboard(.emailAddress)
+        case .number:
+            self.inputControlType = .keyboard(.numberPad)
+        case .phone:
+            self.inputControlType = .keyboard(.phonePad)
+        case .text:
+            self.inputControlType = .keyboard(.default)
+        case .url:
+            self.inputControlType = .keyboard(.URL)
+        }
         
         self.placeholder = content?.string(for: JSONKey.placeholder.rawValue)
+            ?? (inputType == .date ? ASAPPLocalizedString("Choose a date") : nil)
         
         self.maxLength = content?.int(for: JSONKey.maxLength.rawValue) ?? nil
         

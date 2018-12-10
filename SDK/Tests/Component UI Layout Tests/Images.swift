@@ -73,7 +73,7 @@ class Images: QuickSpec {
         func recordSnapshots(_ paths: [String]) {
             for path in paths {
                 it(getNameFromPath(path, removing: jsonSuffix)) {
-                    expect(getViewForPath(path)).to(recordSnapshot())
+                    expect(getViewForPath(path)).to(haveValidSnapshot())
                 }
             }
         }

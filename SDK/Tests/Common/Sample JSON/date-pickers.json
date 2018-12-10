@@ -1,0 +1,166 @@
+{
+  "title": "How did we do?",
+  "root": {
+    "type": "stackView",
+    "content": {
+      "orientation": "vertical",
+      "items": [
+        {
+          "type": "scrollView",
+          "content": {
+            "root": {
+              "type": "stackView",
+              "content": {
+                "orientation": "vertical",
+                "items": [
+                  {
+                    "type": "label",
+                    "content": {
+                      "text": "Enter some dates!"
+                    },
+                    "style": {
+                      "textType": "header1",
+                      "marginBottom": 30
+                    }
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "date0",
+                    "content": {
+                      "textInputType": "date"
+                    }
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "date1",
+                    "content": {
+                      "placeholder": "YYYY-MM-DD",
+                      "textInputType": "date",
+                      "selectedDateFormat": "EEEE, MMMM d",
+                      "minDate": "2018-11-01",
+                      "maxDate": "2018-11-30",
+                      "disabledDates": [
+                        "2018-11-22",
+                        "2018-11-23"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "date2",
+                    "content": {
+                      "placeholder": "no max",
+                      "textInputType": "date",
+                      "selectedDateFormat": "EEEE, MMMM d",
+                      "minDate": "2018-11-01",
+                      "disabledDates": [
+                        "2018-11-22",
+                        "2018-11-23"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "date3",
+                    "content": {
+                      "placeholder": "no min",
+                      "textInputType": "date",
+                      "selectedDateFormat": "EEEE, MMMM d",
+                      "maxDate": "2018-11-30",
+                      "disabledDates": [
+                        "2018-11-22",
+                        "2018-11-23"
+                      ]
+                    }
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "date4",
+                    "content": {
+                      "placeholder": "none disabled",
+                      "textInputType": "date",
+                      "selectedDateFormat": "EEEE, MMMM d",
+                      "minDate": "2018-11-01",
+                      "maxDate": "2018-11-30",
+                      "disabledDates": []
+                    }
+                  },
+                  {
+                    "type": "textInput",
+                    "name": "date5",
+                    "content": {
+                      "placeholder": "unrestricted",
+                      "textInputType": "date",
+                      "selectedDateFormat": "MM/dd/yyyy",
+                    }
+                  }
+                ]
+              },
+              "style": {
+                "padding": 40
+              }
+            }
+          },
+          "style": {
+            "weight": 1
+          }
+        },
+        {
+          "type": "stackView",
+          "content": {
+            "orientation": "horizontal",
+            "items": [
+              {
+                "type": "button",
+                "content": {
+                  "title": "CANCEL",
+                  "action": {
+                    "type": "finish",
+                    "content": {}
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "buttonType": "secondary"
+                }
+              },
+              {
+                "type": "button",
+                "content": {
+                  "title": "SUBMIT",
+                  "action": {
+                    "type": "api",
+                    "content": {
+                      "requestPath": "srs/SubmitFeedback",
+                      "data": {
+                        "issueId": "310001",
+                        "requireTargetIssueId": true,
+                        "text": "upload feedback",
+                        "metaData": "",
+                        "flowId": "deadbeef",
+                        "actionTarget": "_SUBMIT_FEEDBACK"
+                      }
+                    }
+                  }
+                },
+                "style": {
+                  "weight": 1,
+                  "align": "fill",
+                  "buttonType": "primary"
+                }
+              }
+            ]
+          },
+          "style": {
+            "weight": 0
+          }
+        }
+      ]
+    },
+    "style": {
+      "gravity": "fill",
+      "align": "fill"
+    }
+  }
+}

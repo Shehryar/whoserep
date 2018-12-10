@@ -86,7 +86,7 @@ class TabViewTab: UIView {
             titleColor = ASAPP.styles.colors.controlTint
         } else {
             tabColor = ASAPP.styles.colors.backgroundSecondary
-            titleColor = ASAPP.styles.colors.textSecondary
+            titleColor = ASAPP.styles.colors.dark
         }
         
         backgroundColor = tabColor

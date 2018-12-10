@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum InputControlType {
+    case keyboard(UIKeyboardType)
+    case datePicker(DatePickerConfig)
+}
+
 class PlaceholderTextInputView: UIView {
     // MARK: Actions
     
@@ -44,7 +49,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var textColor: UIColor = UIColor(red: 0.263, green: 0.278, blue: 0.310, alpha: 1) {
+    var textColor = ASAPP.styles.colors.dark {
         didSet {
             textField.textColor = textColor
         }
@@ -70,7 +75,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var placeholderColor: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
+    var placeholderColor = ASAPP.styles.colors.dark.withAlphaComponent(0.5) {
         didSet {
             updatePlaceholderText()
         }
@@ -78,7 +83,7 @@ class PlaceholderTextInputView: UIView {
     
     // MARK: Underline
     
-    var underlineColorDefault: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
+    var underlineColorDefault = ASAPP.styles.colors.dark.withAlphaComponent(0.15) {
         didSet {
             updateUnderlineColor()
         }
@@ -104,7 +109,7 @@ class PlaceholderTextInputView: UIView {
         }
     }
     
-    var placeholderMarginBottom: CGFloat = 8.0 {
+    var placeholderMarginBottom: CGFloat = 3.0 {
         didSet {
             setNeedsLayout()
         }
@@ -124,9 +129,12 @@ class PlaceholderTextInputView: UIView {
 
     // MARK: Keyboard
     
-    var keyboardType: UIKeyboardType {
-        get { return textField.keyboardType }
-        set { textField.keyboardType = newValue }
+    var inputControlType: InputControlType = .keyboard(.default) {
+        didSet {
+            if case let .keyboard(type) = inputControlType {
+                textField.keyboardType = type
+            }
+        }
     }
     
     var autocapitalizationType: UITextAutocapitalizationType {
@@ -219,16 +227,13 @@ class PlaceholderTextInputView: UIView {
     
     // MARK: Internal UI properties
     
-    private let placeholderLabel = UILabel()
-    
     let textField = UITextField()
-    
+    private let placeholderLabel = UILabel()
     private let underlineView = UIView()
     
     // MARK: Internal Text Editing Properties
     
     private var previousTextFieldContent: String?
-    
     private var previousSelection: UITextRange?
     
     // MARK: - Initialization
@@ -374,7 +379,7 @@ extension PlaceholderTextInputView {
         
         // Align the placeholder over the textView
         if textIsEmpty {
-            placeholderTop = textBottom - placeholderHeight
+            placeholderTop = textBottom - placeholderHeight - (textFieldHeight - placeholderHeight) / 2
         } else {
             placeholderTop = textFieldFrame.minY - placeholderMarginBottom - placeholderHeight
         }

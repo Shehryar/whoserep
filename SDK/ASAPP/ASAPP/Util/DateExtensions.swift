@@ -98,4 +98,26 @@ extension Date {
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
         return formatter.string(from: self)
     }
+    
+    var asISO8601DateString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: self)
+    }
+    
+    init?(iso8601DateString: String?) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let string = iso8601DateString, let parsed = dateFormatter.date(from: string) {
+            self = parsed
+        } else {
+            return nil
+        }
+    }
+    
+    func asString(with format: String?) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
 }

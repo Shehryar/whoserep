@@ -8,11 +8,12 @@
 
 import Foundation
 
+struct PickerOption {
+    let text: String
+    let value: Any
+}
+
 class DropdownItem: Component {
-    struct Option {
-        let text: String
-        let value: Any
-    }
     
     // MARK: - JSON Keys
     
@@ -25,7 +26,7 @@ class DropdownItem: Component {
     
     let placeholder: String?
     
-    let options: [Option]
+    let options: [PickerOption]
     
     override var viewClass: UIView.Type {
         return DropdownView.self
@@ -43,13 +44,13 @@ class DropdownItem: Component {
             return nil
         }
         
-        var optionsArray: [Option] = []
+        var optionsArray: [PickerOption] = []
         for dict in dicts {
             guard let text = dict["text"] as? String,
                   let value = dict["value"] else {
                 return nil
             }
-            optionsArray.append(Option(text: text, value: value))
+            optionsArray.append(PickerOption(text: text, value: value))
         }
         
         options = optionsArray

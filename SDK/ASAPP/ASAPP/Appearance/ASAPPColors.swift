@@ -56,10 +56,12 @@ public class ASAPPColors: NSObject {
     /// The color of the background of image views, tabs, and other secondary elements.
     public var backgroundSecondary = UIColor(red: 0.972, green: 0.969, blue: 0.968, alpha: 1)
     
-    /// The color of most text in inputs.
-    public var textPrimary = UIColor(red: 57.0 / 255.0, green: 61.0 / 255.0, blue: 71.0 / 255.0, alpha: 1)
+    /// Deprecated. The color of most text in inputs.
+    @available(*, deprecated, message: "This color now depends on `ASAPP.styles.colors.dark` and will be removed in a future version.")
+    public var textPrimary = UIColor.ASAPP.purpleHaze
     
-    /// The color of secondary text, such as timestamp labels.
+    /// Deprecated. The color of secondary text, such as timestamp labels.
+    @available(*, deprecated, message: "This color now depends on `ASAPP.styles.colors.dark` and will be removed in a future version.")
     public var textSecondary = UIColor.ASAPP.purpleHaze
     
     /// The color of most separators.
@@ -165,7 +167,6 @@ extension ASAPPColors {
         messageBackground = primary
         navBarTitle = dark.withAlphaComponent(0.85)
         navBarButton = dark.withAlphaComponent(0.9)
-        textSecondary = dark
         separatorSecondary = dark.withAlphaComponent(0.15)
         controlTint = primary
         controlSecondary = dark.withAlphaComponent(0.15)

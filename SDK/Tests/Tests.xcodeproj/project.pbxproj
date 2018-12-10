@@ -253,6 +253,11 @@
 		3ADF493B2113B3F200315E87 /* image-and-buttons.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ADF49372113B3F200315E87 /* image-and-buttons.json */; };
 		3AE183A92059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */; };
 		3AE183AB2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */; };
+		3AE2A9B321AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
+		3AE2A9B421AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
+		3AE2A9B521AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
+		3AE2A9B621AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
+		3AE2A9B721AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
 		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
@@ -505,6 +510,7 @@
 		3ADF49372113B3F200315E87 /* image-and-buttons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "image-and-buttons.json"; sourceTree = "<group>"; };
 		3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheetTestCase.swift; sourceTree = "<group>"; };
+		3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "date-pickers.json"; sourceTree = "<group>"; };
 		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
 		3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElementExtensions.swift; sourceTree = "<group>"; };
 		3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentViewController.swift; sourceTree = "<group>"; };
@@ -600,6 +606,7 @@
 				3AA86439218A38CB006F0971 /* chat-ended-only-child-weight.json */,
 				3AA8643E218CB94E006F0971 /* checkbox-with-label.json */,
 				3A675BFE211C840E0077BC00 /* data-usage.json */,
+				3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */,
 				3A9F51C01FB122F3009C68AE /* event-list.json */,
 				3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */,
 				3A95F2D820AD06EA00885C94 /* feedback-form-image.json */,
@@ -1018,6 +1025,7 @@
 				3A391B411FA14EB20085C2DA /* security-pin.json in Resources */,
 				3A675C04211C88B50077BC00 /* tab-view.json in Resources */,
 				3A675BFF211C840E0077BC00 /* data-usage.json in Resources */,
+				3AE2A9B321AE1AAE00C1DEE2 /* date-pickers.json in Resources */,
 				3A621FCB208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
 				3ADF49332113B31A00315E87 /* card-and-buttons.json in Resources */,
 			);
@@ -1056,6 +1064,7 @@
 				3A127DB91FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
 				3A4B43CC21403DC200D729CF /* Lato-Regular.ttf in Resources */,
 				3A4B43CB21403DC200D729CF /* Lato-Black.ttf in Resources */,
+				3AE2A9B421AE1AAE00C1DEE2 /* date-pickers.json in Resources */,
 				3A621FCC208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1065,6 +1074,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AA0D3B820AA160B00A04206 /* feedback-form-radio.json in Resources */,
+				3AE2A9B521AE1AAE00C1DEE2 /* date-pickers.json in Resources */,
 				3AA8643C218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */,
 				3ADF493A2113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A675BFC211B9A280077BC00 /* ultimate-collection.json in Resources */,
@@ -1107,6 +1117,7 @@
 				3A7B8ED220ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AA0D40020AA448100A04206 /* security-pin.json in Resources */,
 				3AF5C39820D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
+				3AE2A9B621AE1AAE00C1DEE2 /* date-pickers.json in Resources */,
 				3A675BFD211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A4B43D321403DC300D729CF /* Lato-Black.ttf in Resources */,
 				3AA0D40220AA448100A04206 /* event-list.json in Resources */,
@@ -1131,6 +1142,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AE2A9B721AE1AAE00C1DEE2 /* date-pickers.json in Resources */,
 				3AA19CFA21A340C40072D267 /* Lato-Black.ttf in Resources */,
 				3AA19CFB21A340C40072D267 /* Lato-Regular.ttf in Resources */,
 				3AA19CF921A340C40072D267 /* Lato-Bold.ttf in Resources */,
