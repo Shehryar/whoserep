@@ -41,6 +41,10 @@
 		3A127DB81FC4E1A300EEF9E0 /* feedback-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */; };
 		3A127DB91FC4E1A300EEF9E0 /* feedback-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */; };
 		3A127DBA1FC4E1A300EEF9E0 /* feedback-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */; };
+		3A17D1A221B5D4BC00D94491 /* scales.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1A121B5D4BC00D94491 /* scales.json */; };
+		3A17D1A321B5D4BC00D94491 /* scales.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1A121B5D4BC00D94491 /* scales.json */; };
+		3A17D1A421B5D4BC00D94491 /* scales.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1A121B5D4BC00D94491 /* scales.json */; };
+		3A17D1A521B5D4BC00D94491 /* scales.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1A121B5D4BC00D94491 /* scales.json */; };
 		3A1A13AF1F97CEAC00B647C7 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
 		3A1A13B21F97CF1E00B647C7 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A1A13B31F97D4B700B647C7 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429171F97A2DF0031CD78 /* ASAPP.framework */; };
@@ -409,6 +413,7 @@
 		3A0F04B1201040250064E76F /* SocketRequestSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketRequestSpec.swift; sourceTree = "<group>"; };
 		3A127DB41FC4DCAE00EEF9E0 /* ComponentLayoutEngineSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngineSpec.swift; sourceTree = "<group>"; };
 		3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form.json"; sourceTree = "<group>"; };
+		3A17D1A121B5D4BC00D94491 /* scales.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scales.json; sourceTree = "<group>"; };
 		3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = ../Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
 		3A26997B206063C9007C0EC6 /* ChatInputViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputViewTestCase.swift; sourceTree = "<group>"; };
 		3A304C43207FFAB60072BA56 /* MockUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
@@ -616,6 +621,7 @@
 				3ADF49372113B3F200315E87 /* image-and-buttons.json */,
 				3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */,
 				3A62F1AE219625680050D0CC /* radio-buttons-container.json */,
+				3A17D1A121B5D4BC00D94491 /* scales.json */,
 				3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */,
 				3A0429351F97C1E30031CD78 /* security-pin.json */,
 				3A675C03211C88B50077BC00 /* tab-view.json */,
@@ -1008,6 +1014,7 @@
 				3A9F51C11FB122F3009C68AE /* event-list.json in Resources */,
 				3A127DB81FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
 				3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
+				3A17D1A221B5D4BC00D94491 /* scales.json in Resources */,
 				3A4B43C621403D5B00D729CF /* Lato-Bold.ttf in Resources */,
 				3A7B8ECF20ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3A95F2D920AD06EA00885C94 /* feedback-form-image.json in Resources */,
@@ -1051,6 +1058,7 @@
 				3A99523020DDD49600343D10 /* censor-date.json in Resources */,
 				3AA8643B218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */,
 				3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
+				3A17D1A321B5D4BC00D94491 /* scales.json in Resources */,
 				3ADF49392113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A675C05211C88B50077BC00 /* tab-view.json in Resources */,
 				3AA86440218CB94E006F0971 /* checkbox-with-label.json in Resources */,
@@ -1088,6 +1096,7 @@
 				3ADF49352113B33600315E87 /* card-and-buttons.json in Resources */,
 				3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
+				3A17D1A421B5D4BC00D94491 /* scales.json in Resources */,
 				3A87910120B3559E00AD81E5 /* carousel-uneven.json in Resources */,
 				3A4B43CE21403DC200D729CF /* Lato-Bold.ttf in Resources */,
 				5FE2357821AD94B9008461A7 /* feedback-form-test.json in Resources */,
@@ -1128,6 +1137,7 @@
 				3A675C02211C840E0077BC00 /* data-usage.json in Resources */,
 				3AA0D40520AA448100A04206 /* feedback-form.json in Resources */,
 				3AA0D40620AA448100A04206 /* feedback-form-scale.json in Resources */,
+				3A17D1A521B5D4BC00D94491 /* scales.json in Resources */,
 				3ADF49362113B33600315E87 /* card-and-buttons.json in Resources */,
 				3AA8643D218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */,
 				3AA86442218CB94E006F0971 /* checkbox-with-label.json in Resources */,

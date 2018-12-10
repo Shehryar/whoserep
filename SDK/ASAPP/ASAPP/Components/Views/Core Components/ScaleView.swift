@@ -18,18 +18,20 @@ class RatingButton: UIButton {
             return CGSize(width: 44, height: 40)
         case .fiveStar:
             return CGSize(width: 39, height: 39)
+        case .nrs11:
+            return CGSize(width: UIView.minimumTargetLength, height: UIView.minimumTargetLength)
         }
     }
     
-    func update(for index: Int, scaleType: ScaleItem.ScaleType) {
+    func update(for value: Int, scaleType: ScaleItem.ScaleType) {
         self.scaleType = scaleType
-        value = index
+        self.value = value
         
         switch scaleType {
         case .fiveNumber:
             backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
             setTitleColor(ASAPP.styles.colors.dark, for: .normal)
-            setTitle(String(index), for: .normal)
+            setTitle(String(value), for: .normal)
             titleLabel?.updateFont(for: .body)
             layer.cornerRadius = 3
             setImage(nil, for: .normal)
@@ -37,6 +39,13 @@ class RatingButton: UIButton {
             backgroundColor = .clear
             setTitle(nil, for: .normal)
             setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
+        case .nrs11:
+            backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
+            setTitleColor(ASAPP.styles.colors.dark, for: .normal)
+            setTitle(String(value), for: .normal)
+            titleLabel?.updateFont(for: .body)
+            layer.cornerRadius = layer.frame.height / 2
+            setImage(nil, for: .normal)
         }
     }
     
@@ -46,7 +55,7 @@ class RatingButton: UIButton {
             case .fiveNumber:
                 if isSelected {
                     backgroundColor = ASAPP.styles.colors.primary
-                    setTitleColor(.white, for: .normal)
+                    setTitleColor(backgroundColor?.chooseFirstAcceptableColor(of: [.white, ASAPP.styles.colors.dark]), for: .normal)
                     setTitleShadow(color: .black, offset: CGSize(width: 0, height: 2), radius: 4, opacity: 0.2)
                 } else {
                     backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
@@ -59,6 +68,14 @@ class RatingButton: UIButton {
                 } else {
                     setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
                 }
+            case .nrs11:
+                if isSelected {
+                    backgroundColor = ASAPP.styles.colors.primary
+                    setTitleColor(backgroundColor?.chooseFirstAcceptableColor(of: [.white, ASAPP.styles.colors.dark]), for: .normal)
+                } else {
+                    backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
+                    setTitleColor(ASAPP.styles.colors.dark, for: .normal)
+                }
             }
         }
     }
@@ -68,14 +85,23 @@ class ScaleView: BaseComponentView {
     var buttonsByValue = [Int: RatingButton]()
     
     private var currentSelection: RatingButton?
-    private let numButtons = 5
     private var scaleType: ScaleItem.ScaleType = .fiveNumber
     private let tapDebouncer = Debouncer(interval: .defaultAnimationDuration)
+    private(set) var gestureRecognizer: UIGestureRecognizer?
+    private var recognizerStateDidChange = false
+    
     // MARK: ComponentView Properties
     
     override var component: Component? {
         didSet {
             scaleType = (component as? ScaleItem)?.scaleType ?? .fiveNumber
+            forEachButton { value, _ in
+                let button = RatingButton()
+                button.clipsToBounds = true
+                buttonsByValue[value] = button
+                addSubview(button)
+                updateAccessibilityElements(button)
+            }
             updateButtons()
             setNeedsLayout()
         }
@@ -93,16 +119,11 @@ class ScaleView: BaseComponentView {
         clipsToBounds = true
         isAccessibilityElement = false
         configureAccessibility()
-        for i in 1...numButtons {
-            let button = RatingButton()
-            button.clipsToBounds = true
-            button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-            buttonsByValue[i] = button
-            addSubview(button)
-            updateAccessibilityElements(button)
-        }
         
-        updateButtons()
+        let press = UILongPressGestureRecognizer(target: self, action: #selector(didPress))
+        press.minimumPressDuration = 0
+        addGestureRecognizer(press)
+        gestureRecognizer = press
     }
     
     private func configureAccessibility() {
@@ -114,8 +135,33 @@ class ScaleView: BaseComponentView {
     }
     
     private func updateButtons() {
-        for (i, button) in buttonsByValue {
-            button.update(for: i, scaleType: scaleType)
+        for (value, button) in buttonsByValue {
+            button.update(for: value, scaleType: scaleType)
+        }
+    }
+    
+    var numButtons: Int {
+        switch scaleType {
+        case .fiveNumber, .fiveStar:
+            return 5
+        case .nrs11:
+            return 11
+        }
+    }
+    
+    private func forEachButton(_ handler: (_ value: Int, _ index: Int) -> Void) {
+        let min: Int
+        switch scaleType {
+        case .fiveNumber, .fiveStar:
+            min = 1
+        case .nrs11:
+            min = 0
+        }
+        
+        let max = min + numButtons - 1
+        
+        for (index, value) in (min...max).enumerated() {
+            handler(value, index)
         }
     }
     
@@ -150,23 +196,27 @@ class ScaleView: BaseComponentView {
         let buttonSpacing: CGFloat
         
         if scaleItem.style.alignment == .fill {
-            buttonWidth = originalSize.width
-            buttonSpacing = (maxContentSize.width - CGFloat(numButtons) * buttonWidth) / CGFloat(numButtons - 1)
+            let bestSpacing = (maxContentSize.width - CGFloat(numButtons) * originalSize.width) / CGFloat(numButtons - 1)
+            buttonSpacing = max(1, bestSpacing)
         } else {
             switch scaleType {
             case .fiveNumber:
                 buttonSpacing = 15
             case .fiveStar:
                 buttonSpacing = 20
+            case .nrs11:
+                buttonSpacing = 1
             }
-            let maxButtonWidth = (maxContentSize.width - CGFloat(numButtons - 1) * buttonSpacing) / CGFloat(numButtons)
-            buttonWidth = min(maxButtonWidth, originalSize.width)
         }
         
+        let maxButtonWidth = (maxContentSize.width - CGFloat(numButtons - 1) * buttonSpacing) / CGFloat(numButtons)
+        buttonWidth = min(maxButtonWidth, originalSize.width)
         buttonSize = CGSize(width: buttonWidth, height: originalAspectRatio * buttonWidth)
+        let contentWidth = buttonWidth * CGFloat(numButtons) + buttonSpacing * CGFloat(numButtons - 1)
+        let offset = scaleItem.style.alignment != .fill ? (maxContentSize.width - contentWidth) / 2 : 0
         
-        for i in 1...numButtons {
-            let left = padding.left + CGFloat(i - 1) * (buttonSize.width + buttonSpacing)
+        forEachButton { _, i in
+            let left = padding.left + offset + CGFloat(i) * (buttonSize.width + buttonSpacing)
             buttonFrames.append(CGRect(x: left, y: padding.top, width: buttonSize.width, height: buttonSize.height))
         }
         
@@ -175,8 +225,10 @@ class ScaleView: BaseComponentView {
     
     override func updateFrames() {
         let layout = getFramesThatFit(bounds.size)
-        for i in 1...numButtons {
-            buttonsByValue[i]?.frame = layout.buttonFrames[i - 1]
+        forEachButton { value, i in
+            guard let button = buttonsByValue[value] else { return }
+            button.frame = layout.buttonFrames[i]
+            button.update(for: value, scaleType: scaleType)
         }
     }
     
@@ -200,9 +252,20 @@ class ScaleView: BaseComponentView {
     
     // MARK: - Actions
     
-    private func handleTap(sender: RatingButton) {
-        if currentSelection == sender {
-            currentSelection = nil
+    private func clear() {
+        forEachButton { (value, _) in
+            buttonsByValue[value]?.isSelected = false
+        }
+        component?.value = nil
+    }
+    
+    private func handleTap(_ sender: RatingButton, toggle: Bool = true) {
+        if toggle {
+            if currentSelection == sender {
+                currentSelection = nil
+            } else {
+                currentSelection = sender
+            }
         } else {
             currentSelection = sender
         }
@@ -211,12 +274,12 @@ class ScaleView: BaseComponentView {
         switch scaleType {
         case .fiveNumber:
             compare = (==)
-        case .fiveStar:
+        case .fiveStar, .nrs11:
             compare = (<=)
         }
         
         for button in buttonsByValue.values {
-            if compare(button.value, currentSelection?.value ?? 0) {
+            if compare(button.value, currentSelection?.value ?? -1) {
                 button.isSelected = true
             } else {
                 button.isSelected = false
@@ -226,9 +289,42 @@ class ScaleView: BaseComponentView {
         component?.value = currentSelection?.value
     }
     
-    @objc func didTapButton(sender: RatingButton) {
+    func didTapButton(_ button: RatingButton, toggle: Bool) {
         tapDebouncer.debounce { [weak self] in
-            self?.handleTap(sender: sender)
+            self?.handleTap(button, toggle: toggle)
+        }
+    }
+    
+    @objc func didPress(recognizer: UIGestureRecognizer) {
+        let point = recognizer.location(in: self)
+        
+        if scaleType != .fiveNumber && point.x <= 0 {
+            clear()
+            recognizerStateDidChange = false
+            return
+        }
+        
+        guard recognizer.gestureWas(in: self) else {
+            recognizerStateDidChange = false
+            return
+        }
+        
+        if recognizer.state == .changed {
+            recognizerStateDidChange = true
+            forEachButton { value, _ in
+                guard let button = buttonsByValue[value] else { return }
+                if button.frame.contains(point) {
+                    handleTap(button, toggle: false)
+                }
+            }
+        } else if recognizer.state == .ended {
+            forEachButton { value, _ in
+                guard let button = buttonsByValue[value] else { return }
+                if button.frame.contains(point) {
+                    didTapButton(button, toggle: !recognizerStateDidChange)
+                    recognizerStateDidChange = false
+                }
+            }
         }
     }
 }

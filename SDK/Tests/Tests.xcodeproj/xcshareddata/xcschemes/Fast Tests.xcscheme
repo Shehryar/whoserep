@@ -152,8 +152,12 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "form:date-pickers"
+            argument = "form:scales"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:date-pickers"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithRadio"

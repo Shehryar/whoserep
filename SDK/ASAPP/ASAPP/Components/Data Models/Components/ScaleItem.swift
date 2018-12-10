@@ -13,6 +13,7 @@ class ScaleItem: Component {
     enum ScaleType: String {
         case fiveNumber
         case fiveStar
+        case nrs11
     }
     
     enum JSONKey: String {
