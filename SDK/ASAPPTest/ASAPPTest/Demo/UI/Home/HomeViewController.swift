@@ -236,14 +236,18 @@ extension HomeViewController {
         ASAPP.getChatStatus(success: { [weak self] (unread, isLive) in
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
-                strongSelf.chatBadge.update(unread: unread, isLiveChat: isLive)
-                let badgeSize = strongSelf.chatBadge.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: strongSelf.chatBadge.bounds.height))
-                let x = (strongSelf.chatBadge.superview?.bounds.width ?? 0) - badgeSize.width / 2
-                strongSelf.chatBadge.frame = CGRect(x: x, y: strongSelf.chatBadge.frame.minY, width: badgeSize.width, height: strongSelf.chatBadge.frame.height)
+                strongSelf.updateBadge(unreadCount: unread, isLiveChat: isLive)
             }
         }, failure: { error in
             demoLog("Could not get chat status: \(error)")
         })
+    }
+    
+    func updateBadge(unreadCount: Int, isLiveChat: Bool) {
+        chatBadge.update(unread: unreadCount, isLiveChat: isLiveChat)
+        let badgeSize = chatBadge.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: chatBadge.bounds.height))
+        let x = (chatBadge.superview?.bounds.width ?? 0) - badgeSize.width / 2
+        chatBadge.frame = CGRect(x: x, y: chatBadge.frame.minY, width: badgeSize.width, height: chatBadge.frame.height)
     }
 }
 
