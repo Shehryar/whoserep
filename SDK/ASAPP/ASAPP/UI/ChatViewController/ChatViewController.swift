@@ -1475,11 +1475,6 @@ extension ChatViewController: ProactiveMessageConfirmationActionSheetDelegate {
 
 extension ChatViewController: NotificationBannerDelegate {
     func notificationBannerDidTapActionButton(_ notificationBanner: NotificationBanner, button: QuickReply) {
-        guard button.action.type == .treewalk else {
-            performAction(button.action, quickReply: button)
-            return
-        }
-        
         let confirmationSheet = ProactiveMessageConfirmationActionSheet(button: button)
         confirmationSheet.delegate = self
         confirmationSheet.proactiveMessageDelegate = self
