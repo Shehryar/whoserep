@@ -118,7 +118,7 @@ class ChatMessagesView: UIView {
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     private var focusTimer: Timer?
     private var previousFocusedReply: ChatMessage?
-    private var scrollDebouncer: Debouncer? = Debouncer(interval: .seconds(0.5))
+    private var scrollDebouncer: Debouncer? = Debouncer(interval: .defaultAnimationDuration)
     
     // MARK: - Initialization
     
