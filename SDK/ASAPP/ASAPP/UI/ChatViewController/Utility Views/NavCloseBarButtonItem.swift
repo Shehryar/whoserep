@@ -26,8 +26,9 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         self.location = location
         self.side = side
         self.styles = NavCloseBarButtonItem.getStyles(location: location, side: side)
-        
         super.init()
+        
+        accessibilityLabel = ASAPPLocalizedString("Close")
     }
     
     required init?(coder aDecoder: NSCoder) {
