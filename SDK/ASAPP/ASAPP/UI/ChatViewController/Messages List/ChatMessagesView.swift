@@ -371,6 +371,10 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return
+        }
+        
         endEditing(true)
         delegate?.chatMessagesViewPerformedKeyboardHidingAction(self)
         
