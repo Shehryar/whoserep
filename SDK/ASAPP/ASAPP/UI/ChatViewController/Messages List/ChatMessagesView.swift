@@ -665,19 +665,18 @@ extension ChatMessagesView {
         }
         tableView.insertRows(at: [indexPath], with: .none)
         
-        if let oldLastMessage = oldLastMessage,
-           oldLastMessage.metadata.isReply,
-           oldLastMessage.hasTransientButtons,
-           let oldLastIndexPath = oldLastIndexPath {
-            tableView.reloadRows(at: [oldLastIndexPath], with: .fade)
-        }
-        
         if shouldMoveTypingIndicator,
            let newTypingIndicator = getNextIndexPath(indexPath) {
             tableView.insertRows(at: [newTypingIndicator], with: .fade)
         }
         
         tableView.endUpdates()
+        
+        if let oldLastMessage = oldLastMessage,
+            oldLastMessage.metadata.isReply,
+            oldLastIndexPath != nil {
+            tableView.reloadData()
+        }
         
         if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell,
            let cellMessage = cell.message,

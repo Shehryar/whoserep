@@ -73,7 +73,6 @@ extension MessageBubbleCornerRadiusUpdating {
                 roundedCorners = [.topLeft, .bottomRight, .bottomLeft]
             }
         }
-        
         return roundedCorners
     }
 }
