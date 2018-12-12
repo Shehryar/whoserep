@@ -267,11 +267,11 @@
 		3A0E7F9C1FB4C3C0008F9544 /* BinaryRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0E7F9B1FB4C3C0008F9544 /* BinaryRatingView.swift */; };
 		3A0F04B42017DD4E0064E76F /* NotificationNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */; };
 		3A1220B91F67007E006EC6E3 /* TextViewAutoExpanding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */; };
-		3A17D1A821B5DAA000D94491 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17D1A721B5DAA000D94491 /* UIColorExtensions.swift */; };
-		3A17D1BB21B98A6900D94491 /* UIGestureRecognizerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17D1BA21B98A6900D94491 /* UIGestureRecognizerExtensions.swift */; };
 		3A17D19E21B5969500D94491 /* time_calendar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D19B21B5969400D94491 /* time_calendar@3x.png */; };
 		3A17D19F21B5969500D94491 /* time_calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D19C21B5969400D94491 /* time_calendar@2x.png */; };
 		3A17D1A021B5969500D94491 /* time_calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D19D21B5969500D94491 /* time_calendar.png */; };
+		3A17D1A821B5DAA000D94491 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17D1A721B5DAA000D94491 /* UIColorExtensions.swift */; };
+		3A17D1BB21B98A6900D94491 /* UIGestureRecognizerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A17D1BA21B98A6900D94491 /* UIGestureRecognizerExtensions.swift */; };
 		3A19E17820DC4069000B46DC /* Censor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A19E17720DC4069000B46DC /* Censor.swift */; };
 		3A24FD2220F7AC030075B6CD /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A24FD2020F7ABDA0075B6CD /* hourglass.png */; };
 		3A24FD2320F7AC030075B6CD /* hourglass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A24FD2120F7ABDA0075B6CD /* hourglass@2x.png */; };
@@ -699,11 +699,11 @@
 		3A0E7F9B1FB4C3C0008F9544 /* BinaryRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryRatingView.swift; sourceTree = "<group>"; };
 		3A0F04B32017DD4E0064E76F /* NotificationNameExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtensions.swift; sourceTree = "<group>"; };
 		3A1220B81F67007E006EC6E3 /* TextViewAutoExpanding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewAutoExpanding.swift; sourceTree = "<group>"; };
-		3A17D1A721B5DAA000D94491 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
-		3A17D1BA21B98A6900D94491 /* UIGestureRecognizerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGestureRecognizerExtensions.swift; sourceTree = "<group>"; };
 		3A17D19B21B5969400D94491 /* time_calendar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time_calendar@3x.png"; sourceTree = "<group>"; };
 		3A17D19C21B5969400D94491 /* time_calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time_calendar@2x.png"; sourceTree = "<group>"; };
 		3A17D19D21B5969500D94491 /* time_calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time_calendar.png; sourceTree = "<group>"; };
+		3A17D1A721B5DAA000D94491 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		3A17D1BA21B98A6900D94491 /* UIGestureRecognizerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGestureRecognizerExtensions.swift; sourceTree = "<group>"; };
 		3A19E17720DC4069000B46DC /* Censor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Censor.swift; sourceTree = "<group>"; };
 		3A24FD1F20F7ABDA0075B6CD /* hourglass@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hourglass@3x.png"; sourceTree = "<group>"; };
 		3A24FD2020F7ABDA0075B6CD /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
@@ -1092,10 +1092,8 @@
 				3A17D1A721B5DAA000D94491 /* UIColorExtensions.swift */,
 				3A7B8ECC20ACD9A000DC5EAE /* UIEdgeInsetsExtensions.swift */,
 				3A17D1BA21B98A6900D94491 /* UIGestureRecognizerExtensions.swift */,
-				3A3C8D8A20F5662E00571874 /* UIFontExtensions.swift */,
 				308F29751D416D1C00EC7055 /* UIImageExtensions.swift */,
 				3A95DC9E1F66DAF000B9578D /* UINavigationControllerExtensions.swift */,
-				3A2F49DB212362CD000B0542 /* UIResponderExtensions.swift */,
 				307484E71EB92EEB008CF3E4 /* UIScrollViewExtensions.swift */,
 				3A391B461FA2682F0085C2DA /* UILabelExtensions.swift */,
 				3A28113E206B2B6F00B7CE04 /* UIViewExtensions.swift */,

@@ -17,7 +17,7 @@ class SuggestionsView: UIView {
     
     var responseId: AutosuggestMetadata.ResponseId = ""
     
-    private var suggestionButtons: [Button] = []
+    private(set) var suggestionButtons: [Button] = []
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let topBorder = UIView()
     
@@ -49,7 +49,7 @@ class SuggestionsView: UIView {
         
         suggestionButtons = []
         
-        for (i, suggestion) in suggestions.enumerated() {
+        for (i, suggestion) in suggestions.prefix(maxRows).enumerated() {
             let button = Button()
             button.setBackgroundColor(.clear, forState: .normal)
             button.setBackgroundColor(ASAPP.styles.colors.primary, forState: .highlighted)
@@ -63,6 +63,8 @@ class SuggestionsView: UIView {
             button.onTap = { [weak self] in
                 self?.didSelectSuggestion(text: suggestion, index: i)
             }
+            let prefix = ASAPPLocalizedString("Suggestion")
+            button.accessibilityLabel = "\(prefix): \(button.label.text ?? "")"
             suggestionButtons.append(button)
             addSubview(button)
         }
@@ -137,5 +139,17 @@ extension SuggestionsView {
         }
         
         return CGSize(width: size.width, height: totalHeight)
+    }
+}
+
+// MARK: - Accessibility
+
+extension SuggestionsView {
+    func announceSuggestions() {
+        let count = suggestionButtons.count
+        let singularDescription = ASAPPLocalizedString("One suggestion available above")
+        let pluralSuffix = ASAPPLocalizedString("suggestions available above")
+        let announcement = count == 1 ? singularDescription : "\(count) \(pluralSuffix)"
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, announcement)
     }
 }
