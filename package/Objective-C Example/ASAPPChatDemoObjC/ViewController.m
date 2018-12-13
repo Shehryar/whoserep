@@ -196,4 +196,8 @@
     return true;
 }
 
+- (void)chatViewControllerDidReceiveChatEventWithName:(NSString * _Nonnull)name data:(NSDictionary<NSString *,id> * _Nullable)data {
+    // Application can respond to certain agreed-upon events that can occur during a chat.
+}
+
 @end
