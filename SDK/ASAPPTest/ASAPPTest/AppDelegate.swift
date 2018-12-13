@@ -180,3 +180,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         demoLog("userNotificationCenter:willPresent:withCompletionHandler:")
     }
 }
+
+// MARK: Deeplinks
+extension AppDelegate {
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
+        let sendingAppID = options[.sourceApplication]
+        print("source application = \(sendingAppID ?? "Unknown")")
+        DeepLinkHandler.shared.handleDeepLink(url: url)
+        return true
+    }
+}

@@ -44,6 +44,7 @@ protocol ConversationManagerProtocol: class {
     var currentSRSClassification: String? { get set }
     var isConnected: Bool { get }
     var pushNotificationPayload: [AnyHashable: Any]? { get set }
+    var intentPayload: [String: Any]? { get set }
     
     func enterConversation()
     func exitConversation()
@@ -68,7 +69,7 @@ protocol ConversationManagerProtocol: class {
     func sendRequestForTreewalkAction(_ action: TreewalkAction, messageText: String?, parentMessage: ChatMessage?, completion: ((Bool) -> Void)?)
     func getComponentView(named name: String, data: [String: Any]?, completion: @escaping ComponentViewHandler)
     func sendUserTypingStatus(isTyping: Bool, with text: String?)
-    func sendAskRequest(_ completion: ((_ success: Bool) -> Void)?)
+    func sendAskRequest(intent: [String: Any]?, _ completion: ((_ success: Bool) -> Void)?)
     func sendPictureMessage(_ image: UIImage, completion: (() -> Void)?)
     func sendTextMessage(_ message: String, completion: RequestResponseHandler?)
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool, autosuggestMetadata: AutosuggestMetadata?)
@@ -108,6 +109,10 @@ extension ConversationManagerProtocol {
             contextNeedsRefresh: false,
             completion: completion)
     }
+    
+    func sendAskRequest(intent: [String: Any]? = nil, _ completion: ((_ success: Bool) -> Void)?) {
+        return sendAskRequest(intent: intent, completion)
+    }
 }
 
 class ConversationManager: NSObject, ConversationManagerProtocol {
@@ -118,6 +123,8 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
     let sessionManager: SessionManager
     
     var pushNotificationPayload: [AnyHashable: Any]?
+    
+    var intentPayload: [String: Any]?
     
     weak var delegate: ConversationManagerDelegate?
     

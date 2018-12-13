@@ -84,11 +84,12 @@ class ChatViewController: ASAPPViewController {
 
     // MARK: - Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, segue: Segue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil, supportedOrientations: ASAPPAllowedOrientations) {
+    init(config: ASAPPConfig, user: ASAPPUser, segue: Segue, conversationManager: ConversationManagerProtocol, pushNotificationPayload: [AnyHashable: Any]? = nil, supportedOrientations: ASAPPAllowedOrientations, intentPayload: [String: Any]? = nil) {
         self.config = config
         self.segue = segue
         self.conversationManager = conversationManager
         self.supportedOrientations = supportedOrientations
+        self.conversationManager.intentPayload = intentPayload
         self.store = Store<UIState>(reducer: Reducers.reduceUIState, state: nil)
         super.init(nibName: nil, bundle: nil)
         
@@ -242,6 +243,16 @@ class ChatViewController: ASAPPViewController {
         if connectionStatus != .connected {
             gatekeeperView?.showSpinner()
             conversationManager.enterConversation()
+        }
+    }
+    
+    func setIntent(_ data: [String: Any]) {
+        if connectionStatus == .connected {
+            conversationManager.sendAskRequest(intent: data) { (success) in
+                if !success {
+                    DebugLog.w("Call to /ask failed")
+                }
+            }
         }
     }
     

@@ -55,20 +55,32 @@ extension ConversationManager {
             params["ProactiveTrigger"] = proactiveTrigger
         }
         
+        if let intentPayload = intentPayload {
+            params["Intent"] = intentPayload
+        }
+        
         let handler: RequestResponseHandler = { [weak self] _ in
             self?.pushNotificationPayload = nil
+            self?.intentPayload = nil
             completion?()
         }
         
         sendRequest(path: "customer/enterChat", params: params, completion: handler)
     }
     
-    func sendAskRequest(_ completion: ((_ success: Bool) -> Void)? = nil) {
+    func sendAskRequest(intent: [String: Any]? = nil, _ completion: ((_ success: Bool) -> Void)? = nil) {
+        var params: [String: Any] = [:]
+        
         let handler: RequestResponseHandler = { message in
             let success = message.type != MessageType.responseError
             completion?(success)
         }
-        sendRequest(path: "customer/ask", completion: handler)
+        
+        if let intentPayload = intent {
+            params["Intent"] = intentPayload
+        }
+        
+        sendRequest(path: "customer/ask", params: params, completion: handler)
     }
 }
 

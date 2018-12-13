@@ -106,6 +106,21 @@ public class ASAPP: NSObject {
     }
     
     /**
+     Creates a chat view controller, ready to be pushed onto a navigation stack. Starts a conversation with the provided intent.
+     
+     - returns: A `UIViewController`
+     - parameter intent: A dictionary containing intent data
+     */
+    public class func createChatViewControllerForPushing(withIntent intent: [String: Any]) -> UIViewController {
+        assertSetupComplete()
+        
+        let chat = createBareChatViewController(fromNotificationWith: nil, segue: .push, supportedOrientations: styles.allowedOrientations, intent: intent)
+        let container = ContainerViewController(rootViewController: chat)
+        
+        return container
+    }
+    
+    /**
      Creates a chat view controller in a navigation controller, ready to be presented modally.
      
      - returns: A `UIViewController`
@@ -115,6 +130,21 @@ public class ASAPP: NSObject {
         assertSetupComplete()
         
         let chat = createBareChatViewController(fromNotificationWith: userInfo, supportedOrientations: styles.allowedOrientations)
+        let nav = NavigationController(rootViewController: chat)
+        
+        return nav
+    }
+    
+    /**
+     Creates a chat view controller in a navigation controller, ready to be presented modally. Starts a conversation with the provided intent.
+     
+     - returns: A `UIViewController`
+     - parameter intent: A dictionary containing intent data
+     */
+    public class func createChatViewControllerForPresenting(withIntent intent: [String: Any]) -> UIViewController {
+        assertSetupComplete()
+        
+        let chat = createBareChatViewController(fromNotificationWith: nil, supportedOrientations: styles.allowedOrientations, intent: intent)
         let nav = NavigationController(rootViewController: chat)
         
         return nav
@@ -200,6 +230,16 @@ public class ASAPP: NSObject {
     public class func clearSavedSession() {
         SavedSessionManager.shared.clearSession()
     }
+    
+    /**
+     Sets the intent on the current chat view controller. This is meant to be called only when a chat view controller
+     already exists. If there is no ChatViewController please use one of the `createChatViewControllerFor...` functions.
+     
+     - parameter data: A dictionary with intent data. e.g. `["Code": "EXAMPLE_INTENT"]`
+    */
+    public static func setIntent(_ data: [String: Any]) {
+        currentChatViewController?.setIntent(data)
+    }
 }
 
 internal extension ASAPP {
@@ -210,6 +250,8 @@ internal extension ASAPP {
     static let bundle = Bundle(for: ASAPP.self)
     
     static let soundEffectPlayer = SoundEffectPlayer()
+    
+    internal static weak var currentChatViewController: ChatViewController?
     
     static var partnerAppVersion: String {
         if let bundleVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
@@ -224,7 +266,7 @@ internal extension ASAPP {
         assert(user != nil, "ASAPP.user must be set before calling this method.")
     }
     
-    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: Segue = .present, supportedOrientations: ASAPPAllowedOrientations) -> UIViewController {
+    class func createBareChatViewController(fromNotificationWith userInfo: [AnyHashable: Any]?, segue: Segue = .present, supportedOrientations: ASAPPAllowedOrientations, intent: [String: Any]? = nil) -> UIViewController {
         let conversationManager = ConversationManager(config: config, user: user, userLoginAction: nil)
         let chatViewController = ChatViewController(
             config: config,
@@ -232,8 +274,9 @@ internal extension ASAPP {
             segue: segue,
             conversationManager: conversationManager,
             pushNotificationPayload: userInfo,
-            supportedOrientations: supportedOrientations)
-        
+            supportedOrientations: supportedOrientations,
+            intentPayload: intent)
+        currentChatViewController = chatViewController
         return chatViewController
     }
 }

@@ -120,6 +120,7 @@
 		3AFB74CD1FDA006200AF0442 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C51FDA006200AF0442 /* Roboto-Medium.ttf */; };
 		3AFB74CE1FDA006200AF0442 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C61FDA006200AF0442 /* Roboto-MediumItalic.ttf */; };
 		3AFB74CF1FDA006200AF0442 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3AFB74C71FDA006200AF0442 /* Roboto-Regular.ttf */; };
+		5FACFBCC21B98FA700571017 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FACFBCB21B98FA700571017 /* DeepLinkHandler.swift */; };
 		5FCC65422188DD8E006805E4 /* PushServiceSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC65412188DD8E006805E4 /* PushServiceSelectionViewController.swift */; };
 		5FCC654421890597006805E4 /* TextInputCheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCC654321890597006805E4 /* TextInputCheckmarkCell.swift */; };
 		FD8D8B1D1D107A19001B420B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D8B1C1D107A19001B420B /* AppDelegate.swift */; };
@@ -258,6 +259,7 @@
 		3AFB74C51FDA006200AF0442 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		3AFB74C61FDA006200AF0442 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
 		3AFB74C71FDA006200AF0442 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		5FACFBCB21B98FA700571017 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		5FCC65412188DD8E006805E4 /* PushServiceSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushServiceSelectionViewController.swift; sourceTree = "<group>"; };
 		5FCC654321890597006805E4 /* TextInputCheckmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCheckmarkCell.swift; sourceTree = "<group>"; };
 		FD8D8B191D107A19001B420B /* ASAPPTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASAPPTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -335,6 +337,7 @@
 		307301D81DAE9C750002CF3B /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				5FACFBCA21B98E7D00571017 /* Utils */,
 				30988E881DC7B69A00470E09 /* Data Models */,
 				30988EA01DC7BA8700470E09 /* UI */,
 			);
@@ -546,6 +549,14 @@
 				3AFB74C71FDA006200AF0442 /* Roboto-Regular.ttf */,
 			);
 			path = Roboto;
+			sourceTree = "<group>";
+		};
+		5FACFBCA21B98E7D00571017 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5FACFBCB21B98FA700571017 /* DeepLinkHandler.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		DC9BA702B8E37367ED44E868 /* Frameworks */ = {
@@ -797,6 +808,7 @@
 				3A2F49DA212225E5000B0542 /* HelpButton.swift in Sources */,
 				30988EB31DC7BD7E00470E09 /* AppSettings.swift in Sources */,
 				281D8DFB1DC967BD00E4A65B /* ButtonCell.swift in Sources */,
+				5FACFBCC21B98FA700571017 /* DeepLinkHandler.swift in Sources */,
 				308CB1161DCCEFFA00477013 /* BillDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

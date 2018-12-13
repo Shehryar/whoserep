@@ -116,17 +116,35 @@ If the chat is being displayed because the user tapped a push
 notification, the notification's userInfo dictionary should be passed in
 when creating the chat view controller.
 
-#### Presentation (Modal)
+#### Push (Navigation Controller)
 
     let viewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: nil)
-
+    navigationController.pushViewController(viewController, animated: true)
+    
+#### Presentation (Modal)
+    
+    let viewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil)
     present(viewController, animated: true, completion: nil)
+    
+### Launching Chat with an Intent
+
+To create a chat view controller with an initial intent, use the `withIntent` parameter.
 
 #### Push (Navigation Controller)
 
-    let viewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: nil)
+    let viewController = ASAPP.createChatViewControllerForPushing(withIntent: ["Code": "EXAMPLE_INTENT"])
+    navigationController.pushViewController(viewController, animated: true)
+    
+#### Presentation (Modal)
 
+    let viewController = ASAPP.createChatViewControllerForPresenting(withIntent: ["Code": "EXAMPLE_INTENT"])
     present(viewController, animated: true, completion: nil)
+
+### Setting an Intent With Chat Already Launched
+
+If an ASAPP chat view controller has already been created and displayed, use `setIntent(_:)`.
+
+    ASAPP.setIntent(["Code": "EXAMPLE_INTENT"])
 
 ### Customize chat orientation
 Currently this is defaulted to `.portraitLocked`. iPhones only support the `.portraitLocked` orientation, iPads can change this to be `.iPadLandscapeAllowed`.
@@ -147,14 +165,11 @@ notification, you can [ask the ASAPP SDK](Classes/ASAPP.html#/Push%20Notificatio
 intended to open chat.
 
     // In your application's delegate
-
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {    
-        
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {    
         if ASAPP.canHandleNotification(with: userInfo) {
-            
             // At this point, you should show the chat view controller, passing in the
             //    userInfo dictionary when creating the view controller.
-            // *Note: You should make sure the chat view controller is not already visible
+            // Note: You should make sure the chat view controller is not already visible
             //    before displaying (even though this shouldn't actually happen).
         }
     }
