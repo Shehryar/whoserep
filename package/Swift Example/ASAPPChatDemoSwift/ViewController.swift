@@ -158,6 +158,10 @@ extension ViewController: ASAPPDelegate {
          Note: if the user is always logged in, the body of this method may be left blank.
          */
     }
+    
+    func chatViewControllerDidReceiveChatEvent(name: String, data: [String: Any]?) {
+        // Application can respond to certain agreed-upon events that can occur during a chat.
+    }
 }
 
 // MARK:- Customer Id
