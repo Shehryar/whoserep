@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 class DropdownView: BaseComponentView {
     
     let textInputView = PlaceholderTextInputView()
     
     private lazy var icon: UIImageView = {
-        return UIImageView(image: Images.getImage(.iconDropdownChevron)?.tinted(ASAPP.styles.colors.textPrimary))
+        return UIImageView(image: Images.getImage(.iconDropdownChevron)?.tinted(ASAPP.styles.colors.dark))
     }()
     
     private var choice: Int?
@@ -31,7 +32,7 @@ class DropdownView: BaseComponentView {
                 textInputView.placeholderText = nil
             }
             
-            textInputView.textColor = dropdownItem?.style.color ?? ASAPP.styles.colors.textPrimary
+            textInputView.textColor = dropdownItem?.style.color ?? ASAPP.styles.colors.dark
             textInputView.underlineColorDefault = ASAPP.styles.colors.controlSecondary
             textInputView.underlineStrokeWidth = 1
             textInputView.autocorrectionType = .no
@@ -105,14 +106,7 @@ class DropdownView: BaseComponentView {
             picker.selectRow(choice, inComponent: 0, animated: false)
         }
         textInputView.inputView = picker
-        
-        let toolbar = UIToolbar()
-        toolbar.barStyle = .default
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(done))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.items = [space, doneButton, space]
-        toolbar.sizeToFit()
-        textInputView.inputToolbar = toolbar
+        textInputView.inputToolbar = UIToolbar.createDefaultDoneBar(target: self, action: #selector(done))
     }
     
     @objc func done() {

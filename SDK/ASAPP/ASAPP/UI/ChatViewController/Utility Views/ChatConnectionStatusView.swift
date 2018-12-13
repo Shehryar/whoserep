@@ -83,11 +83,11 @@ class ChatConnectionStatusView: UIView {
         switch status {
         case .connected:
             backgroundColor = UIColor.ASAPP.snow
-            label.textColor = ASAPP.styles.colors.textSecondary
+            label.textColor = ASAPP.styles.colors.dark
             
         case .connecting:
             backgroundColor = UIColor.ASAPP.snow
-            label.textColor = ASAPP.styles.colors.textSecondary
+            label.textColor = ASAPP.styles.colors.dark
             
         case .disconnected:
             backgroundColor = ASAPP.styles.colors.warning

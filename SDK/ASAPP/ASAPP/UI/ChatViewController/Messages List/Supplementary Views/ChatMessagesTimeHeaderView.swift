@@ -29,9 +29,9 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
     func commonInit() {
         contentView.backgroundColor = .clear
         isOpaque = true
-        
+        isAccessibilityElement = true
         timeLabel.backgroundColor = .clear
-        timeLabel.textColor = ASAPP.styles.colors.textSecondary.withAlphaComponent(0.5)
+        timeLabel.textColor = ASAPP.styles.colors.dark.withAlphaComponent(0.5)
         timeLabel.textAlignment = .center
         contentView.addSubview(timeLabel)
     }
@@ -53,6 +53,8 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
             dateFormatter.dateFormat = time.dateFormatForMostRecent()
             let timestamp = dateFormatter.string(from: time)
             timeLabel.setAttributedText(timestamp, textType: .detail1)
+            accessibilityLabel = timestamp
+            accessibilityTraits = UIAccessibilityTraitHeader
         } else {
             timeLabel.attributedText = nil
         }

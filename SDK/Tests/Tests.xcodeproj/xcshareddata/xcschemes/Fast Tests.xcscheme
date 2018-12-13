@@ -149,7 +149,15 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithScale"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:scales"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:date-pickers"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "formWithRadio"

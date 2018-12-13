@@ -31,7 +31,7 @@ public class ASAPPTextStyles: NSObject {
     // MARK: ComponentUI: Headers
     
     /// The style of top-level headers.
-    public var header1 = ASAPPTextStyle(font: Fonts.default.regular, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9))
+    public var header1 = ASAPPTextStyle(font: Fonts.default.regular, size: 24, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze)
     
     /// The style of second-level headers.
     public var header2 = ASAPPTextStyle(font: Fonts.default.bold, size: 20, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze)
@@ -57,10 +57,10 @@ public class ASAPPTextStyles: NSObject {
     public var bodyBold2  = ASAPPTextStyle(font: Fonts.default.medium, size: 16, letterSpacing: 0.2, color: UIColor.ASAPP.purpleHaze)
     
     /// The style of top-level detail text.
-    public var detail1 = ASAPPTextStyle(font: Fonts.default.regular, size: 11, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.65))
+    public var detail1 = ASAPPTextStyle(font: Fonts.default.regular, size: 11, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.5))
     
     /// The style of second-level detail text.
-    public var detail2 = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.9))
+    public var detail2 = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.purpleHaze.withAlphaComponent(0.85))
     
     /// The style of error text.
     public var error = ASAPPTextStyle(font: Fonts.default.regular, size: 12, letterSpacing: 0.5, color: UIColor.ASAPP.errorRed)
@@ -97,16 +97,16 @@ public class ASAPPTextStyles: NSObject {
      - parameter color: The color to apply to all text styles. Each text style will use the color at an appropriate opacity.
      */
     public func updateColors(with color: UIColor) {
-        header1.updateColor(color.withAlphaComponent(0.9))
+        header1.updateColor(color)
         header2.updateColor(color)
         header3.updateColor(color)
-        subheader.updateColor(color)
+        subheader.updateColor(color.withAlphaComponent(0.5))
         body.updateColor(color.withAlphaComponent(0.85))
         bodyBold.updateColor(color)
         body2.updateColor(color.withAlphaComponent(0.85))
         bodyBold2.updateColor(color)
-        detail1.updateColor(color.withAlphaComponent(0.65))
-        detail2.updateColor(color.withAlphaComponent(0.9))
+        detail1.updateColor(color.withAlphaComponent(0.5))
+        detail2.updateColor(color.withAlphaComponent(0.85))
     }
 }
 

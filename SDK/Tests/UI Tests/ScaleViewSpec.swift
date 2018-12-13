@@ -29,9 +29,9 @@ class ScaleViewSpec: QuickSpec {
             context("on its own") {
                 var style: ComponentStyle!
                 
-                func getView(with style: ComponentStyle, type scaleType: ScaleItem.ScaleType) -> ScaleView {
+                func getView(with style: ComponentStyle, type scaleType: ScaleItem.ScaleType, width: CGFloat = 375) -> ScaleView {
                     let scaleItem = ScaleItem(style: style, content: ["scaleType": scaleType.rawValue])
-                    let scale = ScaleView(frame: CGRect(x: 0, y: 0, width: 375, height: CGFloat.greatestFiniteMagnitude))
+                    let scale = ScaleView(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
                     scale.component = scaleItem
                     let size = scale.sizeThatFits(scale.frame.size)
                     scale.frame = CGRect(x: 0, y: 0, width: scale.frame.width, height: size.height)
@@ -46,6 +46,22 @@ class ScaleViewSpec: QuickSpec {
                     context("left alignment") {
                         it("has a valid snapshot") {
                             style.alignment = .left
+                            let scale = getView(with: style, type: .fiveNumber)
+                            expect(scale).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("center alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .center
+                            let scale = getView(with: style, type: .fiveNumber)
+                            expect(scale).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("right alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .right
                             let scale = getView(with: style, type: .fiveNumber)
                             expect(scale).to(haveValidSnapshot())
                         }
@@ -69,11 +85,97 @@ class ScaleViewSpec: QuickSpec {
                         }
                     }
                     
+                    context("center alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .center
+                            let scale = getView(with: style, type: .fiveStar)
+                            expect(scale).to(haveValidSnapshot())
+                        }
+                    }
+                    
+                    context("right alignment") {
+                        it("has a valid snapshot") {
+                            style.alignment = .right
+                            let scale = getView(with: style, type: .fiveStar)
+                            expect(scale).to(haveValidSnapshot())
+                        }
+                    }
+                    
                     context("fill alignment") {
                         it("has a valid snapshot") {
                             style.alignment = .fill
                             let scale = getView(with: style, type: .fiveStar)
                             expect(scale).to(haveValidSnapshot())
+                        }
+                    }
+                }
+                
+                context("nrs11") {
+                    context("typical width") {
+                        context("left alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .left
+                                let scale = getView(with: style, type: .nrs11)
+                                expect(scale).to(haveValidSnapshot())
+                            }
+                        }
+                        
+                        context("center alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .center
+                                let scale = getView(with: style, type: .nrs11)
+                                expect(scale).to(haveValidSnapshot())
+                            }
+                        }
+                        
+                        context("right alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .right
+                                let scale = getView(with: style, type: .nrs11)
+                                expect(scale).to(haveValidSnapshot())
+                            }
+                        }
+                        
+                        context("fill alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .fill
+                                let scale = getView(with: style, type: .nrs11)
+                                expect(scale).to(haveValidSnapshot())
+                            }
+                        }
+                    }
+                    
+                    context("extraordinary width") {
+                        context("left alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .left
+                                let scale = getView(with: style, type: .nrs11, width: 600)
+                                expect(scale).to(haveValidSnapshot())
+                            }
+                        }
+                        
+                        context("center alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .center
+                                let scale = getView(with: style, type: .nrs11, width: 600)
+                                expect(scale).to(haveValidSnapshot())
+                            }
+                        }
+                        
+                        context("right alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .right
+                                let scale = getView(with: style, type: .nrs11, width: 600)
+                                expect(scale).to(haveValidSnapshot())
+                            }
+                        }
+                        
+                        context("fill alignment") {
+                            it("has a valid snapshot") {
+                                style.alignment = .fill
+                                let scale = getView(with: style, type: .nrs11, width: 600)
+                                expect(scale).to(haveValidSnapshot())
+                            }
                         }
                     }
                 }

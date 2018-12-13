@@ -30,6 +30,16 @@
 				<string>asapptest</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.asappinc.asapptest</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>asapp</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>210</string>

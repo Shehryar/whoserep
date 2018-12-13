@@ -37,6 +37,7 @@ class MockConversationManager: ConversationManagerProtocol {
     
     weak var delegate: ConversationManagerDelegate?
     var pushNotificationPayload: [AnyHashable: Any]?
+    var intentPayload: [String: Any]?
     var events: [Event]
     var currentSRSClassification: String?
     var isLiveChat: Bool
@@ -132,7 +133,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendUserTypingStatus = true
     }
     
-    func sendAskRequest(_ completion: ((Bool) -> Void)?) {
+    func sendAskRequest(intent: [String: Any]?, _ completion: ((Bool) -> Void)?) {
         calledSendAskRequest = true
     }
     

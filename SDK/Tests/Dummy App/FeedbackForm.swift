@@ -54,9 +54,8 @@ extension FeedbackForm: KeyboardObserverDelegate {
         }
         
         keyboardHeight = height
-        
-        if let viewController = self as? UpdatableFrames & RestorableBounds,
-            let view = view {
+        let viewController = self
+        if let view = view {
             let newHeight = viewController.originalBounds.height - keyboardHeight
             viewController.willUpdateFrames()
             

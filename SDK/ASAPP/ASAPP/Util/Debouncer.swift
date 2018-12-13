@@ -14,7 +14,7 @@ import Foundation
 class Debouncer {
     private var lastExecuted = Date.distantPast
     
-    let interval: TimeInterval
+    private let interval: TimeInterval
     
     required init(interval: DispatchTimeInterval) {
         self.interval = interval.seconds
@@ -24,8 +24,8 @@ class Debouncer {
         guard Date().timeIntervalSince(lastExecuted) > interval else {
             return
         }
-        
         lastExecuted = Date()
+        
         handler()
     }
     

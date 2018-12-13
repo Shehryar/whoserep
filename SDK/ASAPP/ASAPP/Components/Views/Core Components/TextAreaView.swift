@@ -72,21 +72,15 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
     
     var placeholderFont: UIFont = ASAPP.styles.textStyles.detail1.font
     
-    var placeholderColor: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
+    var placeholderColor = ASAPP.styles.colors.dark.withAlphaComponent(0.5) {
         didSet {
             updatePlaceholderText()
         }
     }
     
-    var placeholderMarginBottom: CGFloat = 8.0 {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
     // MARK: Underline
     
-    var underlineColorDefault: UIColor = UIColor(red: 0.663, green: 0.682, blue: 0.729, alpha: 1) {
+    var underlineColorDefault = ASAPP.styles.colors.dark.withAlphaComponent(0.15) {
         didSet {
             updateUnderlineColor()
         }

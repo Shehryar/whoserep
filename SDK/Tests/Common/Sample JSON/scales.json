@@ -1,0 +1,122 @@
+{
+  "root": {
+    "content": {
+      "items": [
+        {
+          "content": {
+            "scaleType": "nrs11"
+          },
+          "style": {
+            "align": "center"
+          },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "nrs11"
+          },
+          "style": {
+            "align": "fill"
+          },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "fiveNumber"
+          },
+          "style": {
+            "align": "center"
+          },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "fiveNumber"
+          },
+          "style": {
+            "align": "fill"
+          },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "fiveStar"
+          },
+          "style": {
+            "align": "center"
+          },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "fiveStar"
+          },
+          "style": {
+            "align": "fill"
+          },
+          "name": "rating",
+          "type": "scale"
+        }
+      ]
+    },
+    "style": {
+      "padding": "32 0"
+    },
+    "type": "stackView"
+  }
+}

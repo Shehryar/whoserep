@@ -167,8 +167,27 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler(UNNotificationPresentationOptions.alert)
+        if let current = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController ?? window?.rootViewController,
+            let nav = current as? UINavigationController,
+            let top = nav.topViewController as? HomeViewController {
+            guard let count = notification.request.content.userInfo["UnreadMessages"] as? Int,
+                let isLiveChat = notification.request.content.userInfo["IsLiveChat"] as? Bool  else { return }
+            top.updateBadge(unreadCount: count, isLiveChat: isLiveChat)
+        } else {
+            completionHandler(UNNotificationPresentationOptions.alert)
+        }
         
         demoLog("userNotificationCenter:willPresent:withCompletionHandler:")
+    }
+}
+
+// MARK: Deeplinks
+extension AppDelegate {
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
+        let sendingAppID = options[.sourceApplication]
+        print("source application = \(sendingAppID ?? "Unknown")")
+        DeepLinkHandler.shared.handleDeepLink(url: url)
+        return true
     }
 }

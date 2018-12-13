@@ -73,7 +73,6 @@ extension MessageBubbleCornerRadiusUpdating {
                 roundedCorners = [.topLeft, .bottomRight, .bottomLeft]
             }
         }
-        
         return roundedCorners
     }
 }
@@ -98,9 +97,8 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
             // Update Text
             //
             label.text = message.text
-            label.isAccessibilityElement = label.text?.isEmpty == false
-            accessibilityElements = label.isAccessibilityElement ? [label] : nil
             label.isSelectable = textHasDataDetectorLink(label.text)
+            configureLabelAccessibility()
             
             //
             // Update Bubble
@@ -253,6 +251,26 @@ class ChatTextBubbleView: UIView, MessageButtonsViewContainer, MessageBubbleCorn
         }
         
         return nil
+    }
+}
+
+// MARK: - Accessibility
+
+extension ChatTextBubbleView {
+    private func configureLabelAccessibility() {
+        guard let message = message,
+              let text = message.text,
+              !text.isEmpty
+        else {
+            label.isAccessibilityElement = false
+            accessibilityElements = nil
+            return
+        }
+        
+        label.accessibilityLabel = message.metadata.isReply ? ASAPPLocalizedString("Support") : ASAPPLocalizedString("You")
+        label.accessibilityHint = message.metadata.sendTimeString
+        label.isAccessibilityElement = true
+        accessibilityElements = [label]
     }
 }
 

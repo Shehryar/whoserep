@@ -118,7 +118,7 @@ class ChatMessagesView: UIView {
     private var messagesThatShouldAnimate = Set<ChatMessage>()
     private var focusTimer: Timer?
     private var previousFocusedReply: ChatMessage?
-    private var scrollDebouncer: Debouncer? = Debouncer(interval: .seconds(0.5))
+    private var scrollDebouncer: Debouncer? = Debouncer(interval: .defaultAnimationDuration)
     
     // MARK: - Initialization
     
@@ -370,6 +370,10 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        guard !UIAccessibility.isVoiceOverRunning else {
+            return
+        }
         
         endEditing(true)
         delegate?.chatMessagesViewPerformedKeyboardHidingAction(self)
@@ -661,19 +665,18 @@ extension ChatMessagesView {
         }
         tableView.insertRows(at: [indexPath], with: .none)
         
-        if let oldLastMessage = oldLastMessage,
-           oldLastMessage.metadata.isReply,
-           oldLastMessage.hasTransientButtons,
-           let oldLastIndexPath = oldLastIndexPath {
-            tableView.reloadRows(at: [oldLastIndexPath], with: .fade)
-        }
-        
         if shouldMoveTypingIndicator,
            let newTypingIndicator = getNextIndexPath(indexPath) {
             tableView.insertRows(at: [newTypingIndicator], with: .fade)
         }
         
         tableView.endUpdates()
+        
+        if let oldLastMessage = oldLastMessage,
+            oldLastMessage.metadata.isReply,
+            oldLastIndexPath != nil {
+            tableView.reloadData()
+        }
         
         if let cell = tableView.cellForRow(at: indexPath) as? ChatMessageCell,
            let cellMessage = cell.message,

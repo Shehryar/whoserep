@@ -101,6 +101,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     let bubbleView = UIView()
     let textView = UITextView()
+    
     private let suggestionsView = SuggestionsView()
     private let shadowView = UIView()
     private let borderTopView = UIView()
@@ -118,6 +119,9 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     fileprivate var verticalInsets: CGFloat {
         return contentInset.vertical + bubbleInset.vertical
     }
+    
+    private var announcementThrottler: Throttler? = Throttler(interval: .seconds(1))
+    private var previousState: AutosuggestState?
     
     // MARK: - Initialization
     
@@ -157,6 +161,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         textView.returnKeyType = .send
         textView.autocorrectionType = .no
         textView.isAccessibilityElement = true
+        textView.spellCheckingType = .yes
         textView.accessibilityTraits = UIAccessibilityTraitSearchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: sendButtonSize.width + 8)
@@ -201,6 +206,11 @@ class ChatInputView: UIView, TextViewAutoExpanding {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        announcementThrottler?.cancel()
+        announcementThrottler = nil
     }
     
     // MARK: - Appearance
@@ -434,6 +444,13 @@ extension ChatInputView: SuggestionsViewDelegate {
         invalidateIntrinsicContentSize()
         resizeIfNeeded(animated: true, notifyOfHeightChange: true)
         
+        let prefix = ASAPPLocalizedString("Suggestion selected.")
+        sendButton.accessibilityLabel = "\(prefix) \(ASAPP.strings.accessibilitySend)"
+        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, sendButton)
+        Dispatcher.delay(.defaultAnimationDuration) { [weak self] in
+            self?.sendButton.accessibilityLabel = ASAPP.strings.accessibilitySend
+        }
+        
         delegate?.chatInputView(self, didSelectSuggestion: suggestion, at: index, count: count, responseId: suggestionsView.responseId)
     }
 }
@@ -490,12 +507,22 @@ extension ChatInputView {
         if state.shouldShow {
             suggestionsView.responseId = state.responseId
             suggestionsView.reloadWithSuggestions(state.suggestions)
+            if state.responseId != previousState?.responseId && state.suggestions.count > 0 {
+                announcementThrottler?.throttle { [weak self] in
+                    Dispatcher.performOnMainThread { [weak self] in
+                        self?.suggestionsView.announceSuggestions()
+                    }
+                }
+            }
             invalidateIntrinsicContentSize()
         } else {
             suggestionsView.clear()
+            announcementThrottler?.cancel()
             invalidateIntrinsicContentSize()
             setNeedsLayout()
             layoutIfNeeded()
         }
+        
+        previousState = state
     }
 }
