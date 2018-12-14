@@ -39,6 +39,7 @@ class MessageButtonsView: UIView {
         }
         
         backgroundColor = ASAPP.styles.colors.messageButtonBackground
+        isAccessibilityElement = false
         
         updateViews()
     }
@@ -78,6 +79,8 @@ class MessageButtonsView: UIView {
             addSubview(button)
             actions.append(messageAction.action)
         }
+        
+        accessibilityElements = buttons
         
         updateButtonInsets()
         
