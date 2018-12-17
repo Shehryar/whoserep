@@ -540,6 +540,56 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatViewControllerForPushingWithIntent:"></a>
+                    <a name="//apple_ref/swift/Method/createChatViewControllerForPushing(withIntent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatViewControllerForPushingWithIntent:">createChatViewControllerForPushing(withIntent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a chat view controller, ready to be pushed onto a navigation stack. Starts a conversation with the provided intent.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createChatViewControllerForPushing</span><span class="p">(</span><span class="n">withIntent</span> <span class="nv">intent</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>intent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A dictionary containing intent data</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code>UIViewController</code></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatViewControllerForPresentingFromNotificationWith:"></a>
                     <a name="//apple_ref/swift/Method/createChatViewControllerForPresenting(fromNotificationWith:)" class="dashAnchor"></a>
                     <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatViewControllerForPresentingFromNotificationWith:">createChatViewControllerForPresenting(fromNotificationWith:)</a>
@@ -574,6 +624,56 @@ to call various functions. No instances of <code>ASAPP</code> are to be created.
                               <td>
                                 <div>
                                   <p>A user info dictionary containing notification metadata</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code>UIViewController</code></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatViewControllerForPresentingWithIntent:"></a>
+                    <a name="//apple_ref/swift/Method/createChatViewControllerForPresenting(withIntent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPP(cm)createChatViewControllerForPresentingWithIntent:">createChatViewControllerForPresenting(withIntent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a chat view controller in a navigation controller, ready to be presented modally. Starts a conversation with the provided intent.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createChatViewControllerForPresenting</span><span class="p">(</span><span class="n">withIntent</span> <span class="nv">intent</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">UIViewController</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>intent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A dictionary containing intent data</p>
                                 </div>
                               </td>
                             </tr>
@@ -996,12 +1096,59 @@ such as sending a message or pressing a button.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@ASAPP@objc(cs)ASAPP(cm)setIntent:"></a>
+                    <a name="//apple_ref/swift/Method/setIntent(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@ASAPP@objc(cs)ASAPP(cm)setIntent:">setIntent(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the intent on the current chat view controller. This is meant to be called only when a chat view controller
+already exists. If there is no ChatViewController please use one of the <code>createChatViewControllerFor...</code> functions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">setIntent</span><span class="p">(</span><span class="n">_</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A dictionary with intent data. e.g. <code>[&quot;Code&quot;: &quot;EXAMPLE_INTENT&quot;]</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-11-30)</p>
+          <p>&copy; 2018 <a class="link" href="https://asapp.com" target="_blank" rel="external">ASAPP</a>. All rights reserved. (Last updated: 2018-12-14)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
