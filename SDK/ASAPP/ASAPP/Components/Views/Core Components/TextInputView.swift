@@ -185,7 +185,7 @@ extension TextInputView: UIPickerViewDelegate, UIPickerViewDataSource {
             picker.dataSource = self
             pickerOptions = config.getPickerOptions()
             if let selected = getSelectedDate(config) ?? pickerOptions.first?.value as? Date,
-               let index = pickerOptions.firstIndex(where: { $0.value as? Date == selected }) {
+               let index = pickerOptions.index(where: { $0.value as? Date == selected }) {
                 picker.selectRow(index, inComponent: 0, animated: false)
             }
             picker.delegate = self
