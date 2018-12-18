@@ -213,7 +213,17 @@ class ScaleView: BaseComponentView {
         buttonWidth = min(maxButtonWidth, originalSize.width)
         buttonSize = CGSize(width: buttonWidth, height: originalAspectRatio * buttonWidth)
         let contentWidth = buttonWidth * CGFloat(numButtons) + buttonSpacing * CGFloat(numButtons - 1)
-        let offset = scaleItem.style.alignment != .fill ? (maxContentSize.width - contentWidth) / 2 : 0
+        let offset: CGFloat
+        switch scaleItem.style.alignment {
+        case .left:
+            offset = 0
+        case .fill:
+            offset = 0
+        case .center:
+            offset = (maxContentSize.width - contentWidth) / 2
+        case .right:
+            offset = maxContentSize.width - contentWidth
+        }
         
         forEachButton { _, i in
             let left = padding.left + offset + CGFloat(i) * (buttonSize.width + buttonSpacing)
@@ -245,7 +255,7 @@ class ScaleView: BaseComponentView {
         let firstButton = layout.buttonFrames.first ?? .zero
         let padding = scaleItem.style.padding
         let height = firstButton.maxY + padding.bottom
-        let width = (layout.buttonFrames.last?.maxX ?? 0) + padding.right
+        let width = (layout.buttonFrames.last?.maxX ?? 0)
         
         return CGSize(width: width, height: height)
     }
