@@ -61,11 +61,9 @@ class AuthenticationViewController: BaseTableViewController {
     fileprivate func dismiss() {
         dismiss(animated: true, completion: nil)
     }
-}
 
-// MARK: - UITableViewDataSource
-
-extension AuthenticationViewController {
+    // MARK: - UITableViewDataSource
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count
     }
@@ -128,11 +126,9 @@ extension AuthenticationViewController {
             return TableViewCell()
         }
     }
-}
 
-// MARK: - UITableViewDelegate
-
-extension AuthenticationViewController {
+    // MARK: - UITableViewDelegate
+    
     override func titleForSection(_ section: Int) -> String? {
         switch Section(rawValue: section) {
         case .some(.customerId): return "\(AppSettings.shared.appId) • \(AppSettings.shared.apiHostName)"
@@ -191,7 +187,7 @@ extension AuthenticationViewController {
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else {
             return
         }

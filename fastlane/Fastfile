@@ -40,7 +40,14 @@ platform :ios do
 
     incrementBuildNumber
 
-    gym(scheme: 'ASAPPTest')
+    gym(
+      scheme: 'ASAPPTest',
+      export_options: {
+      method: "enterprise"
+      },
+      output_directory: './fastlane/build',
+      clean: true
+    )
 
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
@@ -189,13 +196,19 @@ platform :ios do
     sh "git pull origin staging"
     sh "git stash pop"
     
-    ensure_xcode_version(version: "9.4.1")
+    ensure_xcode_version(version: "10.1")
     ENV['XCODE_VERSION_CORRECT'] = "1"
 
     buildDirectory = "../build"
     sh "mkdir -p #{buildDirectory}"
 
-    sh "cd ../ && xcodebuild -workspace #{ENV['GYM_WORKSPACE']} -scheme Aggregate -configuration Release"
+    xcodebuild(
+      scheme: "Aggregate",
+      configuration: "Release",
+      workspace: "#{ENV['GYM_WORKSPACE']}",
+      output_directory: buildDirectory,
+      output_name: "ASAPP.framework"
+    )
 
     # create ZIP file using version string
     version = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
@@ -258,16 +271,6 @@ platform :ios do
         UI.user_error!("Could not merge staging into master!")
       })
     sh "git push origin master"
-
-    # merge staging to develop.
-    sh(
-      "git fetch origin && git checkout develop && git reset --hard origin/develop && git merge staging",
-      log: true,
-      error_callback: ->(result) {
-        sh "cd ../ && scripts/circleci_slack_warning.sh \":boom: Could not merge staging into develop. :boom: Do it manually to resolve conflicts!\""
-        UI.user_error!("Could not merge staging into develop!")
-      })
-    sh "git push origin develop"
   end
 end
 

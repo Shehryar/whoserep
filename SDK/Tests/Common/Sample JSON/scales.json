@@ -6,6 +6,23 @@
           "content": {
             "scaleType": "nrs11"
           },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "nrs11"
+          },
           "style": {
             "align": "center"
           },
@@ -28,6 +45,46 @@
           },
           "style": {
             "align": "fill"
+          },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "nrs11"
+          },
+          "style": {
+            "align": "left"
+          },
+          "name": "rating",
+          "type": "scale"
+        },
+        {
+          "content": {
+            "separatorStyle": "horizontal"
+          },
+          "style": {
+            "align": "fill",
+            "margin": "16 0 32 0"
+          },
+          "type": "separator"
+        },
+        {
+          "content": {
+            "scaleType": "nrs11"
+          },
+          "style": {
+            "align": "right"
           },
           "name": "rating",
           "type": "scale"

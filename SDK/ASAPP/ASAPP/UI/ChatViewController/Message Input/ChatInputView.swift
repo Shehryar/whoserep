@@ -162,7 +162,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         textView.autocorrectionType = .no
         textView.isAccessibilityElement = true
         textView.spellCheckingType = .yes
-        textView.accessibilityTraits = UIAccessibilityTraitSearchField
+        textView.accessibilityTraits = .searchField
         textView.accessibilityLabel = placeholderText.trimmingCharacters(in: CharacterSet.punctuationCharacters)
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: sendButtonSize.width + 8)
         textView.scrollIndicatorInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
@@ -255,7 +255,7 @@ class ChatInputView: UIView, TextViewAutoExpanding {
         }
         
         if let sendButtonImage = sendButtonImage {
-            sendButton.setImage(sendButtonImage, for: UIControlState())
+            sendButton.setImage(sendButtonImage, for: UIControl.State())
             sendButton.setImage(sendButtonImage.withAlpha(0.7), for: .highlighted)
             sendButton.setImage(sendButtonImage.withAlpha(0.4), for: .disabled)
         }
@@ -446,7 +446,7 @@ extension ChatInputView: SuggestionsViewDelegate {
         
         let prefix = ASAPPLocalizedString("Suggestion selected.")
         sendButton.accessibilityLabel = "\(prefix) \(ASAPP.strings.accessibilitySend)"
-        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, sendButton)
+        UIAccessibility.post(notification: .layoutChanged, argument: sendButton)
         Dispatcher.delay(.defaultAnimationDuration) { [weak self] in
             self?.sendButton.accessibilityLabel = ASAPP.strings.accessibilitySend
         }

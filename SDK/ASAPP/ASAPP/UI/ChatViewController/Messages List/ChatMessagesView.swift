@@ -57,7 +57,7 @@ class ChatMessagesView: UIView {
     weak var delegate: ChatMessagesViewDelegate?
     
     private lazy var loadingView: UIView = {
-        let loadingView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let loadingView = UIActivityIndicatorView(style: .gray)
         loadingView.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: loadingHeaderHeight)
         loadingView.startAnimating()
         return loadingView
@@ -371,7 +371,7 @@ extension ChatMessagesView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        guard !UIAccessibilityIsVoiceOverRunning() else {
+        guard !UIAccessibility.isVoiceOverRunning else {
             return
         }
         
@@ -726,7 +726,7 @@ extension ChatMessagesView {
             
             focusTimer?.cancel()
             focusTimer = Timer(delay: .defaultAnimationDuration) { [weak self] in
-                UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, cell)
+                UIAccessibility.post(notification: .screenChanged, argument: cell)
                 self?.previousFocusedReply = message
             }
             focusTimer?.start()

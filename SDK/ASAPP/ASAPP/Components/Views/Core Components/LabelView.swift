@@ -79,7 +79,7 @@ class LabelView: BaseComponentView {
     override func updateFrames() {
         if let labelItem = labelItem {
             let padding = labelItem.style.padding
-            label.frame = UIEdgeInsetsInsetRect(bounds, padding)
+            label.frame = bounds.inset(by: padding)
         } else {
             label.frame = .zero
         }

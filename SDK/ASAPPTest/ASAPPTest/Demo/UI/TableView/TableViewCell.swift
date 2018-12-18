@@ -22,7 +22,7 @@ class TableViewCell: UITableViewCell {
         }
     }
     
-    override var selectionStyle: UITableViewCellSelectionStyle {
+    override var selectionStyle: UITableViewCell.SelectionStyle {
         didSet {
             updateSelectedView()
         }
@@ -46,7 +46,7 @@ class TableViewCell: UITableViewCell {
         commonInit()
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
     }

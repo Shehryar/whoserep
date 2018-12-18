@@ -29,54 +29,54 @@ class RatingButton: UIButton {
         
         switch scaleType {
         case .fiveNumber:
-            backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
-            setTitleColor(ASAPP.styles.colors.dark, for: .normal)
             setTitle(String(value), for: .normal)
             titleLabel?.updateFont(for: .body)
             layer.cornerRadius = 3
             setImage(nil, for: .normal)
         case .fiveStar:
-            backgroundColor = .clear
             setTitle(nil, for: .normal)
-            setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
         case .nrs11:
-            backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
-            setTitleColor(ASAPP.styles.colors.dark, for: .normal)
             setTitle(String(value), for: .normal)
             titleLabel?.updateFont(for: .body)
             layer.cornerRadius = layer.frame.height / 2
             setImage(nil, for: .normal)
         }
+        
+        updateState(selected: isSelected)
+    }
+    
+    func updateState(selected: Bool) {
+        switch scaleType {
+        case .fiveNumber:
+            if isSelected {
+                backgroundColor = ASAPP.styles.colors.primary
+                setTitleColor(backgroundColor?.chooseFirstAcceptableColor(of: [.white, ASAPP.styles.colors.dark]), for: .normal)
+                setTitleShadow(color: .black, offset: CGSize(width: 0, height: 2), radius: 4, opacity: 0.2)
+            } else {
+                backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
+                setTitleColor(ASAPP.styles.colors.dark, for: .normal)
+                setTitleShadow(opacity: 0)
+            }
+        case .fiveStar:
+            if isSelected {
+                setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.primary, alpha: 1), for: .normal)
+            } else {
+                setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
+            }
+        case .nrs11:
+            if isSelected {
+                backgroundColor = ASAPP.styles.colors.primary
+                setTitleColor(backgroundColor?.chooseFirstAcceptableColor(of: [.white, ASAPP.styles.colors.dark]), for: .normal)
+            } else {
+                backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
+                setTitleColor(ASAPP.styles.colors.dark, for: .normal)
+            }
+        }
     }
     
     override var isSelected: Bool {
         didSet {
-            switch scaleType {
-            case .fiveNumber:
-                if isSelected {
-                    backgroundColor = ASAPP.styles.colors.primary
-                    setTitleColor(backgroundColor?.chooseFirstAcceptableColor(of: [.white, ASAPP.styles.colors.dark]), for: .normal)
-                    setTitleShadow(color: .black, offset: CGSize(width: 0, height: 2), radius: 4, opacity: 0.2)
-                } else {
-                    backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
-                    setTitleColor(ASAPP.styles.colors.dark, for: .normal)
-                    setTitleShadow(opacity: 0)
-                }
-            case .fiveStar:
-                if isSelected {
-                    setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.primary, alpha: 1), for: .normal)
-                } else {
-                    setImage(ComponentIcon.getImage(.ratingStar)?.tinted(ASAPP.styles.colors.dark, alpha: 0.15), for: .normal)
-                }
-            case .nrs11:
-                if isSelected {
-                    backgroundColor = ASAPP.styles.colors.primary
-                    setTitleColor(backgroundColor?.chooseFirstAcceptableColor(of: [.white, ASAPP.styles.colors.dark]), for: .normal)
-                } else {
-                    backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15)
-                    setTitleColor(ASAPP.styles.colors.dark, for: .normal)
-                }
-            }
+            updateState(selected: isSelected)
         }
     }
 }
@@ -213,7 +213,17 @@ class ScaleView: BaseComponentView {
         buttonWidth = min(maxButtonWidth, originalSize.width)
         buttonSize = CGSize(width: buttonWidth, height: originalAspectRatio * buttonWidth)
         let contentWidth = buttonWidth * CGFloat(numButtons) + buttonSpacing * CGFloat(numButtons - 1)
-        let offset = scaleItem.style.alignment != .fill ? (maxContentSize.width - contentWidth) / 2 : 0
+        let offset: CGFloat
+        switch scaleItem.style.alignment {
+        case .left:
+            offset = 0
+        case .fill:
+            offset = 0
+        case .center:
+            offset = (maxContentSize.width - contentWidth) / 2
+        case .right:
+            offset = maxContentSize.width - contentWidth
+        }
         
         forEachButton { _, i in
             let left = padding.left + offset + CGFloat(i) * (buttonSize.width + buttonSpacing)
@@ -245,7 +255,7 @@ class ScaleView: BaseComponentView {
         let firstButton = layout.buttonFrames.first ?? .zero
         let padding = scaleItem.style.padding
         let height = firstButton.maxY + padding.bottom
-        let width = (layout.buttonFrames.last?.maxX ?? 0) + padding.right
+        let width = (layout.buttonFrames.last?.maxX ?? 0)
         
         return CGSize(width: width, height: height)
     }

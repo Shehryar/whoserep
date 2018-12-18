@@ -150,6 +150,6 @@ extension SuggestionsView {
         let singularDescription = ASAPPLocalizedString("One suggestion available above")
         let pluralSuffix = ASAPPLocalizedString("suggestions available above")
         let announcement = count == 1 ? singularDescription : "\(count) \(pluralSuffix)"
-        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, announcement)
+        UIAccessibility.post(notification: .screenChanged, argument: announcement)
     }
 }

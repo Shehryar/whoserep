@@ -637,7 +637,7 @@
 					FD8D8B181D107A19001B420B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = GHJ79KTB8D;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -890,6 +890,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -925,7 +926,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "626907cc-6b77-45ae-a422-75ce21073ff9";
 				PROVISIONING_PROFILE_SPECIFIER = "ASAPP Enterprise Test App Distribution";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -986,6 +988,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -1020,7 +1023,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d0f3346d-1a80-4fec-9433-3c3b4653ae82";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.asappinc.TestAppDebug";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

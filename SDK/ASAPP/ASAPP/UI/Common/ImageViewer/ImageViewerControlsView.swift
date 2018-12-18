@@ -23,7 +23,7 @@ class ImageViewerControlsView: UIView {
     func commonInit() {
         dismissButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let icon = ComponentIcon.getImage(.navClose)
-        dismissButton.setImage(icon?.tinted(UIColor.white, alpha: 1), for: UIControlState())
+        dismissButton.setImage(icon?.tinted(UIColor.white, alpha: 1), for: UIControl.State())
         dismissButton.setImage(icon?.tinted(UIColor.white, alpha: 0.6), for: .highlighted)
         dismissButton.setImage(icon?.tinted(UIColor.white, alpha: 0.4), for: .disabled)
         dismissButton.addTarget(self, action: #selector(ImageViewerControlsView.didTapXButton), for: .touchUpInside)

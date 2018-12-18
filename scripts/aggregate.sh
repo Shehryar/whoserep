@@ -1,18 +1,8 @@
 #!/bin/sh
 
-dont_build_on_ten=10.0.0
-
-if [ ${XCODE_VERSION_ACTUAL} -ge ${dont_build_on_ten//.} ]
-then
-    echo "error: This build script is for Xcode 9 only and assumes it is Xcode.app."
-    exit 1
-fi
-
 if [ -z "$XCODE_VERSION_CORRECT" ]
 then
     export SUDO_ASKPASS="${PROJECT_DIR}/../scripts/askpass.sh"
-    PREVIOUS_XCODE="$(xcode-select -p)"
-    sudo -A xcode-select -s /Applications/Xcode.app/Contents/Developer/
 fi
 
 UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal
@@ -49,9 +39,4 @@ cp -R "${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework" "${PROJECT_DIR}/../p
 
 # Step 6. Convenience step to open the project's directory in Finder
 open "${PROJECT_DIR}/../package/"
-
-if [ -z "$XCODE_VERSION_CORRECT" ]
-then
-    sudo -A xcode-select -s "${PREVIOUS_XCODE}"
-fi
 

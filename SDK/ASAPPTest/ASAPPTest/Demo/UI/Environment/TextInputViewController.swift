@@ -53,11 +53,8 @@ class TextInputViewController: BaseTableViewController {
         
         onFinish?(text)
     }
-}
 
-// MARK: - UITableViewDataSource
-
-extension TextInputViewController {
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count.rawValue
@@ -94,11 +91,7 @@ extension TextInputViewController {
         }
     }
 
-}
-
-// MARK: - UITableViewDelegate
-
-extension TextInputViewController {
+    // MARK: - UITableViewDelegate
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {

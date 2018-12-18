@@ -72,9 +72,9 @@ extension TitleImageCell {
         if let title = title {
             let color = (backgroundColor?.isDark() ?? false) ? .white : (appSettings?.branding.colors.foregroundColor ?? UIColor.darkText)
             titleLabel.attributedText = NSAttributedString(string: title, attributes: [
-                NSFontAttributeName: appSettings?.branding.fontFamily.regular.changingOnlySize(16) ?? DemoFonts.asapp.regular.changingOnlySize(16),
-                NSKernAttributeName: 1,
-                NSForegroundColorAttributeName: color
+                .font: appSettings?.branding.fontFamily.regular.changingOnlySize(16) ?? DemoFonts.asapp.regular.changingOnlySize(16),
+                .kern: 1,
+                .foregroundColor: color
             ])
         } else {
             titleLabel.attributedText = nil

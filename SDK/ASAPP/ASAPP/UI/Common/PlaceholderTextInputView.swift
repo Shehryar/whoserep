@@ -152,7 +152,7 @@ class PlaceholderTextInputView: UIView {
         set { textField.returnKeyType = newValue }
     }
     
-    var clearButtonMode: UITextFieldViewMode {
+    var clearButtonMode: UITextField.ViewMode {
         get { return textField.clearButtonMode }
         set { textField.clearButtonMode = newValue }
     }
@@ -432,7 +432,7 @@ extension PlaceholderTextInputView {
         let touch = touches.first!
         let point = touch.location(in: self)
         let touchInset = UIEdgeInsets(top: -30, left: -30, bottom: -30, right: -30)
-        let touchBounds = UIEdgeInsetsInsetRect(self.bounds, touchInset)
+        let touchBounds = self.bounds.inset(by: touchInset)
         if !touchBounds.contains(point) {
             self.touchesCancelled(touches, with: event)
         }

@@ -47,11 +47,8 @@ class BillDetailsViewController: BaseTableViewController {
         tableView.register(LabelIconCell.self, forCellReuseIdentifier: labelIconCellReuseId)
         tableView.register(TitleDetailValueCell.self, forCellReuseIdentifier: titleDetailValueCellReuseId)
     }
-}
 
-// MARK: - UITableViewDataSource
-
-extension BillDetailsViewController {
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count.rawValue
@@ -136,12 +133,8 @@ extension BillDetailsViewController {
         default: break
         }
     }
-    
-}
 
-// MARK: - UITableViewDelegate
-
-extension BillDetailsViewController {
+    // MARK: - UITableViewDelegate
     
     override func titleForSection(_ section: Int) -> String? {
         switch section {

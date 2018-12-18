@@ -43,13 +43,11 @@ class AppearanceViewController: BaseTableViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension AppearanceViewController {
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !isMovingToParentViewController {
+        if !isMovingToParent {
             selectedOption = AppSettings.shared.appearanceConfig
             options = AppSettings.getAppearanceConfigArray()
             tableView.reloadData()
@@ -138,7 +136,7 @@ extension AppearanceViewController {
         return config.brand == .custom
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else {
             return
         }

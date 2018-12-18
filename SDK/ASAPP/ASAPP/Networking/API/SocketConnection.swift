@@ -81,7 +81,7 @@ class SocketConnection: NSObject {
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     deinit {

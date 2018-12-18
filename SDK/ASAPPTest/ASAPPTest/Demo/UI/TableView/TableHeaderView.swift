@@ -47,9 +47,9 @@ class TableHeaderView: UIView {
     fileprivate func updateLabel() {
         if let title = title {
             label.attributedText = NSAttributedString(string: title.uppercased(), attributes: [
-                NSFontAttributeName: DemoFonts.asapp.bold.changingOnlySize(11),
-                NSKernAttributeName: 1.5,
-                NSForegroundColorAttributeName: AppSettings.shared.branding.colors.secondaryTextColor
+                .font: DemoFonts.asapp.bold.changingOnlySize(11),
+                .kern: 1.5,
+                .foregroundColor: AppSettings.shared.branding.colors.secondaryTextColor
             ])
         } else {
             label.attributedText = nil

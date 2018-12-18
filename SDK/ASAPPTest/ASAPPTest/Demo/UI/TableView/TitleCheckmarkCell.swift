@@ -64,7 +64,7 @@ class TitleCheckmarkCell: TableViewCell {
     
     let checkmarkView = UIImageView()
     
-    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let spinner = UIActivityIndicatorView(style: .gray)
     
     // MARK: Init
     

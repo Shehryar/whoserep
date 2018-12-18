@@ -57,7 +57,7 @@ class RootComponentWrapperView: BaseComponentView {
             return
         }
         
-        rootView?.frame = UIEdgeInsetsInsetRect(bounds, getInsets())
+        rootView?.frame = bounds.inset(by: getInsets())
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

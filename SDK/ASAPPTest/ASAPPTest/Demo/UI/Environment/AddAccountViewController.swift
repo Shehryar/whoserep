@@ -41,11 +41,8 @@ class AddAccountViewController: BaseTableViewController {
         
         focusOnCell(at: IndexPath(row: InputRow.username.rawValue, section: Section.addAccount.rawValue))
     }
-}
+    // MARK: - UITableViewDataSource
 
-// MARK: - UITableViewDataSource
-
-extension AddAccountViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count
     }
@@ -90,11 +87,9 @@ extension AddAccountViewController {
         }
         return TableViewCell()
     }
-}
 
-// MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
 
-extension AddAccountViewController {
     override func titleForSection(_ section: Int) -> String? {
         return ""
     }

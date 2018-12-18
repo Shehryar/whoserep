@@ -173,7 +173,7 @@ class Store<State: StateType>: StoreType {
     }
 
     func dispatch(_ changeCreatorProvider: @escaping AsyncChangeCreator,
-                       callback: DispatchCallback?) {
+                  callback: DispatchCallback?) {
         changeCreatorProvider(state, self) { changeProvider in
             let change = changeProvider(self.state, self)
 

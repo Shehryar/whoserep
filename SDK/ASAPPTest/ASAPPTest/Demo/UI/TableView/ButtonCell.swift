@@ -58,7 +58,7 @@ class ButtonCell: TableViewCell {
         }
     }
     
-    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let spinner = UIActivityIndicatorView(style: .gray)
     
     let titleLabel = AttributedLabel()
     

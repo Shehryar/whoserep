@@ -105,7 +105,7 @@ class TabViewTab: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        label.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        label.frame = bounds.inset(by: padding)
         
         separatorLeft.frame = CGRect(x: 0, y: 0, width: separatorStroke, height: bounds.height)
     }

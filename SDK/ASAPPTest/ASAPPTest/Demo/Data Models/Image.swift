@@ -33,7 +33,7 @@ extension Image: Codable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
-        guard let data = UIImagePNGRepresentation(uiImage) else {
+        guard let data = uiImage.pngData() else {
             throw ImageError.couldNotEncode
         }
         

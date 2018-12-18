@@ -180,7 +180,7 @@ class Button: UIView {
     
     func commonInit() {
         isAccessibilityElement = true
-        accessibilityTraits = UIAccessibilityTraitButton
+        accessibilityTraits = .button
         
         imageView.contentMode = .scaleAspectFit
         contentView.addSubview(imageView)

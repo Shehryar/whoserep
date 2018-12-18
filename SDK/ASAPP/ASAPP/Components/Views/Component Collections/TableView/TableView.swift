@@ -63,7 +63,7 @@ class TableView: BaseComponentView {
     override func updateFrames() {
         let margin = tableViewItem?.style.margin ?? .zero
         let padding = tableViewItem?.style.padding ?? .zero
-        tableView.frame = UIEdgeInsetsInsetRect(UIEdgeInsetsInsetRect(bounds, margin), padding)
+        tableView.frame = bounds.inset(by: margin).inset(by: padding)
     }
     
     override func layoutSubviews() {

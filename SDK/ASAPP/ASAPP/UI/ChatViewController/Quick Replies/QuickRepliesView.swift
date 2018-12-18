@@ -157,9 +157,8 @@ extension QuickRepliesView {
     }
     
     private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
-        let separatorTopViewFrame = CGRect(x: 0, y: 0, width: size.width, height: separatorTopStroke)
         
-        let containerTop = separatorTopViewFrame.maxY
+        let containerTop = separatorTopStroke
         let containerHeight = size.height - containerTop
         let containerViewFrame = CGRect(x: 0, y: containerTop, width: size.width, height: containerHeight)
         
@@ -175,6 +174,8 @@ extension QuickRepliesView {
                      height: restartButton.defaultHeight)
         
         let restartButtonFrame = CGRect(x: 0, y: containerViewFrame.maxY - restartButton.defaultHeight, width: size.width, height: restartButton.defaultHeight)
+        let separatorTop = containerView.frame.height == 0 ? restartButtonFrame.minY : 0
+        let separatorTopViewFrame = CGRect(x: 0, y: separatorTop, width: size.width, height: separatorTopStroke)
         
         return CalculatedLayout(
             separatorTopViewFrame: separatorTopViewFrame,
