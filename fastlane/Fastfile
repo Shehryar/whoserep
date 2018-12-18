@@ -40,7 +40,14 @@ platform :ios do
 
     incrementBuildNumber
 
-    gym(scheme: 'ASAPPTest')
+    gym(
+      scheme: 'ASAPPTest',
+      export_options: {
+      method: "enterprise"
+      },
+      output_directory: './fastlane/build',
+      clean: true
+    )
 
     crashlytics(
       api_token: ENV['CRASHLYTICS_API_TOKEN'],
@@ -195,7 +202,13 @@ platform :ios do
     buildDirectory = "../build"
     sh "mkdir -p #{buildDirectory}"
 
-    sh "cd ../ && xcodebuild -workspace #{ENV['GYM_WORKSPACE']} -scheme Aggregate -configuration Release"
+    xcodebuild(
+      scheme: "Aggregate",
+      configuration: "Release",
+      workspace: "#{ENV['GYM_WORKSPACE']}",
+      output_directory: buildDirectory,
+      output_name: "ASAPP.framework"
+    )
 
     # create ZIP file using version string
     version = get_version_number(xcodeproj: FRAMEWORK_PROJECT, target: "ASAPP")
