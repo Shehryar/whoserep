@@ -166,7 +166,7 @@ class NotificationBanner: UIView {
         
         if overlayButton.superview != nil {
             expandIcon.isAccessibilityElement = true
-            expandIcon.accessibilityTraits = UIAccessibilityTraitButton
+            expandIcon.accessibilityTraits = .button
             expandIcon.accessibilityLabel = ASAPPLocalizedString(isExpanded ? "Collapse" : "Expand")
             elements.append(expandIcon)
         }

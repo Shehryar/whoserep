@@ -111,8 +111,8 @@ class TextInputCheckmarkCell: TableViewCell {
         if let placeholderText = placeholderText {
             if let appSettings = appSettings {
                 textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [
-                    NSForegroundColorAttributeName: appSettings.branding.colors.secondaryTextColor,
-                    NSFontAttributeName: appSettings.branding.fontFamily.regular.changingOnlySize(16)
+                    .foregroundColor: appSettings.branding.colors.secondaryTextColor,
+                    .font: appSettings.branding.fontFamily.regular.changingOnlySize(16)
                     ])
             } else {
                 textField.placeholder = placeholderText
@@ -174,7 +174,7 @@ extension TextInputCheckmarkCell: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidChange(_ textField: UITextField) {
+    @objc func textFieldDidChange(_ textField: UITextField) {
         onTextChange?(currentText)
     }
 }

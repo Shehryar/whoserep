@@ -15,7 +15,7 @@ extension ConversationManager {
     func sendPictureMessage(_ image: UIImage, completion: (() -> Void)? = nil) {
         let path = "customer/SendPictureMessage"
         
-        guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             DebugLog.e("Unable to get JPEG data for image: \(image)")
             return
         }

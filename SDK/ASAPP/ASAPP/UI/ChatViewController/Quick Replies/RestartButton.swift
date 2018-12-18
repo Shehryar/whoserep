@@ -98,7 +98,7 @@ class RestartButton: Button {
         activityIndicator = UIActivityIndicatorView(frame: frame)
         if let spinner = activityIndicator {
             spinner.backgroundColor = .clear
-            spinner.activityIndicatorViewStyle = .gray
+            spinner.style = .gray
             spinner.sizeToFit()
             spinner.frame = CGRect(x: imageView.frame.minX, y: label.center.y - (spinner.frame.height / 2), width: spinner.frame.size.width, height: spinner.frame.size.height)
             insertSubview(spinner, belowSubview: label)

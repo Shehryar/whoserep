@@ -54,7 +54,7 @@ class ChatMessagesTimeHeaderView: UITableViewHeaderFooterView {
             let timestamp = dateFormatter.string(from: time)
             timeLabel.setAttributedText(timestamp, textType: .detail1)
             accessibilityLabel = timestamp
-            accessibilityTraits = UIAccessibilityTraitHeader
+            accessibilityTraits = .header
         } else {
             timeLabel.attributedText = nil
         }

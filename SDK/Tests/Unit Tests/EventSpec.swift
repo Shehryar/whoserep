@@ -10,7 +10,6 @@ import Quick
 import Nimble
 @testable import ASAPP
 
-// swiftlint:disable:next type_body_length
 class EventSpec: QuickSpec {
     override func spec() {
         describe("Event") {

@@ -211,7 +211,7 @@ class BaseActionSheet: UIView {
             self?.contentView.frame = contentViewFinalFrame
         }, completion: { [weak self] _ in
             self?.accessibilityViewIsModal = true
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self)
+            UIAccessibility.post(notification: .screenChanged, argument: self)
         })
     }
     
@@ -231,7 +231,7 @@ class BaseActionSheet: UIView {
             }
             self?.removeFromSuperview()
             self?.hiding = false
-            UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, superview)
+            UIAccessibility.post(notification: .screenChanged, argument: superview)
             completion?()
         })
     }
@@ -242,7 +242,7 @@ class BaseActionSheet: UIView {
         activityIndicator = UIActivityIndicatorView(frame: confirmButton.frame)
         if let spinner = activityIndicator {
             spinner.backgroundColor = .clear
-            spinner.activityIndicatorViewStyle = .gray
+            spinner.style = .gray
             spinner.frame = confirmButton.frame
             contentView.insertSubview(spinner, belowSubview: confirmButton)
             spinner.startAnimating()

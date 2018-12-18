@@ -159,14 +159,11 @@ jobs:
 
   rc-package:
     macos:
-      xcode: "9.4.1"
+      xcode: "10.1.0"
     <<: *default_env
     steps:
       - add_ssh_keys: *git_key
       - checkout
-      - run:
-          name: Set Ruby version
-          command: echo "ruby-2.4.4" > .ruby-version
       - restore_cache: *restore_gems
       - run: *install_gems
       - save_cache: *cache_gems

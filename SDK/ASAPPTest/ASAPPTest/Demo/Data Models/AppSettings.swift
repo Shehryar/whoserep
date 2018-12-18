@@ -357,7 +357,7 @@ extension AppSettings {
                 return nil
             }
             return try decoder.decode(T.self, from: data)
-        } ?? []).flatMap { $0 }
+        } ?? []).compactMap { $0 }
         
         return defaults.union(codableArray ?? [])
     }
@@ -388,7 +388,7 @@ extension AppSettings {
                 return nil
             }
             return try decoder.decode(T.self, from: data)
-        }.flatMap { $0 }
+        }.compactMap { $0 }
         
         let filteredArray = codableArray?.filter { $0 != codable }
         let encoder = JSONEncoder()
@@ -400,7 +400,7 @@ extension AppSettings {
                 return ""
             }
             return string
-        } ?? []).flatMap { $0 }
+        } ?? []).compactMap { $0 }
         
         saveObject(encodedArray, forKey: key)
     }

@@ -114,11 +114,9 @@ class PushServiceSelectionViewController: BaseTableViewController {
             cell.isChecked = false
         }
     }
-}
 
-// MARK: UITableViewDataSource
-
-extension PushServiceSelectionViewController {
+    // MARK: UITableViewDataSource
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count
     }
@@ -174,9 +172,6 @@ extension PushServiceSelectionViewController {
         default: return TableViewCell()
         }
     }
-}
-
-extension PushServiceSelectionViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

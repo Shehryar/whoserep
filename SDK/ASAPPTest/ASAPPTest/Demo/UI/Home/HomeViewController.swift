@@ -126,6 +126,26 @@ class HomeViewController: BaseViewController {
     func requestContextProvider(needsRefresh: Bool) -> [String: Any] {
         return AppSettings.shared.getContext()
     }
+
+    // MARK: - Styling
+
+    override func reloadViewForUpdatedSettings() {
+        super.reloadViewForUpdatedSettings()
+        
+        let logoSize = CGSize(width: 115, height: 34)
+        
+        let logoImageView = UIImageView(image: AppSettings.shared.branding.appearanceConfig.logoImage)
+        logoImageView.contentMode = .scaleAspectFit
+        logoImageView.frame = CGRect(x: 0, y: 0, width: logoSize.width, height: logoSize.height)
+        
+        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: logoImageView.frame.maxX, height: logoImageView.frame.height))
+        logoContainerView.addSubview(logoImageView)
+        
+        navigationItem.titleView = logoContainerView
+        
+        refreshChatButton()
+        homeTableView.reloadData()
+    }
 }
 
 extension HomeViewController: ASAPPDelegate {
@@ -171,29 +191,6 @@ extension HomeViewController: ASAPPDelegate {
     
     func chatViewControllerDidReceiveChatEvent(name: String, data: [String: Any]?) {
         demoLog("Received chat event named", name, "with data:", data?.debugDescription ?? "nil")
-    }
-}
-
-// MARK: - Styling
-
-extension HomeViewController {
-    
-    override func reloadViewForUpdatedSettings() {
-        super.reloadViewForUpdatedSettings()
-        
-        let logoSize = CGSize(width: 115, height: 34)
-        
-        let logoImageView = UIImageView(image: AppSettings.shared.branding.appearanceConfig.logoImage)
-        logoImageView.contentMode = .scaleAspectFit
-        logoImageView.frame = CGRect(x: 0, y: 0, width: logoSize.width, height: logoSize.height)
-        
-        let logoContainerView = UIView(frame: CGRect(x: 0, y: 0, width: logoImageView.frame.maxX, height: logoImageView.frame.height))
-        logoContainerView.addSubview(logoImageView)
-        
-        navigationItem.titleView = logoContainerView
-        
-        refreshChatButton()
-        homeTableView.reloadData()
     }
 }
 
@@ -492,7 +489,7 @@ extension HomeViewController {
         present(nav, animated: true, completion: nil)
     }
     
-    func dismissAnimated() {
+    @objc func dismissAnimated() {
         dismiss(animated: true, completion: nil)
     }
     

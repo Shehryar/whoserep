@@ -21,7 +21,7 @@ Running the test app locally
 
 Program | Version
 --------|---------
-Xcode   | 10.0 GM
+Xcode   | 10.1
 
 ### Steps
 
@@ -34,7 +34,7 @@ Xcode   | 10.0 GM
 Generating Component UI layout snapshots
 ---------------------------
 
-Run `scripts/snapshots.sh`. It will open `SDK/Tests/Component UI Layout Tests`, validate existing snapshot images, and record snapshots for any `.json` files in the directory describing a [Component View](https://asappinc.atlassian.net/wiki/spaces/EN/pages/26559024/Component+View) that lack a corresponding snapshot image file.
+Run `scripts/snapshots.sh`. It will open `SDK/Tests/Component UI Layout Tests`, validate existing snapshot images, and record snapshots for any `.json` files in the directory describing a [Component View container](https://asappinc.atlassian.net/wiki/spaces/EN/pages/26559024/Component+View) or a [Chat Message](https://asappinc.atlassian.net/wiki/spaces/EN/pages/26561197/Chat+Message) that lack a corresponding snapshot image file.
 
 To generate a snapshot for a new layout, add the `.json` file to the `SDK/Tests/Component UI Layout Tests` directory and run `scripts/snapshots.sh` again.
 
@@ -44,7 +44,7 @@ Note that when a snapshot is generated for a new `.json` file, the test runner w
 Development, QA, and release process
 ------------------------------------
 
-We develop and test using Xcode 10 but build releases with Xcode 9 due to partner requirements.
+We develop, test, and build using Xcode 10.1.
 
 Loosely following [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/), `develop` is the default branch. We merge `develop` into `staging` to prepare a release candidate. Once a release candidate has been approved, `staging` will be merged into `master`.
 
@@ -55,7 +55,7 @@ Loosely following [GitFlow](http://nvie.com/posts/a-successful-git-branching-mod
 1. Unpause the `rc-approval` job to distribute a release candidate via Fabric.
 1. Wait for QA approval. If changes need to be made, push changes or merge a pull request into `staging` again.
 1. Unpause the `release-approval` job to archive the framework, tag the commit, create a GitHub release, and merge to master and develop. If there are conflicts, the channel will be notified.
-1. Download `ASAPP iOS Framework X.Y.Z.zip` from either the CircleCI job or the GitHub release and send it to the relevant deployment manager.
+1. Download `ASAPP iOS Framework X.Y.Z.zip` from either the CircleCI job or the GitHub release and upload it to Google Drive. Alert the relevant deployment manager.
 
 
 Manually distributing a beta build of the test app (for QA)
@@ -65,13 +65,13 @@ Manually distributing a beta build of the test app (for QA)
 
 Program   | Version
 ----------|---------
-ruby      | 2.4.4
+ruby      | 2.4.5
 [bundler](https://github.com/bundler/bundler)   | 1.16.2
 [fastlane](https://github.com/fastlane/fastlane)  | 2.101.1
 
 #### Note
 
-It is recommended to manage your Ruby versions with [`rbenv`](https://github.com/rbenv/rbenv). To make sure Ruby 2.4.4 is installed, first install `rbenv`, install Ruby 2.4.4, and then select it globally. You may find [`rbenv-installer` and `rbenv-doctor`](https://github.com/rbenv/rbenv-installer#rbenv-doctor) helpful.
+It is recommended to manage your Ruby versions with [`rbenv`](https://github.com/rbenv/rbenv). To make sure Ruby 2.4.5 is installed, first install `rbenv`, install Ruby 2.4.5, and then select it globally. You may find [`rbenv-installer` and `rbenv-doctor`](https://github.com/rbenv/rbenv-installer#rbenv-doctor) helpful.
 
 ### Setup
 
@@ -97,7 +97,7 @@ Generating API reference pages from documentation comments
 
 Program   | Version
 ----------|---------
-ruby      | 2.4.4
+ruby      | 2.4.5
 [bundler](https://github.com/bundler/bundler)   | 1.16.2
 [jazzy](https://github.com/realm/jazzy)  | 0.9.3
 
@@ -128,6 +128,6 @@ Running tests
 Running the Objective-C example project
 ----------------------------------------------------------
 
-1. Open Xcode 9.4.1
+1. Open Xcode 10.1
 2. Archive the *Aggregate* scheme for a *Generic iOS Device*. The framework will be updated automatically.
 3. Open and run the example Objective-C project at `/package/Objective-C Example/ASAPPChatDemoObjc.xcodeproj`

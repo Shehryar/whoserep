@@ -83,7 +83,7 @@ class EditAppearanceViewController: BaseTableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func save() {
+    @objc func save() {
         guard let name = name, !name.isEmpty else {
             showAlert(title: "Can't save appearance config", message: "You need to specify a name.")
             return
@@ -96,9 +96,7 @@ class EditAppearanceViewController: BaseTableViewController {
         AppSettings.shared.branding = Branding(appearanceConfig: config)
         navigationController?.popViewController(animated: true)
     }
-}
-
-extension EditAppearanceViewController {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count
     }
@@ -320,8 +318,8 @@ extension EditAppearanceViewController {
 }
 
 extension EditAppearanceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let image = info[.originalImage] as? UIImage {
             let scaledImage = image.scaled(to: CGSize(width: 230, height: 68))
             newLogo = Image(id: UUID().uuidString, uiImage: scaledImage)
             selectedLogo = newLogo!

@@ -68,7 +68,7 @@ class HelpButton: UIView {
         autoresizesSubviews = false
         
         isAccessibilityElement = true
-        accessibilityTraits = UIAccessibilityTraitButton
+        accessibilityTraits = .button
         accessibilityLabel = title
         
         label.minimumScaleFactor = 0.2
@@ -85,7 +85,7 @@ class HelpButton: UIView {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(HelpButton.updateDisplay),
-            name: Notification.Name.UIContentSizeCategoryDidChange,
+            name: UIContentSizeCategory.didChangeNotification,
             object: nil)
     }
     
@@ -111,7 +111,7 @@ class HelpButton: UIView {
         updateCornerRadius()
         
         let labelInset = floor(0.15 * bounds.height)
-        label.frame = UIEdgeInsetsInsetRect(contentView.bounds, UIEdgeInsets(top: labelInset, left: 0, bottom: labelInset, right: 0))
+        label.frame = contentView.bounds.inset(by: UIEdgeInsets(top: labelInset, left: 0, bottom: labelInset, right: 0))
         
         contentView.alpha = currentAlpha
         contentView.transform = currentTransform
@@ -172,9 +172,9 @@ extension HelpButton {
     @objc func updateDisplay() {
         accessibilityLabel = title
         label.attributedText = NSAttributedString(string: title, attributes: [
-            NSFontAttributeName: AppSettings.shared.branding.appearanceConfig.fontFamily.bold.withSize(12),
-            NSKernAttributeName: 0.5,
-            NSForegroundColorAttributeName: UIColor.white
+            .font: AppSettings.shared.branding.appearanceConfig.fontFamily.bold.withSize(12),
+            .kern: 0.5,
+            .foregroundColor: UIColor.white
         ])
         
         if let buttonBackgroundColor = backgroundColors[currentState] {

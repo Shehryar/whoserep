@@ -196,7 +196,7 @@ platform :ios do
     sh "git pull origin staging"
     sh "git stash pop"
     
-    ensure_xcode_version(version: "9.4.1")
+    ensure_xcode_version(version: "10.1")
     ENV['XCODE_VERSION_CORRECT'] = "1"
 
     buildDirectory = "../build"

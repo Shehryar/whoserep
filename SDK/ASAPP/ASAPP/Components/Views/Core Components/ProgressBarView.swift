@@ -48,7 +48,7 @@ class ProgressBarView: BaseComponentView {
     
     override func updateFrames() {
         let padding = progressBarItem?.style.padding ?? UIEdgeInsets.zero
-        progressBarContainer.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        progressBarContainer.frame = bounds.inset(by: padding)
         let barHeight = progressBarContainer.bounds.height
         
         let fillPercentage = progressBarItem?.fillPercentage ?? 0.0

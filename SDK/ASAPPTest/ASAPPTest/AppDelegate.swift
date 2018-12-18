@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Application Lifecycle
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self, Answers.self])
@@ -184,7 +184,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 // MARK: Deeplinks
 extension AppDelegate {
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         let sendingAppID = options[.sourceApplication]
         print("source application = \(sendingAppID ?? "Unknown")")
         DeepLinkHandler.shared.handleDeepLink(url: url)

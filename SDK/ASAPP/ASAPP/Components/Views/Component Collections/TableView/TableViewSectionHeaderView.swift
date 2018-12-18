@@ -63,7 +63,7 @@ class TableViewSectionHeaderView: UIView, ComponentView {
     
     func updateFrames() {
         let margin = component?.style.margin ?? .zero
-        componentView?.view.frame = UIEdgeInsetsInsetRect(bounds, margin)
+        componentView?.view.frame = bounds.inset(by: margin)
     }
     
     func didUpdateFrames() {}

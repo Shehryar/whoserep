@@ -15,7 +15,7 @@ class ContainerViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         nav = NavigationController(rootViewController: rootViewController)
-        addChildViewController(nav)
+        addChild(nav)
     }
     
     override func loadView() {
@@ -40,7 +40,7 @@ class ContainerViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if isMovingFromParentViewController {
+        if isMovingFromParent {
             navigationController?.setNavigationBarHidden(false, animated: animated)
             nav.viewControllers = []
             nav = nil

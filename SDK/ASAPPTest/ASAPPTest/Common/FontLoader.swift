@@ -75,8 +75,7 @@ extension FontLoader {
         if let fontData = try? Data(contentsOf: fontFileURL) as CFData,
         let dataProvider = CGDataProvider(data: fontData) {
             _ = UIFont()
-            let fontRef = CGFont(dataProvider)
-            if CTFontManagerRegisterGraphicsFont(fontRef, &fontError),
+            if let fontRef = CGFont(dataProvider), CTFontManagerRegisterGraphicsFont(fontRef, &fontError),
             let postScriptName = fontRef.postScriptName {
                 return String(postScriptName)
             } else if let fontError = fontError?.takeRetainedValue() {

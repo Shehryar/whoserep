@@ -108,7 +108,7 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
     private var previousTextContent: String?
     
     private var errorLabelHeight: CGFloat {
-        let width = UIEdgeInsetsInsetRect(bounds, component?.style.padding ?? .zero).width
+        let width = bounds.inset(by: component?.style.padding ?? .zero).width
         let errorLabelSize = errorLabel.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         return errorLabelSize.height
     }

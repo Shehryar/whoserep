@@ -62,9 +62,9 @@ class LabelIconCell: TableViewCell {
     func updateLabel() {
         if let title = title {
             titleLabel.attributedText = NSAttributedString(string: title, attributes: [
-                NSFontAttributeName: appSettings?.branding.fontFamily.regular.changingOnlySize(16) ?? DemoFonts.asapp.regular.changingOnlySize(16),
-                NSKernAttributeName: 1,
-                NSForegroundColorAttributeName: appSettings?.branding.colors.foregroundColor ?? UIColor.darkText
+                .font: appSettings?.branding.fontFamily.regular.changingOnlySize(16) ?? DemoFonts.asapp.regular.changingOnlySize(16),
+                .kern: 1,
+                .foregroundColor: appSettings?.branding.colors.foregroundColor ?? UIColor.darkText
             ])
         } else {
             titleLabel.attributedText = nil

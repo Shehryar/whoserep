@@ -35,6 +35,4 @@ extension XCTestCase {
         let elements = XCUIApplication().descendants(matching: type).containing(type, identifier: name)
         return elements.element(boundBy: 0)
     }
-    
-    
 }

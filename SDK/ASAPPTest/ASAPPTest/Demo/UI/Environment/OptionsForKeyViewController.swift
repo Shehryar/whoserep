@@ -41,6 +41,114 @@ class OptionsForKeyViewController: BaseTableViewController {
         
         tableView.allowsSelectionDuringEditing = false
     }
+    
+    // MARK: UITableView
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return Section.count.rawValue
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case Section.options.rawValue: return options?.count ?? 0
+        case Section.createNew.rawValue: return numberOfCreateNewRows()
+        default: return 0
+        }
+    }
+    
+    override func titleForSection(_ section: Int) -> String? {
+        switch section {
+        case Section.options.rawValue: return "Existing Options"
+        case Section.createNew.rawValue: return ""
+        default: return nil
+        }
+    }
+    
+    override func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
+        switch indexPath.section {
+        case Section.options.rawValue:
+            if let options = options {
+                let optionName = options[indexPath.row]
+                
+                return titleCheckMarkCell(title: optionName,
+                                          isChecked: optionName == selectedOption,
+                                          for: indexPath,
+                                          sizingOnly: forSizing)
+            }
+            return UITableViewCell()
+            
+        case Section.createNew.rawValue:
+            return buttonCell(title: titleForCreateNewRow(indexPath.row),
+                              for: indexPath,
+                              sizingOnly: forSizing)
+            
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard indexPath.section == Section.options.rawValue,
+            let option = options?[indexPath.row] else {
+                return false
+        }
+        
+        if let key = optionsListKey,
+            AppSettings.getDefaultStringArray(forKey: key)?.contains(option) ?? false {
+            return false
+        }
+        
+        return option != selectedOption
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete && indexPath.section == Section.options.rawValue else {
+            return
+        }
+        
+        if let option = options?[indexPath.row], let optionsListKey = optionsListKey {
+            AppSettings.deleteStringFromArray(option, forKey: optionsListKey)
+            reload()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.section {
+        case Section.options.rawValue:
+            if let options = options {
+                selectOption(options[indexPath.row])
+            }
+            
+        case Section.createNew.rawValue:
+            performActionForCreateNewRow(indexPath.row)
+            
+        default:
+            // No-op
+            break
+        }
+    }
+    
+    fileprivate func selectOption(_ text: String?) {
+        if let selectedOptionKey = selectedOptionKey {
+            if let text = text {
+                AppSettings.saveObject(text, forKey: selectedOptionKey)
+            } else {
+                AppSettings.deleteObject(forKey: selectedOptionKey)
+            }
+        }
+        selectedOption = text
+        reload()
+        
+        onSelection?(text)
+    }
+    
+    func isRestrictedText(_ text: String) -> Bool {
+        return [
+            "sprint.asapp.com"
+            ].contains(text.lowercased())
+    }
 }
 
 // MARK: Data
@@ -170,116 +278,5 @@ extension OptionsForKeyViewController {
     
     private func deleteCurrentSelectedOption() {
         selectOption(nil)
-    }
-}
-
-// MARK: UITableView
-
-extension OptionsForKeyViewController {
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return Section.count.rawValue
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case Section.options.rawValue: return options?.count ?? 0
-        case Section.createNew.rawValue: return numberOfCreateNewRows()
-        default: return 0
-        }
-    }
-    
-    override func titleForSection(_ section: Int) -> String? {
-        switch section {
-        case Section.options.rawValue: return "Existing Options"
-        case Section.createNew.rawValue: return ""
-        default: return nil
-        }
-    }
-    
-    override func getCellForIndexPath(_ indexPath: IndexPath, forSizing: Bool) -> UITableViewCell {
-        switch indexPath.section {
-        case Section.options.rawValue:
-            if let options = options {
-                let optionName = options[indexPath.row]
-                
-                return titleCheckMarkCell(title: optionName,
-                                          isChecked: optionName == selectedOption,
-                                          for: indexPath,
-                                          sizingOnly: forSizing)
-            }
-            return UITableViewCell()
-            
-        case Section.createNew.rawValue:
-            return buttonCell(title: titleForCreateNewRow(indexPath.row),
-                              for: indexPath,
-                              sizingOnly: forSizing)
-            
-        default:
-            return UITableViewCell()
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard indexPath.section == Section.options.rawValue,
-              let option = options?[indexPath.row] else {
-            return false
-        }
-        
-        if let key = optionsListKey,
-            AppSettings.getDefaultStringArray(forKey: key)?.contains(option) ?? false {
-            return false
-        }
-        
-        return option != selectedOption
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == .delete && indexPath.section == Section.options.rawValue else {
-            return
-        }
-        
-        if let option = options?[indexPath.row], let optionsListKey = optionsListKey {
-            AppSettings.deleteStringFromArray(option, forKey: optionsListKey)
-            reload()
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        switch indexPath.section {
-        case Section.options.rawValue:
-            if let options = options {
-                selectOption(options[indexPath.row])
-            }
-            
-        case Section.createNew.rawValue:
-            performActionForCreateNewRow(indexPath.row)
-            
-        default:
-            // No-op
-            break
-        }
-    }
-    
-    fileprivate func selectOption(_ text: String?) {
-        if let selectedOptionKey = selectedOptionKey {
-            if let text = text {
-                AppSettings.saveObject(text, forKey: selectedOptionKey)
-            } else {
-                AppSettings.deleteObject(forKey: selectedOptionKey)
-            }
-        }
-        selectedOption = text
-        reload()
-        
-        onSelection?(text)
-    }
-    
-    func isRestrictedText(_ text: String) -> Bool {
-        return [
-            "sprint.asapp.com"
-        ].contains(text.lowercased())
     }
 }

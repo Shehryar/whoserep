@@ -23,11 +23,8 @@ class AccountViewController: BaseTableViewController {
         
         title = "Account"
     }
-}
 
-// MARK: - TableView
-
-extension AccountViewController {
+    // MARK: - TableView
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return Section.count.rawValue

@@ -12,7 +12,7 @@ protocol AppSettingsViewController {
     func reloadViewForUpdatedSettings()
 }
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, AppSettingsViewController {
     
     var statusBarStyle: UIStatusBarStyle = .default {
         didSet {
@@ -59,19 +59,14 @@ class BaseViewController: UIViewController {
         return false
     }
     
-}
-
-extension BaseViewController: AppSettingsViewController {
-    
     func reloadViewForUpdatedSettings() {
-        
         statusBarStyle = AppSettings.shared.branding.colors.statusBarStyle
-        
         view.backgroundColor = AppSettings.shared.branding.colors.backgroundColor
-        
         styleNavigationBarWithAppSettings(navBar: navigationController?.navigationBar)
     }
-    
+}
+
+extension BaseViewController {
     func styleNavigationBarWithAppSettings(navBar: UINavigationBar?) {
         guard let navBar = navBar else { return }
         
@@ -92,17 +87,14 @@ extension BaseViewController: AppSettingsViewController {
         
         navBar.tintColor = AppSettings.shared.branding.colors.navBarTintColor
         navBar.titleTextAttributes = [
-            NSForegroundColorAttributeName: AppSettings.shared.branding.colors.navBarTitleColor,
-            NSFontAttributeName: AppSettings.shared.branding.fontFamily.light.changingOnlySize(19)
+            .foregroundColor: AppSettings.shared.branding.colors.navBarTitleColor,
+            .font: AppSettings.shared.branding.fontFamily.light.changingOnlySize(19)
         ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName: AppSettings.shared.branding.fontFamily.regular.changingOnlySize(16)
+            NSAttributedString.Key.font: AppSettings.shared.branding.fontFamily.regular.changingOnlySize(16)
         ], for: .normal)
     }
-}
-
-extension BaseViewController {
     
     func showAlert(title: String? = nil, message: String? = nil) {
         if title == nil && message == nil {

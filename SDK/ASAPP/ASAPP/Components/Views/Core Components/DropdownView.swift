@@ -67,7 +67,7 @@ class DropdownView: BaseComponentView {
         let iconSize = icon.image?.size ?? CGSize(width: 16, height: 16)
         let padding = component.style.padding
         
-        textInputView.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        textInputView.frame = bounds.inset(by: padding)
         
         let iconLeft = textInputView.frame.maxX - iconSize.width
         let iconTop = textInputView.frame.maxY - textInputView.contentInset.bottom - textInputView.underlineStrokeWidth - textInputView.underlineMarginTop - iconSize.height

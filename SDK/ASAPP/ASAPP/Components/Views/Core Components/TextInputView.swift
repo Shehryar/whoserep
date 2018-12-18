@@ -32,7 +32,7 @@ class TextInputView: BaseComponentView, InvalidatableInput {
     private var selectedDateFormat: String?
     
     private var errorLabelHeight: CGFloat {
-        let width = UIEdgeInsetsInsetRect(bounds, component?.style.padding ?? .zero).width
+        let width = bounds.inset(by: component?.style.padding ?? .zero).width
         let errorLabelSize = errorLabel.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         return errorLabelSize.height
     }
@@ -121,7 +121,7 @@ class TextInputView: BaseComponentView, InvalidatableInput {
         padding.bottom = bottomPaddingWithError(padding)
         
         textInputView.contentInset.right = errorIcon.isHidden ? 0 : errorIconSize.width
-        textInputView.frame = UIEdgeInsetsInsetRect(bounds, padding)
+        textInputView.frame = bounds.inset(by: padding)
         
         let errorLabelSize = errorLabel.sizeThatFits(CGSize(width: textInputView.frame.width, height: CGFloat.greatestFiniteMagnitude))
         errorLabel.frame = CGRect(x: textInputView.frame.minX, y: textInputView.frame.maxY - textInputView.underlineMarginTop, width: errorLabelSize.width, height: errorLabelSize.height)

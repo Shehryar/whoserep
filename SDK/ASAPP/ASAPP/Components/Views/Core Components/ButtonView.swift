@@ -23,7 +23,7 @@ class ButtonView: UIButton, ComponentView {
         }
     }
     
-    private let spinnerView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private let spinnerView = UIActivityIndicatorView(style: .white)
     
     // MARK: ComponentView Properties
     
@@ -36,7 +36,7 @@ class ButtonView: UIButton, ComponentView {
                 if !(buttonItem.title?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true) {
                     isAccessibilityElement = true
                     accessibilityLabel = buttonItem.title
-                    accessibilityTraits = UIAccessibilityTraitButton
+                    accessibilityTraits = .button
                 }
                 
                 var contentEdgeInsets = defaultContentEdgeInsets
