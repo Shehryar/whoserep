@@ -271,16 +271,6 @@ platform :ios do
         UI.user_error!("Could not merge staging into master!")
       })
     sh "git push origin master"
-
-    # merge staging to develop.
-    sh(
-      "git fetch origin && git checkout develop && git reset --hard origin/develop && git merge staging",
-      log: true,
-      error_callback: ->(result) {
-        sh "cd ../ && scripts/circleci_slack_warning.sh \":boom: Could not merge staging into develop. :boom: Do it manually to resolve conflicts!\""
-        UI.user_error!("Could not merge staging into develop!")
-      })
-    sh "git push origin develop"
   end
 end
 
