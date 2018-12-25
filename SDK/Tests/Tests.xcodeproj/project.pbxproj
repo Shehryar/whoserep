@@ -45,6 +45,14 @@
 		3A17D1A321B5D4BC00D94491 /* scales.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1A121B5D4BC00D94491 /* scales.json */; };
 		3A17D1A421B5D4BC00D94491 /* scales.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1A121B5D4BC00D94491 /* scales.json */; };
 		3A17D1A521B5D4BC00D94491 /* scales.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1A121B5D4BC00D94491 /* scales.json */; };
+		3A17D1AC21B8341700D94491 /* carousel-with-images.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1AB21B8341700D94491 /* carousel-with-images.json */; };
+		3A17D1AD21B8341700D94491 /* carousel-with-images.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1AB21B8341700D94491 /* carousel-with-images.json */; };
+		3A17D1AE21B8341700D94491 /* carousel-with-images.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1AB21B8341700D94491 /* carousel-with-images.json */; };
+		3A17D1AF21B8341700D94491 /* carousel-with-images.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1AB21B8341700D94491 /* carousel-with-images.json */; };
+		3A17D1B621B83B0F00D94491 /* image-no-size.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1B521B83B0F00D94491 /* image-no-size.json */; };
+		3A17D1B721B83B0F00D94491 /* image-no-size.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1B521B83B0F00D94491 /* image-no-size.json */; };
+		3A17D1B821B83B0F00D94491 /* image-no-size.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1B521B83B0F00D94491 /* image-no-size.json */; };
+		3A17D1B921B83B0F00D94491 /* image-no-size.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A17D1B521B83B0F00D94491 /* image-no-size.json */; };
 		3A1A13AF1F97CEAC00B647C7 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; };
 		3A1A13B21F97CF1E00B647C7 /* FBSnapshotTestCase.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A1A13B31F97D4B700B647C7 /* ASAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429171F97A2DF0031CD78 /* ASAPP.framework */; };
@@ -416,6 +424,8 @@
 		3A127DB41FC4DCAE00EEF9E0 /* ComponentLayoutEngineSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentLayoutEngineSpec.swift; sourceTree = "<group>"; };
 		3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "feedback-form.json"; sourceTree = "<group>"; };
 		3A17D1A121B5D4BC00D94491 /* scales.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = scales.json; sourceTree = "<group>"; };
+		3A17D1AB21B8341700D94491 /* carousel-with-images.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "carousel-with-images.json"; sourceTree = "<group>"; };
+		3A17D1B521B83B0F00D94491 /* image-no-size.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "image-no-size.json"; sourceTree = "<group>"; };
 		3A1A13AE1F97CEAC00B647C7 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSnapshotTestCase.framework; path = ../Carthage/Build/iOS/FBSnapshotTestCase.framework; sourceTree = "<group>"; };
 		3A26997B206063C9007C0EC6 /* ChatInputViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputViewTestCase.swift; sourceTree = "<group>"; };
 		3A304C43207FFAB60072BA56 /* MockUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
@@ -601,10 +611,10 @@
 		3A0429361F97C1E30031CD78 /* Sample JSON */ = {
 			isa = PBXGroup;
 			children = (
-				5FE2357621AD94B9008461A7 /* feedback-form-test.json */,
 				3AF5C39420D85F4B0013A616 /* cancelled-auto-pay.json */,
 				3ADF49322113B31A00315E87 /* card-and-buttons.json */,
 				3A8790FE20B3559E00AD81E5 /* carousel-uneven.json */,
+				3A17D1AB21B8341700D94491 /* carousel-with-images.json */,
 				3A99522E20DDD19C00343D10 /* censor-date.json */,
 				3A99523520DDDF2700343D10 /* censor-digits7.json */,
 				3AA8DAF020DD84400062A370 /* censor-email.json */,
@@ -621,9 +631,11 @@
 				3A95F2D820AD06EA00885C94 /* feedback-form-image.json */,
 				3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */,
 				3A621FCA208E8E5900CB11D6 /* feedback-form-scale.json */,
+				5FE2357621AD94B9008461A7 /* feedback-form-test.json */,
 				3ACF18971FCDBA0B0036B653 /* gravity-fill-test.json */,
 				3ADF49372113B3F200315E87 /* image-and-buttons.json */,
 				3A7B8ECE20ACDB5F00DC5EAE /* image-layout.json */,
+				3A17D1B521B83B0F00D94491 /* image-no-size.json */,
 				3A62F1AE219625680050D0CC /* radio-buttons-container.json */,
 				3A17D1A121B5D4BC00D94491 /* scales.json */,
 				3A0429341F97C1E30031CD78 /* schedule-appointment-5-day.json */,
@@ -1015,6 +1027,7 @@
 				3A391B3D1FA14EB20085C2DA /* change-pin-form-no-required.json in Resources */,
 				3AF5C39520D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A8790FF20B3559E00AD81E5 /* carousel-uneven.json in Resources */,
+				3A17D1AC21B8341700D94491 /* carousel-with-images.json in Resources */,
 				3A4B43C721403D5B00D729CF /* Lato-Black.ttf in Resources */,
 				3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */,
 				3A9F51C11FB122F3009C68AE /* event-list.json in Resources */,
@@ -1040,6 +1053,7 @@
 				3A675BFF211C840E0077BC00 /* data-usage.json in Resources */,
 				3AE2A9B321AE1AAE00C1DEE2 /* date-pickers.json in Resources */,
 				3A621FCB208E8E5900CB11D6 /* feedback-form-scale.json in Resources */,
+				3A17D1B621B83B0F00D94491 /* image-no-size.json in Resources */,
 				3ADF49332113B31A00315E87 /* card-and-buttons.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1049,6 +1063,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A675C00211C840E0077BC00 /* data-usage.json in Resources */,
+				3A17D1AD21B8341700D94491 /* carousel-with-images.json in Resources */,
 				3AA0D3B720AA160B00A04206 /* feedback-form-radio.json in Resources */,
 				3A7B8ED020ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3A4B43CD21403DC200D729CF /* Lato-Light.ttf in Resources */,
@@ -1062,6 +1077,7 @@
 				3AA8DAF120DD84400062A370 /* censor-email.json in Resources */,
 				3AF5C39620D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A99523020DDD49600343D10 /* censor-date.json in Resources */,
+				3A17D1B721B83B0F00D94491 /* image-no-size.json in Resources */,
 				3AA8643B218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */,
 				3A0429401F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
 				3A17D1A321B5D4BC00D94491 /* scales.json in Resources */,
@@ -1091,6 +1107,7 @@
 				3AE2A9B521AE1AAE00C1DEE2 /* date-pickers.json in Resources */,
 				3AA8643C218A38CB006F0971 /* chat-ended-only-child-weight.json in Resources */,
 				3ADF493A2113B3F200315E87 /* image-and-buttons.json in Resources */,
+				3A17D1AE21B8341700D94491 /* carousel-with-images.json in Resources */,
 				3A675BFC211B9A280077BC00 /* ultimate-collection.json in Resources */,
 				3A7B8ED120ACDB5F00DC5EAE /* image-layout.json in Resources */,
 				3AED18F41FA0FA02005955DA /* change-pin-form-no-required.json in Resources */,
@@ -1099,6 +1116,7 @@
 				3A95F2DB20AD06EA00885C94 /* feedback-form-image.json in Resources */,
 				3A4B43D121403DC200D729CF /* Lato-Light.ttf in Resources */,
 				3A4B43CF21403DC200D729CF /* Lato-Black.ttf in Resources */,
+				3A17D1B821B83B0F00D94491 /* image-no-size.json in Resources */,
 				3ADF49352113B33600315E87 /* card-and-buttons.json in Resources */,
 				3AF5C39720D85F4B0013A616 /* cancelled-auto-pay.json in Resources */,
 				3A0429451F97C24C0031CD78 /* schedule-appointment-5-day.json in Resources */,
@@ -1125,6 +1143,7 @@
 			files = (
 				3AA0D3FB20AA448100A04206 /* change-pin-form-no-required.json in Resources */,
 				3AA0D3FC20AA448100A04206 /* gravity-fill-test.json in Resources */,
+				3A17D1AF21B8341700D94491 /* carousel-with-images.json in Resources */,
 				3ADF493B2113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A4B43D521403DC300D729CF /* Lato-Light.ttf in Resources */,
 				3AA0D3FE20AA448100A04206 /* schedule-appointment-5-day.json in Resources */,
@@ -1142,6 +1161,7 @@
 				3AA0D40420AA448100A04206 /* change-pin-form-proper-padding.json in Resources */,
 				3A675C02211C840E0077BC00 /* data-usage.json in Resources */,
 				3AA0D40520AA448100A04206 /* feedback-form.json in Resources */,
+				3A17D1B921B83B0F00D94491 /* image-no-size.json in Resources */,
 				3AA0D40620AA448100A04206 /* feedback-form-scale.json in Resources */,
 				3A17D1A521B5D4BC00D94491 /* scales.json in Resources */,
 				3ADF49362113B33600315E87 /* card-and-buttons.json in Resources */,

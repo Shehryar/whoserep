@@ -1,0 +1,252 @@
+{
+  "attachment": {
+    "content": {
+      "elements": [
+        {
+          "root": {
+            "content": {
+              "items": [
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "content": {
+                          "scaleType": "aspectFill",
+                          "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg"
+                        },
+                        "type": "image"
+                      }
+                    ]
+                  },
+                  "style": {
+                    "paddingRight": 16,
+                    "width": 50
+                  },
+                  "type": "stackView"
+                },
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "content": {
+                          "text": "iPhone 8 Plus"
+                        },
+                        "style": {
+                          "textType": "header3"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "(314) 303-4335"
+                        },
+                        "style": {
+                          "marginBottom": 8,
+                          "textType": "detail1"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "Space Gray, 64GB"
+                        },
+                        "style": {
+                          "textType": "body2"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "IMEI 356110093631544"
+                        },
+                        "style": {
+                          "textType": "body2"
+                        },
+                        "type": "label"
+                      }
+                    ],
+                    "orientation": "vertical"
+                  },
+                  "type": "stackView"
+                }
+              ],
+              "orientation": "horizontal"
+            },
+            "style": {
+              "padding": "24 16"
+            },
+            "type": "stackView"
+          },
+          "type": "view"
+        },
+        {
+          "root": {
+            "content": {
+              "items": [
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "content": {
+                          "scaleType": "aspectFill",
+                          "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg"
+                        },
+                        "type": "image"
+                      }
+                    ]
+                  },
+                  "style": {
+                    "paddingRight": 16,
+                    "width": 50
+                  },
+                  "type": "stackView"
+                },
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "content": {
+                          "text": "Galaxy Note9"
+                        },
+                        "style": {
+                          "textType": "header3"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "(314) 303-4594"
+                        },
+                        "style": {
+                          "marginBottom": 8,
+                          "textType": "detail1"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "Ocean Blue, 128GB"
+                        },
+                        "style": {
+                          "textType": "body2"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "IMEI 358202090009812"
+                        },
+                        "style": {
+                          "textType": "body2"
+                        },
+                        "type": "label"
+                      }
+                    ],
+                    "orientation": "vertical"
+                  },
+                  "type": "stackView"
+                }
+              ],
+              "orientation": "horizontal"
+            },
+            "style": {
+              "padding": "24 16"
+            },
+            "type": "stackView"
+          },
+          "type": "view"
+        },
+        {
+          "root": {
+            "content": {
+              "items": [
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "content": {
+                          "scaleType": "aspectFill",
+                          "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg"
+                        },
+                        "type": "image"
+                      }
+                    ]
+                  },
+                  "style": {
+                    "paddingRight": 16,
+                    "width": 50
+                  },
+                  "type": "stackView"
+                },
+                {
+                  "content": {
+                    "items": [
+                      {
+                        "content": {
+                          "text": "iPhone X"
+                        },
+                        "style": {
+                          "textType": "header3"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "(314) 303-4641"
+                        },
+                        "style": {
+                          "marginBottom": 8,
+                          "textType": "detail1"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "Space Gray, 64GB"
+                        },
+                        "style": {
+                          "textType": "body2"
+                        },
+                        "type": "label"
+                      },
+                      {
+                        "content": {
+                          "text": "IMEI 354856093979166"
+                        },
+                        "style": {
+                          "textType": "body2"
+                        },
+                        "type": "label"
+                      }
+                    ],
+                    "orientation": "vertical"
+                  },
+                  "type": "stackView"
+                }
+              ],
+              "orientation": "horizontal"
+            },
+            "style": {
+              "padding": "24 16"
+            },
+            "type": "stackView"
+          },
+          "type": "view"
+        }
+      ]
+    },
+    "type": "carousel"
+  },
+  "metadata": {
+    "flowId": "0cb0e87f-6453-4023-a134-22fcb6202386",
+    "flowName": "ViewDeviceDetailsFlow",
+    "intent": "DEVINFO",
+    "isEnd": true,
+    "isStart": true,
+    "issueId": "6230001",
+    "messageName": "ViewDeviceDetailsMessage"
+  },
+  "parentEventLogSeq": 313,
+  "suppressNewQuestionConfirmation": true,
+  "text": "Sure, here are your device details:"
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Image Layout Test",
+  "styles": {},
+  "root": {
+    "type": "stackView",
+    "content": {
+      "orientation": "horizontal",
+      "items": [
+        {
+          "type": "stackView",
+          "content": {
+            "items": [
+              {
+                "type": "image",
+                "content": {
+                  "scaleType": "aspectFill",
+                  "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg"
+                }
+              }
+            ]
+          },
+          "style": {
+            "width": 50
+          }
+        }
+      ]
+    },
+    "style": {
+      "padding": "20 10"
+    }
+  }
+}

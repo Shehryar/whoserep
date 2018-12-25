@@ -63,7 +63,7 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
         }
     }
     
-    private var rootView: ComponentView? {
+    private(set) var rootView: ComponentView? {
         didSet {
             oldValue?.view.removeFromSuperview()
             var mutableOldValue = oldValue
