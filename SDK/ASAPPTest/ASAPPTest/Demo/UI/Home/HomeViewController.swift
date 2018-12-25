@@ -105,14 +105,22 @@ class HomeViewController: BaseViewController {
     }
     
     func showChat(fromNotificationWith userInfo: [AnyHashable: Any]? = nil) {
-        guard presentedViewController == nil else {
+        switch chatButton?.segue {
+        case .some(.push):
+            guard navigationController?.topViewController is BaseViewController else {
+                return
+            }
+            let chatViewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: userInfo)
+            navigationController?.pushViewController(chatViewController, animated: true)
+        case .some(.present):
+            guard presentedViewController == nil else {
+                return
+            }
+            let chatViewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: userInfo)
+            present(chatViewController, animated: true, completion: nil)
+        case .none:
             return
         }
-        
-        let chatViewController = ASAPP.createChatViewControllerForPresenting(
-            fromNotificationWith: userInfo)
-        
-        present(chatViewController, animated: true, completion: nil)
     }
     
     // MARK: - ASAPP Callbacks
