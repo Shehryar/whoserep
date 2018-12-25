@@ -65,7 +65,6 @@ protocol ConversationManagerProtocol: class {
     
     var delegate: ConversationManagerDelegate? { get set }
     var events: [Event] { get }
-    var currentSRSClassification: String? { get set }
     var isConnected: Bool { get }
     var pushNotificationPayload: [AnyHashable: Any]? { get set }
     var intentPayload: [String: Any]? { get set }
@@ -145,12 +144,6 @@ extension ConversationManagerProtocol {
 
 class ConversationManager: NSObject, ConversationManagerProtocol {
     weak var delegate: ConversationManagerDelegate?
-    
-    var currentSRSClassification: String? {
-        didSet {
-            DebugLog.d(caller: self, "Updating currentSRSClassification: \(currentSRSClassification ?? "nil")")
-        }
-    }
     
     var isConnected: Bool {
         return socketConnection.isConnected

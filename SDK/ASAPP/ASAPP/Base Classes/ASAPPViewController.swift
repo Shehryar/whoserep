@@ -100,13 +100,7 @@ extension ASAPPViewController {
     }
     
     func updateStatusBar(_ animated: Bool) {
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.setNeedsStatusBarAppearanceUpdate()
-            })
-        } else {
-            setNeedsStatusBarAppearanceUpdate()
-        }
+        UIView.animateIfNeeded(animated, withDuration: 0.3, animations: setNeedsStatusBarAppearanceUpdate)
     }
 }
 

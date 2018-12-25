@@ -290,11 +290,7 @@ class PlaceholderTextInputView: UIView {
             underlineView.layer.backgroundColor = (underlineColor ?? underlineColorDefault).cgColor
         }
         
-        if animated {
-            UIView.animate(withDuration: 0.2, animations: updateBlock)
-        } else {
-            updateBlock()
-        }
+        UIView.animateIfNeeded(animated, withDuration: 0.2, animations: updateBlock)
     }
     
     // MARK: Updating Placeholder Text
@@ -393,11 +389,7 @@ extension PlaceholderTextInputView {
             underlineView.frame = underlineFrame
         }
         
-        if animated {
-            UIView.animate(withDuration: 0.15, animations: updateBlock)
-        } else {
-            updateBlock()
-        }
+        UIView.animateIfNeeded(animated, withDuration: 0.15, animations: updateBlock)
     }
 }
 

@@ -21,7 +21,6 @@ class ChatViewController: ASAPPViewController {
     // MARK: Properties: Storage
     
     private(set) var conversationManager: ConversationManagerProtocol!
-    private var quickRepliesMessage: ChatMessage?
     private let supportedOrientations: ASAPPAllowedOrientations
 
     // MARK: Properties: Views / UI
@@ -212,7 +211,7 @@ class ChatViewController: ASAPPViewController {
         }
         
         if conversationManager != nil {
-            clearQuickRepliesView(animated: false)
+            store.dispatch(NoReplies())
             conversationManager.delegate = nil
             conversationManager.exitConversation()
         }
@@ -391,7 +390,8 @@ extension ChatViewController: StoreSubscriber {
         
         chatInputView?.update(for: state.queryUI.autosuggest)
         
-        if [.newQuestionAlone, .newQuestionAloneLoading, .chatInputWithQuickReplies].contains(state.queryUI.input) {
+        if [.newQuestionAlone, .newQuestionAloneLoading, .chatInputWithQuickReplies].contains(state.queryUI.input)
+           || (state.lastReply?.hasQuickReplies ?? false) {
             shouldScroll = true
         }
         
@@ -411,34 +411,13 @@ extension ChatViewController: StoreSubscriber {
         
         if (previousState?.isLiveChat ?? false) != state.isLiveChat {
             DebugLog.d("Chat Mode Changed: \(state.isLiveChat ? "LIVE CHAT" : "SRS")")
-            conversationManager.currentSRSClassification = state.isLiveChat ? nil : quickRepliesView.currentSRSClassification
             shouldScroll = true
             if isViewLoaded {
                 updateViewForLiveChat(animated: animated)
             }
         }
         
-        if state.queryUI.input != .newQuestionWithInset {
-            quickRepliesView.reset()
-        }
-        
-        if [.chatInputWithQuickReplies, .quickRepliesAlone, .quickRepliesWithNewQuestion].contains(state.queryUI.input) {
-            if let lastReply = state.lastReply {
-                showQuickRepliesView(with: lastReply, animated: animated)
-                shouldScroll = true
-            }
-        } else if [.newQuestionWithInset, .inset].contains(state.queryUI.input) {
-            quickRepliesView.fadeOut(showRestartButton: state.queryUI.input == .newQuestionWithInset, animated: animated)
-        } else if ![.prechat].contains(state.queryUI.input) {
-            let shouldAnimate = state.queryUI.input != .newQuestionAloneLoading
-            clearQuickRepliesView(animated: shouldAnimate && animated)
-        }
-        
-        if state.queryUI.input == .newQuestionAloneLoading {
-            quickRepliesView.showRestartSpinner()
-        } else {
-            quickRepliesView.hideRestartSpinner()
-        }
+        quickRepliesView.prepare(for: state, in: view.frame)
         
         if let size = state.transitionSize,
            let coordinator = state.transitionCoordinator {
@@ -472,7 +451,7 @@ extension ChatViewController: StoreSubscriber {
             chatInputView = nil
             reloadInputViews()
         }
-        quickRepliesView.hideBlur()
+        quickRepliesView.willTransition()
         
         coordinator.animate(alongsideTransition: { [weak self] context in
             guard let strongSelf = self else {
@@ -485,7 +464,7 @@ extension ChatViewController: StoreSubscriber {
             }
             strongSelf.view.layer.frame = context.containerView.bounds
             strongSelf.backgroundLayer?.frame = context.containerView.bounds
-            strongSelf.quickRepliesView.showBlur()
+            strongSelf.quickRepliesView.didTransition()
             Dispatcher.performOnMainThread {
                 if strongSelf.chatInputView == nil {
                     let input = strongSelf.createChatInput()
@@ -673,7 +652,6 @@ extension ChatViewController {
 // MARK: - Layout
 
 extension ChatViewController {
-    
     func updateFrames(in bounds: CGRect? = nil) {
         let inputState = store.state.queryUI.input
         let bounds = bounds ?? view.frame
@@ -709,86 +687,39 @@ extension ChatViewController {
         spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil && connectionStatusView.isHidden && actionSheet == nil ? 1 : 0
         spinner.center = view.center
         
-        let quickRepliesHeight: CGFloat
-        
-        quickRepliesView.contentInsetBottom = 0
-        
         func hideChatInput() {
             chatInputView?.prepareForNormalState()
             chatInputView?.hideBlur()
             chatInputView?.alpha = 0
         }
         
+        quickRepliesView.updateFrames(for: inputState, in: bounds, with: chatInputView?.frame ?? .zero)
+        
         switch inputState {
         case .prechat, .chatInput:
             chatInputView?.alpha = 1
-            quickRepliesHeight = 0
-            quickRepliesView.isHidden = true
-            quickRepliesView.isRestartButtonVisible = false
             chatMessagesView.contentInsetBottom = ceil(keyboardRenderedHeight)
             
         case .chatInputWithQuickReplies:
             chatInputView?.prepareForNormalState()
-            quickRepliesView.isHidden = false
-            quickRepliesView.isRestartButtonVisible = false
-            let fittedHeight = quickRepliesView.sizeThatFits(bounds.size).height
-            let inputHeight = chatInputView?.frame.height ?? 0
-            if inputHeight > 0 && quickRepliesView.contentHeight >= fittedHeight {
-                quickRepliesView.contentInsetBottom = inputHeight
+            if let inputHeight = chatInputView?.frame.height,
+                inputHeight > 0,
+                !quickRepliesView.contentsCanFitWith(inputHeight) {
                 chatInputView?.showBlur()
+            } else {
+                chatInputView?.hideBlur()
             }
             chatInputView?.alpha = 1
-            quickRepliesHeight = fittedHeight + inputHeight
-            chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight)
+            chatMessagesView.contentInsetBottom = ceil(quickRepliesView.frame.height)
             
-        case .quickRepliesAlone:
+        case .quickRepliesAlone, .quickRepliesWithNewQuestion,
+             .newQuestionAlone, .newQuestionAloneLoading, .empty:
             hideChatInput()
-            quickRepliesView.isHidden = false
-            quickRepliesView.isRestartButtonVisible = false
-            quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
-            chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight)
+            chatMessagesView.contentInsetBottom = ceil(quickRepliesView.frame.height)
             
-        case .quickRepliesWithNewQuestion:
+        case .newQuestionWithInset, .inset:
             hideChatInput()
-            quickRepliesView.isHidden = false
-            quickRepliesView.isRestartButtonVisible = true
-            quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
-            chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight)
-            
-        case .newQuestionAlone, .newQuestionAloneLoading:
-            hideChatInput()
-            quickRepliesView.isHidden = false
-            quickRepliesView.isRestartButtonVisible = true
-            quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
-            chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight)
-            
-        case .newQuestionWithInset:
-            hideChatInput()
-            quickRepliesView.isHidden = false
-            quickRepliesView.isRestartButtonVisible = true
-            let inset = quickRepliesView.sizeThatFills(bounds.size).height
-            quickRepliesHeight = inset
-            chatMessagesView.contentInsetBottom = ceil(inset)
-            
-        case .inset:
-            hideChatInput()
-            quickRepliesView.isHidden = false
-            quickRepliesView.isRestartButtonVisible = false
-            let inset = quickRepliesView.sizeThatFills(bounds.size).height
-            quickRepliesHeight = inset
-            chatMessagesView.contentInsetBottom = ceil(inset)
-            
-        case .empty:
-            hideChatInput()
-            quickRepliesView.isHidden = true
-            quickRepliesView.isRestartButtonVisible = false
-            quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
-            chatMessagesView.contentInsetBottom = ceil(quickRepliesHeight)
         }
-        
-        quickRepliesView.frame = CGRect(x: 0, y: bounds.maxY - quickRepliesHeight, width: viewWidth, height: quickRepliesHeight)
-        quickRepliesView.updateFrames(in: bounds)
-        quickRepliesView.layoutIfNeeded()
         
         if (chatInputView?.alpha ?? 0) == 1 && (chatInputView?.needsToBecomeFirstResponder ?? false) {
             chatInputView?.alpha = 1
@@ -809,23 +740,12 @@ extension ChatViewController {
         }
     }
     
-    private func updateHeightOfQuickRepliesView() {
-        let bounds = view.frame
-        let quickRepliesHeight = quickRepliesView.sizeThatFits(bounds.size).height
-        quickRepliesView.frame = CGRect(x: 0, y: bounds.maxY - quickRepliesHeight, width: bounds.width, height: quickRepliesHeight)
-        quickRepliesView.updateFrames(in: bounds)
-        quickRepliesView.layoutIfNeeded()
-    }
-    
     func updateFramesAnimated(_ animated: Bool = true, duration: TimeInterval = 0.3, scrollToBottomIfNearBottom: Bool = true, bounds: CGRect? = nil, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom() || chatMessagesView.isHidden
         
         func done() {
             if animated {
                 store.dispatch(AnimationEnded())
-            }
-            if [.newQuestionWithInset, .inset].contains(store.state.queryUI.input) {
-                updateHeightOfQuickRepliesView()
             }
             completion?()
         }
@@ -917,7 +837,7 @@ extension ChatViewController {
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
                     Dispatcher.performOnMainThread { [weak self] in
-                        self?.quickRepliesView.showPrevious()
+                        self?.store.dispatch(QuickReplyActionDidFail())
                     }
                     return
                 }
@@ -932,7 +852,7 @@ extension ChatViewController {
                     Dispatcher.performOnMainThread { [weak self] in
                         self?.showRequestErrorAlert(message: response.error?.userMessage)
                         if quickReply != nil {
-                            self?.quickRepliesView.showPrevious()
+                            self?.store.dispatch(QuickReplyActionDidFail())
                         }
                     }
                     
@@ -1004,7 +924,7 @@ extension ChatViewController {
                         guard !success else {
                             return
                         }
-                        self?.quickRepliesView.showPrevious()
+                        self?.store.dispatch(QuickReplyActionDidFail())
                         self?.actionSheet?.hideSpinner()
                     }
             })
@@ -1064,13 +984,6 @@ extension ChatViewController: ChatMessagesViewDelegate {
         imageViewer.preparePresentationFromImageView(imageView)
         imageViewer.presentationImageCornerRadius = 10
         present(imageViewer, animated: true, completion: nil)
-    }
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didUpdateQuickRepliesFrom message: ChatMessage) {
-        if message == chatMessagesView.lastMessage {
-            quickRepliesView.reloadButtons(for: message)
-        }
     }
     
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {
@@ -1185,7 +1098,7 @@ extension ChatViewController: ComponentViewControllerDelegate {
         ))
         
         if let nextAction = action?.nextAction {
-            quickRepliesView.disableAndClear()
+            store.dispatch(WillPerformComponentViewNextAction())
             performAction(nextAction)
         }
         
@@ -1294,7 +1207,6 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputView(_ chatInputView: ChatInputView, didTapSendMessage message: String) {
         if conversationManager.isConnected(retryConnectionIfNeeded: true) {
-            quickRepliesView.disableAndClear()
             selectedSuggestionMetadata?.keystrokesBeforeSelection = keystrokesBeforeSelection
             selectedSuggestionMetadata?.keystrokesAfterSelection = keystrokesAfterSelection
             chatInputView.clear()
@@ -1322,31 +1234,6 @@ extension ChatViewController: ChatInputViewDelegate {
     
     func chatInputViewDidEndEditing(_ chatInputView: ChatInputView) {
         didHideKeyboard()
-    }
-}
-
-// MARK: - Showing/Hiding QuickRepliesView
-
-extension ChatViewController {
-    // MARK: Showing
-    
-    func showQuickRepliesView(with message: ChatMessage, animated: Bool) {
-        guard message.quickReplies != nil,
-              message != quickRepliesMessage else {
-            return
-        }
-        
-        quickRepliesMessage = message
-        quickRepliesView.show(message: message, animated: animated)
-        conversationManager.currentSRSClassification = quickRepliesView.currentSRSClassification
-    }
-    
-    // MARK: Hiding
-    
-    func clearQuickRepliesView(animated: Bool) {
-        quickRepliesMessage = nil
-        
-        quickRepliesView.clear(animated: animated)
     }
 }
 
@@ -1601,7 +1488,6 @@ extension ChatViewController: ConversationManagerDelegate {
         }
         
         if let actionSheet = actionSheet, shouldHideActionSheetOnNextMessage {
-            clearQuickRepliesView(animated: false)
             scrollToBottomBeforeAddingNextMessage()
             hideActionSheet(actionSheet, completion: scrollIfNeededBeforeCompleting)
         } else {
@@ -1918,7 +1804,6 @@ extension ChatViewController {
             }
             
             strongSelf.shouldFetchEarlier = fetchedEvents.count == numberToFetch
-            strongSelf.clearQuickRepliesView(animated: false)
             
             Dispatcher.delay { [weak self] in
                 guard let strongSelf = self else {

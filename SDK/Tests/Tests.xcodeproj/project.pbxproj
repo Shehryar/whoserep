@@ -19,6 +19,7 @@
 		3A04294B1F97C2980031CD78 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; };
 		3A04294F1F97C3510031CD78 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3A0429501F97C3520031CD78 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3A0511E721C7E151003EEB07 /* QuickRepliesViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0511E621C7E151003EEB07 /* QuickRepliesViewSpec.swift */; };
 		3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521631F99211E0072D089 /* BubbleViewSpec.swift */; };
 		3A0521661F9926220072D089 /* ButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521651F9926220072D089 /* ButtonSpec.swift */; };
 		3A05216A1F9937630072D089 /* QuickReplyViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */; };
@@ -394,6 +395,7 @@
 		3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageSpec.swift; sourceTree = "<group>"; };
 		3A0429481F97C2890031CD78 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = ../Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		3A04294A1F97C2980031CD78 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = ../Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		3A0511E621C7E151003EEB07 /* QuickRepliesViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickRepliesViewSpec.swift; sourceTree = "<group>"; };
 		3A0521631F99211E0072D089 /* BubbleViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleViewSpec.swift; sourceTree = "<group>"; };
 		3A0521651F9926220072D089 /* ButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonSpec.swift; sourceTree = "<group>"; };
 		3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickReplyViewSpec.swift; sourceTree = "<group>"; };
@@ -779,6 +781,7 @@
 				3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */,
 				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
 				3AB8F164217678EF00785326 /* QuickRepliesListViewSpec.swift */,
+				3A0511E621C7E151003EEB07 /* QuickRepliesViewSpec.swift */,
 				3A0521691F9937630072D089 /* QuickReplyViewSpec.swift */,
 				3A62F1AC219622710050D0CC /* RadioButtonsContainerViewSpec.swift */,
 				3AA0D3BC20AA328300A04206 /* RadioButtonViewSpec.swift */,
@@ -1304,6 +1307,7 @@
 				3ACAAA9420518EF100963DD3 /* MockConversationManager.swift in Sources */,
 				3AA1E4EF1FF30D8400548E3D /* ChatTypingIndicatorCellSpec.swift in Sources */,
 				3A391B391FA14E080085C2DA /* FormValidation.swift in Sources */,
+				3A0511E721C7E151003EEB07 /* QuickRepliesViewSpec.swift in Sources */,
 				3A621FD3208E8F8300CB11D6 /* ScaleViewSpec.swift in Sources */,
 				3A62F1B42196419B0050D0CC /* ChatPictureMessageCellSpec.swift in Sources */,
 				3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */,

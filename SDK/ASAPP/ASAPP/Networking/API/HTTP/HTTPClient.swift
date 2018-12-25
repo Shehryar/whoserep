@@ -204,7 +204,13 @@ class HTTPClient: NSObject, HTTPClientProtocol {
                 let bodyString = JSONUtil.stringify(body, prettyPrinted: true) ?? "nil"
                 DebugLog.d(caller: HTTPClient.self, "Sending HTTP Request \(method): \(requestURL)\nHeaders: \(headersString)\nBody: \(bodyString)\n--------")
             } else {
-                let paramsString = JSONUtil.stringify(params, prettyPrinted: true) ?? "nil"
+                var paramsToPrint = params
+                if ASAPP.debugLogLevel.rawValue < ASAPPLogLevel.info.rawValue {
+                    let truncated = "[ truncated; set debugLogLevel to .info to see ]"
+                    paramsToPrint?["Auth"] = truncated
+                    paramsToPrint?["Context"] = truncated
+                }
+                let paramsString = JSONUtil.stringify(paramsToPrint, prettyPrinted: true) ?? "nil"
                 let contextParamsString = method == .GET ? "N/A" : JSONUtil.stringify(contextParams, prettyPrinted: true) ?? "nil"
                 DebugLog.d(caller: HTTPClient.self, "Sending HTTP Request \(method): \(requestURL)\nHeaders: \(headersString)\nparams: \(paramsString)\nctxParams: \(contextParamsString)\n--------")
             }

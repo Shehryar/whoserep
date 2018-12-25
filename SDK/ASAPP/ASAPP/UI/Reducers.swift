@@ -76,9 +76,12 @@ class Reducers {
                     state.animation = .withoutAnimation
                 }
             }
-        case _ as DidSelectQuickReply:
+        case _ as DidSelectQuickReply, _ as WillPerformComponentViewNextAction:
             state.queryUI.input = .inset
             state.animation = .needsToAnimate
+        case _ as QuickReplyActionDidFail:
+            state.queryUI.input = .quickRepliesWithNewQuestion
+            state.animation = .withoutAnimation
         case _ as NoReplies:
             state.queryUI.input = .newQuestionAlone
             state.queryUI.shouldConfirmRestart = false

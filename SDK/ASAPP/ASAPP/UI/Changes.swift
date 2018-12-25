@@ -40,6 +40,8 @@ struct DidUpdateChatInputText: Change {
 struct DidSelectSuggestion: Change {}
 struct DidBeginEditing: Change {}
 struct DidSelectQuickReply: Change {}
+struct QuickReplyActionDidFail: Change {}
+struct WillPerformComponentViewNextAction: Change {}
 struct NoReplies: Change {}
 struct GatekeeperViewDidAppear: Change {}
 struct KeyboardDidDisappear: Change {}

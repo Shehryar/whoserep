@@ -253,10 +253,6 @@ extension ImageViewer {
             self.controlsView.alpha = accessoryViewsHidden ? 0.0 : 1.0
         }
         
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: updateAlphas)
-        } else {
-            updateAlphas()
-        }
+        UIView.animateIfNeeded(animated, withDuration: 0.3, animations: updateAlphas)
     }
 }

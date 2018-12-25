@@ -39,7 +39,6 @@ class MockConversationManager: ConversationManagerProtocol {
     var pushNotificationPayload: [AnyHashable: Any]?
     var intentPayload: [String: Any]?
     var events: [Event]
-    var currentSRSClassification: String?
     var isConnected: Bool
     
     var nextQuickReplyMessage: ChatMessage?

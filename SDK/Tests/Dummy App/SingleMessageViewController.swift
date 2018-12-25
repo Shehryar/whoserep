@@ -75,8 +75,6 @@ extension SingleMessageViewController: ChatMessagesViewDelegate {
     
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView) {}
     
-    func chatMessagesView(_ messagesView: ChatMessagesView, didUpdateQuickRepliesFrom message: ChatMessage) {}
-    
     func chatMessagesView(_ messagesView: ChatMessagesView, didTap buttonItem: ButtonItem, from message: ChatMessage) {}
     
     func chatMessagesView(_ messagesView: ChatMessagesView, didTap button: QuickReply) {}

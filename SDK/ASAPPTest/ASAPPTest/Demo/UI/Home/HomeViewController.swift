@@ -411,10 +411,6 @@ extension HomeViewController: HomeTableViewDelegate {
     func homeTableViewDidUpdateDemoSettings(homeTableView: HomeTableView) {
         refreshChatButton()
     }
-    
-    func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView) {
-        showUseCasePreview()
-    }
 }
 
 // MARK: - Handling ASAPP Actions
@@ -480,13 +476,6 @@ extension HomeViewController {
     func showBillDetails() {
         let billDetailsVC = BillDetailsViewController()
         navigationController?.pushViewController(billDetailsVC, animated: true)
-    }
-    
-    func showUseCasePreview() {
-        let useCasePreviewVC = TemplateServerPreviewViewController()
-        useCasePreviewVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(HomeViewController.dismissAnimated))
-        let nav = UINavigationController(rootViewController: useCasePreviewVC)
-        present(nav, animated: true, completion: nil)
     }
     
     @objc func dismissAnimated() {

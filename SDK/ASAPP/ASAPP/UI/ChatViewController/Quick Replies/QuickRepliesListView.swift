@@ -217,13 +217,7 @@ class QuickRepliesListView: UIView {
     }
     
     private func updateViewsAnimated(_ animated: Bool) {
-        if animated {
-            UIView.animate(withDuration: 0.3) { [weak self] in
-                self?.updateDisplay()
-            }
-        } else {
-            updateDisplay()
-        }
+        UIView.animateIfNeeded(animated, withDuration: 0.3, animations: updateDisplay)
     }
     
     func getTotalHeight() -> CGFloat {

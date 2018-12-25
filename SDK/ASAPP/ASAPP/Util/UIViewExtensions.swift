@@ -53,4 +53,13 @@ extension UIView {
         
         return gradient
     }
+    
+    class func animateIfNeeded(_ animated: Bool, withDuration duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) {
+        if animated {
+            UIView.animate(withDuration: duration, animations: animations, completion: completion)
+        } else {
+            animations()
+            completion?(true)
+        }
+    }
 }

@@ -263,11 +263,7 @@ class TextAreaView: BaseComponentView, InvalidatableInput {
             underlineView.backgroundColor = underlineColor ?? underlineColorDefault
         }
         
-        if animated {
-            UIView.animate(withDuration: 0.2, animations: updateBlock)
-        } else {
-            updateBlock()
-        }
+        UIView.animateIfNeeded(animated, withDuration: 0.2, animations: updateBlock)
     }
     
     // MARK: Updating Placeholder Text

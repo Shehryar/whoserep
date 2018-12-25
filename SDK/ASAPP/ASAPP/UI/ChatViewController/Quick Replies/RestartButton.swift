@@ -12,6 +12,12 @@ class RestartButton: Button {
     let defaultHeight: CGFloat = 54
     let animationDuration: TimeInterval = 0.3
     
+    override var frame: CGRect {
+        didSet {
+            activityIndicator?.frame = getSpinnerFrame()
+        }
+    }
+    
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private var activityIndicator: UIActivityIndicatorView?
     
@@ -91,7 +97,12 @@ class RestartButton: Button {
         setNeedsDisplay()
     }
     
-    func showSpinner() {
+    private func getSpinnerFrame() -> CGRect {
+        let currentFrame = activityIndicator?.frame ?? .zero
+        return CGRect(x: contentInset.left, y: (bounds.height / 2) - (currentFrame.height / 2), width: currentFrame.size.width, height: currentFrame.size.height)
+    }
+    
+    func showSpinner(animated: Bool) {
         isUserInteractionEnabled = false
         
         activityIndicator?.removeFromSuperview()
@@ -100,28 +111,34 @@ class RestartButton: Button {
             spinner.backgroundColor = .clear
             spinner.style = .gray
             spinner.sizeToFit()
-            spinner.frame = CGRect(x: imageView.frame.minX, y: label.center.y - (spinner.frame.height / 2), width: spinner.frame.size.width, height: spinner.frame.size.height)
+            spinner.frame = getSpinnerFrame()
             insertSubview(spinner, belowSubview: label)
             spinner.startAnimating()
             spinner.alpha = 0
         }
         
-        UIView.animate(withDuration: animationDuration) { [weak self] in
-            self?.activityIndicator?.alpha = 1
-            self?.label.alpha = 0
-            self?.imageView.alpha = 0
+        func animationHandler() {
+            activityIndicator?.alpha = 1
+            label.alpha = 0
+            imageView.alpha = 0
         }
+        
+        UIView.animateIfNeeded(animated, withDuration: animationDuration, animations: animationHandler)
     }
     
-    func hideSpinner() {
-        UIView.animate(withDuration: animationDuration, animations: { [weak self] in
-            self?.activityIndicator?.alpha = 0
-            self?.label.alpha = 1
-            self?.imageView.alpha = 1
-        }, completion: { [weak self] _ in
-            self?.activityIndicator?.removeFromSuperview()
-            self?.activityIndicator = nil
-            self?.isUserInteractionEnabled = true
-        })
+    func hideSpinner(animated: Bool) {
+        func animationHandler() {
+            activityIndicator?.alpha = 0
+            label.alpha = 1
+            imageView.alpha = 1
+        }
+        
+        func completionHandler(_ done: Bool) {
+            activityIndicator?.removeFromSuperview()
+            activityIndicator = nil
+            isUserInteractionEnabled = true
+        }
+        
+        UIView.animateIfNeeded(animated, withDuration: animationDuration, animations: animationHandler, completion: completionHandler)
     }
 }
