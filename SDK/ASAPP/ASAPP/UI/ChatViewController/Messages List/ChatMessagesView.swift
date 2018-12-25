@@ -16,9 +16,6 @@ protocol ChatMessagesViewDelegate: class {
     func chatMessagesViewPerformedKeyboardHidingAction(_ messagesView: ChatMessagesView)
     
     func chatMessagesView(_ messagesView: ChatMessagesView,
-                          didUpdateQuickRepliesFrom message: ChatMessage)
-    
-    func chatMessagesView(_ messagesView: ChatMessagesView,
                           didTap buttonItem: ButtonItem,
                           from message: ChatMessage)
     
@@ -657,7 +654,7 @@ extension ChatMessagesView {
         let shouldMoveTypingIndicator = typingIndicatorWasVisible && dataSource.isTypingIndicatorVisible && newSectionIsNeeded
         if shouldMoveTypingIndicator,
            let oldTypingIndicator = oldTypingIndicatorIndexPath {
-            tableView.deleteRows(at: [oldTypingIndicator], with: .fade)
+            tableView.deleteRows(at: [oldTypingIndicator], with: .none)
         }
         
         if newSectionIsNeeded {
@@ -667,7 +664,7 @@ extension ChatMessagesView {
         
         if shouldMoveTypingIndicator,
            let newTypingIndicator = getNextIndexPath(indexPath) {
-            tableView.insertRows(at: [newTypingIndicator], with: .fade)
+            tableView.insertRows(at: [newTypingIndicator], with: .none)
         }
         
         tableView.endUpdates()

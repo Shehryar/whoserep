@@ -52,7 +52,7 @@ class ImageView: BaseComponentView {
         imageView.frame = bounds.inset(by: padding)
     }
     
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
+    override func sizeThatFits(_ maxSize: CGSize) -> CGSize {
         guard let imageItem = imageItem else {
             return .zero
         }
@@ -65,18 +65,28 @@ class ImageView: BaseComponentView {
         }
         
         let originalSize = imageView.image?.size ?? .zero
-        var height: CGFloat? = style.height > 0 ? style.height : nil
-        var width: CGFloat? = style.width > 0 ? style.width : nil
+        var height: CGFloat? = (style.height > 0 ? style.height : nil) ?? (maxSize.height != .greatestFiniteMagnitude ? maxSize.height : nil)
+        var width: CGFloat? = (style.width > 0 ? style.width : nil) ?? (maxSize.width != .greatestFiniteMagnitude ? maxSize.width : nil)
         
-        if let height = height {
-            let aspectAdjustedWidth = height * (originalSize.width / max(1, originalSize.height))
-            width = min(size.width, aspectAdjustedWidth)
-        } else if let width = width {
-            let aspectAdjustedHeight = width * (originalSize.height / max(1, originalSize.width))
-            height = min(size.height, aspectAdjustedHeight)
+        if let maxHeight = height, let maxWidth = width {
+            let aspectAdjustedWidth = maxHeight * (originalSize.width / max(1, originalSize.height))
+            let aspectAdjustedHeight = maxWidth * (originalSize.height / max(1, originalSize.width))
+            if aspectAdjustedWidth > maxWidth {
+                height = aspectAdjustedHeight
+                width = maxWidth
+            } else if aspectAdjustedHeight > maxHeight {
+                height = maxHeight
+                width = aspectAdjustedWidth
+            }
+        } else if let maxHeight = height {
+            let aspectAdjustedWidth = maxHeight * (originalSize.width / max(1, originalSize.height))
+            width = min(maxSize.width, aspectAdjustedWidth)
+        } else if let maxWidth = width {
+            let aspectAdjustedHeight = maxWidth * (originalSize.height / max(1, originalSize.width))
+            height = min(maxSize.height, aspectAdjustedHeight)
         } else {
-            width = min(size.width, originalSize.width)
-            height = min(size.height, originalSize.height)
+            width = min(maxSize.width, originalSize.width)
+            height = min(maxSize.height, originalSize.height)
         }
         
         return CGSize(width: (width ?? 0) + padding.horizontal, height: (height ?? 0) + padding.vertical)

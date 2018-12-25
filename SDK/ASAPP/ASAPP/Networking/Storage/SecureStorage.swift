@@ -100,7 +100,8 @@ class SecureStorage: SecureStorageProtocol {
     }
     
     func remove(_ key: String) throws {
-        let query = getBaseQuery(for: key)
+        var query = getBaseQuery(for: key)
+        query.removeValue(forKey: kSecClass)
         
         guard SecItemDelete(query as CFDictionary) != noErr else {
             throw SecureStorageError.couldNotDeleteObject("Failed to delete object for key \(key)")

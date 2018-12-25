@@ -46,14 +46,11 @@ public extension ASAPP {
 // MARK: - Internal Constants
 
 internal extension ASAPP {
-    
     internal static let clientTypeKey = "ASAPP-ClientType"
-    
     internal static let clientType = "consumer-ios-sdk"
-    
     internal static let clientVersionKey = "ASAPP-ClientVersion"
-    
     internal static let clientSecretKey = "ASAPP-ClientSecret"
-    
     internal static let partnerAppVersionKey = "ASAPP-PartnerAppVersion"
+    internal static let appIdKey = "ASAPP-CompanyMarker"
+    internal static let regionCodeKey = "ASAPP-RegionCode"
 }

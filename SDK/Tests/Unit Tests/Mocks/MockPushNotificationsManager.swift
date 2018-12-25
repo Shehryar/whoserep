@@ -27,17 +27,15 @@ class MockPushNotificationsManager: PushNotificationsManagerProtocol {
     
     var deviceId: Int?
     
-    func enableIfSessionExists() {
-        if session != nil {
-            register()
-        }
+    func register(user: ASAPPUser) {
+        register()
     }
     
-    func register() {
+    private func register() {
         calledRegister = true
     }
     
-    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler) {
+    func getChatStatus(user: ASAPPUser, _ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler?) {
         calledGetChatStatus = true
     }
     

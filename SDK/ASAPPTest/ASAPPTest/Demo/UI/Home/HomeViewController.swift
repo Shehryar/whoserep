@@ -105,14 +105,22 @@ class HomeViewController: BaseViewController {
     }
     
     func showChat(fromNotificationWith userInfo: [AnyHashable: Any]? = nil) {
-        guard presentedViewController == nil else {
+        switch chatButton?.segue {
+        case .some(.push):
+            guard navigationController?.topViewController is BaseViewController else {
+                return
+            }
+            let chatViewController = ASAPP.createChatViewControllerForPushing(fromNotificationWith: userInfo)
+            navigationController?.pushViewController(chatViewController, animated: true)
+        case .some(.present):
+            guard presentedViewController == nil else {
+                return
+            }
+            let chatViewController = ASAPP.createChatViewControllerForPresenting(fromNotificationWith: userInfo)
+            present(chatViewController, animated: true, completion: nil)
+        case .none:
             return
         }
-        
-        let chatViewController = ASAPP.createChatViewControllerForPresenting(
-            fromNotificationWith: userInfo)
-        
-        present(chatViewController, animated: true, completion: nil)
     }
     
     // MARK: - ASAPP Callbacks
@@ -411,10 +419,6 @@ extension HomeViewController: HomeTableViewDelegate {
     func homeTableViewDidUpdateDemoSettings(homeTableView: HomeTableView) {
         refreshChatButton()
     }
-    
-    func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView) {
-        showUseCasePreview()
-    }
 }
 
 // MARK: - Handling ASAPP Actions
@@ -480,13 +484,6 @@ extension HomeViewController {
     func showBillDetails() {
         let billDetailsVC = BillDetailsViewController()
         navigationController?.pushViewController(billDetailsVC, animated: true)
-    }
-    
-    func showUseCasePreview() {
-        let useCasePreviewVC = TemplateServerPreviewViewController()
-        useCasePreviewVC.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(HomeViewController.dismissAnimated))
-        let nav = UINavigationController(rootViewController: useCasePreviewVC)
-        present(nav, animated: true, completion: nil)
     }
     
     @objc func dismissAnimated() {

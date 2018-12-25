@@ -23,19 +23,11 @@ class QuickRepliesView: UIView {
 
     weak var delegate: QuickRepliesViewDelegate?
     
-    var eventId: Int? {
-        return listView.message?.metadata.eventId
-    }
-    
     var currentMessage: ChatMessage? {
         return listView.message
     }
     
-    var currentSRSClassification: String? {
-        return currentMessage?.metadata.classification
-    }
-    
-    var isRestartButtonVisible: Bool = false {
+    private var isRestartButtonVisible: Bool = false {
         didSet {
             restartButton.alpha = isRestartButtonVisible ? 1 : 0
             listView.contentInsetBottom = 0
@@ -47,11 +39,11 @@ class QuickRepliesView: UIView {
         return listView.getTotalAnimationDuration(delay: true, direction: .in)
     }
     
-    var contentHeight: CGFloat {
+    private var contentHeight: CGFloat {
         return listView.contentInsetTop + listView.getTotalHeight()
     }
     
-    var contentInsetBottom: CGFloat = 0 {
+    private var contentInsetBottom: CGFloat = 0 {
         didSet {
             listView.contentInsetBottom = contentInsetBottom
         }
@@ -60,21 +52,16 @@ class QuickRepliesView: UIView {
     // MARK: Private Properties
     
     private let buttonSize: CGFloat = 34
-    
     private let separatorTopStroke: CGFloat = 1
-    
     private let listView = QuickRepliesListView()
-    
     private var animating = false
+    private var previousState: InputState?
     
     // MARK: UI Properties
     
     let restartButton = RestartButton()
-    
     private let separatorTopView = UIView()
-    
     private let containerView = UIView()
-    
     private let blurredBackground = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     
     // MARK: Initialization
@@ -110,14 +97,6 @@ class QuickRepliesView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-    }
-    
-    func styleButton(_ button: Button) {
-        button.setForegroundColor(ASAPP.styles.colors.quickReplyButton.textNormal, forState: .normal)
-        button.setForegroundColor(ASAPP.styles.colors.quickReplyButton.textHighlighted, forState: .highlighted)
-        button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundNormal, forState: .normal)
-        button.setBackgroundColor(ASAPP.styles.colors.quickReplyButton.backgroundHighlighted, forState: .highlighted)
-        button.clipsToBounds = true
     }
     
     // MARK: Display
@@ -157,10 +136,8 @@ extension QuickRepliesView {
     }
     
     private func getFramesThatFit(_ size: CGSize) -> CalculatedLayout {
-        
-        let containerTop = separatorTopStroke
-        let containerHeight = size.height - containerTop
-        let containerViewFrame = CGRect(x: 0, y: containerTop, width: size.width, height: containerHeight)
+        let containerHeight = size.height
+        let containerViewFrame = CGRect(x: 0, y: 0, width: size.width, height: containerHeight)
         
         let listViewSize = listView.sizeThatFits(containerViewFrame.size)
         let listViewFrame = CGRect(x: 0, y: 0, width: listViewSize.width, height: listViewSize.height + contentInsetBottom)
@@ -185,7 +162,7 @@ extension QuickRepliesView {
             restartButtonFrame: restartButtonFrame)
     }
     
-    func updateFrames(in bounds: CGRect? = nil) {
+    private func updateFrames(in bounds: CGRect? = nil) {
         let bounds = bounds ?? self.bounds
         let layout = getFramesThatFit(bounds.size)
         
@@ -198,29 +175,141 @@ extension QuickRepliesView {
         listView.updateFrames(in: listView.bounds)
     }
     
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        let restartButtonHeight = isRestartButtonVisible ? restartButton.defaultHeight : 0
+    private func sizeThatFits(_ size: CGSize, withRestartButton: Bool) -> CGSize {
+        let restartButtonHeight = withRestartButton ? restartButton.defaultHeight : 0
         
         if listView.isEmpty {
-            return CGSize(width: size.width, height: restartButtonHeight + 1)
+            return CGSize(width: size.width, height: restartButtonHeight)
         }
         
         let layout = getFramesThatFit(size)
         return CGSize(width: size.width, height: restartButtonHeight + layout.listViewFrame.height)
     }
     
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return sizeThatFits(size, withRestartButton: isRestartButtonVisible)
+    }
+    
     func sizeThatFills(_ size: CGSize) -> CGSize {
         let layout = getFramesThatFit(size)
         return CGSize(width: size.width, height: restartButton.defaultHeight + layout.listViewFrame.height)
     }
+    
+    func contentsCanFitWith(_ inputHeight: CGFloat) -> Bool {
+        if !isRestartButtonVisible && contentHeight < frame.height - inputHeight {
+            return true
+        }
+        
+        return false
+    }
 }
 
-// MARK: - Instance Methods
+// MARK: - Public
 
 extension QuickRepliesView {
-  
-    private func updateListView(with message: ChatMessage) {
-        listView.update(for: message, shouldAnimateUp: true, animated: true)
+    func prepare(for state: UIState, in bounds: CGRect) {
+        let animated = state.animation == .needsToAnimate
+        
+        if ![.inset].contains(state.queryUI.input) {
+            reset()
+        }
+        
+        if [.chatInputWithQuickReplies, .quickRepliesAlone, .quickRepliesWithNewQuestion].contains(state.queryUI.input),
+           let lastReply = state.lastReply {
+            show(message: lastReply, animated: animated)
+        } else if [.inset].contains(state.queryUI.input) {
+            fadeOut(animated: animated)
+        } else if ![.prechat].contains(state.queryUI.input) {
+            let shouldAnimate = state.queryUI.input != .newQuestionAloneLoading
+            clear(animated: shouldAnimate && animated)
+        }
+        
+        if state.queryUI.input == .newQuestionAloneLoading {
+            showRestartSpinner(animated: animated)
+        } else {
+            hideRestartSpinner(animated: animated)
+        }
+        
+        if previousState?.isEmpty ?? true
+           || previousState?.isEmpty == false && [.newQuestionWithInset].contains(state.queryUI.input) {
+            let size = sizeThatFits(bounds.size, withRestartButton: state.queryUI.input.hasRestartButton)
+            frame = CGRect(x: 0, y: bounds.maxY - size.height, width: size.width, height: size.height)
+            updateFrames(in: bounds)
+            layoutIfNeeded()
+        }
+    }
+    
+    func updateFrames(for inputState: InputState, in bounds: CGRect, with chatInputFrame: CGRect) {
+        let quickRepliesHeight: CGFloat
+        contentInsetBottom = 0
+        
+        switch inputState {
+        case .empty, .prechat, .chatInput:
+            isHidden = true
+            isRestartButtonVisible = false
+            quickRepliesHeight = 0
+            separatorTopView.alpha = 0
+            
+        case .chatInputWithQuickReplies:
+            isHidden = false
+            isRestartButtonVisible = false
+            let fittedHeight = sizeThatFits(bounds.size).height
+            let inputHeight = chatInputFrame.height
+            if contentHeight >= fittedHeight {
+                contentInsetBottom = inputHeight
+            }
+            quickRepliesHeight = fittedHeight + inputHeight
+            separatorTopView.alpha = 1
+            
+        case .quickRepliesWithNewQuestion, .newQuestionAlone,
+             .newQuestionAloneLoading:
+            isHidden = false
+            isRestartButtonVisible = true
+            quickRepliesHeight = sizeThatFits(bounds.size).height
+            separatorTopView.alpha = 1
+            
+        case .newQuestionWithInset:
+            isHidden = false
+            isRestartButtonVisible = true
+            quickRepliesHeight = frame.height
+            containerView.alpha = 0
+            separatorTopView.alpha = 1
+            
+        case .quickRepliesAlone:
+            isHidden = false
+            isRestartButtonVisible = false
+            quickRepliesHeight = sizeThatFits(bounds.size).height
+            separatorTopView.alpha = 1
+            
+        case .inset:
+            isHidden = false
+            isRestartButtonVisible = false
+            quickRepliesHeight = frame.height
+            separatorTopView.alpha = 0
+            blurredBackground.alpha = 0
+            containerView.alpha = 0
+        }
+        
+        frame = CGRect(x: 0, y: bounds.maxY - quickRepliesHeight, width: bounds.width, height: quickRepliesHeight)
+        updateFrames(in: bounds)
+        layoutIfNeeded()
+        previousState = inputState
+    }
+    
+    func willTransition() {
+        hideBlur()
+    }
+    
+    func didTransition() {
+        showBlur()
+    }
+}
+
+// MARK: - Private Helpers
+
+extension QuickRepliesView {
+    private func updateListView(with message: ChatMessage, animated: Bool) {
+        listView.update(for: message, shouldAnimateUp: true, animated: animated)
         listView.onQuickReplySelected = { [weak self] (quickReply) in
             if let strongSelf = self,
                let delegate = strongSelf.delegate {
@@ -230,77 +319,56 @@ extension QuickRepliesView {
         }
     }
     
-    // MARK: Public
-    
-    func show(message: ChatMessage, animated: Bool) {
-        updateListView(with: message)
+    private func show(message: ChatMessage, animated: Bool) {
+        guard message.quickReplies != nil,
+              message != listView.message else {
+            return
+        }
+        
+        updateListView(with: message, animated: animated)
         listView.flashScrollIndicatorsIfNecessary()
     }
     
-    func reloadButtons(for message: ChatMessage) {
+    private func reloadButtons(for message: ChatMessage) {
         if listView.message?.metadata.eventId == message.metadata.eventId {
             listView.update(for: message, shouldAnimateUp: false, animated: true)
         }
     }
     
-    func disableAndClear() {
+    private func disableAndClear(animated: Bool) {
         listView.selectionDisabled = true
         listView.updateEnabled()
-        clear(animated: true)
+        clear(animated: animated)
     }
     
-    func clear(animated: Bool, completion: (() -> Void)? = nil) {
+    private func clear(animated: Bool, completion: (() -> Void)? = nil) {
         listView.update(for: nil, shouldAnimateUp: false, animated: animated, completion: completion)
     }
     
-    func showPrevious() {
+    private func showPrevious() {
         listView.showHidden()
     }
     
-    func reset() {
+    private func reset() {
         separatorTopView.alpha = 1
         containerView.alpha = 1
         blurredBackground.alpha = 1
     }
     
-    func fadeOut(showRestartButton: Bool, animated: Bool) {
+    private func fadeOut(animated: Bool) {
         listView.update(for: nil, shouldAnimateUp: true, animated: animated)
-        
-        blurredBackground.alpha = 0
-        
-        if animated {
-            animating = true
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                self?.separatorTopView.alpha = 0
-                self?.containerView.alpha = 0
-                self?.isRestartButtonVisible = showRestartButton
-                self?.setNeedsLayout()
-                self?.layoutIfNeeded()
-            }, completion: { [weak self] _ in
-                if showRestartButton {
-                    self?.separatorTopView.alpha = 1
-                }
-                self?.animating = false
-            })
-        } else {
-            separatorTopView.alpha = showRestartButton ? 1 : 0
-            containerView.alpha = 0
-            isRestartButtonVisible = showRestartButton
-            setNeedsLayout()
-            layoutIfNeeded()
-        }
     }
     
-    func showRestartSpinner() {
-        disableAndClear()
-        restartButton.showSpinner()
+    private func showRestartSpinner(animated: Bool) {
+        disableAndClear(animated: animated)
+        restartButton.showSpinner(animated: animated)
     }
     
-    func hideRestartSpinner() {
-        restartButton.hideSpinner()
+    private func hideRestartSpinner(animated: Bool) {
+        restartButton.hideSpinner(animated: animated)
     }
     
-    func showBlur() {
+    private func showBlur() {
         blurredBackground.isHidden = false
         backgroundColor = .clear
         
@@ -309,7 +377,7 @@ extension QuickRepliesView {
         setNeedsDisplay()
     }
     
-    func hideBlur() {
+    private func hideBlur() {
         blurredBackground.isHidden = true
         backgroundColor = .white
         

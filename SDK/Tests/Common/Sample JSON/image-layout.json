@@ -69,6 +69,34 @@
                 "width": 50,
                 "align": "fill"
               }
+            },
+            {
+              "type": "image",
+              "content": {
+                "scaleType": "aspectFill",
+                "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg"
+              },
+              "style": {}
+            },
+            {
+              "type": "image",
+              "content": {
+                "scaleType": "aspectFill",
+                "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg"
+              },
+              "style": {
+                "width": 100
+              }
+            },
+            {
+              "type": "image",
+              "content": {
+                "scaleType": "aspectFill",
+                "url": "https://s3.amazonaws.com/asapp-chat-sdk-historical-releases/fixtures/stable-image.jpg"
+              },
+              "style": {
+                "height": 100
+              }
             }
           ]
         },

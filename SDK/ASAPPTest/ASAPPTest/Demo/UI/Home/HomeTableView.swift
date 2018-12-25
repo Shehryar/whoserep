@@ -20,7 +20,6 @@ protocol HomeTableViewDelegate: class {
     
     func homeTableViewDidTapBillDetails(homeTableView: HomeTableView)
     func homeTableViewDidTapHelp(homeTableView: HomeTableView)
-    func homeTableViewDidTapDemoComponentsUI(homeTableView: HomeTableView)
 }
 
 class HomeTableView: UIView {
@@ -421,11 +420,11 @@ extension HomeTableView: UITableViewDelegate {
                 delegate?.homeTableViewDidTapHelp(homeTableView: self)
                 
             default:
-                delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
+                return
             }
             
         case .none:
-            delegate?.homeTableViewDidTapDemoComponentsUI(homeTableView: self)
+            return
         }
     }
 }

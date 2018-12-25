@@ -14,17 +14,13 @@ protocol ConversationManagerDelegate: class {
     func conversationManager(_ manager: ConversationManagerProtocol, didUpdate message: ChatMessage)
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool, with event: Event?)
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeTypingStatus isTyping: Bool)
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authError: SocketConnection.AuthError?)
-    func conversationManager(_ manager: ConversationManagerProtocol, didReturnAfterInactivityWith: Event)
-    func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith: Event)
-    func conversationManager(_ manager: ConversationManagerProtocol, didReceivePartnerEventWith: Event)
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus result: ConnectionResult)
+    func conversationManager(_ manager: ConversationManagerProtocol, didReturnAfterInactivityWith event: Event)
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceiveNotificationWith event: Event)
+    func conversationManager(_ manager: ConversationManagerProtocol, didReceivePartnerEventWith event: Event)
 }
 
 extension ConversationManagerDelegate {
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool) {
-        conversationManager(manager, didChangeConnectionStatus: isConnected, authError: nil)
-    }
-    
     func conversationManager(_ manager: ConversationManagerProtocol, didChangeLiveChatStatus isLiveChat: Bool) {
         conversationManager(manager, didChangeLiveChatStatus: isLiveChat, with: nil)
     }

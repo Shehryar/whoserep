@@ -171,9 +171,10 @@ public class ASAPP: NSObject {
      - parameter deviceToken: The token provided by APNS in `didRegisterForRemoteNotificationsWithDeviceToken(_:)`
      */
     public class func enablePushNotifications(with deviceToken: Data) {
+        assertSetupComplete()
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         PushNotificationsManager.shared.deviceToken = token
-        PushNotificationsManager.shared.enableIfSessionExists()
+        PushNotificationsManager.shared.register(user: ASAPP.user)
     }
     
     /**
@@ -183,8 +184,9 @@ public class ASAPP: NSObject {
      */
     @objc(enablePushNotificationsWithUUID:)
     public class func enablePushNotifications(with uuid: String) {
+        assertSetupComplete()
         PushNotificationsManager.shared.deviceToken = uuid
-        PushNotificationsManager.shared.enableIfSessionExists()
+        PushNotificationsManager.shared.register(user: ASAPP.user)
     }
     
     /// A `Void` closure type that takes an `Int`, the number of unread messages; and a `Bool`, whether the user is in a live chat.
@@ -200,7 +202,8 @@ public class ASAPP: NSObject {
      */
     @available(*, deprecated, message: "Please use getChatStatus(success:failure:) instead")
     public class func getChatStatus(_ handler: @escaping ChatStatusHandler) {
-        return PushNotificationsManager.shared.getChatStatus(handler)
+        assertSetupComplete()
+        return PushNotificationsManager.shared.getChatStatus(user: ASAPP.user, handler)
     }
     
     /**
@@ -210,7 +213,7 @@ public class ASAPP: NSObject {
      - parameter failure: A `FailureHandler` that receives an error if one occurs
      */
     public class func getChatStatus(success: @escaping ChatStatusHandler, failure: @escaping FailureHandler) {
-        return PushNotificationsManager.shared.getChatStatus(success, failure)
+        return PushNotificationsManager.shared.getChatStatus(user: ASAPP.user, success, failure)
     }
     
     /**

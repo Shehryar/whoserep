@@ -9,131 +9,45 @@
 import Foundation
 
 struct Session: Codable {
-    static let rawBodyKey = CodingUserInfoKey(rawValue: "rawBodyKey")!
+    var fullInfo: Data?
     
-    struct SessionInfo: Codable {
-        let customer: Customer
-        let company: Company
-        let auth: Auth
-        let id: String
-        
-        private enum CodingKeys: String, CodingKey {
-            case customer = "Customer"
-            case company = "Company"
-            case auth = "SessionAuth"
-            case id = "SessionId"
-        }
-    }
-    
-    struct Customer: Codable {
-        let primaryIdentifier: String?
-        let id: UInt64
-        let guid: String?
-        
-        private enum CodingKeys: String, CodingKey {
-            case primaryIdentifier = "PrimaryIdentifier"
-            case id = "CustomerId"
-            case guid = "CustomerGUID"
-        }
-        
-        func matches(id otherId: String?) -> Bool {
-            return (otherId == nil && primaryIdentifier == nil) || otherId == primaryIdentifier
-        }
-    }
-    
-    struct Company: Codable {
-        let id: Int
-        
-        private enum CodingKeys: String, CodingKey {
-            case id = "CompanyId"
-        }
-    }
-    
-    struct Auth: Codable {
-        let time: Int64
-        let secret: String
-        
-        private enum CodingKeys: String, CodingKey {
-            case time = "SessionTime"
-            case secret = "SessionSecret"
-        }
-    }
-    
-    private let parsedInfo: SessionInfo
-    private let fullInfo: Data
+    let id: String
+    private let _authenticatedTime: UInt?
+    let customerPrimaryIdentifier: String?
+    let customerId: UInt64
+    let customerGuid: String?
+    let companyId: Int
+    let token: String
     
     private enum CodingKeys: String, CodingKey {
-        case parsedInfo = "SessionInfo"
-        case fullInfo = "_SerializedFullInfo"
+        case id = "session_id"
+        case _authenticatedTime = "authenticated_time"
+        case customerPrimaryIdentifier = "customer_primary_identifier"
+        case customerId = "customer_id"
+        case customerGuid = "customer_guid"
+        case companyId = "company_id"
+        case token = "session_token"
+        case fullInfo = "_serializedFullInfo"
     }
     
-    var fullInfoAsDict: [String: Any] {
-        if let dict = try? JSONSerialization.jsonObject(with: fullInfo, options: []) as? [String: Any] {
+    var authenticatedTime: Date {
+        return Date(timeIntervalSince1970: TimeInterval((_authenticatedTime ?? 0) / 1_000_000))
+    }
+    
+    private var fullInfoAsDict: [String: Any] {
+        if let fullInfo = fullInfo,
+           let dict = try? JSONSerialization.jsonObject(with: fullInfo, options: []) as? [String: Any] {
             return dict ?? [:]
         }
         return [:]
     }
     
-    var sessionTokenForHTTP: String {
-        guard let authDict = fullInfoAsDict["SessionAuth"] else {
-            return ""
-        }
-        
-        guard let data = try? JSONSerialization.data(withJSONObject: authDict, options: []) else {
-            return ""
-        }
-        
-        return String(data: data, encoding: .utf8) ?? ""
-    }
-    
     var isAnonymous: Bool {
-        return customer.primaryIdentifier?.isEmpty ?? true
+        return customerPrimaryIdentifier?.isEmpty ?? true
     }
     
-    var customer: Customer {
-        return parsedInfo.customer
-    }
-    
-    var company: Company {
-        return parsedInfo.company
-    }
-    
-    var auth: Auth {
-        return parsedInfo.auth
-    }
-    
-    var id: String {
-        return parsedInfo.id
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        if let rawBodyString = decoder.userInfo[Session.rawBodyKey] as? String,
-           let rawBodyData = rawBodyString.data(using: .utf8),
-           let bodyDict = try? JSONSerialization.jsonObject(with: rawBodyData, options: []) as? [String: Any],
-           let fullInfoDict = bodyDict?["SessionInfo"],
-           let fullInfoData = try? JSONSerialization.data(withJSONObject: fullInfoDict, options: []) {
-            self.fullInfo = fullInfoData
-        } else {
-            self.fullInfo = try container.decode(Data.self, forKey: CodingKeys.fullInfo)
-        }
-        
-        let parsedInfo = try container.decode(SessionInfo.self, forKey: CodingKeys.parsedInfo)
-        
-        let company = parsedInfo.company
-        
-        var primaryIdentifier = parsedInfo.customer.primaryIdentifier
-        if primaryIdentifier?.isEmpty ?? false {
-            primaryIdentifier = nil
-        }
-        let customer = Customer(primaryIdentifier: primaryIdentifier, id: parsedInfo.customer.id, guid: parsedInfo.customer.guid)
-        
-        let auth = parsedInfo.auth
-        
-        let id = parsedInfo.id
-        
-        self.parsedInfo = SessionInfo(customer: customer, company: company, auth: auth, id: id)
+    func customerMatches(primaryId otherId: String?) -> Bool {
+        return (otherId == nil && customerPrimaryIdentifier == nil) || otherId == customerPrimaryIdentifier
     }
 }
 

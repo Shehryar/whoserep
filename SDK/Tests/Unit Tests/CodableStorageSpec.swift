@@ -29,38 +29,25 @@ class CodableStorageSpec: QuickSpec {
             let decoder = JSONDecoder()
             
             guard let data = try? JSONSerialization.data(withJSONObject: dict, options: []),
-                let string = String(data: data, encoding: .utf8) else {
+                var session = try? decoder.decode(Session.self, from: data) else {
                     return nil
             }
             
-            decoder.userInfo[Session.rawBodyKey] = string
-            
-            guard let stringData = string.data(using: .utf8),
-                let session = try? decoder.decode(Session.self, from: stringData) else {
-                    return nil
-            }
+            session.fullInfo = data
             
             return session
         }
         
         func createTestSession() -> Session {
             let dict = [
-                "SessionInfo": [
-                    "Customer": [
-                        "PrimaryIdentifier": "foo\(sessionCounter)",
-                        "CustomerId": 9000,
-                        "CustomerGUID": "deadbeef"
-                    ],
-                    "Company": [
-                        "CompanyId": 42
-                    ],
-                    "SessionAuth": [
-                        "SessionTime": 1234567890,
-                        "SessionSecret": "secretsecret"
-                    ],
-                    "SessionId": "dead-beef"
-                ]
-            ]
+                "authenticated_time": 327511937000000,
+                "customer_primary_identifier": "foo\(sessionCounter)",
+                "customer_id": 9000,
+                "customer_guid": "deadbeef",
+                "company_id": 42,
+                "session_token": "deadbeef",
+                "session_id": "dead-beef"
+            ] as [String: Any]
             
             sessionCounter += 1
             

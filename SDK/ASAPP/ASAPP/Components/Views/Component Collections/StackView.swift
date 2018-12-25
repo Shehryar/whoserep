@@ -70,10 +70,14 @@ class StackView: BaseComponentView {
             return ([CGRect](), .zero)
         }
         var fitToSize = size
-        if fitToSize.height == 0 {
+        if stackViewItem.style.height > 0 {
+            fitToSize.height = stackViewItem.style.height
+        } else if fitToSize.height == 0 {
             fitToSize.height = .greatestFiniteMagnitude
         }
-        if fitToSize.width == 0 {
+        if stackViewItem.style.width > 0 {
+            fitToSize.width = stackViewItem.style.width
+        } else if fitToSize.width == 0 {
             fitToSize.width = .greatestFiniteMagnitude
         }
     

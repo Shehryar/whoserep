@@ -370,7 +370,8 @@ extension ComponentLayoutEngine {
                 continue
             }
             
-            let maxWidth = maxSize.width - margin.left - margin.right
+            let maxCalculatedWidth = maxSize.width - margin.left - margin.right
+            let maxWidth = style.width > 0 ? style.width : maxCalculatedWidth
             let maxSize = CGSize(width: maxWidth, height: remainingHeight)
             var fittedSize = view.sizeThatFits(maxSize)
             fittedSize.width = ceil(fittedSize.width)

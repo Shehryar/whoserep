@@ -35,7 +35,7 @@
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "NO"
+            buildForTesting = "YES"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -153,7 +153,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "form:scales"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "form:date-pickers"
@@ -181,6 +181,22 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:carousel-uneven"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "message:carousel-with-images"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:image-layout"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:image-no-size"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "form:feedback-form-image"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>

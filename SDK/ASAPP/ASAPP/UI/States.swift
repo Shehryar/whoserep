@@ -31,7 +31,9 @@ struct QueryUIState: StateType {
     var shouldConfirmRestart: Bool = true
 }
 
-enum InputState {
+enum InputState: CaseIterable {
+    typealias AllCases = [InputState]
+    
     case chatInputWithQuickReplies
     case chatInput(keyboardIsVisible: Bool)
     case empty
@@ -63,6 +65,19 @@ enum InputState {
         default:
             return self
         }
+    }
+    
+    var hasRestartButton: Bool {
+        return [.newQuestionWithInset, .newQuestionAlone,
+                .newQuestionAloneLoading, .quickRepliesWithNewQuestion].contains(self)
+    }
+    
+    var isEmpty: Bool {
+        return [.empty, .prechat, .chatInput(keyboardIsVisible: true), .chatInput(keyboardIsVisible: false), .inset].contains(self)
+    }
+    
+    static var allCases: AllCases {
+        return [.chatInputWithQuickReplies, .chatInput(keyboardIsVisible: true), .chatInput(keyboardIsVisible: false), .empty, .prechat, .newQuestionAlone, .newQuestionWithInset, .newQuestionAloneLoading, .inset, .quickRepliesAlone, .quickRepliesWithNewQuestion]
     }
 }
 
