@@ -208,7 +208,7 @@ class ChatViewController: ASAPPViewController {
     func updateUser(_ user: ASAPPUser, with userLoginAction: UserLoginAction? = nil) {
         DebugLog.d("Updating user. userIdentifier=\(user.userIdentifier)")
         if let previousSession = userLoginAction?.previousSession {
-            DebugLog.d("Merging Accounts: {\n  MergeCustomerId: \(previousSession.customer.id),\n  MergeCustomerGUID: \(previousSession.customer.guid ?? "nil"),\n SessionId: \(previousSession.id)}")
+            DebugLog.d("Merging Accounts: {\n  MergeCustomerId: \(previousSession.customerId),\n  MergeCustomerGUID: \(previousSession.customerGuid ?? "nil"),\n SessionId: \(previousSession.id)}")
         }
         
         if conversationManager != nil {
@@ -222,11 +222,10 @@ class ChatViewController: ASAPPViewController {
         conversationManager.delegate = self
         
         func reEnter() {
-            shouldReloadOnUserUpdate = false
             chatMessagesView.clear()
             hideGatekeeperView()
             spinner.alpha = 1
-            conversationManager.enterConversation()
+            conversationManager.enterConversation(shouldRetry: true)
         }
         
         if let nextAction = userLoginAction?.nextAction {
@@ -242,7 +241,7 @@ class ChatViewController: ASAPPViewController {
         
         if connectionStatus != .connected {
             gatekeeperView?.showSpinner()
-            conversationManager.enterConversation()
+            conversationManager.enterConversation(shouldRetry: true)
         }
     }
     
@@ -287,7 +286,7 @@ class ChatViewController: ASAPPViewController {
             connectionStatus = .connecting
             updateFramesAnimated(false)
             delayedDisconnectTime = Date(timeIntervalSinceNow: disconnectedTimeThreshold)
-            conversationManager.enterConversation()
+            conversationManager.enterConversation(shouldRetry: true)
             Dispatcher.delay(.seconds(disconnectedTimeThreshold) + .defaultAnimationDuration) { [weak self] in
                 self?.updateFramesAnimated(false, scrollToBottomIfNearBottom: false)
             }
@@ -445,14 +444,7 @@ extension ChatViewController: StoreSubscriber {
            let coordinator = state.transitionCoordinator {
             transition(to: size, with: coordinator)
         } else {
-            updateFramesAnimated(animated, scrollToBottomIfNearBottom: shouldScroll) { [weak self] in
-                if animated {
-                    self?.store.dispatch(AnimationEnded())
-                }
-                if [.newQuestionWithInset, .inset].contains(state.queryUI.input) {
-                    self?.updateHeightOfQuickRepliesView()
-                }
-            }
+            updateFramesAnimated(animated, scrollToBottomIfNearBottom: shouldScroll)
         }
         
         insetStateTimer?.cancel()
@@ -589,7 +581,7 @@ extension ChatViewController {
     func reconnect() {
         if connectionStatus == .disconnected {
             connectionStatus = .connecting
-            conversationManager.enterConversation()
+            conversationManager.enterConversation(shouldRetry: false)
         }
     }
     
@@ -827,6 +819,17 @@ extension ChatViewController {
     
     func updateFramesAnimated(_ animated: Bool = true, duration: TimeInterval = 0.3, scrollToBottomIfNearBottom: Bool = true, bounds: CGRect? = nil, completion: (() -> Void)? = nil) {
         let wasNearBottom = chatMessagesView.isNearBottom() || chatMessagesView.isHidden
+        
+        func done() {
+            if animated {
+                store.dispatch(AnimationEnded())
+            }
+            if [.newQuestionWithInset, .inset].contains(store.state.queryUI.input) {
+                updateHeightOfQuickRepliesView()
+            }
+            completion?()
+        }
+        
         if animated {
             if wasNearBottom && scrollToBottomIfNearBottom {
                 chatMessagesView.scrollToBottom(animated: true)
@@ -839,7 +842,7 @@ extension ChatViewController {
                     self?.chatMessagesView.scrollToBottom(animated: true)
                 }
                 
-                completion?()
+                done()
             })
         } else {
             updateFrames(in: bounds)
@@ -848,7 +851,7 @@ extension ChatViewController {
                 chatMessagesView.scrollToBottom(animated: false)
             }
             
-            completion?()
+            done()
         }
     }
 }
@@ -1148,7 +1151,7 @@ extension ChatViewController: ChatMessagesViewDelegate {
             
             strongSelf.chatMessagesView.appendEvents(fetchedEvents)
             
-            if let lastChatMessage = fetchedEvents.reversed().first(where: { $0.chatMessage != nil })?.chatMessage {
+            if let lastChatMessage = strongSelf.conversationManager.events.reversed().first(where: { $0.chatMessage != nil })?.chatMessage {
                 strongSelf.handle(message: lastChatMessage, shouldAdd: false)
             }
             
@@ -1750,22 +1753,26 @@ extension ChatViewController: ConversationManagerDelegate {
     }
     
     // Connection Status
-    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus isConnected: Bool, authError: SocketConnection.AuthError?) {
-        if let authError = authError,
+    func conversationManager(_ manager: ConversationManagerProtocol, didChangeConnectionStatus result: ConnectionResult) {
+        if case let .couldNotAuthenticate(authError) = result,
            isAppInForeground {
             connectionStatus = .disconnected
             hideGatekeeperView()
             // delay in case we reconnect immediately
             Dispatcher.delay { [weak self] in
                 switch authError {
-                case .invalidAuth:
+                case .invalid:
                     self?.showGatekeeperViewIfNecessary(.unauthenticated)
                 case .tokenExpired:
                     self?.showGatekeeperViewIfNecessary(.connectionTrouble)
+                case .retryAllowed:
+                    break
                 }
             }
             return
         }
+        
+        let isConnected = (result == .success)
         
         if !didConnectAtLeastOnce && isConnected {
             conversationManager.sendEnterChatRequest()

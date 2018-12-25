@@ -40,18 +40,21 @@ class MockConversationManager: ConversationManagerProtocol {
     var intentPayload: [String: Any]?
     var events: [Event]
     var currentSRSClassification: String?
-    var isLiveChat: Bool
     var isConnected: Bool
     
     var nextQuickReplyMessage: ChatMessage?
     
     required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
         events = []
-        isLiveChat = false
         isConnected = false
     }
     
-    func enterConversation() {
+    required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?, httpClient: HTTPClientProtocol, secureStorage: SecureStorageProtocol, socketConnection: SocketConnectionProtocol?) {
+        events = []
+        isConnected = false
+    }
+    
+    func enterConversation(shouldRetry: Bool) {
         calledEnterConversation = true
     }
     

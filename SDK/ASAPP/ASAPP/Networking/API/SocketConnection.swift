@@ -12,20 +12,37 @@ import UIKit
 
 protocol SocketConnectionDelegate: class {
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection)
-    func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection, error: SocketConnection.AuthError)
+    func socketConnectionFailedToConnect(_ socketConnection: SocketConnection)
     func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection)
     func socketConnection(_ socketConnection: SocketConnection, didReceiveMessage message: IncomingMessage)
 }
 
+protocol SocketConnectionProtocol: class {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?, savedSessionManager: SavedSessionManagerProtocol, webSocketClass: ASAPPSRWebSocket.Type, httpClient: HTTPClientProtocol)
+    var delegate: SocketConnectionDelegate? { get set }
+    var isConnected: Bool { get }
+    func connect(shouldRetry: Bool, retries: Int)
+    func connect(shouldRetry: Bool)
+    func disconnect()
+}
+
+extension SocketConnectionProtocol {
+    init(config: ASAPPConfig, user: ASAPPUser) {
+        self.init(config: config, user: user, userLoginAction: nil, savedSessionManager: SavedSessionManager.shared, webSocketClass: ASAPPSRWebSocket.self, httpClient: HTTPClient.shared)
+    }
+    
+    func connect(shouldRetry: Bool) {
+        return connect(shouldRetry: shouldRetry, retries: 0)
+    }
+}
+
 // MARK: - SocketConnection
 
-class SocketConnection: NSObject {
+class SocketConnection: NSObject, SocketConnectionProtocol {
     
     // MARK: Public Properties
     
     weak var delegate: SocketConnectionDelegate?
-    
-    let config: ASAPPConfig
 
     var isConnected: Bool {
         if let socket = socket {
@@ -34,17 +51,13 @@ class SocketConnection: NSObject {
         return false
     }
     
-    var session: Session? {
-        return outgoingMessageSerializer.session
-    }
-    
     // MARK: Private Properties
     
-    private var connectionRequest: URLRequest
+    private let config: ASAPPConfig
+    private let httpClient: HTTPClientProtocol
     private var webSocketClass: ASAPPSRWebSocket.Type
     private var socket: ASAPPSRWebSocket?
     private let savedSessionManager: SavedSessionManagerProtocol
-    private var outgoingMessageSerializer: OutgoingMessageSerializerProtocol
     private var incomingMessageDeserializer = IncomingMessageDeserializer()
     private var requestHandlers = [Int: IncomingMessageHandler]()
     private var requestSendTimes = [Int: TimeInterval]()
@@ -53,29 +66,19 @@ class SocketConnection: NSObject {
     private var isAuthenticated = false
     private var didManuallyDisconnect = false
     
-    enum AuthError: String {
-        case invalidAuth = "invalid_auth"
-        case tokenExpired = "token_expired"
-    }
-    
     // MARK: Initialization
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil, outgoingMessageSerializer: OutgoingMessageSerializerProtocol? = nil, savedSessionManager: SavedSessionManagerProtocol = SavedSessionManager.shared, webSocketClass: ASAPPSRWebSocket.Type = ASAPPSRWebSocket.self) {
+    required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction? = nil, savedSessionManager: SavedSessionManagerProtocol = SavedSessionManager.shared, webSocketClass: ASAPPSRWebSocket.Type = ASAPPSRWebSocket.self, httpClient: HTTPClientProtocol = HTTPClient.shared) {
         self.config = config
-        self.connectionRequest = SocketConnection.createConnectionRequest(with: config)
-        self.outgoingMessageSerializer = outgoingMessageSerializer ?? OutgoingMessageSerializer(config: config, user: user, userLoginAction: userLoginAction)
         self.savedSessionManager = savedSessionManager
         self.webSocketClass = webSocketClass
+        self.httpClient = httpClient
         super.init()
         
-        DebugLog.d("SocketConnection created with host url: \(String(describing: connectionRequest.url))")
-        
         if let savedSession = self.savedSessionManager.getSession() {
-            if savedSession.customer.matches(id: user.userIdentifier) {
-                updateSession(savedSession)
-            } else if savedSession.isAnonymous && !user.isAnonymous {
-                let nextAction = self.outgoingMessageSerializer.userLoginAction?.nextAction
-                self.outgoingMessageSerializer.userLoginAction = UserLoginAction(session: savedSession, nextAction: nextAction)
+            if savedSession.customerMatches(primaryId: user.userIdentifier)
+            || savedSession.isAnonymous && !user.isAnonymous {
+                httpClient.session = savedSession
             } else {
                 self.savedSessionManager.clearSession()
             }
@@ -88,33 +91,22 @@ class SocketConnection: NSObject {
         NotificationCenter.default.removeObserver(self)
         timer = nil
     }
-    
-    private func updateSession(_ session: Session?) {
-        outgoingMessageSerializer.session = session
-        PushNotificationsManager.shared.session = session
-    }
-}
-
-// MARK: - Connection URL
-
-extension SocketConnection {
-    
-    class func createConnectionRequest(with config: ASAPPConfig) -> URLRequest {
-        let connectionRequest = NSMutableURLRequest()
-        connectionRequest.url = URL(string: "wss://\(config.apiHostName)/api/websocket")
-        connectionRequest.addValue(ASAPP.clientType, forHTTPHeaderField: ASAPP.clientTypeKey)
-        connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.clientVersionKey)
-        connectionRequest.addValue(ASAPP.partnerAppVersion, forHTTPHeaderField: ASAPP.partnerAppVersionKey)
-        connectionRequest.addValue(config.clientSecret, forHTTPHeaderField: ASAPP.clientSecretKey)
-        
-        return connectionRequest as URLRequest
-    }
 }
 
 // MARK: - Managing Connection
 
 extension SocketConnection {
-    @objc func connect() {
+    private func createConnectionRequest(oneTimeURL: URL) -> URLRequest {
+        let connectionRequest = NSMutableURLRequest()
+        connectionRequest.url = oneTimeURL
+        connectionRequest.addValue(ASAPP.clientType, forHTTPHeaderField: ASAPP.clientTypeKey)
+        connectionRequest.addValue(ASAPP.clientVersion, forHTTPHeaderField: ASAPP.clientVersionKey)
+        connectionRequest.addValue(ASAPP.partnerAppVersion, forHTTPHeaderField: ASAPP.partnerAppVersionKey)
+        connectionRequest.addValue(config.clientSecret, forHTTPHeaderField: ASAPP.clientSecretKey)
+        return connectionRequest as URLRequest
+    }
+    
+    private func open(with request: URLRequest) {
         if let socket = socket {
             switch socket.readyState {
             case .SR_CLOSING:
@@ -131,26 +123,72 @@ extension SocketConnection {
         
         didManuallyDisconnect = false
         
-        socket = webSocketClass.init(urlRequest: connectionRequest)
+        socket = webSocketClass.init(urlRequest: request)
         socket?.delegate = self
+        DebugLog.d("Opening Web Socket with url: \(request.url?.absoluteString ?? "nil")")
         socket?.open()
-        
-        // Retry
-        connectIfNeeded(afterDelay: 3)
     }
     
-    func connectIfNeeded(afterDelay delayInSeconds: Int = 0) {
-        if delayInSeconds > 0 {
-            let delayTime = DispatchTime.now() + Double(Int64(UInt64(delayInSeconds) * NSEC_PER_SEC)) / Double(NSEC_PER_SEC)
-            DispatchQueue.main.asyncAfter(deadline: delayTime) { [weak self] in
-                if let strongSelf = self {
-                    if !strongSelf.isConnected && !strongSelf.didManuallyDisconnect {
-                        self?.connect()
-                    }
-                }
+    private func createWebSocketURL(from response: URLResponse, and path: String) -> URL? {
+        guard
+            let baseUrl = response.url,
+            let partialUrl = URL(string: path),
+            var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false),
+            var partialComponents = URLComponents(url: partialUrl, resolvingAgainstBaseURL: false)
+        else {
+            return nil
+        }
+        
+        components.scheme = "wss"
+        components.queryItems = partialComponents.queryItems
+        var path = partialComponents.path
+        if path.hasPrefix("/") {
+            path = String(path.suffix(from: path.index(after: path.startIndex)))
+        }
+        return components.url?.deletingLastPathComponent().appendingPathComponent(path, isDirectory: false).standardized
+    }
+    
+    @objc func connect(shouldRetry: Bool, retries: Int = 0) {
+        func getDelay(forRetry retry: Int) -> DispatchTimeInterval {
+            return .seconds(min(retry * 3, 30))
+        }
+        
+        guard !isConnected && !didManuallyDisconnect,
+            let url = httpClient.baseUrl?.replacingPath(with: "/api/v2/websocket/request") else {
+            return
+        }
+        
+        DebugLog.d(caller: self, "Requesting URL for Web Socket...")
+        
+        httpClient.sendRequest(method: .POST, url: url) { [weak self] (dict: [String: Any]?, response, error) in
+            guard let strongSelf = self else {
+                return
             }
-        } else if !isConnected {
-            connect()
+            
+            guard
+                error == nil,
+                let response = response,
+                let path = dict?["url"] as? String,
+                let url = self?.createWebSocketURL(from: response, and: path)
+            else {
+                if let error = error {
+                    DebugLog.e(error)
+                }
+                
+                if retries == 1 {
+                    strongSelf.delegate?.socketConnectionFailedToConnect(strongSelf)
+                }
+                
+                let nextRetry = retries + 1
+                Dispatcher.delay(getDelay(forRetry: nextRetry), qos: .utility) { [weak self] in
+                    DebugLog.d(caller: HTTPClient.self, Date().debugDescription, "retrying getting Web Socket URL (retry #\(nextRetry))")
+                    self?.connect(shouldRetry: true, retries: nextRetry)
+                }
+                return
+            }
+            
+            let request = strongSelf.createConnectionRequest(oneTimeURL: url)
+            strongSelf.open(with: request)
         }
     }
     
@@ -168,93 +206,6 @@ extension SocketConnection {
         }
         
         socket?.sendPing(nil)
-    }
-}
-
-// MARK: - Sending Messages
-
-extension SocketConnection {
-    
-    private func sendAuthRequest(withPath path: String,
-                                 params: [String: Any]?,
-                                 requestHandler: IncomingMessageHandler? = nil) {
-        let request = outgoingMessageSerializer.createRequest(withPath: path, params: params, context: nil)
-        if let requestHandler = requestHandler {
-            requestHandlers[request.requestId] = requestHandler
-        }
-        
-        requestSendTimes[request.requestId] = Date.timeIntervalSinceReferenceDate
-        requestLookup[request.requestId] = request
-        
-        guard isConnected else {
-            DebugLog.d("Socket not connected. Not sending request: \(request.path). Reconnecting...")
-            connect()
-            return
-        }
-        
-        if let data = request.requestData {
-            DebugLog.d("Sending data request - (\(data.count) bytes)")
-            socket?.send(data)
-        } else {
-            let requestString = outgoingMessageSerializer.createRequestString(withRequest: request)
-            request.logRequest(with: requestString)
-            socket?.send(requestString)
-        }
-    }
-}
-
-// MARK: - Authentication
-
-extension SocketConnection {
-    typealias SocketAuthResponseBlock = ((_ message: IncomingMessage?, _ errorMessage: String?) -> Void)
-    
-    func authenticate(attempts: Int = 0, contextNeedsRefresh: Bool = false, _ completion: SocketAuthResponseBlock? = nil) {
-        outgoingMessageSerializer.createAuthRequest(contextNeedsRefresh: contextNeedsRefresh) { [weak self] authRequest in
-            self?.sendAuthRequest(withPath: authRequest.path, params: authRequest.params) { [weak self] (message, _, _) in
-                var session: Session?
-                
-                if message.type == .response {
-                    session = self?.getSession(from: message)
-                }
-                
-                if let session = session {
-                    self?.savedSessionManager.save(session: session)
-                    self?.updateSession(session)
-                    self?.isAuthenticated = true
-                } else {
-                    self?.isAuthenticated = false
-                    
-                    if self?.outgoingMessageSerializer.session != nil {
-                        self?.savedSessionManager.clearSession()
-                        self?.updateSession(nil)
-                        
-                        if attempts == 0 {
-                            let needsRefresh = (message.debugError == AuthError.tokenExpired.rawValue)
-                            self?.authenticate(attempts: 1, contextNeedsRefresh: needsRefresh, completion)
-                            return
-                        }
-                    }
-                }
-                
-                completion?(message, message.debugError)
-            }
-        }
-    }
-    
-    func getSession(from response: IncomingMessage) -> Session? {
-        guard let bodyString = response.bodyString else {
-            DebugLog.e("Authentication response missing body: \(response)")
-            return nil
-        }
-        
-        guard let data = bodyString.data(using: .utf8) else {
-            DebugLog.e("Could not interpret UTF-8 string: \(response)")
-            return nil
-        }
-        
-        let decoder = JSONDecoder()
-        decoder.userInfo[Session.rawBodyKey] = bodyString
-        return try? decoder.decode(Session.self, from: data)
     }
 }
 
@@ -326,23 +277,12 @@ extension SocketConnection: ASAPPSRWebSocketDelegate {
     func webSocketDidOpen(_ webSocket: ASAPPSRWebSocket!) {
         DebugLog.d("Socket Did Open")
         
-        authenticate { [weak self] (_, errorMessage) in
-            guard let strongSelf = self else {
-                return
-            }
-            
-            if let errorMessage = errorMessage,
-               let authError = AuthError(rawValue: errorMessage) {
-                strongSelf.delegate?.socketConnectionFailedToAuthenticate(strongSelf, error: authError)
-            } else {
-                strongSelf.delegate?.socketConnectionEstablishedConnection(strongSelf)
-                
-                self?.timer = RepeatingTimer(interval: 60) { [weak self] in
-                    self?.keepAlive()
-                }
-                self?.timer?.resume()
-            }
+        delegate?.socketConnectionEstablishedConnection(self)
+        
+        timer = RepeatingTimer(interval: 60) { [weak self] in
+            self?.keepAlive()
         }
+        timer?.resume()
     }
     
     func webSocket(_ webSocket: ASAPPSRWebSocket!, didCloseWithCode code: Int, reason: String!, wasClean: Bool) {

@@ -8,6 +8,30 @@
 
 import Foundation
 
+enum ConnectionResult: Equatable {
+    case lost
+    case failed
+    case couldNotAuthenticate(authError: AuthError)
+    case success
+}
+
+func == (lhs: ConnectionResult, rhs: ConnectionResult) -> Bool {
+    switch lhs {
+    case .lost:
+        if case .lost = rhs { return true }
+    case .failed:
+        if case .failed = rhs { return true }
+    case .couldNotAuthenticate(let lhsAuthError):
+        if case .couldNotAuthenticate(let rhsAuthError) = rhs {
+            return lhsAuthError == rhsAuthError
+        }
+    case .success:
+        if case .success = rhs { return true }
+    }
+    
+    return false
+}
+
 struct AutosuggestMetadata: Encodable {
     typealias ResponseId = String
     
@@ -37,7 +61,7 @@ protocol ConversationManagerProtocol: class {
     typealias FetchedEventsCompletion = (_ fetchedEvents: [Event]?, _ error: String?) -> Void
     typealias AutosuggestCompletion = (_ suggestions: [String], _ responseId: AutosuggestMetadata.ResponseId, _ error: String?) -> Void
     
-    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?)
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?, httpClient: HTTPClientProtocol, secureStorage: SecureStorageProtocol, socketConnection: SocketConnectionProtocol?)
     
     var delegate: ConversationManagerDelegate? { get set }
     var events: [Event] { get }
@@ -46,7 +70,7 @@ protocol ConversationManagerProtocol: class {
     var pushNotificationPayload: [AnyHashable: Any]? { get set }
     var intentPayload: [String: Any]? { get set }
     
-    func enterConversation()
+    func enterConversation(shouldRetry: Bool)
     func exitConversation()
     func isConnected(retryConnectionIfNeeded: Bool) -> Bool
     
@@ -65,7 +89,7 @@ protocol ConversationManagerProtocol: class {
     func sendDismissRequest(action: Action)
     func sendRequestForAPIAction(_ action: Action?, formData: [String: Any]?, completion: @escaping APIActionResponseHandler)
     func sendRequestForDeepLinkAction(_ action: Action?, with buttonTitle: String)
-    func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClient.DictCompletionHandler)
+    func sendRequestForHTTPAction(_ action: Action, formData: [String: Any]?, completion: @escaping HTTPClientProtocol.DictCompletionHandler)
     func sendRequestForTreewalkAction(_ action: TreewalkAction, messageText: String?, parentMessage: ChatMessage?, completion: ((Bool) -> Void)?)
     func getComponentView(named name: String, data: [String: Any]?, completion: @escaping ComponentViewHandler)
     func sendUserTypingStatus(isTyping: Bool, with text: String?)
@@ -77,6 +101,10 @@ protocol ConversationManagerProtocol: class {
 }
 
 extension ConversationManagerProtocol {
+    init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
+        self.init(config: config, user: user, userLoginAction: userLoginAction, httpClient: HTTPClient.shared, secureStorage: SecureStorage.default, socketConnection: nil)
+    }
+    
     func sendEnterChatRequest() {
         return sendEnterChatRequest(nil)
     }
@@ -116,16 +144,6 @@ extension ConversationManagerProtocol {
 }
 
 class ConversationManager: NSObject, ConversationManagerProtocol {
-    let config: ASAPPConfig
-    
-    let user: ASAPPUser
-    
-    let sessionManager: SessionManager
-    
-    var pushNotificationPayload: [AnyHashable: Any]?
-    
-    var intentPayload: [String: Any]?
-    
     weak var delegate: ConversationManagerDelegate?
     
     var currentSRSClassification: String? {
@@ -138,27 +156,25 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         return socketConnection.isConnected
     }
     
+    var pushNotificationPayload: [AnyHashable: Any]?
+    var intentPayload: [String: Any]?
+    
     private let secureStorage: SecureStorageProtocol
-    
-    private(set) var events: [Event] = []
-    
     private var censor: CensorProtocol?
-    
-    // MARK: Private Properties
-    
-    let socketConnection: SocketConnection
-    
-    let httpClient: HTTPClientProtocol
+    private let socketConnection: SocketConnectionProtocol
+    private let httpClient: HTTPClientProtocol
+    private let config: ASAPPConfig
+    private let user: ASAPPUser
+    private(set) var events: [Event] = []
     
     // MARK: Initialization
     
-    required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?) {
+    required init(config: ASAPPConfig, user: ASAPPUser, userLoginAction: UserLoginAction?, httpClient: HTTPClientProtocol = HTTPClient.shared, secureStorage: SecureStorageProtocol = SecureStorage.default, socketConnection: SocketConnectionProtocol? = nil) {
         self.config = config
         self.user = user
-        self.sessionManager = SessionManager(config: config, user: user)
-        self.secureStorage = SecureStorage.default
-        self.socketConnection = SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
-        self.httpClient = HTTPClient.shared
+        self.secureStorage = secureStorage
+        self.socketConnection = socketConnection ?? SocketConnection(config: config, user: user, userLoginAction: userLoginAction)
+        self.httpClient = httpClient
         self.httpClient.config(config)
         super.init()
         
@@ -172,7 +188,7 @@ extension ConversationManager {
     
     func isConnected(retryConnectionIfNeeded: Bool = false) -> Bool {
         if !isConnected && retryConnectionIfNeeded {
-            socketConnection.connectIfNeeded()
+            socketConnection.connect(shouldRetry: false)
         }
         
         return isConnected
@@ -183,10 +199,24 @@ extension ConversationManager {
 
 extension ConversationManager {
     
-    func enterConversation() {
+    func enterConversation(shouldRetry: Bool) {
         DebugLog.d(caller: self, "Entering Conversation")
         
-        socketConnection.connectIfNeeded()
+        httpClient.authenticate(as: user, contextNeedsRefresh: false) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            switch result {
+            case .success:
+                strongSelf.socketConnection.connect(shouldRetry: shouldRetry)
+            case .failure(let authError):
+                Dispatcher.performOnMainThread {
+                    strongSelf.delegate?.conversationManager(strongSelf, didChangeConnectionStatus: .couldNotAuthenticate(authError: authError))
+                }
+            }
+            
+        }
     }
     
     func exitConversation() {
@@ -199,13 +229,11 @@ extension ConversationManager {
 // MARK: - Requests 
 
 extension ConversationManager {
-    
     func getRequestParameters(with params: [String: Any]?,
                               requiresContext: Bool = true,
                               contextKey: String = "Context",
                               contextNeedsRefresh: Bool = false,
                               completion: @escaping (_ params: [String: Any]) -> Void) {
-        
         var requestParams: [String: Any] = [
             ASAPP.clientTypeKey: ASAPP.clientType,
             ASAPP.clientVersionKey: ASAPP.clientVersion,
@@ -500,6 +528,26 @@ extension ConversationManager {
             self?.sendRequest(path: path, params: params)
         }
     }
+    
+    func sendPictureMessage(_ image: UIImage, completion: (() -> Void)? = nil) {
+        let path = "customer/SendPictureMessage"
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            DebugLog.e("Unable to get JPEG data for image: \(image)")
+            return
+        }
+        let imageFileSize = imageData.count
+        let params: [String: Any] = [
+            "MimeType": "image/jpeg",
+            "FileSize": imageFileSize,
+            "PicWidth": image.size.width,
+            "PicHeight": image.size.height
+        ]
+        
+        httpClient.sendRequest(method: .POST, path: path, headers: nil, params: params, data: imageData) { (_: Data?, _, _) in
+            completion?()
+        }
+    }
 }
 
 // MARK: - SocketConnectionDelegate
@@ -575,23 +623,37 @@ extension ConversationManager: SocketConnectionDelegate {
     }
     
     func socketConnectionEstablishedConnection(_ socketConnection: SocketConnection) {
-        DebugLog.d("ConversationManager: Established Connection")
+        DebugLog.d("ConversationManager: established connection")
         
-        httpClient.session = socketConnection.session
-        PushNotificationsManager.shared.session = socketConnection.session
-        
-        delegate?.conversationManager(self, didChangeConnectionStatus: true)
+        Dispatcher.performOnMainThread { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.delegate?.conversationManager(strongSelf, didChangeConnectionStatus: .success)
+        }
     }
     
-    func socketConnectionFailedToAuthenticate(_ socketConnection: SocketConnection, error: SocketConnection.AuthError) {
-        DebugLog.d("ConversationManager: Authentication Failed (\(error.rawValue))")
+    func socketConnectionFailedToConnect(_ socketConnection: SocketConnection) {
+        DebugLog.d("ConversationManager: failed to connect to web socket")
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: false, authError: error)
+        Dispatcher.performOnMainThread { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.delegate?.conversationManager(strongSelf, didChangeConnectionStatus: .failed)
+        }
     }
     
     func socketConnectionDidLoseConnection(_ socketConnection: SocketConnection) {
-        DebugLog.d("ConversationManager: Connection Lost")
+        DebugLog.d("ConversationManager: connection lost")
         
-        delegate?.conversationManager(self, didChangeConnectionStatus: false)
+        Dispatcher.performOnMainThread { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.socketConnection.connect(shouldRetry: true)
+            strongSelf.delegate?.conversationManager(strongSelf, didChangeConnectionStatus: .lost)
+        }
     }
 }

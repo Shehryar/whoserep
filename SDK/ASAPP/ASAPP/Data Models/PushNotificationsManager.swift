@@ -9,25 +9,33 @@
 import Foundation
 import UserNotifications
 
+protocol UserDefaultsProtocol {
+    func set(_ value: Any?, forKey defaultName: String)
+    func removeObject(forKey defaultName: String)
+    func object(forKey defaultName: String) -> Any?
+    func string(forKey defaultName: String) -> String?
+    func integer(forKey defaultName: String) -> Int
+}
+
+extension UserDefaults: UserDefaultsProtocol {}
+
 protocol PushNotificationsManagerProtocol {
     var session: Session? { get set }
     var deviceToken: String? { get set }
     var deviceId: Int? { get set }
-    func enableIfSessionExists()
-    func register()
-    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler?)
+    func register(user: ASAPPUser)
+    func getChatStatus(user: ASAPPUser, _ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler?)
     func requestAuthorization()
     func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval)
 }
 
 extension PushNotificationsManagerProtocol {
-    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler? = nil) {
-        return getChatStatus(handler, failureHandler)
+    func getChatStatus(user: ASAPPUser, _ handler: @escaping ASAPP.ChatStatusHandler) {
+        return getChatStatus(user: user, handler, nil)
     }
 }
 
 class PushNotificationsManager: PushNotificationsManagerProtocol {
-    
     enum PushNotificationsManagerError: Error {
         case getChatStatusError
     }
@@ -52,8 +60,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     
     var session: Session? {
         didSet {
-            if oldValue != session && session != nil {
-                HTTPClient.shared.session = session
+            if session != nil && !(oldValue?.customerMatches(primaryId: session?.customerPrimaryIdentifier) ?? false) {
                 register()
             }
         }
@@ -78,16 +85,37 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    func enableIfSessionExists() {
-        // if session does not exist now, it might exist later. register() is called in session's didSet.
-        if session != nil {
-            register()
+    private func ensureAuth(user: ASAPPUser, success: @escaping (Session) -> Void, failure: @escaping () -> Void) {
+        HTTPClient.shared.authenticate(as: user, contextNeedsRefresh: false, shouldRetry: false) { result in
+            switch result {
+            case .success(let session):
+                success(session)
+            default:
+                failure()
+            }
         }
     }
     
-    func register() {
-        ASAPP.assertSetupComplete()
+    func register(user: ASAPPUser) {
+        if session?.customerMatches(primaryId: user.userIdentifier) ?? false,
+           deviceId != nil {
+            return
+        }
         
+        if let session = session,
+           session.authenticatedTime.addingTimeInterval(60) >= Date(),
+           session.customerMatches(primaryId: user.userIdentifier) {
+            register()
+        } else {
+            ensureAuth(user: user, success: { [weak self] session in
+                self?.session = session
+            }, failure: {
+                DebugLog.e(caller: self, "Could not authenticate before enabling push notifications.")
+            })
+        }
+    }
+    
+    private func register() {
         guard let token = deviceToken,
               let session = session else {
             DebugLog.e(caller: self, "Could not enable push notifications. Need non-nil token and session.")
@@ -121,7 +149,22 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler? = nil) {
+    func getChatStatus(user: ASAPPUser, _ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler? = nil) {
+        if let session = session,
+            session.authenticatedTime.addingTimeInterval(60) >= Date(),
+            session.customerMatches(primaryId: user.userIdentifier) {
+            getChatStatus(handler, failureHandler)
+        } else {
+            ensureAuth(user: user, success: { [weak self] session in
+                self?.session = session
+                self?.getChatStatus(handler, failureHandler)
+            }, failure: {
+                DebugLog.e(caller: self, "Could not authenticate before enabling push notifications.")
+            })
+        }
+    }
+
+    private func getChatStatus(_ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler?) {
         ASAPP.assertSetupComplete()
         
         guard let session = session ?? SavedSessionManager.shared.getSession() else {

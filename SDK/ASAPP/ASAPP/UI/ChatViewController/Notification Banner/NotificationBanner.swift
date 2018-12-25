@@ -182,7 +182,11 @@ class NotificationBanner: UIView {
         
         accessibilityElements = elements
     }
-    
+}
+
+// MARK: - Layout
+
+extension NotificationBanner {
     private struct CalculatedLayout {
         let bottomBorderFrame: CGRect
         let bannerContainerFrame: CGRect
@@ -299,7 +303,11 @@ class NotificationBanner: UIView {
         let buttonHeight = (hasBodyLabel ? 24 : 0) + dismissButton.sizeThatFits(CGSize(width: bounds.width - contentInsets.horizontal, height: 0)).height
         return 26 + bodyLabelHeight + buttonHeight + 11
     }
-    
+}
+
+// MARK: - Interaction
+
+extension NotificationBanner {
     private func updateExpandIcon() {
         overlayButton.removeTarget(self, action: nil, for: .allTouchEvents)
         

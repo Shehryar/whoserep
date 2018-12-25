@@ -33,14 +33,14 @@ class SavedSessionManager: SavedSessionManagerProtocol {
                 try secureStorage.remove(sessionKey)
                 DebugLog.d("Cleared saved session")
             } catch {
-                DebugLog.e(error)
+                DebugLog.w(error.localizedDescription)
             }
             return
         }
         
         do {
             try secureStorage.store(session, as: sessionKey)
-            DebugLog.d("Saved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
+            DebugLog.d("Saved session for \(session.customerPrimaryIdentifier ?? session.customerId.description)")
         } catch {
             DebugLog.e(error)
         }
@@ -49,7 +49,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
     func getSession() -> Session? {
         do {
             let session = try secureStorage.retrieve(sessionKey, as: Session.self)
-            DebugLog.d("Retrieved session for \(session.customer.primaryIdentifier ?? session.customer.id.description)")
+            DebugLog.d("Retrieved session for \(session.customerPrimaryIdentifier ?? session.customerId.description)")
             return session
         } catch {
             DebugLog.e(error)

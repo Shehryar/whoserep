@@ -181,7 +181,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:carousel-uneven"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

@@ -175,6 +175,7 @@ extension ChatMessagesViewCellMaster {
         return getCell(with: typingIndicatorCellReuseId, at: indexPath) as? ChatTypingIndicatorCell
     }
     
+    // swiftlint:disable:next function_parameter_count
     func cellForMessage(_ message: ChatMessage,
                         listPosition: MessageListPosition,
                         detailsVisible: Bool,
