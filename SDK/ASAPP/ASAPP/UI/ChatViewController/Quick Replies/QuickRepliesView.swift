@@ -231,10 +231,11 @@ extension QuickRepliesView {
         }
         
         if previousState?.isEmpty ?? true
-           || previousState?.isEmpty == false && [.newQuestionWithInset, .inset].contains(state.queryUI.input) {
+           || previousState?.isEmpty == false && [.newQuestionWithInset].contains(state.queryUI.input) {
             let size = sizeThatFits(bounds.size, withRestartButton: state.queryUI.input.hasRestartButton)
             frame = CGRect(x: 0, y: bounds.maxY - size.height, width: size.width, height: size.height)
             updateFrames(in: bounds)
+            layoutIfNeeded()
         }
     }
     

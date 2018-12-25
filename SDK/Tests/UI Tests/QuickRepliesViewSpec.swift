@@ -178,10 +178,15 @@ class QuickRepliesViewSpec: QuickSpec {
                             let stateA = getExampleState(inputState: a)
                             let stateB = getExampleState(inputState: b)
                             let view = getView(for: stateA)
+                            let oldHeight = view.bounds.height
                             view.prepare(for: stateB, in: bounds)
                             view.updateFrames(for: stateB.queryUI.input, in: bounds, with: chatInputFrame)
                             if b.isEmpty {
-                                expect(view.bounds.height).to(equal(0))
+                                if b == .inset {
+                                    expect(view.bounds.height).to(equal(oldHeight))
+                                } else {
+                                    expect(view.bounds.height).to(equal(0))
+                                }
                             } else {
                                 expect(view).to(haveValidSnapshot(named: nil, identifier: "\(a)-then-\(b)", usesDrawRect: true))
                             }
