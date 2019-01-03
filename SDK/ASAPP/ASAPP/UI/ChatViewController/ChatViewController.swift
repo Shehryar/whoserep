@@ -98,7 +98,7 @@ class ChatViewController: ASAPPViewController {
         self.conversationManager.pushNotificationPayload = pushNotificationPayload
         
         automaticallyAdjustsScrollViewInsets = false
-        
+        extendedLayoutIncludesOpaqueBars = true
         let side = closeButtonSide(for: segue)
         let closeButton = NavCloseBarButtonItem(location: .chat, side: .right)
             .configSegue(segue)
