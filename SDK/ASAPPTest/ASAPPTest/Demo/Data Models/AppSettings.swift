@@ -52,8 +52,8 @@ class AppSettings: NSObject {
         return AppSettings.getString(forKey: .customerIdentifier)
     }
     
-    var authToken: String {
-        return AppSettings.getString(forKey: .authToken, defaultValue: AppSettings.fakeToken)
+    var authToken: String? {
+        return AppSettings.getString(forKey: .authToken)
     }
     
     var pushServiceIdentifier: [String: Any] {
@@ -113,8 +113,6 @@ extension AppSettings {
     static let defaultRegionCode = defaultRegionCodes.first!
     
     static let defaultAuthToken = ""
-    
-    static let fakeToken = "asapp_ios_fake_access_token"
     
     static let defaultUserName = "Jessie"
     
@@ -541,10 +539,15 @@ extension AppSettings {
 extension AppSettings {
     
     func getContext() -> [String: Any] {
-        return [
-            ASAPP.authTokenKey: AppSettings.shared.authToken,
-            "fake_context_key_1": "fake_context_value_1",
-            "fake_context_key_2": "fake_context_value_2"
-        ]
+        if let token = AppSettings.shared.authToken {
+            return [
+                ASAPP.authTokenKey: token,
+                "fake_context_key_1": "fake_context_value_1",
+                "fake_context_key_2": "fake_context_value_2"
+            ]
+        } else {
+            return [:]
+        }
+        
     }
 }

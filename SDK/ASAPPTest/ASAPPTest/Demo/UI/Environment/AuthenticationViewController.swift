@@ -34,7 +34,7 @@ class AuthenticationViewController: BaseTableViewController {
         
         let currentToken = AppSettings.shared.authToken
         if let currentCustomerId = AppSettings.shared.customerIdentifier,
-           currentToken == AppSettings.fakeToken {
+           currentToken == nil {
             selectedAccount = Account(username: currentCustomerId, password: nil)
         }
     }
