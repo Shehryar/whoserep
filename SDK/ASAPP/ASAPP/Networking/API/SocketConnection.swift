@@ -64,7 +64,6 @@ class SocketConnection: NSObject, SocketConnectionProtocol {
     private var requestLookup = [Int: SocketRequest]()
     private var timer: RepeatingTimer?
     private var isAuthenticated = false
-    private var didManuallyDisconnect = false
     
     // MARK: Initialization
     
@@ -83,8 +82,6 @@ class SocketConnection: NSObject, SocketConnectionProtocol {
                 self.savedSessionManager.clearSession()
             }
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(SocketConnection.connect), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     deinit {
@@ -121,8 +118,6 @@ extension SocketConnection {
             }
         }
         
-        didManuallyDisconnect = false
-        
         socket = webSocketClass.init(urlRequest: request)
         socket?.delegate = self
         DebugLog.d("Opening Web Socket with url: \(request.url?.absoluteString ?? "nil")")
@@ -153,7 +148,7 @@ extension SocketConnection {
             return .seconds(min(retry * 3, 30))
         }
         
-        guard !isConnected && !didManuallyDisconnect,
+        guard !isConnected,
             let url = httpClient.baseUrl?.replacingPath(with: "/api/v2/websocket/request") else {
             return
         }
@@ -193,7 +188,6 @@ extension SocketConnection {
     }
     
     func disconnect() {
-        didManuallyDisconnect = true
         socket?.delegate = nil
         socket?.close()
         socket = nil

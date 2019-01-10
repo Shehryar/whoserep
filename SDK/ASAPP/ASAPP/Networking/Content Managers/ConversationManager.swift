@@ -172,6 +172,8 @@ class ConversationManager: NSObject, ConversationManagerProtocol {
         super.init()
         
         self.socketConnection.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ConversationManager.reEnterConversation), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 }
 
@@ -191,6 +193,10 @@ extension ConversationManager {
 // MARK: - Entering/Leaving a Conversation
 
 extension ConversationManager {
+    
+    @objc func reEnterConversation() {
+        enterConversation(shouldRetry: true)
+    }
     
     func enterConversation(shouldRetry: Bool) {
         DebugLog.d(caller: self, "Entering Conversation")
