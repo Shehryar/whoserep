@@ -18,7 +18,7 @@ except ImportError:
     }
 
 
-crp = CRP(secrets['OPENSECRETS_API_KEY'])
+# crp = CRP(secrets['OPENSECRETS_API_KEY'])
 
 states = [
     "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
@@ -48,9 +48,12 @@ def build_cids():
         write the list to data/cids.txt, replacing the previous file.
     """
     cids = []
+    crp = CRP('b068ead9c50928f17ac41e9c94c7204f')
     i = 0
+    # pe = crp.candidates.get('N00007360')
+    # print(pe['lastname']) 
     progress_bar(i, len(states), 50, 'Starting...')
-
+    print('Querying states...')
     for state in states:
         i += 1
         cands = crp.candidates.get(state)
@@ -61,7 +64,7 @@ def build_cids():
             cids.append(cands['@attributes']['cid'])
         progress_bar(i, len(states), 50, 'Retrieving legislators from %s' % state)
 
-    f = open('data/cids.txt', 'wb')
+    f = open('data/cids.txt', 'w')
     json.dump(cids, f)
     f.close()
 
