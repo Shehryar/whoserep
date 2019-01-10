@@ -312,7 +312,6 @@
 		3A8790F720AE20BA00AD81E5 /* ChatMessageCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8790F620AE20BA00AD81E5 /* ChatMessageCarousel.swift */; };
 		3A8790F920AE241200AD81E5 /* ChatCarouselMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8790F820AE241200AD81E5 /* ChatCarouselMessageCell.swift */; };
 		3A8790FB20AF63B800AD81E5 /* ComponentMessageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8790FA20AF63B800AD81E5 /* ComponentMessageCardView.swift */; };
-		3A87910420B3718600AD81E5 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A87910320B3718600AD81E5 /* ArrayExtensions.swift */; };
 		3A883C5D1FBB71BA00B44116 /* BubbleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */; };
 		3A883C5F1FBBAB1800B44116 /* CALayerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */; };
 		3A8C2F0A1FAA152E00F2407A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C2F091FAA152E00F2407A /* Session.swift */; };
@@ -737,7 +736,6 @@
 		3A8790F620AE20BA00AD81E5 /* ChatMessageCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageCarousel.swift; sourceTree = "<group>"; };
 		3A8790F820AE241200AD81E5 /* ChatCarouselMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCarouselMessageCell.swift; sourceTree = "<group>"; };
 		3A8790FA20AF63B800AD81E5 /* ComponentMessageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentMessageCardView.swift; sourceTree = "<group>"; };
-		3A87910320B3718600AD81E5 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		3A883C5C1FBB71BA00B44116 /* BubbleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleButton.swift; sourceTree = "<group>"; };
 		3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtensions.swift; sourceTree = "<group>"; };
 		3A8C2F091FAA152E00F2407A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -1037,7 +1035,6 @@
 			children = (
 				3A0015C920E581A700781290 /* AnyCodable */,
 				3A080191215C2B1C00C1826A /* ReSwift */,
-				3A87910320B3718600AD81E5 /* ArrayExtensions.swift */,
 				3A9310E521375CE400B20A76 /* BidirectionalCollectionExtensions.swift */,
 				3A883C5E1FBBAB1800B44116 /* CALayerExtensions.swift */,
 				3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */,
@@ -2211,7 +2208,6 @@
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */,
 				30131FDD1EB11080009E7299 /* VerticalAlignment.swift in Sources */,
-				281C349A1E7F092C001A2AA3 /* ComponentPreviewViewController.swift in Sources */,
 				3AB8F14F216D235600785326 /* Result.swift in Sources */,
 				3A9EF226202A53390092A1AA /* NotificationBanner.swift in Sources */,
 				3A883C5F1FBBAB1800B44116 /* CALayerExtensions.swift in Sources */,
@@ -2305,7 +2301,6 @@
 				3A9EF21D2028C0A00092A1AA /* RestartConfirmationActionSheet.swift in Sources */,
 				307484D91EB8F2CB008CF3E4 /* ActionFactory.swift in Sources */,
 				302A20AC1E5DF110007C522A /* ModalCardTitleView.swift in Sources */,
-				3A87910420B3718600AD81E5 /* ArrayExtensions.swift in Sources */,
 				30131F9E1EAFB3B2009E7299 /* ASAPPButtonColors.swift in Sources */,
 				306CA6601E953AAB00CFE17D /* ASAPPConfig.swift in Sources */,
 				3A0801A7215C2B7B00C1826A /* StoreSubscriber.swift in Sources */,
