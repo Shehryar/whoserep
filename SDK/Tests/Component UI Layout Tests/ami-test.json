@@ -1,0 +1,599 @@
+
+{
+  "metadata": {
+    "flowId": "f7b219c8-6b11-4682-aa1a-220838775b1a",
+    "flowName": "LoanStatusFlow",
+    "intent": "LEASEBAL",
+    "isForm": false,
+    "viewName": "LoanStatusView"
+  },
+  "root": {
+    "content": {
+      "root": {
+        "content": {
+          "items": [
+            {
+              "content": {
+                "text": "Loan for"
+              },
+              "style": {
+                "marginBottom": 12,
+                "textType": "subheader"
+              },
+              "type": "label"
+            },
+            {
+              "content": {
+                "text": "BST SAM G950P SLV XSGL"
+              },
+              "style": {
+                "marginBottom": 12,
+                "textType": "header2"
+              },
+              "type": "label"
+            },
+            {
+              "content": {
+                "text": "(000) 034-8127"
+              },
+              "style": {
+                "marginBottom": 20,
+                "textType": "subheader"
+              },
+              "type": "label"
+            },
+            {
+              "content": {
+                "separatorStyle": "horizontal"
+              },
+              "style": {
+                "marginBottom": 20
+              },
+              "type": "separator"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Subtotal"
+                    },
+                    "style": {
+                      "textType": "detail1"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$595.00"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "detail1",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Federal sales tax"
+                    },
+                    "style": {
+                      "textType": "detail1"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$54.14"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "detail1",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Item discount"
+                    },
+                    "style": {
+                      "textType": "detail1"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "-$0.00"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "detail1",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Purchase Price"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$595.00"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Downpayment"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$395.00"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Amount financed"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$200.00"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "separatorStyle": "horizontal"
+              },
+              "style": {
+                "marginBottom": 20
+              },
+              "type": "separator"
+            },
+            {
+              "content": {
+                "text": "Payment details"
+              },
+              "style": {
+                "marginBottom": 20,
+                "textType": "subheader"
+              },
+              "type": "label"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Current Balance"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$200.00"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Monthly payment"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$11.12"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Last installment"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "$10.96"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Payments remaining"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "18"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "separatorStyle": "horizontal"
+              },
+              "style": {
+                "marginBottom": 20
+              },
+              "type": "separator"
+            },
+            {
+              "content": {
+                "text": "Loan details"
+              },
+              "style": {
+                "marginBottom": 20,
+                "textType": "subheader"
+              },
+              "type": "label"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Issued to"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "Remw Dxpqmbl"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Date issued"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "11/15/18"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Loan #"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "PSC-P-474109"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Loan sequence #"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "57562203"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Status"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "OPEN"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            },
+            {
+              "content": {
+                "items": [
+                  {
+                    "content": {
+                      "text": "Term"
+                    },
+                    "style": {
+                      "textType": "body"
+                    },
+                    "type": "label"
+                  },
+                  {
+                    "content": {
+                      "text": "18 months"
+                    },
+                    "style": {
+                      "textAlign": "right",
+                      "textType": "bodyBold",
+                      "weight": 1
+                    },
+                    "type": "label"
+                  }
+                ],
+                "orientation": "horizontal"
+              },
+              "style": {
+                "marginBottom": 12
+              },
+              "type": "stackView"
+            }
+          ]
+        },
+        "style": {
+          "padding": 32
+        },
+        "type": "stackView"
+      }
+    },
+    "type": "scrollView"
+  },
+  "type": "view"
+}

@@ -32,6 +32,7 @@
 		3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */; };
 		3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */; };
 		3A0521801F9FD41C0072D089 /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
+		3A05DFE421C1CC6200BB3790 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */; };
 		3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */; };
 		3A0F04AC200948DF0064E76F /* HTTPActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F04AB200948DF0064E76F /* HTTPActionSpec.swift */; };
 		3A0F04AE200955C30064E76F /* APIActionResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F04AD200955C30064E76F /* APIActionResponseSpec.swift */; };
@@ -1468,6 +1469,7 @@
 			files = (
 				3AA19CE6219F4BB00072D267 /* Images.swift in Sources */,
 				3AA19CF621A322AB0072D267 /* FontLoader.swift in Sources */,
+				3A05DFE421C1CC6200BB3790 /* SingleMessageViewController.swift in Sources */,
 				3AA19CF521A322A80072D267 /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
