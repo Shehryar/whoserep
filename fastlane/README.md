@@ -20,6 +20,11 @@ or alternatively using `brew cask install fastlane`
 fastlane archive_framework_local
 ```
 
+### update_jira_issue
+```
+fastlane update_jira_issue
+```
+
 
 ----
 

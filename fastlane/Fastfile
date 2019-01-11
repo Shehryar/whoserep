@@ -79,6 +79,7 @@ platform :ios do
     sh 'cp "$DSYM_OUTPUT_PATH" ../build/'
     
     cleanTagAndPush
+    update_jira_issue
 
     buildNumber = get_build_number(xcodeproj: TEST_APP_PROJECT)
     sh "cd ../ && scripts/circleci_slack_rc_distributed.sh #{buildNumber}"
@@ -284,4 +285,22 @@ lane :archive_framework_local do
     output_name: "ASAPP.framework"
   )
   xcode_select("/Applications/Xcode.app")
+end
+
+lane :update_jira_issue do
+  
+  build_number = get_build_number(xcodeproj: "SDK/ASAPPTest/ASAPPTest.xcodeproj")
+  commit = last_git_commit
+  commit_message = commit[:message]
+  username = 'shussain@asapp.com'
+  token = ENV[JIRA_API_TOKEN]
+  url = "asappinc.atlassian.net"
+  jira_build_number(
+    commit_message: commit_message, 
+    url: url,
+    username: username,
+    token: password,
+    build_number: build_number
+    )
+  
 end
