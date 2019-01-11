@@ -72,7 +72,7 @@ extension BaseViewController {
         
         let branding = AppSettings.shared.branding
         
-        navBar.isTranslucent = true
+        navBar.isTranslucent = false
         navBar.setBackgroundImage(nil, for: .default)
         navBar.backgroundColor = nil
         if branding.colors.navBarColor == UIColor.black {

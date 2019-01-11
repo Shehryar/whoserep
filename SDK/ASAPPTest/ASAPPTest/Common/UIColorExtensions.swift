@@ -157,12 +157,8 @@ extension UIColor {
 // MARK: - Highlight Colors
 
 internal extension UIColor {
-    func highlightColor() -> UIColor? {
-        if isBright() {
-            return colorWithRelativeBrightness(-0.14)
-        } else {
-            return colorWithRelativeBrightness(0.14)
-        }
+    func highlightColor() -> UIColor {
+        return (isBright() ? colorWithRelativeBrightness(-0.14) : colorWithRelativeBrightness(0.14)) ?? self
     }
 }
 

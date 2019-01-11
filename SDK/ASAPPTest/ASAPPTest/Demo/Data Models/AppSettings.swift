@@ -183,7 +183,6 @@ extension AppSettings {
             "user-gustavo",
             "user-mitch",
             "user-joshua",
-            "user-tim",
             "user-tony",
             "user-rachel",
             "user-max"
@@ -192,7 +191,6 @@ extension AppSettings {
     
     class var defaultAppearanceConfigs: [AppearanceConfig] {
         let boostOrange = Color(uiColor: UIColor(hexString: "#f7901e")!)!
-        let boostGrey = Color(uiColor: UIColor(hexString: "#373737")!)!
         let telstraBlue = Color(uiColor: UIColor(red: 0, green: 0.6, blue: 0.89, alpha: 1))!
         let verizonBlue = Color(uiColor: UIColor(red: 0.22, green: 0.55, blue: 0.98, alpha: 1))!
         let spectrumBlue = Color(uiColor: UIColor(red: 0, green: 0.45, blue: 0.82, alpha: 1))!
@@ -205,10 +203,10 @@ extension AppSettings {
             AppearanceConfig.create(name: "Spear", brand: .boost, logo: Image(id: "boost", uiImage: #imageLiteral(resourceName: "boost-logo-light")), colors: [
                 .demoNavBar: black,
                 .primary: boostOrange,
-                .dark: boostGrey
+                .dark: black
             ], strings: [
                 .helpButton: "CHAT"
-            ], fontFamilyName: .boost, segue: .present),
+            ], fontFamilyName: .system, segue: .present),
             
             AppearanceConfig.create(name: "Tetris", brand: .telstra, logo: Image(id: "telstra", uiImage: #imageLiteral(resourceName: "telstra-logo")), colors: [
                 .primary: telstraBlue,
