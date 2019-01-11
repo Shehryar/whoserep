@@ -268,6 +268,9 @@
 		3AE2A9B521AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
 		3AE2A9B621AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
 		3AE2A9B721AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
+		3AE4502221D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4502121D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift */; };
+		3AE4502421D1619600F8E750 /* NavCloseBarButtonItemSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4502321D1619600F8E750 /* NavCloseBarButtonItemSpec.swift */; };
+		3AE4502621D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4502521D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
 		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
@@ -549,6 +552,9 @@
 		3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "date-pickers.json"; sourceTree = "<group>"; };
+		3AE4502121D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButtonSpec.swift; sourceTree = "<group>"; };
+		3AE4502321D1619600F8E750 /* NavCloseBarButtonItemSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavCloseBarButtonItemSpec.swift; sourceTree = "<group>"; };
+		3AE4502521D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingViewSpec.swift; sourceTree = "<group>"; };
 		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
 		3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElementExtensions.swift; sourceTree = "<group>"; };
 		3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentViewController.swift; sourceTree = "<group>"; };
@@ -809,6 +815,7 @@
 			isa = PBXGroup;
 			children = (
 				3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */,
+				3AE4502521D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift */,
 				3A0521631F99211E0072D089 /* BubbleViewSpec.swift */,
 				3A0521651F9926220072D089 /* ButtonSpec.swift */,
 				3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */,
@@ -833,6 +840,7 @@
 				3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */,
 				3A0521791F9E9A000072D089 /* LabelViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
+				3AE4502321D1619600F8E750 /* NavCloseBarButtonItemSpec.swift */,
 				3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */,
 				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
 				3AB8F164217678EF00785326 /* QuickRepliesListViewSpec.swift */,
@@ -846,6 +854,7 @@
 				3A621FD2208E8F8300CB11D6 /* ScaleViewSpec.swift */,
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
+				3AE4502121D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift */,
 				3AB8F162217671E100785326 /* SliderViewSpec.swift */,
 				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
 				3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */,
@@ -1379,6 +1388,7 @@
 				3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */,
 				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
+				3AE4502221D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift in Sources */,
 				3AB92C831FF1BC74000AE21A /* TabViewSpec.swift in Sources */,
 				3AED18F91FA0FD1C005955DA /* RequiredComponentsSpec.swift in Sources */,
 				3ADD60881FE461A900FC783C /* ProgressBarViewSpec.swift in Sources */,
@@ -1403,6 +1413,7 @@
 				3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */,
 				3A7AE86F20518C630087DA45 /* ChatViewControllerSpec.swift in Sources */,
 				3A9EF228202A60510092A1AA /* NotificationBannerSpec.swift in Sources */,
+				3AE4502621D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift in Sources */,
 				3AD3B243205813C6006DD9FA /* RestartButtonTestCase.swift in Sources */,
 				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
@@ -1416,6 +1427,7 @@
 				3A675BF7211B914F0077BC00 /* ComponentViewContainerController.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A621FD6208E93E800CB11D6 /* FormWithScale.swift in Sources */,
+				3AE4502421D1619600F8E750 /* NavCloseBarButtonItemSpec.swift in Sources */,
 				3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */,
 				3AA1E4F51FF569E300548E3D /* ChatMessagesViewSpec.swift in Sources */,
 				3A8790FD20B3551000AD81E5 /* ChatCarouselMessageCellSpec.swift in Sources */,

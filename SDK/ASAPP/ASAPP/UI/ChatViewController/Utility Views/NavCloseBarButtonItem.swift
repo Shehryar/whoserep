@@ -38,16 +38,10 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         let closeButtonStyle = ASAPP.styles.navBarStyles.buttonImages.close
         let backgroundColor: UIColor? = nil
         let imageSize = closeButtonStyle?.size ?? .zero
-        var imageInsets = closeButtonStyle?.insets ?? .zero
+        let imageInsets = closeButtonStyle?.insets ?? .zero
 
         let foregroundColor = ASAPP.styles.colors.navBarButton
         let activeColor = ASAPP.styles.colors.navBarButtonActive
-        switch side {
-        case .left:
-            imageInsets.right += 20
-        case .right:
-            imageInsets.left += 20
-        }
         
         return Styles(foregroundColor: foregroundColor, activeColor: activeColor, backgroundColor: backgroundColor, imageSize: imageSize, imageInsets: imageInsets)
     }
@@ -59,17 +53,27 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         let button = SizedImageOnlyButton()
         button.imageView?.contentMode = .scaleAspectFit
         
-        var image = closeButtonStyle?.image
+        let image: UIImage?
         switch segue {
-        case .present: break
+        case .present:
+            image = closeButtonStyle?.image
+            styles.imageSize = closeButtonStyle?.size ?? .zero
+            styles.imageInsets = closeButtonStyle?.insets ?? .zero
         case .push:
-            styles.foregroundColor = ASAPP.styles.colors.navBarButton
-            styles.backgroundColor = nil
             image = backButtonStyle?.image
             styles.imageSize = backButtonStyle?.size ?? .zero
             styles.imageInsets = backButtonStyle?.insets ?? .zero
-            styles.imageInsets.right += 40
         }
+        
+        switch side {
+        case .left:
+            styles.imageInsets.right += 40
+        case .right:
+            styles.imageInsets.left += 40
+        }
+        
+        styles.foregroundColor = ASAPP.styles.colors.navBarButton
+        styles.backgroundColor = nil
         
         button.setImage(image?.tinted(styles.foregroundColor, alpha: styles.foregroundColor.cgColor.alpha), for: .normal)
         button.setImage(image?.tinted(styles.activeColor, alpha: styles.activeColor.cgColor.alpha), for: .highlighted)
@@ -84,6 +88,7 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         // Sizing
         button.contentEdgeInsets = .zero
         button.imageEdgeInsets = styles.imageInsets
+        print(button.imageEdgeInsets)
         let buttonSize = CGSize(width: styles.imageSize.width + styles.imageInsets.left + styles.imageInsets.right,
                                 height: styles.imageSize.height + styles.imageInsets.top + styles.imageInsets.bottom)
         
