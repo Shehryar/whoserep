@@ -40,8 +40,38 @@ enum ComponentIcon: String {
     case userUser
     case userUserStanding
     
+    enum Alias: String {
+        case alertError
+        case alertWarning
+        case checkmarkThick
+        case checkmarkThin
+        case clock
+        case userMinus
+        case user
+        case xthick
+        case xthin
+    }
+    
     static func getImage(_ icon: ComponentIcon) -> UIImage? {
         return UIImage(named: icon.rawValue.camelToSnakeCased(), in: ASAPP.bundle, compatibleWith: nil)
+    }
+    
+    private static func resolveAlias(_ alias: Alias) -> ComponentIcon {
+        switch alias {
+        case .alertError: return .notificationAlert
+        case .alertWarning: return .notificationAlert
+        case .checkmarkThick: return .navCheck
+        case .checkmarkThin: return .navCheck
+        case .clock: return .timeClock
+        case .user: return .userUser
+        case .userMinus: return .userCancel
+        case .xthick: return .navClose
+        case .xthin: return .navClose
+        }
+    }
+    
+    static func getImage(fka alias: Alias) -> UIImage? {
+        return getImage(resolveAlias(alias))
     }
 }
 
@@ -56,22 +86,33 @@ class IconItem: Component {
     enum Icon {
         case placeholder // Empty icon
         case named(ComponentIcon)
+        case fka(ComponentIcon.Alias)
         
         func getImage() -> UIImage? {
             switch self {
             case let .named(icon):
                 return ComponentIcon.getImage(icon)
+            case let .fka(alias):
+                return ComponentIcon.getImage(fka: alias)
             case .placeholder:
                 return nil
             }
         }
         
         static func from(_ string: String?) -> Icon? {
-            guard let name = string?.snakeToCamelCased(),
-                  let icon = ComponentIcon(rawValue: name) else {
+            guard let string = string else {
                 return nil
             }
-            return Icon.named(icon)
+            
+            if let alias = ComponentIcon.Alias(rawValue: string) {
+                return Icon.fka(alias)
+            }
+            
+            if let icon = ComponentIcon(rawValue: string.snakeToCamelCased()) {
+                return Icon.named(icon)
+            }
+            
+            return nil
         }
     }
     
