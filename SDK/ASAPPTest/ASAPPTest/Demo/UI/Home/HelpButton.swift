@@ -174,7 +174,7 @@ extension HelpButton {
         label.attributedText = NSAttributedString(string: title, attributes: [
             .font: AppSettings.shared.branding.appearanceConfig.fontFamily.bold.withSize(12),
             .kern: 0.5,
-            .foregroundColor: UIColor.white
+            .foregroundColor: backgroundColors[currentState]?.chooseFirstAcceptableColor(of: [.white, ASAPP.styles.colors.dark, .black], largeText: true) ?? .white
         ])
         
         if let buttonBackgroundColor = backgroundColors[currentState] {

@@ -15,6 +15,11 @@ class SingleMessageViewController: UIViewController {
     var nextEventTime: TimeInterval = 327511937
     
     func createMessageEvent(fileName: String, isReply: Bool = true, time: TimeInterval? = nil) -> Event {
+        let dict = TestUtil.dictForFile(named: fileName)
+        return createMessageEvent(with: dict, isReply: isReply, time: time)
+    }
+    
+    func createMessageEvent(with dict: [String: Any]?, isReply: Bool = true, time: TimeInterval? = nil) -> Event {
         let eventTime: TimeInterval
         if let time = time {
             eventTime = time
@@ -26,8 +31,6 @@ class SingleMessageViewController: UIViewController {
         
         let eventId = nextEventId
         nextEventId += 1
-        
-        let dict = TestUtil.dictForFile(named: fileName)
         
         let event = Event(
             eventId: eventId,
@@ -57,6 +60,12 @@ class SingleMessageViewController: UIViewController {
     
     func showMessage(fileName: String) {
         let event = createMessageEvent(fileName: fileName)
+        messagesView.reloadWithEvents([event])
+    }
+    
+    func showMessage(at path: String) {
+        let dict = TestUtil.dictForFile(at: path)
+        let event = createMessageEvent(with: dict)
         messagesView.reloadWithEvents([event])
     }
     

@@ -59,21 +59,30 @@ class Images: QuickSpec {
             TestUtil.setUpASAPP()
             
             ASAPP.strings = ASAPPStrings()
-            TestUtil.createStyle()
+            ASAPP.styles = ASAPPStyles()
         }
         
         func getViewForPath(_ path: String) -> UIView {
             let dict = TestUtil.dictForFile(at: path)
-            let container = ComponentViewContainer.from(dict)
-            let viewController = ComponentViewController()
-            viewController.componentViewContainer = container
-            return viewController.view
+            if let container = ComponentViewContainer.from(dict) {
+                let viewController = ComponentViewController()
+                viewController.componentViewContainer = container
+                viewController.updateFrames()
+                if let scrollView = viewController.rootView as? ScrollView {
+                    return scrollView.contentView!.view
+                }
+                return viewController.view
+            } else {
+                let singleMessage = SingleMessageViewController()
+                singleMessage.showMessage(at: path)
+                return singleMessage.view
+            }
         }
         
         func recordSnapshots(_ paths: [String]) {
             for path in paths {
                 it(getNameFromPath(path, removing: jsonSuffix)) {
-                    expect(getViewForPath(path)).to(haveValidSnapshot())
+                    expect(getViewForPath(path)).to(recordSnapshot())
                 }
             }
         }

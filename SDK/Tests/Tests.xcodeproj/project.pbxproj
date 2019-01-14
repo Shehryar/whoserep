@@ -32,6 +32,7 @@
 		3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217B1F9EA11E0072D089 /* TextInputViewSpec.swift */; };
 		3A05217E1F9F84600072D089 /* TextAreaViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217D1F9F84600072D089 /* TextAreaViewSpec.swift */; };
 		3A0521801F9FD41C0072D089 /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
+		3A05DFE421C1CC6200BB3790 /* SingleMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5C39020D85B410013A616 /* SingleMessageViewController.swift */; };
 		3A0E7F9E1FB4C98D008F9544 /* BinaryRatingViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */; };
 		3A0F04AC200948DF0064E76F /* HTTPActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F04AB200948DF0064E76F /* HTTPActionSpec.swift */; };
 		3A0F04AE200955C30064E76F /* APIActionResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0F04AD200955C30064E76F /* APIActionResponseSpec.swift */; };
@@ -268,6 +269,9 @@
 		3AE2A9B521AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
 		3AE2A9B621AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
 		3AE2A9B721AE1AAE00C1DEE2 /* date-pickers.json in Resources */ = {isa = PBXBuildFile; fileRef = 3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */; };
+		3AE4502221D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4502121D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift */; };
+		3AE4502421D1619600F8E750 /* NavCloseBarButtonItemSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4502321D1619600F8E750 /* NavCloseBarButtonItemSpec.swift */; };
+		3AE4502621D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE4502521D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift */; };
 		3AED18E21FA0E25B005955DA /* TextAreaMaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05217F1F9FD41B0072D089 /* TextAreaMaxLength.swift */; };
 		3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
 		3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */; };
@@ -291,6 +295,27 @@
 		3AF7E30021889A09008CE29C /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7E2FF21889A09008CE29C /* MockHTTPClient.swift */; };
 		3AF7E3022188C42E008CE29C /* ConversationManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7E3012188C42E008CE29C /* ConversationManagerSpec.swift */; };
 		3AF7E3042188D6F5008CE29C /* MockConversationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7E3032188D6F5008CE29C /* MockConversationManagerDelegate.swift */; };
+		5F1142BF21D4042C00690263 /* ChatMessagesViewDataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1142BE21D4042C00690263 /* ChatMessagesViewDataSourceSpec.swift */; };
+		5F1142C121D53DDB00690263 /* event-list-long.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F1142C021D53DDA00690263 /* event-list-long.json */; };
+		5F1142C221D57C7D00690263 /* event-list-long.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F1142C021D53DDA00690263 /* event-list-long.json */; };
+		5F873D6021D6AF84005945EA /* ModalCardViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D5F21D6AF84005945EA /* ModalCardViewControllerSpec.swift */; };
+		5F873D6121D6AF84005945EA /* ModalCardViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D5F21D6AF84005945EA /* ModalCardViewControllerSpec.swift */; };
+		5F873D6221DA6E99005945EA /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; };
+		5F873D6321DA6E99005945EA /* Nimble.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A04294A1F97C2980031CD78 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5F873D6421DA6E99005945EA /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; };
+		5F873D6521DA6E99005945EA /* Quick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A0429481F97C2890031CD78 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5F873D6721DA7315005945EA /* ComponentNavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6621DA7315005945EA /* ComponentNavigationControllerSpec.swift */; };
+		5F873D6821DA7315005945EA /* ComponentNavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6621DA7315005945EA /* ComponentNavigationControllerSpec.swift */; };
+		5F873D6A21DAC481005945EA /* DeepLinkActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6921DAC481005945EA /* DeepLinkActionSpec.swift */; };
+		5F873D6B21DAC481005945EA /* DeepLinkActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6921DAC481005945EA /* DeepLinkActionSpec.swift */; };
+		5F873D6D21DAC7E9005945EA /* UserLoginActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6C21DAC7E9005945EA /* UserLoginActionSpec.swift */; };
+		5F873D6E21DAC7E9005945EA /* UserLoginActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6C21DAC7E9005945EA /* UserLoginActionSpec.swift */; };
+		5F873D7021DD3011005945EA /* LinkActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6F21DD3011005945EA /* LinkActionSpec.swift */; };
+		5F873D7121DD3011005945EA /* LinkActionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D6F21DD3011005945EA /* LinkActionSpec.swift */; };
+		5F873D7321DD42E2005945EA /* PartnerEventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D7221DD42E2005945EA /* PartnerEventSpec.swift */; };
+		5F873D7421DD42E2005945EA /* PartnerEventSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D7221DD42E2005945EA /* PartnerEventSpec.swift */; };
+		5F873D7621DD6783005945EA /* ImageViewerImageSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D7521DD6783005945EA /* ImageViewerImageSpec.swift */; };
+		5F873D7721DD6783005945EA /* ImageViewerImageSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F873D7521DD6783005945EA /* ImageViewerImageSpec.swift */; };
 		5FE2357121ACAB9A008461A7 /* FeedbackFormTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2357021ACAB9A008461A7 /* FeedbackFormTestCases.swift */; };
 		5FE2357321AD8B7B008461A7 /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */; };
 		5FE2357421AD8B7B008461A7 /* FeedbackForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */; };
@@ -339,6 +364,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3A0429191F97A2DF0031CD78 /* ASAPP.framework in Embed Frameworks */,
+				5F873D6321DA6E99005945EA /* Nimble.framework in Embed Frameworks */,
+				5F873D6521DA6E99005945EA /* Quick.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,6 +553,9 @@
 		3AE183A82059C80000FD0D7A /* RestartConfirmationActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartConfirmationActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AE183AA2059C8A200FD0D7A /* WelcomeBackActionSheetTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeBackActionSheetTestCase.swift; sourceTree = "<group>"; };
 		3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "date-pickers.json"; sourceTree = "<group>"; };
+		3AE4502121D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedImageOnlyButtonSpec.swift; sourceTree = "<group>"; };
+		3AE4502321D1619600F8E750 /* NavCloseBarButtonItemSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavCloseBarButtonItemSpec.swift; sourceTree = "<group>"; };
+		3AE4502521D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncingBallsLoadingViewSpec.swift; sourceTree = "<group>"; };
 		3AED18E31FA0E338005955DA /* IdentifiableTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableTestCase.swift; sourceTree = "<group>"; };
 		3AED18E61FA0E669005955DA /* XCUIElementExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElementExtensions.swift; sourceTree = "<group>"; };
 		3AED18EA1FA0E870005955DA /* SingleComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleComponentViewController.swift; sourceTree = "<group>"; };
@@ -540,6 +570,15 @@
 		3AF7E2FF21889A09008CE29C /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		3AF7E3012188C42E008CE29C /* ConversationManagerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationManagerSpec.swift; sourceTree = "<group>"; };
 		3AF7E3032188D6F5008CE29C /* MockConversationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConversationManagerDelegate.swift; sourceTree = "<group>"; };
+		5F1142BE21D4042C00690263 /* ChatMessagesViewDataSourceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesViewDataSourceSpec.swift; sourceTree = "<group>"; };
+		5F1142C021D53DDA00690263 /* event-list-long.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "event-list-long.json"; sourceTree = "<group>"; };
+		5F873D5F21D6AF84005945EA /* ModalCardViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCardViewControllerSpec.swift; sourceTree = "<group>"; };
+		5F873D6621DA7315005945EA /* ComponentNavigationControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentNavigationControllerSpec.swift; sourceTree = "<group>"; };
+		5F873D6921DAC481005945EA /* DeepLinkActionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkActionSpec.swift; sourceTree = "<group>"; };
+		5F873D6C21DAC7E9005945EA /* UserLoginActionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginActionSpec.swift; sourceTree = "<group>"; };
+		5F873D6F21DD3011005945EA /* LinkActionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkActionSpec.swift; sourceTree = "<group>"; };
+		5F873D7221DD42E2005945EA /* PartnerEventSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerEventSpec.swift; sourceTree = "<group>"; };
+		5F873D7521DD6783005945EA /* ImageViewerImageSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerImageSpec.swift; sourceTree = "<group>"; };
 		5FE2357021ACAB9A008461A7 /* FeedbackFormTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFormTestCases.swift; sourceTree = "<group>"; };
 		5FE2357221AD8B7B008461A7 /* FeedbackForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackForm.swift; sourceTree = "<group>"; };
 		5FE2357621AD94B9008461A7 /* feedback-form-test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "feedback-form-test.json"; sourceTree = "<group>"; };
@@ -551,6 +590,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A1A13B31F97D4B700B647C7 /* ASAPP.framework in Frameworks */,
+				5F873D6221DA6E99005945EA /* Nimble.framework in Frameworks */,
+				5F873D6421DA6E99005945EA /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +668,7 @@
 				3A675BFE211C840E0077BC00 /* data-usage.json */,
 				3AE2A9B221AE1AAE00C1DEE2 /* date-pickers.json */,
 				3A9F51C01FB122F3009C68AE /* event-list.json */,
+				5F1142C021D53DDA00690263 /* event-list-long.json */,
 				3A127DB71FC4E1A300EEF9E0 /* feedback-form.json */,
 				3A95F2D820AD06EA00885C94 /* feedback-form-image.json */,
 				3AA0D3B520AA160B00A04206 /* feedback-form-radio.json */,
@@ -738,26 +780,34 @@
 		3A797B811F97A29D00883ABF /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				3AA1E4F81FFC761000548E3D /* Mocks */,
 				3A0F04AF200F057E0064E76F /* APIActionErrorSpec.swift */,
 				3A0F04AD200955C30064E76F /* APIActionResponseSpec.swift */,
 				3A0429391F97C23C0031CD78 /* ASAPPSpec.swift */,
 				3AA8DAEE20DD81900062A370 /* CensorSpec.swift */,
-				3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */,
 				3A0521701F9A976B0072D089 /* ChatMessageAttachmentSpec.swift */,
+				3A04293B1F97C23E0031CD78 /* ChatMessageSpec.swift */,
+				5F1142BE21D4042C00690263 /* ChatMessagesViewDataSourceSpec.swift */,
 				3AD60A9D204F41ED00C0F2C2 /* CodableStorageSpec.swift */,
 				3A127DB41FC4DCAE00EEF9E0 /* ComponentLayoutEngineSpec.swift */,
+				5F873D6621DA7315005945EA /* ComponentNavigationControllerSpec.swift */,
 				3AF7E3012188C42E008CE29C /* ConversationManagerSpec.swift */,
-				3AB92C7E1FED8B25000AE21A /* EventSpec.swift */,
+				5F873D6921DAC481005945EA /* DeepLinkActionSpec.swift */,
 				3A0521751F9E66480072D089 /* EventMetadataSpec.swift */,
+				3AB92C7E1FED8B25000AE21A /* EventSpec.swift */,
 				3A0521771F9E6C7A0072D089 /* EventTypeSpec.swift */,
 				3A0F04AB200948DF0064E76F /* HTTPActionSpec.swift */,
 				3AB92C801FF192FD000AE21A /* HTTPClientSpec.swift */,
 				3A33A5AE1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift */,
+				5F873D6F21DD3011005945EA /* LinkActionSpec.swift */,
+				5F873D7221DD42E2005945EA /* PartnerEventSpec.swift */,
+				5F873D7521DD6783005945EA /* ImageViewerImageSpec.swift */,
+				3A797B841F97A29D00883ABF /* Info.plist */,
+				3AA1E4F81FFC761000548E3D /* Mocks */,
+				5F873D5F21D6AF84005945EA /* ModalCardViewControllerSpec.swift */,
 				3AD60A9F2050652F00C0F2C2 /* SavedSessionManagerSpec.swift */,
 				3AA1E4F61FF5B26D00548E3D /* SocketConnectionSpec.swift */,
 				3A0F04B1201040250064E76F /* SocketRequestSpec.swift */,
-				3A797B841F97A29D00883ABF /* Info.plist */,
+				5F873D6C21DAC7E9005945EA /* UserLoginActionSpec.swift */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -766,6 +816,7 @@
 			isa = PBXGroup;
 			children = (
 				3A0E7F9D1FB4C98D008F9544 /* BinaryRatingViewSpec.swift */,
+				3AE4502521D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift */,
 				3A0521631F99211E0072D089 /* BubbleViewSpec.swift */,
 				3A0521651F9926220072D089 /* ButtonSpec.swift */,
 				3A4C36B51FB9FF4C008A471C /* ButtonViewSpec.swift */,
@@ -790,6 +841,7 @@
 				3A391B4F1FA3B0B90085C2DA /* InvalidInputsSpec.swift */,
 				3A0521791F9E9A000072D089 /* LabelViewSpec.swift */,
 				3A0521721F9E34C00072D089 /* NavBarButtonItemSpec.swift */,
+				3AE4502321D1619600F8E750 /* NavCloseBarButtonItemSpec.swift */,
 				3A9EF227202A60510092A1AA /* NotificationBannerSpec.swift */,
 				3ADD60871FE461A900FC783C /* ProgressBarViewSpec.swift */,
 				3AB8F164217678EF00785326 /* QuickRepliesListViewSpec.swift */,
@@ -803,6 +855,7 @@
 				3A621FD2208E8F8300CB11D6 /* ScaleViewSpec.swift */,
 				3ADD608D1FE84DFD00FC783C /* ScrollViewSpec.swift */,
 				3ADD60891FE83AA200FC783C /* SeparatorViewSpec.swift */,
+				3AE4502121D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift */,
 				3AB8F162217671E100785326 /* SliderViewSpec.swift */,
 				3ADD608B1FE8412C00FC783C /* StackViewSpec.swift */,
 				3AB92C821FF1BC74000AE21A /* TabViewSpec.swift */,
@@ -1032,6 +1085,7 @@
 				3A797B781F97A29D00883ABF /* LaunchScreen.storyboard in Resources */,
 				3A9F51C11FB122F3009C68AE /* event-list.json in Resources */,
 				3A127DB81FC4E1A300EEF9E0 /* feedback-form.json in Resources */,
+				5F1142C221D57C7D00690263 /* event-list-long.json in Resources */,
 				3A391B491FA283E90085C2DA /* change-pin-form-proper-padding.json in Resources */,
 				3A17D1A221B5D4BC00D94491 /* scales.json in Resources */,
 				3A4B43C621403D5B00D729CF /* Lato-Bold.ttf in Resources */,
@@ -1084,6 +1138,7 @@
 				3ADF49392113B3F200315E87 /* image-and-buttons.json in Resources */,
 				3A675C05211C88B50077BC00 /* tab-view.json in Resources */,
 				3AA86440218CB94E006F0971 /* checkbox-with-label.json in Resources */,
+				5F1142C121D53DDB00690263 /* event-list-long.json in Resources */,
 				3A99523420DDDA7700343D10 /* censor-password.json in Resources */,
 				3ADF49342113B33500315E87 /* card-and-buttons.json in Resources */,
 				3A87910020B3559E00AD81E5 /* carousel-uneven.json in Resources */,
@@ -1241,18 +1296,25 @@
 			files = (
 				3A391B381FA14E080085C2DA /* FormValidation.swift in Sources */,
 				3A0521801F9FD41C0072D089 /* TextAreaMaxLength.swift in Sources */,
+				5F873D6D21DAC7E9005945EA /* UserLoginActionSpec.swift in Sources */,
 				3AED18EF1FA0EB45005955DA /* TextInputMaxLength.swift in Sources */,
 				3AED18E41FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3AED18EB1FA0E870005955DA /* SingleComponentViewController.swift in Sources */,
+				5F873D6721DA7315005945EA /* ComponentNavigationControllerSpec.swift in Sources */,
 				3A621FD5208E93E800CB11D6 /* FormWithScale.swift in Sources */,
+				5F873D7621DD6783005945EA /* ImageViewerImageSpec.swift in Sources */,
 				3AF5C39120D85B410013A616 /* SingleMessageViewController.swift in Sources */,
+				5F873D6021D6AF84005945EA /* ModalCardViewControllerSpec.swift in Sources */,
+				5F873D7021DD3011005945EA /* LinkActionSpec.swift in Sources */,
 				3A675BF6211B91460077BC00 /* ComponentViewContainerController.swift in Sources */,
 				3A7B8ED520ACDDCB00DC5EAE /* ImageLayout.swift in Sources */,
 				3A4B43AE2140396400D729CF /* FontLoader.swift in Sources */,
+				5F873D6A21DAC481005945EA /* DeepLinkActionSpec.swift in Sources */,
 				3A797B6E1F97A29D00883ABF /* AppDelegate.swift in Sources */,
 				3AA0D3BA20AA16AC00A04206 /* FormWithRadio.swift in Sources */,
 				3A4FC2851FE1A3550098BAE2 /* Dropdown.swift in Sources */,
 				5FE2357321AD8B7B008461A7 /* FeedbackForm.swift in Sources */,
+				5F873D7321DD42E2005945EA /* PartnerEventSpec.swift in Sources */,
 				3A391B3A1FA14EAC0085C2DA /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1269,11 +1331,17 @@
 				3AA1E4F71FF5B26D00548E3D /* SocketConnectionSpec.swift in Sources */,
 				3A304C44207FFAB60072BA56 /* MockUserDefaults.swift in Sources */,
 				3AB92C811FF192FD000AE21A /* HTTPClientSpec.swift in Sources */,
+				5F1142BF21D4042C00690263 /* ChatMessagesViewDataSourceSpec.swift in Sources */,
+				5F873D6E21DAC7E9005945EA /* UserLoginActionSpec.swift in Sources */,
+				5F873D7121DD3011005945EA /* LinkActionSpec.swift in Sources */,
 				3AF7E30021889A09008CE29C /* MockHTTPClient.swift in Sources */,
+				5F873D7721DD6783005945EA /* ImageViewerImageSpec.swift in Sources */,
+				5F873D6B21DAC481005945EA /* DeepLinkActionSpec.swift in Sources */,
 				3A04293C1F97C23E0031CD78 /* ChatMessageSpec.swift in Sources */,
 				3A0F04AC200948DF0064E76F /* HTTPActionSpec.swift in Sources */,
 				3A4B43B12140396400D729CF /* FontLoader.swift in Sources */,
 				3AD60AA02050652F00C0F2C2 /* SavedSessionManagerSpec.swift in Sources */,
+				5F873D6121D6AF84005945EA /* ModalCardViewControllerSpec.swift in Sources */,
 				3A0F04B2201040250064E76F /* SocketRequestSpec.swift in Sources */,
 				3A04291F1F97C1B70031CD78 /* TestUtil.swift in Sources */,
 				3A0F04B0200F057E0064E76F /* APIActionErrorSpec.swift in Sources */,
@@ -1281,10 +1349,12 @@
 				3AD60A9C204F3CE100C0F2C2 /* MockFileManager.swift in Sources */,
 				3AA8DAEF20DD81900062A370 /* CensorSpec.swift in Sources */,
 				3A0521711F9A976B0072D089 /* ChatMessageAttachmentSpec.swift in Sources */,
+				5F873D6821DA7315005945EA /* ComponentNavigationControllerSpec.swift in Sources */,
 				3A33A5AF1FB107F90012A01C /* IncomingMessageDeserializerSpec.swift in Sources */,
 				3AD60A9E204F41ED00C0F2C2 /* CodableStorageSpec.swift in Sources */,
 				3AB92C7F1FED8B25000AE21A /* EventSpec.swift in Sources */,
 				3A04293A1F97C23C0031CD78 /* ASAPPSpec.swift in Sources */,
+				5F873D7421DD42E2005945EA /* PartnerEventSpec.swift in Sources */,
 				3AF7E3022188C42E008CE29C /* ConversationManagerSpec.swift in Sources */,
 				3AA1E4FC1FFC766600548E3D /* MockPushNotificationsManager.swift in Sources */,
 				3AF7E3042188D6F5008CE29C /* MockConversationManagerDelegate.swift in Sources */,
@@ -1319,6 +1389,7 @@
 				3ADD608A1FE83AA200FC783C /* SeparatorViewSpec.swift in Sources */,
 				3AED18E51FA0E338005955DA /* IdentifiableTestCase.swift in Sources */,
 				3A0521641F99211E0072D089 /* BubbleViewSpec.swift in Sources */,
+				3AE4502221D15BC300F8E750 /* SizedImageOnlyButtonSpec.swift in Sources */,
 				3AB92C831FF1BC74000AE21A /* TabViewSpec.swift in Sources */,
 				3AED18F91FA0FD1C005955DA /* RequiredComponentsSpec.swift in Sources */,
 				3ADD60881FE461A900FC783C /* ProgressBarViewSpec.swift in Sources */,
@@ -1343,6 +1414,7 @@
 				3AA1E4ED1FF2FA9D00548E3D /* ChatMessagesTimeHeaderViewSpec.swift in Sources */,
 				3A7AE86F20518C630087DA45 /* ChatViewControllerSpec.swift in Sources */,
 				3A9EF228202A60510092A1AA /* NotificationBannerSpec.swift in Sources */,
+				3AE4502621D2902D00F8E750 /* BouncingBallsLoadingViewSpec.swift in Sources */,
 				3AD3B243205813C6006DD9FA /* RestartButtonTestCase.swift in Sources */,
 				3A05217C1F9EA11E0072D089 /* TextInputViewSpec.swift in Sources */,
 				3A0521731F9E34C00072D089 /* NavBarButtonItemSpec.swift in Sources */,
@@ -1356,6 +1428,7 @@
 				3A675BF7211B914F0077BC00 /* ComponentViewContainerController.swift in Sources */,
 				3A4C36B61FB9FF4C008A471C /* ButtonViewSpec.swift in Sources */,
 				3A621FD6208E93E800CB11D6 /* FormWithScale.swift in Sources */,
+				3AE4502421D1619600F8E750 /* NavCloseBarButtonItemSpec.swift in Sources */,
 				3A4FC2861FE1A3550098BAE2 /* Dropdown.swift in Sources */,
 				3AA1E4F51FF569E300548E3D /* ChatMessagesViewSpec.swift in Sources */,
 				3A8790FD20B3551000AD81E5 /* ChatCarouselMessageCellSpec.swift in Sources */,
@@ -1396,6 +1469,7 @@
 			files = (
 				3AA19CE6219F4BB00072D267 /* Images.swift in Sources */,
 				3AA19CF621A322AB0072D267 /* FontLoader.swift in Sources */,
+				3A05DFE421C1CC6200BB3790 /* SingleMessageViewController.swift in Sources */,
 				3AA19CF521A322A80072D267 /* TestUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

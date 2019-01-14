@@ -101,7 +101,35 @@ extension Branding {
         
         // Boost special cases
         
-        // space left intentionally blank
+        let primary = config.getUIColor(.primary)
+        let dark = config.getUIColor(.dark)
+        let teal = UIColor(red: 0.07, green: 0.64, blue: 0.64, alpha: 1)
+        let red = UIColor(red: 0.93, green: 0.11, blue: 0.16, alpha: 1)
+        let grey = UIColor(red: 0.51, green: 0.51, blue: 0.51, alpha: 1)
+        
+        styles.colors.navBarBackground = .black
+        styles.colors.navBarButton = .white
+        styles.colors.navBarTitle = .white
+        styles.colors.messageText = dark
+        styles.colors.controlTint = teal
+        styles.colors.warning = red
+        
+        styles.textStyles.header1 = ASAPPTextStyle(font: config.fontFamily.light, size: 24, letterSpacing: 0, color: dark)
+        styles.textStyles.header2 = ASAPPTextStyle(font: config.fontFamily.medium, size: 20, letterSpacing: 0, color: dark)
+        styles.textStyles.header3 = ASAPPTextStyle(font: config.fontFamily.medium, size: 18, letterSpacing: 0, color: dark)
+        styles.textStyles.subheader = ASAPPTextStyle(font: config.fontFamily.medium, size: 11, letterSpacing: 0, color: dark)
+        styles.textStyles.body = ASAPPTextStyle(font: config.fontFamily.regular, size: 16, letterSpacing: 0, color: dark)
+        styles.textStyles.bodyBold  = ASAPPTextStyle(font: config.fontFamily.medium, size: 16, letterSpacing: 0, color: dark)
+        styles.textStyles.body2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 15, letterSpacing: 0, color: dark)
+        styles.textStyles.bodyBold2 = ASAPPTextStyle(font: config.fontFamily.medium, size: 16, letterSpacing: 0, color: dark)
+        styles.textStyles.detail1 = ASAPPTextStyle(font: config.fontFamily.regular, size: 11, letterSpacing: 0, color: grey)
+        styles.textStyles.detail2 = ASAPPTextStyle(font: config.fontFamily.regular, size: 12, letterSpacing: 0, color: grey)
+        
+        styles.primaryButtonRoundingStyle = .pill
+        
+        styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary, textColor: dark)
+        styles.colors.buttonSecondary = ASAPPButtonColors(backgroundColor: .clear, textColor: dark, border: primary)
+        styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: primary)
         
         return styles
     }

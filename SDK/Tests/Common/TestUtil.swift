@@ -166,4 +166,18 @@ class TestUtil: NSObject {
         
         return style
     }
+    
+    // MARK: Session management
+    class func createSession(from dict: [String: Any]) -> Session? {
+        let decoder = JSONDecoder()
+        
+        guard let data = try? JSONSerialization.data(withJSONObject: dict, options: []),
+            var session = try? decoder.decode(Session.self, from: data) else {
+                return nil
+        }
+        
+        session.fullInfo = data
+        
+        return session
+    }
 }

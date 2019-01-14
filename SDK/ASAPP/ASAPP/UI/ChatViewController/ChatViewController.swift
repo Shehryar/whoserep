@@ -100,7 +100,7 @@ class ChatViewController: ASAPPViewController {
         automaticallyAdjustsScrollViewInsets = false
         extendedLayoutIncludesOpaqueBars = true
         let side = closeButtonSide(for: segue)
-        let closeButton = NavCloseBarButtonItem(location: .chat, side: .right)
+        let closeButton = NavCloseBarButtonItem(location: .chat, side: side)
             .configSegue(segue)
             .configTarget(self, action: #selector(ChatViewController.didTapCloseButton))
         
