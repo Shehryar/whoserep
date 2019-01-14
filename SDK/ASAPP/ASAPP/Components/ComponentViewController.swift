@@ -32,7 +32,7 @@ protocol ComponentViewControllerDelegate: class {
 
 // MARK: - ComponentViewController
 
-class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableBounds {
+class ComponentViewController: ASAPPViewController, UpdatableFrames {
     
     // MARK: Properties
     
@@ -43,8 +43,6 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
             updateTitleBar()
         }
     }
-    
-    private(set) var originalBounds: CGRect = .zero
     
     weak var delegate: ComponentViewControllerDelegate?
     
@@ -155,8 +153,6 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames, RestorableB
         super.viewDidLoad()
         
         accessibilityViewIsModal = true
-        
-        originalBounds = view.bounds
         
         view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
         

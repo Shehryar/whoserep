@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol RestorableBounds {
-    var originalBounds: CGRect { get }
-}
-
 class ComponentNavigationController: UINavigationController, UpdatableFrames {
     
     let presentationAnimator = ModalCardPresentationAnimator()
@@ -100,9 +96,9 @@ extension ComponentNavigationController: KeyboardObserverDelegate {
         
         keyboardHeight = height
         
-        if let viewController = topViewController as? UpdatableFrames & RestorableBounds,
+        if let viewController = topViewController as? UpdatableFrames,
            let view = topViewController?.view {
-            let newHeight = viewController.originalBounds.height - keyboardHeight
+            let newHeight = view.frame.height - keyboardHeight
             viewController.willUpdateFrames()
             
             UIView.animate(

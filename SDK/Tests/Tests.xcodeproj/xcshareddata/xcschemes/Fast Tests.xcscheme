@@ -178,6 +178,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "feedbackForm"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "message:image-and-buttons"
             isEnabled = "NO">
          </CommandLineArgument>
@@ -191,11 +195,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:carousel-uneven"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "message:carousel-with-images"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "form:image-layout"
