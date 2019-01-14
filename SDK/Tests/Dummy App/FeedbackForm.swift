@@ -56,7 +56,7 @@ extension FeedbackForm: KeyboardObserverDelegate {
         keyboardHeight = height
         let viewController = self
         if let view = view {
-            let newHeight = viewController.originalBounds.height - keyboardHeight
+            let newHeight = view.frame.height - keyboardHeight
             viewController.willUpdateFrames()
             
             UIView.animate(
