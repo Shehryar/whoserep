@@ -187,7 +187,6 @@ platform :ios do
 
   lane :stagingBeta do
     sh "git pull origin staging"
-    
     beta
   end
 
