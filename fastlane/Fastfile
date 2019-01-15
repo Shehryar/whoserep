@@ -292,7 +292,7 @@ lane :update_jira_issue do
   commit = last_git_commit
   commit_message = commit[:message]
   username = 'shussain@asapp.com'
-  token = ENV[JIRA_API_TOKEN]
+  token = ENV['JIRA_API_TOKEN']
   url = "asappinc.atlassian.net"
   jira_build_number(
     commit_message: commit_message, 
