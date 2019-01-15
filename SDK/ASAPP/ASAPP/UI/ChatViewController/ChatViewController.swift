@@ -836,9 +836,6 @@ extension ChatViewController {
         case .api:
             conversationManager.sendRequestForAPIAction(action as! APIAction, formData: formData, completion: { [weak self] (response) in
                 guard let response = response else {
-                    Dispatcher.performOnMainThread { [weak self] in
-                        self?.store.dispatch(QuickReplyActionDidFail())
-                    }
                     return
                 }
                 

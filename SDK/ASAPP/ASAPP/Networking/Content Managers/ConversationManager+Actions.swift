@@ -37,8 +37,13 @@ extension ConversationManager {
         }
  
         let responseHandler: RequestResponseHandler = { message in
-            let response = APIActionResponse.fromJSON(message.body)
-            completion(response)
+            if message.type == .responseError {
+                completion(APIActionResponse(type: .error))
+            }
+            
+            if let response = APIActionResponse.fromJSON(message.body) {
+                completion(response)
+            }
         }
         sendRequest(path: action.requestPath, params: params, completion: responseHandler)
     }
