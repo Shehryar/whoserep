@@ -298,7 +298,7 @@ lane :update_jira_issue do
     commit_message: commit_message, 
     url: url,
     username: username,
-    token: password,
+    token: token,
     build_number: build_number
     )
   
