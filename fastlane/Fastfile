@@ -79,7 +79,7 @@ platform :ios do
     sh 'cp "$DSYM_OUTPUT_PATH" ../build/'
     
     cleanTagAndPush
-    update_jira_issue
+    #update_jira_issue
 
     buildNumber = get_build_number(xcodeproj: TEST_APP_PROJECT)
     sh "cd ../ && scripts/circleci_slack_rc_distributed.sh #{buildNumber}"
