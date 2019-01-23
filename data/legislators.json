@@ -1,0 +1,2781 @@
+[{
+	"id": "N00035380",
+	"name": "Bradley Byrne",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00030768",
+	"name": "Martha Roby",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00024759",
+	"name": "Mike D Rogers",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00003028",
+	"name": "Robert B Aderholt",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00030910",
+	"name": "Mo Brooks",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00035691",
+	"name": "Gary Palmer",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00030622",
+	"name": "Terri A Sewell",
+	"party": "D",
+	"state": "AL"
+}, {
+	"id": "N00003062",
+	"name": "Jeff Sessions",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00024817",
+	"name": "Doug Jones",
+	"party": "D",
+	"state": "AL"
+}, {
+	"id": "N00040607",
+	"name": "Luther Strange",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00009920",
+	"name": "Richard C Shelby",
+	"party": "R",
+	"state": "AL"
+}, {
+	"id": "N00007999",
+	"name": "Don Young",
+	"party": "R",
+	"state": "AK"
+}, {
+	"id": "N00035774",
+	"name": "Dan Sullivan",
+	"party": "R",
+	"state": "AK"
+}, {
+	"id": "N00026050",
+	"name": "Lisa Murkowski",
+	"party": "R",
+	"state": "AK"
+}, {
+	"id": "N00037515",
+	"name": "Tom O'Halleran",
+	"party": "D",
+	"state": "AZ"
+}, {
+	"id": "N00033982",
+	"name": "Martha McSally",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00025284",
+	"name": "Raul M Grijalva",
+	"party": "D",
+	"state": "AZ"
+}, {
+	"id": "N00030771",
+	"name": "Paul Gosar",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00039293",
+	"name": "Andy Biggs",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00006460",
+	"name": "David Schweikert",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00036097",
+	"name": "Ruben Gallego",
+	"party": "D",
+	"state": "AZ"
+}, {
+	"id": "N00042056",
+	"name": "Debbie Lesko",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00006423",
+	"name": "Trent Franks",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00033983",
+	"name": "Kyrsten Sinema",
+	"party": "D",
+	"state": "AZ"
+}, {
+	"id": "N00006424",
+	"name": "John McCain",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00006406",
+	"name": "Jon Kyl",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00009573",
+	"name": "Jeff Flake",
+	"party": "R",
+	"state": "AZ"
+}, {
+	"id": "N00030770",
+	"name": "Rick Crawford",
+	"party": "R",
+	"state": "AR"
+}, {
+	"id": "N00035792",
+	"name": "French Hill",
+	"party": "R",
+	"state": "AR"
+}, {
+	"id": "N00031857",
+	"name": "Steve Womack",
+	"party": "R",
+	"state": "AR"
+}, {
+	"id": "N00035527",
+	"name": "Bruce Westerman",
+	"party": "R",
+	"state": "AR"
+}, {
+	"id": "N00033363",
+	"name": "Tom Cotton",
+	"party": "R",
+	"state": "AR"
+}, {
+	"id": "N00013873",
+	"name": "John Boozman",
+	"party": "R",
+	"state": "AR"
+}, {
+	"id": "N00033987",
+	"name": "Doug LaMalfa",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00033030",
+	"name": "Jared Huffman",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00030856",
+	"name": "John Garamendi",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00006863",
+	"name": "Tom McClintock",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00007419",
+	"name": "Mike Thompson",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00027459",
+	"name": "Doris O Matsui",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00030717",
+	"name": "Ami Bera",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00034224",
+	"name": "Paul Cook",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00026926",
+	"name": "Jerry McNerney",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00031593",
+	"name": "Jeff Denham",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00030709",
+	"name": "Mark Desaulnier",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00007360",
+	"name": "Nancy Pelosi",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00008046",
+	"name": "Barbara Lee",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00029649",
+	"name": "Jackie Speier",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00033508",
+	"name": "Eric Swalwell",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00026341",
+	"name": "Jim Costa",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00026427",
+	"name": "Ro Khanna",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00007335",
+	"name": "Anna Eshoo",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00007479",
+	"name": "Zoe Lofgren",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00038601",
+	"name": "Jimmy Panetta",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00033367",
+	"name": "David Valadao",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00007248",
+	"name": "Devin Nunes",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00028152",
+	"name": "Kevin McCarthy",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00037015",
+	"name": "Salud Carbajal",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00035820",
+	"name": "Steve Knight",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00034254",
+	"name": "Julia Brownley",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00030600",
+	"name": "Judy Chu",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00009585",
+	"name": "Adam Schiff",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00033373",
+	"name": "Tony Cardenas",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00006897",
+	"name": "Brad Sherman",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00033997",
+	"name": "Pete Aguilar",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00006789",
+	"name": "Grace Napolitano",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00035825",
+	"name": "Ted Lieu",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00040597",
+	"name": "Jimmy Gomez",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00009774",
+	"name": "Xavier Becerra",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00036107",
+	"name": "Norma Torres",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00033510",
+	"name": "Raul Ruiz",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00031877",
+	"name": "Karen Bass",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00024870",
+	"name": "Linda Sanchez",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00008264",
+	"name": "Ed Royce",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00006671",
+	"name": "Lucille Roybal-Allard",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00006701",
+	"name": "Mark Takano",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00007099",
+	"name": "Ken Calvert",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00006690",
+	"name": "Maxine Waters",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00037019",
+	"name": "Nanette Barragan",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00035391",
+	"name": "Mimi Walters",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00037260",
+	"name": "Lou Correa",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00033274",
+	"name": "Alan Lowenthal",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00007151",
+	"name": "Dana Rohrabacher",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00007017",
+	"name": "Darrell Issa",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00029258",
+	"name": "Duncan D Hunter",
+	"party": "R",
+	"state": "CA"
+}, {
+	"id": "N00007021",
+	"name": "Juan Vargas",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00033591",
+	"name": "Scott Peters",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00009604",
+	"name": "Susan A Davis",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00036915",
+	"name": "Kamala D Harris",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00007364",
+	"name": "Dianne Feinstein",
+	"party": "D",
+	"state": "CA"
+}, {
+	"id": "N00006134",
+	"name": "Diana DeGette",
+	"party": "D",
+	"state": "CO"
+}, {
+	"id": "N00029127",
+	"name": "Jared Polis",
+	"party": "D",
+	"state": "CO"
+}, {
+	"id": "N00027509",
+	"name": "Scott Tipton",
+	"party": "R",
+	"state": "CO"
+}, {
+	"id": "N00030829",
+	"name": "Kenneth R Buck",
+	"party": "R",
+	"state": "CO"
+}, {
+	"id": "N00028133",
+	"name": "Douglas L Lamborn",
+	"party": "R",
+	"state": "CO"
+}, {
+	"id": "N00024753",
+	"name": "Mike Coffman",
+	"party": "R",
+	"state": "CO"
+}, {
+	"id": "N00027510",
+	"name": "Ed Perlmutter",
+	"party": "D",
+	"state": "CO"
+}, {
+	"id": "N00030608",
+	"name": "Michael F Bennet",
+	"party": "D",
+	"state": "CO"
+}, {
+	"id": "N00030780",
+	"name": "Cory Gardner",
+	"party": "R",
+	"state": "CO"
+}, {
+	"id": "N00000575",
+	"name": "John B Larson",
+	"party": "D",
+	"state": "CT"
+}, {
+	"id": "N00024842",
+	"name": "Joe Courtney",
+	"party": "D",
+	"state": "CT"
+}, {
+	"id": "N00000615",
+	"name": "Rosa L DeLauro",
+	"party": "D",
+	"state": "CT"
+}, {
+	"id": "N00029070",
+	"name": "Jim Himes",
+	"party": "D",
+	"state": "CT"
+}, {
+	"id": "N00033217",
+	"name": "Elizabeth Esty",
+	"party": "D",
+	"state": "CT"
+}, {
+	"id": "N00027566",
+	"name": "Christopher S Murphy",
+	"party": "D",
+	"state": "CT"
+}, {
+	"id": "N00031685",
+	"name": "Richard Blumenthal",
+	"party": "D",
+	"state": "CT"
+}, {
+	"id": "N00001692",
+	"name": "Eleanor Holmes Norton",
+	"party": "D",
+	"state": "DC"
+}, {
+	"id": "N00038414",
+	"name": "Lisa Blunt Rochester",
+	"party": "D",
+	"state": "DE"
+}, {
+	"id": "N00012508",
+	"name": "Tom Carper",
+	"party": "D",
+	"state": "DE"
+}, {
+	"id": "N00031820",
+	"name": "Chris Coons",
+	"party": "D",
+	"state": "DE"
+}, {
+	"id": "N00039503",
+	"name": "Matt Gaetz",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00037442",
+	"name": "Neal Dunn",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00033220",
+	"name": "Ted Yoho",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00039777",
+	"name": "John Rutherford",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00030642",
+	"name": "Al Lawson",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00034746",
+	"name": "Ron DeSantis",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00040133",
+	"name": "Stephanie Murphy",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00029662",
+	"name": "Bill Posey",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00037422",
+	"name": "Darren Soto",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00033449",
+	"name": "Val Demings",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00026335",
+	"name": "Daniel Webster",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00027462",
+	"name": "Gus Bilirakis",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00002942",
+	"name": "Charlie Crist",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00027514",
+	"name": "Kathy Castor",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00030645",
+	"name": "Dennis Ross",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00027626",
+	"name": "Vernon Buchanan",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00029018",
+	"name": "Tom Rooney",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00037269",
+	"name": "Brian Mast",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00040007",
+	"name": "Francis Rooney",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00002884",
+	"name": "Alcee L Hastings",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00002893",
+	"name": "Lois J Frankel",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00031317",
+	"name": "Ted Deutch",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00026106",
+	"name": "Debbie Wasserman Schultz",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00030650",
+	"name": "Frederica Wilson",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00025337",
+	"name": "Mario Diaz-Balart",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00035403",
+	"name": "Carlos Curbelo",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00002858",
+	"name": "Ileana Ros-Lehtinen",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00009926",
+	"name": "Bill Nelson",
+	"party": "D",
+	"state": "FL"
+}, {
+	"id": "N00030612",
+	"name": "Marco Rubio",
+	"party": "R",
+	"state": "FL"
+}, {
+	"id": "N00035346",
+	"name": "Buddy Carter",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00002674",
+	"name": "Sanford Bishop",
+	"party": "D",
+	"state": "GA"
+}, {
+	"id": "N00039090",
+	"name": "Drew Ferguson",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00027848",
+	"name": "Hank Johnson",
+	"party": "D",
+	"state": "GA"
+}, {
+	"id": "N00002577",
+	"name": "John Lewis",
+	"party": "D",
+	"state": "GA"
+}, {
+	"id": "N00026160",
+	"name": "Tom Price",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00035477",
+	"name": "Karen Handel",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00032416",
+	"name": "Rob Woodall",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00032457",
+	"name": "Austin Scott",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00033518",
+	"name": "Doug Collins",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00032243",
+	"name": "Jody B Hice",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00035347",
+	"name": "Barry Loudermilk",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00033720",
+	"name": "Richard W Allen",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00024871",
+	"name": "David Scott",
+	"party": "D",
+	"state": "GA"
+}, {
+	"id": "N00030788",
+	"name": "Tom Graves",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00035516",
+	"name": "David Perdue",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00002593",
+	"name": "Johnny Isakson",
+	"party": "R",
+	"state": "GA"
+}, {
+	"id": "N00025881",
+	"name": "Colleen Hanabusa",
+	"party": "D",
+	"state": "HI"
+}, {
+	"id": "N00033281",
+	"name": "Tulsi Gabbard",
+	"party": "D",
+	"state": "HI"
+}, {
+	"id": "N00028138",
+	"name": "Brian Schatz",
+	"party": "D",
+	"state": "HI"
+}, {
+	"id": "N00028139",
+	"name": "Mazie K Hirono",
+	"party": "D",
+	"state": "HI"
+}, {
+	"id": "N00031377",
+	"name": "Raul Labrador",
+	"party": "R",
+	"state": "ID"
+}, {
+	"id": "N00006263",
+	"name": "Mike Simpson",
+	"party": "R",
+	"state": "ID"
+}, {
+	"id": "N00029441",
+	"name": "James E Risch",
+	"party": "R",
+	"state": "ID"
+}, {
+	"id": "N00006267",
+	"name": "Mike Crapo",
+	"party": "R",
+	"state": "ID"
+}, {
+	"id": "N00004887",
+	"name": "Bobby L Rush",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00035215",
+	"name": "Robin Kelly",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00027239",
+	"name": "Daniel Lipinski",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00004874",
+	"name": "Luis V Gutierrez",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00030581",
+	"name": "Mike Quigley",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00004719",
+	"name": "Peter Roskam",
+	"party": "R",
+	"state": "IL"
+}, {
+	"id": "N00004884",
+	"name": "Danny K Davis",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00033240",
+	"name": "Raja Krishnamoorthi",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00004724",
+	"name": "Jan Schakowsky",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00033101",
+	"name": "Brad Schneider",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00029139",
+	"name": "Bill Foster",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00035420",
+	"name": "Mike Bost",
+	"party": "R",
+	"state": "IL"
+}, {
+	"id": "N00034784",
+	"name": "Rodney Davis",
+	"party": "R",
+	"state": "IL"
+}, {
+	"id": "N00031104",
+	"name": "Randy Hultgren",
+	"party": "R",
+	"state": "IL"
+}, {
+	"id": "N00004961",
+	"name": "John M Shimkus",
+	"party": "R",
+	"state": "IL"
+}, {
+	"id": "N00030667",
+	"name": "Adam Kinzinger",
+	"party": "R",
+	"state": "IL"
+}, {
+	"id": "N00033390",
+	"name": "Cheri Bustos",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00037031",
+	"name": "Darin LaHood",
+	"party": "R",
+	"state": "IL"
+}, {
+	"id": "N00004981",
+	"name": "Dick Durbin",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00027860",
+	"name": "Tammy Duckworth",
+	"party": "D",
+	"state": "IL"
+}, {
+	"id": "N00003813",
+	"name": "Pete Visclosky",
+	"party": "D",
+	"state": "IN"
+}, {
+	"id": "N00031226",
+	"name": "Jackie Walorski",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00037185",
+	"name": "Jim Banks",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00031741",
+	"name": "Todd Rokita",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00033495",
+	"name": "Susan Brooks",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00012546",
+	"name": "Luke Messer",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00029513",
+	"name": "Andre Carson",
+	"party": "D",
+	"state": "IN"
+}, {
+	"id": "N00031227",
+	"name": "Larry Bucshon",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00038429",
+	"name": "Trey Hollingsworth",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00026586",
+	"name": "Joe Donnelly",
+	"party": "D",
+	"state": "IN"
+}, {
+	"id": "N00030670",
+	"name": "Todd Young",
+	"party": "R",
+	"state": "IN"
+}, {
+	"id": "N00033744",
+	"name": "Rod Blum",
+	"party": "R",
+	"state": "IA"
+}, {
+	"id": "N00027741",
+	"name": "David Loebsack",
+	"party": "D",
+	"state": "IA"
+}, {
+	"id": "N00035509",
+	"name": "David Young",
+	"party": "R",
+	"state": "IA"
+}, {
+	"id": "N00025237",
+	"name": "Steven A. King",
+	"party": "R",
+	"state": "IA"
+}, {
+	"id": "N00001758",
+	"name": "Chuck Grassley",
+	"party": "R",
+	"state": "IA"
+}, {
+	"id": "N00035483",
+	"name": "Joni Ernst",
+	"party": "R",
+	"state": "IA"
+}, {
+	"id": "N00037034",
+	"name": "Roger Marshall",
+	"party": "R",
+	"state": "KS"
+}, {
+	"id": "N00029077",
+	"name": "Lynn Jenkins",
+	"party": "R",
+	"state": "KS"
+}, {
+	"id": "N00031502",
+	"name": "Kevin Yoder",
+	"party": "R",
+	"state": "KS"
+}, {
+	"id": "N00030744",
+	"name": "Mike Pompeo",
+	"party": "R",
+	"state": "KS"
+}, {
+	"id": "N00040712",
+	"name": "Ron Estes",
+	"party": "R",
+	"state": "KS"
+}, {
+	"id": "N00005285",
+	"name": "Pat Roberts",
+	"party": "R",
+	"state": "KS"
+}, {
+	"id": "N00005282",
+	"name": "Jerry Moran",
+	"party": "R",
+	"state": "KS"
+}, {
+	"id": "N00038260",
+	"name": "James Comer",
+	"party": "R",
+	"state": "KY"
+}, {
+	"id": "N00029675",
+	"name": "Brett Guthrie",
+	"party": "R",
+	"state": "KY"
+}, {
+	"id": "N00028073",
+	"name": "John A Yarmuth",
+	"party": "D",
+	"state": "KY"
+}, {
+	"id": "N00034041",
+	"name": "Thomas Massie",
+	"party": "R",
+	"state": "KY"
+}, {
+	"id": "N00003473",
+	"name": "Hal Rogers",
+	"party": "R",
+	"state": "KY"
+}, {
+	"id": "N00031233",
+	"name": "Andy Barr",
+	"party": "R",
+	"state": "KY"
+}, {
+	"id": "N00003389",
+	"name": "Mitch McConnell",
+	"party": "R",
+	"state": "KY"
+}, {
+	"id": "N00030836",
+	"name": "Rand Paul",
+	"party": "R",
+	"state": "KY"
+}, {
+	"id": "N00009660",
+	"name": "Steve Scalise",
+	"party": "R",
+	"state": "LA"
+}, {
+	"id": "N00030184",
+	"name": "Cedric Richmond",
+	"party": "D",
+	"state": "LA"
+}, {
+	"id": "N00039953",
+	"name": "Clay Higgins",
+	"party": "R",
+	"state": "LA"
+}, {
+	"id": "N00039106",
+	"name": "Mike Johnson",
+	"party": "R",
+	"state": "LA"
+}, {
+	"id": "N00036633",
+	"name": "Ralph Abraham",
+	"party": "R",
+	"state": "LA"
+}, {
+	"id": "N00036135",
+	"name": "Garret Graves",
+	"party": "R",
+	"state": "LA"
+}, {
+	"id": "N00030245",
+	"name": "Bill Cassidy",
+	"party": "R",
+	"state": "LA"
+}, {
+	"id": "N00026823",
+	"name": "John Kennedy",
+	"party": "R",
+	"state": "LA"
+}, {
+	"id": "N00013817",
+	"name": "Chellie Pingree",
+	"party": "D",
+	"state": "ME"
+}, {
+	"id": "N00034584",
+	"name": "Bruce Poliquin",
+	"party": "R",
+	"state": "ME"
+}, {
+	"id": "N00034580",
+	"name": "Angus King",
+	"party": "I",
+	"state": "ME"
+}, {
+	"id": "N00000491",
+	"name": "Susan Collins",
+	"party": "R",
+	"state": "ME"
+}, {
+	"id": "N00029147",
+	"name": "Andy Harris",
+	"party": "R",
+	"state": "MD"
+}, {
+	"id": "N00025482",
+	"name": "Dutch Ruppersberger",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00027751",
+	"name": "John Sarbanes",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00036999",
+	"name": "Anthony Brown",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00001821",
+	"name": "Steny H Hoyer",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00033897",
+	"name": "John K Delaney",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00001971",
+	"name": "Elijah E Cummings",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00037036",
+	"name": "Jamie Raskin",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00001955",
+	"name": "Ben Cardin",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00013820",
+	"name": "Chris Van Hollen",
+	"party": "D",
+	"state": "MD"
+}, {
+	"id": "N00000153",
+	"name": "Richard E Neal",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00000179",
+	"name": "James P McGovern",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00029026",
+	"name": "Niki Tsongas",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00034044",
+	"name": "Joe Kennedy III",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00035278",
+	"name": "Katherine Clark",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00035431",
+	"name": "Seth Moulton",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00000267",
+	"name": "Michael E Capuano",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00013855",
+	"name": "Stephen F Lynch",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00031933",
+	"name": "Bill Keating",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00033492",
+	"name": "Elizabeth Warren",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00000270",
+	"name": "Ed Markey",
+	"party": "D",
+	"state": "MA"
+}, {
+	"id": "N00039533",
+	"name": "John Bergman",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00030673",
+	"name": "Bill Huizenga",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00031938",
+	"name": "Justin Amash",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00036275",
+	"name": "John Moolenaar",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00033395",
+	"name": "Dan Kildee",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00004133",
+	"name": "Fred Upton",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00026368",
+	"name": "Tim Walberg",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00036449",
+	"name": "Mike Bishop",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00003950",
+	"name": "Sander Levin",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00036274",
+	"name": "Paul Mitchell",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00035607",
+	"name": "Dave Trott",
+	"party": "R",
+	"state": "MI"
+}, {
+	"id": "N00036149",
+	"name": "Debbie Dingell",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00004029",
+	"name": "John Conyers Jr.",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00042648",
+	"name": "Brenda Jones",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00034068",
+	"name": "Brenda Lawrence",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00029277",
+	"name": "Gary Peters",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00004118",
+	"name": "Debbie Stabenow",
+	"party": "D",
+	"state": "MI"
+}, {
+	"id": "N00027467",
+	"name": "Tim Walz",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00038400",
+	"name": "Jason Lewis",
+	"party": "R",
+	"state": "MN"
+}, {
+	"id": "N00029391",
+	"name": "Erik Paulsen",
+	"party": "R",
+	"state": "MN"
+}, {
+	"id": "N00012942",
+	"name": "Betty McCollum",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00028257",
+	"name": "Keith Ellison",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00035440",
+	"name": "Tom Emmer",
+	"party": "R",
+	"state": "MN"
+}, {
+	"id": "N00004558",
+	"name": "Collin Peterson",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00021207",
+	"name": "Rick Nolan",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00042353",
+	"name": "Tina Smith",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00029016",
+	"name": "Al Franken",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00027500",
+	"name": "Amy Klobuchar",
+	"party": "D",
+	"state": "MN"
+}, {
+	"id": "N00037003",
+	"name": "Trent Kelly",
+	"party": "R",
+	"state": "MS"
+}, {
+	"id": "N00003288",
+	"name": "Bennie G Thompson",
+	"party": "D",
+	"state": "MS"
+}, {
+	"id": "N00029632",
+	"name": "Gregg Harper",
+	"party": "R",
+	"state": "MS"
+}, {
+	"id": "N00031958",
+	"name": "Steven Palazzo",
+	"party": "R",
+	"state": "MS"
+}, {
+	"id": "N00003328",
+	"name": "Thad Cochran",
+	"party": "R",
+	"state": "MS"
+}, {
+	"id": "N00043298",
+	"name": "Cindy Hyde-Smith",
+	"party": "R",
+	"state": "MS"
+}, {
+	"id": "N00003280",
+	"name": "Roger Wicker",
+	"party": "R",
+	"state": "MS"
+}, {
+	"id": "N00012460",
+	"name": "William L Clay Jr.",
+	"party": "D",
+	"state": "MO"
+}, {
+	"id": "N00033106",
+	"name": "Ann L Wagner",
+	"party": "R",
+	"state": "MO"
+}, {
+	"id": "N00030026",
+	"name": "Blaine Luetkemeyer",
+	"party": "R",
+	"state": "MO"
+}, {
+	"id": "N00031005",
+	"name": "Vicky Hartzler",
+	"party": "R",
+	"state": "MO"
+}, {
+	"id": "N00026790",
+	"name": "Emanuel Cleaver",
+	"party": "D",
+	"state": "MO"
+}, {
+	"id": "N00013323",
+	"name": "Sam Graves",
+	"party": "R",
+	"state": "MO"
+}, {
+	"id": "N00030676",
+	"name": "Billy Long",
+	"party": "R",
+	"state": "MO"
+}, {
+	"id": "N00035282",
+	"name": "Jason Smith",
+	"party": "R",
+	"state": "MO"
+}, {
+	"id": "N00005195",
+	"name": "Roy Blunt",
+	"party": "R",
+	"state": "MO"
+}, {
+	"id": "N00027694",
+	"name": "Claire McCaskill",
+	"party": "D",
+	"state": "MO"
+}, {
+	"id": "N00040733",
+	"name": "Greg Gianforte",
+	"party": "R",
+	"state": "MT"
+}, {
+	"id": "N00035616",
+	"name": "Ryan K Zinke",
+	"party": "R",
+	"state": "MT"
+}, {
+	"id": "N00027605",
+	"name": "Jon Tester",
+	"party": "D",
+	"state": "MT"
+}, {
+	"id": "N00033054",
+	"name": "Steven Daines",
+	"party": "R",
+	"state": "MT"
+}, {
+	"id": "N00026631",
+	"name": "Jeff Fortenberry",
+	"party": "R",
+	"state": "NE"
+}, {
+	"id": "N00037049",
+	"name": "Don Bacon",
+	"party": "R",
+	"state": "NE"
+}, {
+	"id": "N00027623",
+	"name": "Adrian Smith",
+	"party": "R",
+	"state": "NE"
+}, {
+	"id": "N00033443",
+	"name": "Deb Fischer",
+	"party": "R",
+	"state": "NE"
+}, {
+	"id": "N00035544",
+	"name": "Ben Sasse",
+	"party": "R",
+	"state": "NE"
+}, {
+	"id": "N00030191",
+	"name": "Dina Titus",
+	"party": "D",
+	"state": "NV"
+}, {
+	"id": "N00031177",
+	"name": "Mark Amodei",
+	"party": "R",
+	"state": "NV"
+}, {
+	"id": "N00038734",
+	"name": "Jacky Rosen",
+	"party": "D",
+	"state": "NV"
+}, {
+	"id": "N00033530",
+	"name": "Ruben Kihuen",
+	"party": "D",
+	"state": "NV"
+}, {
+	"id": "N00027522",
+	"name": "Dean Heller",
+	"party": "R",
+	"state": "NV"
+}, {
+	"id": "N00037161",
+	"name": "Catherine Cortez Masto",
+	"party": "D",
+	"state": "NV"
+}, {
+	"id": "N00028091",
+	"name": "Carol Shea-Porter",
+	"party": "D",
+	"state": "NH"
+}, {
+	"id": "N00030875",
+	"name": "Ann Kuster",
+	"party": "D",
+	"state": "NH"
+}, {
+	"id": "N00038397",
+	"name": "Maggie Hassan",
+	"party": "D",
+	"state": "NH"
+}, {
+	"id": "N00024790",
+	"name": "Jeanne Shaheen",
+	"party": "D",
+	"state": "NH"
+}, {
+	"id": "N00036154",
+	"name": "Don Norcross",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00000851",
+	"name": "Frank LoBiondo",
+	"party": "R",
+	"state": "NJ"
+}, {
+	"id": "N00036155",
+	"name": "Thomas MacArthur",
+	"party": "R",
+	"state": "NJ"
+}, {
+	"id": "N00009816",
+	"name": "Chris Smith",
+	"party": "R",
+	"state": "NJ"
+}, {
+	"id": "N00036944",
+	"name": "Josh Gottheimer",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00000781",
+	"name": "Frank Pallone Jr.",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00000898",
+	"name": "Leonard Lance",
+	"party": "R",
+	"state": "NJ"
+}, {
+	"id": "N00027523",
+	"name": "Albio Sires",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00000751",
+	"name": "Bill Pascrell Jr.",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00034639",
+	"name": "Donald M Payne Jr.",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00000684",
+	"name": "Rodney Frelinghuysen",
+	"party": "R",
+	"state": "NJ"
+}, {
+	"id": "N00036158",
+	"name": "Bonnie Coleman",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00000699",
+	"name": "Robert Menendez",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00035267",
+	"name": "Cory Booker",
+	"party": "D",
+	"state": "NJ"
+}, {
+	"id": "N00029400",
+	"name": "Michelle Lujan Grisham",
+	"party": "D",
+	"state": "NM"
+}, {
+	"id": "N00012672",
+	"name": "Steve Pearce",
+	"party": "R",
+	"state": "NM"
+}, {
+	"id": "N00029562",
+	"name": "Ben R Lujan",
+	"party": "D",
+	"state": "NM"
+}, {
+	"id": "N00029835",
+	"name": "Martin Heinrich",
+	"party": "D",
+	"state": "NM"
+}, {
+	"id": "N00006561",
+	"name": "Tom Udall",
+	"party": "D",
+	"state": "NM"
+}, {
+	"id": "N00029404",
+	"name": "Lee Zeldin",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00001193",
+	"name": "Pete King",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00038742",
+	"name": "Tom Suozzi",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00035927",
+	"name": "Kathleen Rice",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001171",
+	"name": "Gregory W Meeks",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00034547",
+	"name": "Grace Meng",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001102",
+	"name": "Nydia M Velazquez",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00033640",
+	"name": "Hakeem Jeffries",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00026961",
+	"name": "Yvette D Clarke",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00000939",
+	"name": "Jerrold Nadler",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00036928",
+	"name": "Dan Donovan",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00000078",
+	"name": "Carolyn B Maloney",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00034549",
+	"name": "Adriano Espaillat",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001127",
+	"name": "Joseph Crowley",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001813",
+	"name": "Jose E Serrano",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001003",
+	"name": "Eliot L Engel",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001024",
+	"name": "Nita M Lowey",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00034277",
+	"name": "Sean Patrick Maloney",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00037288",
+	"name": "John Faso",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00030196",
+	"name": "Paul Tonko",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00035523",
+	"name": "Elise Stefanik",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00036351",
+	"name": "Claudia Tenney",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00030949",
+	"name": "Tom Reed",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00035934",
+	"name": "John Katko",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00043207",
+	"name": "Joseph D Morelle",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001311",
+	"name": "Louise M Slaughter",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00027060",
+	"name": "Brian M Higgins",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001285",
+	"name": "Chris Collins",
+	"party": "R",
+	"state": "NY"
+}, {
+	"id": "N00027658",
+	"name": "Kirsten Gillibrand",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00001093",
+	"name": "Charles E Schumer",
+	"party": "D",
+	"state": "NY"
+}, {
+	"id": "N00027035",
+	"name": "G K Butterfield",
+	"party": "D",
+	"state": "NC"
+}, {
+	"id": "N00033399",
+	"name": "George Holding",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00002299",
+	"name": "Walter B Jones Jr.",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00002260",
+	"name": "David Price",
+	"party": "D",
+	"state": "NC"
+}, {
+	"id": "N00026166",
+	"name": "Virginia Foxx",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00035311",
+	"name": "Mark Walker",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00033527",
+	"name": "David Rouzer",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00033630",
+	"name": "Richard Hudson",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00034416",
+	"name": "Robert Pittenger",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00026627",
+	"name": "Patrick McHenry",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00033631",
+	"name": "Mark R Meadows",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00035451",
+	"name": "Alma Adams",
+	"party": "D",
+	"state": "NC"
+}, {
+	"id": "N00039551",
+	"name": "Ted Budd",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00035492",
+	"name": "Thom Tillis",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00002221",
+	"name": "Richard Burr",
+	"party": "R",
+	"state": "NC"
+}, {
+	"id": "N00004614",
+	"name": "Kevin Cramer",
+	"party": "R",
+	"state": "ND"
+}, {
+	"id": "N00031688",
+	"name": "John Hoeven",
+	"party": "R",
+	"state": "ND"
+}, {
+	"id": "N00033782",
+	"name": "Heidi Heitkamp",
+	"party": "D",
+	"state": "ND"
+}, {
+	"id": "N00003689",
+	"name": "Steve Chabot",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00033310",
+	"name": "Brad Wenstrup",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00033904",
+	"name": "Joyce Beatty",
+	"party": "D",
+	"state": "OH"
+}, {
+	"id": "N00027894",
+	"name": "Jim Jordan",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00012233",
+	"name": "Robert E Latta",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00032088",
+	"name": "Bill Johnson",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00031128",
+	"name": "Bob Gibbs",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00038767",
+	"name": "Warren Davidson",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00003522",
+	"name": "Marcy Kaptur",
+	"party": "D",
+	"state": "OH"
+}, {
+	"id": "N00025175",
+	"name": "Michael R Turner",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00030490",
+	"name": "Marcia L Fudge",
+	"party": "D",
+	"state": "OH"
+}, {
+	"id": "N00042194",
+	"name": "Troy Balderson",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00009699",
+	"name": "Pat Tiberi",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00025280",
+	"name": "Tim Ryan",
+	"party": "D",
+	"state": "OH"
+}, {
+	"id": "N00035007",
+	"name": "David P Joyce",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00029574",
+	"name": "Steve Stivers",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00031127",
+	"name": "Jim Renacci",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00003535",
+	"name": "Sherrod Brown",
+	"party": "D",
+	"state": "OH"
+}, {
+	"id": "N00003682",
+	"name": "Rob Portman",
+	"party": "R",
+	"state": "OH"
+}, {
+	"id": "N00040829",
+	"name": "Kevin Hern",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00033532",
+	"name": "James Bridenstine",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00033410",
+	"name": "Markwayne Mullin",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00005559",
+	"name": "Frank D Lucas",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00025726",
+	"name": "Tom Cole",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00036175",
+	"name": "Steven Russell",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00031129",
+	"name": "James Lankford",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00005582",
+	"name": "James M Inhofe",
+	"party": "R",
+	"state": "OK"
+}, {
+	"id": "N00033474",
+	"name": "Suzanne Bonamici",
+	"party": "D",
+	"state": "OR"
+}, {
+	"id": "N00007690",
+	"name": "Greg Walden",
+	"party": "R",
+	"state": "OR"
+}, {
+	"id": "N00007727",
+	"name": "Earl Blumenauer",
+	"party": "D",
+	"state": "OR"
+}, {
+	"id": "N00007781",
+	"name": "Peter DeFazio",
+	"party": "D",
+	"state": "OR"
+}, {
+	"id": "N00030071",
+	"name": "Kurt Schrader",
+	"party": "D",
+	"state": "OR"
+}, {
+	"id": "N00029303",
+	"name": "Jeff Merkley",
+	"party": "D",
+	"state": "OR"
+}, {
+	"id": "N00007724",
+	"name": "Ron Wyden",
+	"party": "D",
+	"state": "OR"
+}, {
+	"id": "N00001619",
+	"name": "Robert A. Brady",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00038450",
+	"name": "Dwight Evans",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00031647",
+	"name": "Mike Kelly",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00034120",
+	"name": "Scott Perry",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00029736",
+	"name": "Glenn Thompson",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00031064",
+	"name": "Ryan Costello",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00031134",
+	"name": "Patrick Meehan",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00042706",
+	"name": "Mary Gay Scanlon",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00038779",
+	"name": "Brian Fitzpatrick",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00013770",
+	"name": "Bill Shuster",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00031777",
+	"name": "Tom Marino",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00025495",
+	"name": "Lou Barletta",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00031253",
+	"name": "Keith J Rothfus",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00035307",
+	"name": "Brendan Boyle",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00001373",
+	"name": "Mike Doyle",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00041997",
+	"name": "Susan Wild",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00026171",
+	"name": "Charlie Dent",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00038781",
+	"name": "Lloyd Smucker",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00034128",
+	"name": "Matt Cartwright",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00024992",
+	"name": "Tim Murphy",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00041870",
+	"name": "Conor Lamb",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00001489",
+	"name": "Pat Toomey",
+	"party": "R",
+	"state": "PA"
+}, {
+	"id": "N00027503",
+	"name": "Bob Casey",
+	"party": "D",
+	"state": "PA"
+}, {
+	"id": "N00032019",
+	"name": "David Cicilline",
+	"party": "D",
+	"state": "RI"
+}, {
+	"id": "N00009724",
+	"name": "Jim Langevin",
+	"party": "D",
+	"state": "RI"
+}, {
+	"id": "N00027533",
+	"name": "Sheldon Whitehouse",
+	"party": "D",
+	"state": "RI"
+}, {
+	"id": "N00000362",
+	"name": "Jack Reed",
+	"party": "D",
+	"state": "RI"
+}, {
+	"id": "N00002424",
+	"name": "Mark Sanford",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00024809",
+	"name": "Joe Wilson",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00030752",
+	"name": "Jeff Duncan",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00030880",
+	"name": "Trey Gowdy",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00027783",
+	"name": "Ralph Norman",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00031412",
+	"name": "Mick Mulvaney",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00002408",
+	"name": "James E Clyburn",
+	"party": "D",
+	"state": "SC"
+}, {
+	"id": "N00033832",
+	"name": "Tom Rice",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00031782",
+	"name": "Tim Scott",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00009975",
+	"name": "Lindsey Graham",
+	"party": "R",
+	"state": "SC"
+}, {
+	"id": "N00032022",
+	"name": "Kristi Noem",
+	"party": "R",
+	"state": "SD"
+}, {
+	"id": "N00004572",
+	"name": "John Thune",
+	"party": "R",
+	"state": "SD"
+}, {
+	"id": "N00035187",
+	"name": "Mike Rounds",
+	"party": "R",
+	"state": "SD"
+}, {
+	"id": "N00028463",
+	"name": "Phil Roe",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00003209",
+	"name": "John J Duncan Jr.",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00030815",
+	"name": "Chuck Fleischmann",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00030957",
+	"name": "Scott Desjarlais",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00003132",
+	"name": "Jim Cooper",
+	"party": "D",
+	"state": "TN"
+}, {
+	"id": "N00031539",
+	"name": "Diane Black",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00003105",
+	"name": "Marsha Blackburn",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00025445",
+	"name": "David Kustoff",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00003225",
+	"name": "Steve Cohen",
+	"party": "D",
+	"state": "TN"
+}, {
+	"id": "N00027441",
+	"name": "Bob Corker",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00009888",
+	"name": "Lamar Alexander",
+	"party": "R",
+	"state": "TN"
+}, {
+	"id": "N00026148",
+	"name": "Louis B Gohmert Jr.",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00026457",
+	"name": "Ted Poe",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00008028",
+	"name": "Sam Johnson",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00035972",
+	"name": "John Lee Ratcliffe",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00024922",
+	"name": "Jeb Hensarling",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00005656",
+	"name": "Joe Barton",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00009738",
+	"name": "John Culberson",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00005883",
+	"name": "Kevin Brady",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00026686",
+	"name": "Al Green",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00026460",
+	"name": "Michael McCaul",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00026041",
+	"name": "Mike Conaway",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00008799",
+	"name": "Kay Granger",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00006052",
+	"name": "Mac Thornberry",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00033539",
+	"name": "Randy Weber",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00038809",
+	"name": "Vicente Gonzalez",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00033540",
+	"name": "Beto O'Rourke",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00031545",
+	"name": "Bill Flores",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00005818",
+	"name": "Sheila Jackson Lee",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00038285",
+	"name": "Jodey Arrington",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00033316",
+	"name": "Joaquin Castro",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00001811",
+	"name": "Lamar Smith",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00029285",
+	"name": "Pete Olson",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00031417",
+	"name": "Will Hurd",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00026710",
+	"name": "Kenny Marchant",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00030602",
+	"name": "Roger Williams",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00025219",
+	"name": "Michael Burgess",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00031672",
+	"name": "Blake Farenthold",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00041882",
+	"name": "Michael Cloud",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00024978",
+	"name": "Henry Cuellar",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00005870",
+	"name": "Gene Green",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00008122",
+	"name": "Eddie Bernice Johnson",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00025095",
+	"name": "John Carter",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00005681",
+	"name": "Pete Sessions",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00033839",
+	"name": "Marc Veasey",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00034349",
+	"name": "Filemon Vela",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00006023",
+	"name": "Lloyd Doggett",
+	"party": "D",
+	"state": "TX"
+}, {
+	"id": "N00005736",
+	"name": "Brian Babin",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00024852",
+	"name": "John Cornyn",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00033085",
+	"name": "Ted Cruz",
+	"party": "R",
+	"state": "TX"
+}, {
+	"id": "N00025292",
+	"name": "Rob Bishop",
+	"party": "R",
+	"state": "UT"
+}, {
+	"id": "N00033932",
+	"name": "Chris Stewart",
+	"party": "R",
+	"state": "UT"
+}, {
+	"id": "N00041221",
+	"name": "John Curtis",
+	"party": "R",
+	"state": "UT"
+}, {
+	"id": "N00028958",
+	"name": "Jason Chaffetz",
+	"party": "R",
+	"state": "UT"
+}, {
+	"id": "N00033842",
+	"name": "Mia Love",
+	"party": "R",
+	"state": "UT"
+}, {
+	"id": "N00009869",
+	"name": "Orrin G Hatch",
+	"party": "R",
+	"state": "UT"
+}, {
+	"id": "N00031696",
+	"name": "Mike Lee",
+	"party": "R",
+	"state": "UT"
+}, {
+	"id": "N00000515",
+	"name": "Peter Welch",
+	"party": "D",
+	"state": "VT"
+}, {
+	"id": "N00000528",
+	"name": "Bernie Sanders",
+	"party": "I",
+	"state": "VT"
+}, {
+	"id": "N00009918",
+	"name": "Patrick Leahy",
+	"party": "D",
+	"state": "VT"
+}, {
+	"id": "N00029459",
+	"name": "Rob Wittman",
+	"party": "R",
+	"state": "VA"
+}, {
+	"id": "N00031263",
+	"name": "Scott W Taylor",
+	"party": "R",
+	"state": "VA"
+}, {
+	"id": "N00002147",
+	"name": "Bobby Scott",
+	"party": "D",
+	"state": "VA"
+}, {
+	"id": "N00039327",
+	"name": "Donald McEachin",
+	"party": "D",
+	"state": "VA"
+}, {
+	"id": "N00038847",
+	"name": "Tom Garrett",
+	"party": "R",
+	"state": "VA"
+}, {
+	"id": "N00009154",
+	"name": "Bob Goodlatte",
+	"party": "R",
+	"state": "VA"
+}, {
+	"id": "N00036013",
+	"name": "Dave Brat",
+	"party": "R",
+	"state": "VA"
+}, {
+	"id": "N00036018",
+	"name": "Don Beyer",
+	"party": "D",
+	"state": "VA"
+}, {
+	"id": "N00032029",
+	"name": "Morgan Griffith",
+	"party": "R",
+	"state": "VA"
+}, {
+	"id": "N00036023",
+	"name": "Barbara Comstock",
+	"party": "R",
+	"state": "VA"
+}, {
+	"id": "N00029891",
+	"name": "Gerry Connolly",
+	"party": "D",
+	"state": "VA"
+}, {
+	"id": "N00033177",
+	"name": "Tim Kaine",
+	"party": "D",
+	"state": "VA"
+}, {
+	"id": "N00002097",
+	"name": "Mark Warner",
+	"party": "D",
+	"state": "VA"
+}, {
+	"id": "N00030693",
+	"name": "Suzan DelBene",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00009759",
+	"name": "Rick Larsen",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00031559",
+	"name": "Jaime Herrera Beutler",
+	"party": "R",
+	"state": "WA"
+}, {
+	"id": "N00036403",
+	"name": "Dan Newhouse",
+	"party": "R",
+	"state": "WA"
+}, {
+	"id": "N00026314",
+	"name": "Cathy McMorris Rodgers",
+	"party": "R",
+	"state": "WA"
+}, {
+	"id": "N00034453",
+	"name": "Derek Kilmer",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00038858",
+	"name": "Pramila Jayapal",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00026885",
+	"name": "Dave Reichert",
+	"party": "R",
+	"state": "WA"
+}, {
+	"id": "N00007833",
+	"name": "Adam Smith",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00031557",
+	"name": "Dennis Heck",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00007836",
+	"name": "Maria Cantwell",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00007876",
+	"name": "Patty Murray",
+	"party": "D",
+	"state": "WA"
+}, {
+	"id": "N00031681",
+	"name": "David McKinley",
+	"party": "R",
+	"state": "WV"
+}, {
+	"id": "N00033814",
+	"name": "Alex Mooney",
+	"party": "R",
+	"state": "WV"
+}, {
+	"id": "N00035531",
+	"name": "Evan Jenkins",
+	"party": "R",
+	"state": "WV"
+}, {
+	"id": "N00032838",
+	"name": "Joe Manchin",
+	"party": "D",
+	"state": "WV"
+}, {
+	"id": "N00009771",
+	"name": "Shelley Moore Capito",
+	"party": "R",
+	"state": "WV"
+}, {
+	"id": "N00004357",
+	"name": "Paul Ryan",
+	"party": "R",
+	"state": "WI"
+}, {
+	"id": "N00033549",
+	"name": "Mark Pocan",
+	"party": "D",
+	"state": "WI"
+}, {
+	"id": "N00004403",
+	"name": "Ron Kind",
+	"party": "D",
+	"state": "WI"
+}, {
+	"id": "N00026914",
+	"name": "Gwen Moore",
+	"party": "D",
+	"state": "WI"
+}, {
+	"id": "N00004291",
+	"name": "F James Sensenbrenner Jr.",
+	"party": "R",
+	"state": "WI"
+}, {
+	"id": "N00036409",
+	"name": "Glenn S Grothman",
+	"party": "R",
+	"state": "WI"
+}, {
+	"id": "N00030967",
+	"name": "Sean P Duffy",
+	"party": "R",
+	"state": "WI"
+}, {
+	"id": "N00039330",
+	"name": "Mike Gallagher",
+	"party": "R",
+	"state": "WI"
+}, {
+	"id": "N00004367",
+	"name": "Tammy Baldwin",
+	"party": "D",
+	"state": "WI"
+}, {
+	"id": "N00032546",
+	"name": "Ron Johnson",
+	"party": "R",
+	"state": "WI"
+}, {
+	"id": "N00035504",
+	"name": "Liz Cheney",
+	"party": "R",
+	"state": "WY"
+}, {
+	"id": "N00006236",
+	"name": "John A Barrasso",
+	"party": "R",
+	"state": "WY"
+}, {
+	"id": "N00006249",
+	"name": "Mike Enzi",
+	"party": "R",
+	"state": "WY"
+}]

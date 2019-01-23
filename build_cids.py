@@ -59,12 +59,25 @@ def build_cids():
         cands = crp.candidates.get(state)
         if len(cands) > 1:
             for cand in cands:
-                cids.append(cand['@attributes']['cid'])
+                new_candidate = {
+                    "id": cand['@attributes']['cid'],
+                    "name": cand['@attributes']['firstlast'],
+                    "party": cand['@attributes']['party'],
+                    "state": state
+                }
+                cids.append(new_candidate)
         else:
-            cids.append(cands['@attributes']['cid'])
+
+            new_candidate = {
+                    "id": cands['@attributes']['cid'],
+                    "name": cands['@attributes']['firstlast'],
+                    "party": cands['@attributes']['party'],
+                    "state": state
+            }
+            cids.append(new_candidate)
         progress_bar(i, len(states), 50, 'Retrieving legislators from %s' % state)
 
-    f = open('data/cids.txt', 'w')
+    f = open('data/legislators.json', 'w')
     json.dump(cids, f)
     f.close()
 
