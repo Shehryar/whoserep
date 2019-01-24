@@ -107,13 +107,14 @@ extension ComponentNavigationController: KeyboardObserverDelegate {
                 options: animationCurve,
                 animations: {
                     
-                viewController.updateFrames()
+//                viewController.updateFrames()
                 var frame = view.frame
                 frame.size.height = newHeight
                 view.frame = frame
                 view.layoutIfNeeded()
+//                viewController.updateFrames()
                 
-                viewController.didUpdateFrames()
+//                viewController.didUpdateFrames()
             })
         }
     }
