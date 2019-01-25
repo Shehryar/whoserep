@@ -88,7 +88,6 @@ class NavCloseBarButtonItem: UIBarButtonItem {
         // Sizing
         button.contentEdgeInsets = .zero
         button.imageEdgeInsets = styles.imageInsets
-        print(button.imageEdgeInsets)
         let buttonSize = CGSize(width: styles.imageSize.width + styles.imageInsets.left + styles.imageInsets.right,
                                 height: styles.imageSize.height + styles.imageInsets.top + styles.imageInsets.bottom)
         

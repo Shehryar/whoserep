@@ -57,9 +57,6 @@ class ScrollView: UIScrollView, ComponentView {
         }
     }
     
-    private var previousOffset = CGPoint.zero
-    private var previousFrame = CGRect.zero
-    
     // MARK: Init
     
     func commonInit() {
@@ -100,10 +97,7 @@ class ScrollView: UIScrollView, ComponentView {
         return CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
     }
     
-    func willUpdateFrames() {
-            previousOffset = contentOffset
-            previousFrame = frame
-    }
+    func willUpdateFrames() {}
     
     func updateFrames() {
         let contentFrame = getContentViewFrameThatFits(bounds.size)
@@ -112,12 +106,7 @@ class ScrollView: UIScrollView, ComponentView {
         contentSize = contentFrame.size
     }
     
-    func didUpdateFrames() {
-        if frame.height != previousFrame.height {
-            let difference = previousFrame.height - frame.height
-            setContentOffset(CGPoint(x: previousOffset.x, y: max(0, previousOffset.y + difference)), animated: false)
-        }
-    }
+    func didUpdateFrames() {}
     
     override func layoutSubviews() {
         super.layoutSubviews()
