@@ -130,6 +130,7 @@ extension Branding {
         styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: primary, textColor: dark)
         styles.colors.buttonSecondary = ASAPPButtonColors(backgroundColor: .clear, textColor: dark, border: primary)
         styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: primary)
+        styles.colors.quickReplyButton = ASAPPButtonColors(backgroundNormal: .clear, backgroundHighlighted: .black, backgroundDisabled: .gray, textNormal: .black, textHighlighted: .white, textDisabled: .white, border: .black)
         
         return styles
     }

@@ -272,7 +272,7 @@ extension QuickRepliesView {
             isHidden = false
             isRestartButtonVisible = true
             quickRepliesHeight = frame.height
-            containerView.alpha = 1
+            containerView.alpha = 0
             separatorTopView.alpha = 1
             
         case .quickRepliesAlone:
