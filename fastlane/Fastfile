@@ -54,7 +54,7 @@ platform :ios do
       build_secret: ENV['CRASHLYTICS_BUILD_SECRET'],
       groups: groups,
       emails: emails,
-      notes: changelog_from_git_commits(tag_match_pattern: "fastlane-builds/iosbeta/*"),
+      notes: changelog_from_git_commits(tag_match_pattern: "fastlane-builds/iosstagingBeta/*"),
       notifications: true
     )
   end
@@ -79,7 +79,7 @@ platform :ios do
     sh 'cp "$DSYM_OUTPUT_PATH" ../build/'
     
     cleanTagAndPush
-    #update_jira_issue
+    update_jira_issue
 
     buildNumber = get_build_number(xcodeproj: TEST_APP_PROJECT)
     sh "cd ../ && scripts/circleci_slack_rc_distributed.sh #{buildNumber}"
