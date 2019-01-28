@@ -14,7 +14,7 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
     
     private var keyboardObserver: KeyboardObserver?
     private var keyboardHeight: CGFloat = 0.0
-    private var initialFrame: CGRect = .zero
+    private var initialHeight: CGFloat = 0.0
     
     var displayStyle: ComponentViewDisplayStyle = .full {
         didSet {
@@ -60,9 +60,10 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
         super.viewDidLoad()
         
         view.backgroundColor = ASAPP.styles.colors.backgroundPrimary
-        initialFrame = view.frame
+        let statusBar = UIApplication.shared.statusBarFrame.height
+        initialHeight = view.frame.height - navigationBar.frame.height - statusBar
     }
-    
+
     // MARK: - UpdatableFrames
     
     func willUpdateFrames() {
@@ -100,7 +101,7 @@ extension ComponentNavigationController: KeyboardObserverDelegate {
         
         if let viewController = topViewController as? UpdatableFrames,
            let view = topViewController?.view {
-            let newHeight = initialFrame.height - keyboardHeight
+            let newHeight = initialHeight - keyboardHeight
             viewController.willUpdateFrames()
             
             UIView.animate(
