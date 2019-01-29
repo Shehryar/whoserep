@@ -173,8 +173,7 @@ public class ASAPP: NSObject {
     public class func enablePushNotifications(with deviceToken: Data) {
         assertSetupComplete()
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        PushNotificationsManager.shared.deviceToken = token
-        PushNotificationsManager.shared.register(user: ASAPP.user)
+        PushNotificationsManager.shared.register(user: ASAPP.user, deviceIdentifier: token)
     }
     
     /**
@@ -185,8 +184,7 @@ public class ASAPP: NSObject {
     @objc(enablePushNotificationsWithUUID:)
     public class func enablePushNotifications(with uuid: String) {
         assertSetupComplete()
-        PushNotificationsManager.shared.deviceToken = uuid
-        PushNotificationsManager.shared.register(user: ASAPP.user)
+        PushNotificationsManager.shared.register(user: ASAPP.user, deviceIdentifier: uuid)
     }
     
     /// A `Void` closure type that takes an `Int`, the number of unread messages; and a `Bool`, whether the user is in a live chat.

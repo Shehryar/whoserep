@@ -441,6 +441,7 @@
 		3AE1839F205865EC00FD0D7A /* icon-exit-link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE1839C205865EC00FD0D7A /* icon-exit-link@2x.png */; };
 		3AE183A72059B45B00FD0D7A /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */; };
 		3AF5C38A20D31B3D0013A616 /* LinkAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5C38920D31B3D0013A616 /* LinkAction.swift */; };
+		5FECBD7121EFCAC50066A843 /* PushNotificationRecipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FECBD7021EFCAC40066A843 /* PushNotificationRecipient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -865,6 +866,7 @@
 		3AE1839C205865EC00FD0D7A /* icon-exit-link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-exit-link@2x.png"; sourceTree = "<group>"; };
 		3AE183A62059B45B00FD0D7A /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		3AF5C38920D31B3D0013A616 /* LinkAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAction.swift; sourceTree = "<group>"; };
+		5FECBD7021EFCAC40066A843 /* PushNotificationRecipient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRecipient.swift; sourceTree = "<group>"; };
 		FD8D8AFA1D0F6E2A001B420B /* ASAPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ASAPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1189,6 +1191,7 @@
 			children = (
 				3A5C3EF420E303E4009E6312 /* AnalyticsClient.swift */,
 				3A5113791FD1D95F00BE0785 /* PushNotificationsManager.swift */,
+				5FECBD7021EFCAC40066A843 /* PushNotificationRecipient.swift */,
 				3093A4A41E730D4F00C65818 /* Chat Message */,
 				285F7AF51DAB33C2008C2EF6 /* Demo Content */,
 			);
@@ -2207,6 +2210,7 @@
 				3A5C3EF520E303E4009E6312 /* AnalyticsClient.swift in Sources */,
 				288084FC1E86EC6A00240A5D /* ComponentNavigationController.swift in Sources */,
 				28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */,
+				5FECBD7121EFCAC50066A843 /* PushNotificationRecipient.swift in Sources */,
 				30131FDD1EB11080009E7299 /* VerticalAlignment.swift in Sources */,
 				3AB8F14F216D235600785326 /* Result.swift in Sources */,
 				3A9EF226202A53390092A1AA /* NotificationBanner.swift in Sources */,

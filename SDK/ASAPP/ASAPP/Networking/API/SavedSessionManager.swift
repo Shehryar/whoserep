@@ -25,6 +25,7 @@ class SavedSessionManager: SavedSessionManagerProtocol {
     
     func clearSession() {
         save(session: nil)
+        PushNotificationsManager.clearRegisteredDevice()
     }
     
     func save(session: Session?) {

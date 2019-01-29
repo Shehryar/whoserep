@@ -21,9 +21,7 @@ extension UserDefaults: UserDefaultsProtocol {}
 
 protocol PushNotificationsManagerProtocol {
     var session: Session? { get set }
-    var deviceToken: String? { get set }
-    var deviceId: Int? { get set }
-    func register(user: ASAPPUser)
+    func register(user: ASAPPUser, deviceIdentifier: String)
     func getChatStatus(user: ASAPPUser, _ handler: @escaping ASAPP.ChatStatusHandler, _ failureHandler: ASAPP.FailureHandler?)
     func requestAuthorization()
     func requestAuthorizationIfNeeded(after delay: DispatchTimeInterval)
@@ -48,8 +46,8 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         self.userDefaults = userDefaults
     }
     
-    private let deviceTokenKey = "deviceToken"
-    
+    private static let deviceTokenKey = "deviceToken"
+    private static let asappDeviceKey = "ASAPPDevice"
     private let deviceIdKey = "deviceId"
     
     private let defaultParams: [String: Any] = [
@@ -66,22 +64,16 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    var deviceToken: String? {
-        get {
-            return userDefaults.string(forKey: deviceTokenKey)
-        }
-        set {
-            userDefaults.set(newValue, forKey: deviceTokenKey)
-        }
+    var token: String? {
+        return recipient?.registeredId
     }
     
-    var deviceId: Int? {
+    var recipient: PushNotificationRecipient? {
         get {
-            let result = userDefaults.integer(forKey: deviceIdKey)
-            return result != 0 ? result : nil
+            return userDefaults.object(forKey: PushNotificationsManager.asappDeviceKey) as? PushNotificationRecipient
         }
         set {
-            userDefaults.set(newValue, forKey: deviceIdKey)
+            userDefaults.set(newValue, forKey: PushNotificationsManager.asappDeviceKey)
         }
     }
     
@@ -96,10 +88,12 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    func register(user: ASAPPUser) {
-        if session?.customerMatches(primaryId: user.userIdentifier) ?? false,
-           deviceId != nil {
-            return
+    func register(user: ASAPPUser, deviceIdentifier: String) {
+        
+        if let savedDevice = recipient {
+            if deviceIdentifier == savedDevice.registeredId && user.userIdentifier == savedDevice.userId {
+                return
+            }
         }
         
         if let session = session,
@@ -116,15 +110,15 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
     }
     
     private func register() {
-        guard let token = deviceToken,
-              let session = session else {
+        guard let deviceToken = token,
+            let session = session else {
             DebugLog.e(caller: self, "Could not enable push notifications. Need non-nil token and session.")
             return
         }
         
         let params: [String: Any] = [
             "DeviceType": "ios",
-            "Token": token
+            "Token": deviceToken
         ]
         
         guard let headers = HTTPClient.shared.getHeaders(for: session) else {
@@ -132,7 +126,7 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
             return
         }
         
-        HTTPClient.shared.sendRequest(method: .POST, path: "customer/pushregister", headers: headers, params: params) { (data: [String: Any]?, response, error) in
+        HTTPClient.shared.sendRequest(method: .POST, path: "customer/pushregister", headers: headers, params: params) { [weak self] (data: [String: Any]?, response, error) in
             guard let data = data,
                   let device = data["Device"] as? [String: Any],
                   let deviceId = device["DeviceID"] as? Int else {
@@ -144,8 +138,9 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
                 return
             }
             
-            self.deviceId = deviceId
-            DebugLog.d(caller: self, "Successfully enabled push notifications for token: \(token).\nDevice ID: \(deviceId)")
+            PushNotificationsManager.clearRegisteredDevice()
+            self?.recipient = PushNotificationRecipient(userId: ASAPP.user.userIdentifier, registeredId: deviceToken, assignedId: deviceId)
+            DebugLog.d(caller: self, "Successfully enabled push notifications for token: \(deviceToken).\nDevice ID: \(deviceId)")
         }
     }
     
@@ -240,5 +235,9 @@ class PushNotificationsManager: PushNotificationsManagerProtocol {
                 request()
             }
         }
+    }
+    
+    class func clearRegisteredDevice() {
+        UserDefaults.standard.removeObject(forKey: PushNotificationsManager.asappDeviceKey)
     }
 }

@@ -23,11 +23,7 @@ class MockPushNotificationsManager: PushNotificationsManagerProtocol {
         }
     }
     
-    var deviceToken: String?
-    
-    var deviceId: Int?
-    
-    func register(user: ASAPPUser) {
+    func register(user: ASAPPUser, deviceIdentifier identifier: String) {
         register()
     }
     
