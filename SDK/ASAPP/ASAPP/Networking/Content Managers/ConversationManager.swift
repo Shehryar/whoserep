@@ -93,7 +93,7 @@ protocol ConversationManagerProtocol: class {
     func getComponentView(named name: String, data: [String: Any]?, completion: @escaping ComponentViewHandler)
     func sendUserTypingStatus(isTyping: Bool, with text: String?)
     func sendAskRequest(intent: [String: Any]?, _ completion: ((_ success: Bool) -> Void)?)
-    func sendPictureMessage(_ image: UIImage, completion: (() -> Void)?)
+    func sendPictureMessage(_ image: UIImage, completion: ((Error?) -> Void)?)
     func sendTextMessage(_ message: String, completion: RequestResponseHandler?)
     func sendSRSQuery(_ query: String, isRequestFromPrediction: Bool, autosuggestMetadata: AutosuggestMetadata?)
     func endLiveChat() -> Bool
@@ -108,8 +108,8 @@ extension ConversationManagerProtocol {
         return sendEnterChatRequest(nil)
     }
     
-    func sendPictureMessage(_ image: UIImage) {
-        return sendPictureMessage(image, completion: nil)
+    func sendPictureMessage(_ image: UIImage, completion: ((Error?) -> Void)?) {
+        return sendPictureMessage(image, completion: completion)
     }
     
     func sendTextMessage(_ message: String) {
@@ -528,7 +528,7 @@ extension ConversationManager {
         }
     }
     
-    func sendPictureMessage(_ image: UIImage, completion: (() -> Void)? = nil) {
+    func sendPictureMessage(_ image: UIImage, completion: ((Error?) -> Void)? = nil) {
         let path = "customer/SendPictureMessage"
         
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
@@ -543,8 +543,13 @@ extension ConversationManager {
             "PicHeight": image.size.height
         ]
         
-        httpClient.sendRequest(method: .POST, path: path, headers: nil, params: params, data: imageData) { (_: Data?, _, _) in
-            completion?()
+        httpClient.sendRequest(method: .POST, path: path, headers: nil, params: params, data: imageData) { (_: Data?, _, error) in
+            if let error = error {
+                completion?(error)
+            } else {
+                completion?(nil)
+            }
+            
         }
     }
 }

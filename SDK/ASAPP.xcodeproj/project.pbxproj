@@ -51,7 +51,7 @@
 		289E04101EC792C400CAC413 /* RadioButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E040F1EC792C400CAC413 /* RadioButtonItem.swift */; };
 		289E04121EC792D100CAC413 /* RadioButtonViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E04111EC792D100CAC413 /* RadioButtonViewItem.swift */; };
 		289E04141EC792DB00CAC413 /* RadioButtonsContainerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E04131EC792DB00CAC413 /* RadioButtonsContainerItem.swift */; };
-		28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */; };
+		28A99F2A1D5F8FDA00F9AA84 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A99F291D5F8FDA00F9AA84 /* BannerView.swift */; };
 		28B06DE61EC8EC3C00455E1A /* APIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE51EC8EC3C00455E1A /* APIAction.swift */; };
 		28B06DE81EC8EC4A00455E1A /* APIActionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE71EC8EC4A00455E1A /* APIActionResponse.swift */; };
 		28B06DEA1EC8EE5100455E1A /* APIActionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B06DE91EC8EE5100455E1A /* APIActionError.swift */; };
@@ -475,7 +475,7 @@
 		289E040F1EC792C400CAC413 /* RadioButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonItem.swift; sourceTree = "<group>"; };
 		289E04111EC792D100CAC413 /* RadioButtonViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonViewItem.swift; sourceTree = "<group>"; };
 		289E04131EC792DB00CAC413 /* RadioButtonsContainerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonsContainerItem.swift; sourceTree = "<group>"; };
-		28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatConnectionStatusView.swift; sourceTree = "<group>"; };
+		28A99F291D5F8FDA00F9AA84 /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		28B06DE51EC8EC3C00455E1A /* APIAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIAction.swift; sourceTree = "<group>"; };
 		28B06DE71EC8EC4A00455E1A /* APIActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIActionResponse.swift; sourceTree = "<group>"; };
 		28B06DE91EC8EE5100455E1A /* APIActionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIActionError.swift; sourceTree = "<group>"; };
@@ -994,7 +994,7 @@
 		28A99F281D5F8FDA00F9AA84 /* Utility Views */ = {
 			isa = PBXGroup;
 			children = (
-				28A99F291D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift */,
+				28A99F291D5F8FDA00F9AA84 /* BannerView.swift */,
 				3A621FBC208E38DA00CB11D6 /* GatekeeperView.swift */,
 				3ACBD7F11F8E9711004D36A6 /* NavBarButtonItem.swift */,
 				3ACBD7F31F8E9743004D36A6 /* NavCloseBarButtonItem.swift */,
@@ -2148,7 +2148,7 @@
 				307484CD1EB7A7D2008CF3E4 /* EventType.swift in Sources */,
 				3A967FDC1F618E53000E9696 /* ASAPPNavBarStyles.swift in Sources */,
 				30131FD31EB10FD0009E7299 /* SliderItem.swift in Sources */,
-				28A99F2A1D5F8FDA00F9AA84 /* ChatConnectionStatusView.swift in Sources */,
+				28A99F2A1D5F8FDA00F9AA84 /* BannerView.swift in Sources */,
 				3093A52A1E76FB5A00C65818 /* GlowingBallsLoadingView.swift in Sources */,
 				30DF3F611F267F2000D6DB02 /* ConversationManager+Actions.swift in Sources */,
 				307484DF1EB8F2F9008CF3E4 /* ComponentViewAction.swift in Sources */,

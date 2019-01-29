@@ -139,7 +139,7 @@ class MockConversationManager: ConversationManagerProtocol {
         calledSendAskRequest = true
     }
     
-    func sendPictureMessage(_ image: UIImage, completion: (() -> Void)?) {
+    func sendPictureMessage(_ image: UIImage, completion: ((Error?) -> Void)?) {
         calledSendPictureMessage = true
     }
     

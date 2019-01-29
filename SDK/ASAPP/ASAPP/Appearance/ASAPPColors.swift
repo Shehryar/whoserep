@@ -79,14 +79,22 @@ public class ASAPPColors: NSObject {
     /// The color of the background of checkboxes and radio buttons.
     public var controlBackground = UIColor.ASAPP.purpleHaze.withAlphaComponent(0.07)
     
-    /// The default color of the background of a selected button representing a positive choice (such as in a BinaryRatingView).
+    /// Deprecated. The default color of the background of a selected button representing a positive choice (such as in a BinaryRatingView).
+    @available(*, deprecated, message: "This color now depends on `ASAPP.styles.colors.success` and will be removed in a future version.")
     public var positiveSelectedBackground = UIColor.ASAPP.successGreen
     
-    /// The default color of the background of a selected button representing a negative choice (such as in a BinaryRatingView).
+    /// Deprecated. The default color of the background of a selected button representing a negative choice (such as in a BinaryRatingView).
+    @available(*, deprecated, message: "This color now depends on `ASAPP.styles.colors.failure` and will be removed in a future version.")
     public var negativeSelectedBackground = UIColor.ASAPP.errorRed
     
-    /// The color of the connection status view's background while disconnected.
+    /// The color of UI elements representing success and the default color of buttons representing a positive choice.
+    public var success = UIColor.ASAPP.successGreen
+    
+    /// The color of the connection status banner's background while disconnected and other UI elements displaying a warning.
     public var warning = UIColor.ASAPP.errorRed
+    
+    /// The color of UI elements representing failure and the default color of buttons representing a negative choice.
+    public var failure = UIColor.ASAPP.errorRed
     
     // MARK: - Chat: Buttons
     

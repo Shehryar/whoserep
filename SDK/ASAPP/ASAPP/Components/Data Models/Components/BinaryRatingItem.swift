@@ -71,8 +71,8 @@ class BinaryRatingItem: Component {
         self.positiveText = content.string(for: JSONKey.positiveText.rawValue)
         self.negativeText = content.string(for: JSONKey.negativeText.rawValue)
         
-        self.positiveSelectedColor = content.hexColor(for: JSONKey.positiveSelectedColor.rawValue, defaultValue: ASAPP.styles.colors.positiveSelectedBackground)
-        self.negativeSelectedColor = content.hexColor(for: JSONKey.negativeSelectedColor.rawValue, defaultValue: ASAPP.styles.colors.negativeSelectedBackground)
+        self.positiveSelectedColor = content.hexColor(for: JSONKey.positiveSelectedColor.rawValue, defaultValue: ASAPP.styles.colors.success)
+        self.negativeSelectedColor = content.hexColor(for: JSONKey.negativeSelectedColor.rawValue, defaultValue: ASAPP.styles.colors.failure)
         
         self.isPositiveOnRight = content.bool(for: JSONKey.positiveOnRight.rawValue) ?? false
         

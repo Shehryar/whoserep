@@ -28,7 +28,8 @@ class ChatViewController: ASAPPViewController {
     private var backgroundLayer: CALayer?
     private let chatMessagesView = ChatMessagesView()
     private var chatInputView: ChatInputView?
-    private let connectionStatusView = ChatConnectionStatusView()
+    private let connectionStatusBanner = BannerView(style: .connectionStatus)
+    private let bannerView = BannerView(style: .banner)
     private let quickRepliesView = QuickRepliesView()
     private var gatekeeperView: GatekeeperView?
     private var actionSheet: BaseActionSheet?
@@ -121,7 +122,7 @@ class ChatViewController: ASAPPViewController {
         quickRepliesView.delegate = self
         quickRepliesView.isHidden = true
         
-        connectionStatusView.onTapToConnect = { [weak self] in
+        connectionStatusBanner.onTapToConnect = { [weak self] in
             self?.reconnect()
         }
         
@@ -170,7 +171,7 @@ class ChatViewController: ASAPPViewController {
     
     private var connectionStatus: ChatConnectionStatus = .disconnected {
         didSet {
-            connectionStatusView.status = connectionStatus
+            connectionStatusBanner.connectionStatus = connectionStatus
         }
     }
     
@@ -196,6 +197,10 @@ class ChatViewController: ASAPPViewController {
         }
         
         return connectionStatus == .connecting || connectionStatus == .disconnected
+    }
+    
+    private var shouldShowBannerView: Bool {
+        return bannerView.bannerStatus == .failure || bannerView.bannerStatus == .success
     }
     
     // MARK: User
@@ -274,7 +279,8 @@ class ChatViewController: ASAPPViewController {
         
         view.addSubview(chatMessagesView)
         view.addSubview(quickRepliesView)
-        view.addSubview(connectionStatusView)
+        view.addSubview(connectionStatusBanner)
+        view.addSubview(bannerView)
         view.addSubview(spinner)
         
         // Load Events
@@ -498,7 +504,7 @@ extension ChatViewController {
         notificationBanner?.updateDisplay()
         chatMessagesView.updateDisplay()
         quickRepliesView.updateDisplay()
-        connectionStatusView.updateDisplay()
+        connectionStatusBanner.updateDisplay()
         chatInputView?.updateDisplay()
         
         if isViewLoaded {
@@ -601,9 +607,9 @@ extension ChatViewController {
     }
     
     func shakeConnectionStatusView() {
-        connectionStatusView.label.transform = CGAffineTransform(translationX: 20, y: 0)
+        connectionStatusBanner.label.transform = CGAffineTransform(translationX: 20, y: 0)
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1, options: .curveEaseInOut, animations: { [weak self] in
-            self?.connectionStatusView.label.transform = .identity
+            self?.connectionStatusBanner.label.transform = .identity
         }, completion: nil)
     }
 }
@@ -658,14 +664,24 @@ extension ChatViewController {
         let viewWidth = bounds.width
         var minVisibleY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
         
-        let connectionStatusViewSize = connectionStatusView.sizeThatFits(CGSize(width: viewWidth, height: .greatestFiniteMagnitude))
+        let connectionStatusViewSize = connectionStatusBanner.sizeThatFits(CGSize(width: viewWidth, height: .greatestFiniteMagnitude))
         let connectionStatusTop = shouldShowConnectionStatusView ? minVisibleY - view.frame.minY : -connectionStatusViewSize.height
-        connectionStatusView.isHidden = !shouldShowConnectionStatusView
+        connectionStatusBanner.isHidden = !shouldShowConnectionStatusView
+        
+        let bannerViewSize = bannerView.sizeThatFits(CGSize(width: viewWidth, height: .greatestFiniteMagnitude))
+        let bannerTop = shouldShowBannerView ? minVisibleY - view.frame.minY : -bannerViewSize.height
+        bannerView.isHidden = !shouldShowBannerView
         
         func updateConnectionStatusView() {
-            connectionStatusView.frame = CGRect(origin: CGPoint(x: 0, y: connectionStatusTop), size: connectionStatusViewSize)
-            connectionStatusView.updateFrames(in: CGRect(origin: .zero, size: connectionStatusViewSize))
-            connectionStatusView.layoutIfNeeded()
+            connectionStatusBanner.frame = CGRect(origin: CGPoint(x: 0, y: connectionStatusTop), size: connectionStatusViewSize)
+            connectionStatusBanner.updateFrames(in: CGRect(origin: .zero, size: connectionStatusViewSize))
+            connectionStatusBanner.layoutIfNeeded()
+        }
+        
+        func updateBannerView() {
+            bannerView.frame = CGRect(origin: CGPoint(x: 0, y: bannerTop), size: bannerViewSize)
+            bannerView.updateFrames(in: CGRect(origin: .zero, size: bannerViewSize))
+            bannerView.layoutIfNeeded()
         }
         
         if let banner = notificationBanner {
@@ -684,7 +700,7 @@ extension ChatViewController {
         chatMessagesView.layoutIfNeeded()
         chatMessagesView.contentInsetTop = minVisibleY
         
-        spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil && connectionStatusView.isHidden && actionSheet == nil ? 1 : 0
+        spinner.alpha = chatMessagesView.isEmpty && gatekeeperView == nil && connectionStatusBanner.isHidden && actionSheet == nil ? 1 : 0
         spinner.center = view.center
         
         func hideChatInput() {
@@ -733,9 +749,11 @@ extension ChatViewController {
         
         if store.state.transitionCoordinator != nil {
             updateConnectionStatusView()
+            updateBannerView()
         } else {
             UIView.performWithoutAnimation {
                 updateConnectionStatusView()
+                updateBannerView()
             }
         }
     }
@@ -1289,7 +1307,7 @@ extension ChatViewController: QuickRepliesViewDelegate {
         
         self.actionSheet = actionSheet
         store.dispatch(ActionSheetChange(isVisible: true))
-        actionSheet.show(in: view, below: connectionStatusView)
+        actionSheet.show(in: view, below: connectionStatusBanner)
     }
     
     func quickRepliesView(_ quickRepliesView: QuickRepliesView, didSelect quickReply: QuickReply, from message: ChatMessage) -> Bool {
@@ -1383,7 +1401,7 @@ extension ChatViewController: NotificationBannerDelegate {
         
         self.actionSheet = actionSheet
         store.dispatch(ActionSheetChange(isVisible: true))
-        actionSheet.show(in: view, below: connectionStatusView)
+        actionSheet.show(in: view, below: connectionStatusBanner)
     }
     
     func notificationBannerDidTapCollapse(_ notificationBanner: NotificationBanner) {
@@ -1409,7 +1427,7 @@ extension ChatViewController: NotificationBannerDelegate {
         if let actionSheet = actionSheet {
             view.insertSubview(banner, belowSubview: actionSheet)
         } else {
-            view.insertSubview(banner, belowSubview: connectionStatusView)
+            view.insertSubview(banner, belowSubview: connectionStatusBanner)
         }
         banner.shouldHide = true
         updateFrames()
@@ -1563,7 +1581,7 @@ extension ChatViewController: ConversationManagerDelegate {
         
         self.actionSheet = actionSheet
         store.dispatch(ActionSheetChange(isVisible: true))
-        actionSheet.show(in: view, below: connectionStatusView)
+        actionSheet.show(in: view, below: connectionStatusBanner)
     }
     
     func conversationManager(_ manager: ConversationManagerProtocol, didReceiveEventOutOfOrder event: Event) {
@@ -1615,7 +1633,7 @@ extension ChatViewController: ConversationManagerDelegate {
         if let gatekeeper = gatekeeperView {
             gatekeeper.delegate = self
             gatekeeper.frame = view.bounds
-            view.insertSubview(gatekeeper, aboveSubview: connectionStatusView)
+            view.insertSubview(gatekeeper, aboveSubview: connectionStatusBanner)
             view.accessibilityElements = [gatekeeper]
             UIAccessibility.post(notification: .screenChanged, argument: gatekeeper)
             spinner.alpha = 0
@@ -1732,9 +1750,22 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let image = info[.editedImage] as? UIImage {
-            conversationManager.sendPictureMessage(image)
-        } else if let image = info[.originalImage] as? UIImage {
-            conversationManager.sendPictureMessage(image)
+            conversationManager.sendPictureMessage(image, completion: { error in
+                if let error = error {
+                    self.displayBanner(error.localizedDescription, success: false)
+                } else {
+                    self.displayBanner("Image uploaded", success: true)
+                }
+            })
+        }
+        if let image = info[.originalImage] as? UIImage {
+            conversationManager.sendPictureMessage(image, completion: { error in
+                if let error = error {
+                    self.displayBanner(error.localizedDescription, success: false)
+                } else {
+                    self.displayBanner("Image uploaded", success: true)
+                }
+            })
         }
         
         dismiss(animated: true, completion: nil)
@@ -1742,6 +1773,20 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func displayBanner(_ text: String, success: Bool) {
+        Dispatcher.performOnMainThread {
+            if !success {
+                self.bannerView.showFailureMessage(ASAPPLocalizedString("Failed to upload image"))
+            }
+            self.updateFrames()
+        }
+        
+        Dispatcher.delay(.seconds(3)) {
+            self.bannerView.bannerStatus = .none
+            self.updateFrames()
+        }
     }
 }
 

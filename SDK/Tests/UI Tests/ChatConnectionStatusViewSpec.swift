@@ -30,8 +30,8 @@ class ChatConnectionStatusViewSpec: QuickSpec {
             context("on its own") {
                 context("connected") {
                     it("has a valid snapshot") {
-                        let view = ChatConnectionStatusView()
-                        view.status = .connected
+                        let view = BannerView(style: .connectionStatus)
+                        view.connectionStatus = .connected
                         let size = view.sizeThatFits(CGSize(width: 400, height: CGFloat.greatestFiniteMagnitude))
                         view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
                         expect(view).to(haveValidSnapshot())
@@ -40,8 +40,8 @@ class ChatConnectionStatusViewSpec: QuickSpec {
                 
                 context("disconnected") {
                     it("has a valid snapshot") {
-                        let view = ChatConnectionStatusView()
-                        view.status = .disconnected
+                        let view = BannerView(style: .connectionStatus)
+                        view.connectionStatus = .disconnected
                         let size = view.sizeThatFits(CGSize(width: 400, height: CGFloat.greatestFiniteMagnitude))
                         view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
                         expect(view).to(haveValidSnapshot())
@@ -50,8 +50,8 @@ class ChatConnectionStatusViewSpec: QuickSpec {
                 
                 context("narrow and disconnected") {
                     it("has a valid snapshot") {
-                        let view = ChatConnectionStatusView()
-                        view.status = .disconnected
+                        let view = BannerView(style: .connectionStatus)
+                        view.connectionStatus = .disconnected
                         let size = view.sizeThatFits(CGSize(width: 250, height: CGFloat.greatestFiniteMagnitude))
                         view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
                         expect(view).to(haveValidSnapshot())
@@ -60,8 +60,8 @@ class ChatConnectionStatusViewSpec: QuickSpec {
                 
                 context("connecting") {
                     it("has a valid snapshot") {
-                        let view = ChatConnectionStatusView()
-                        view.status = .connecting
+                        let view = BannerView(style: .connectionStatus)
+                        view.connectionStatus = .connecting
                         let size = view.sizeThatFits(CGSize(width: 400, height: CGFloat.greatestFiniteMagnitude))
                         view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
                         expect(view).to(haveValidSnapshot())

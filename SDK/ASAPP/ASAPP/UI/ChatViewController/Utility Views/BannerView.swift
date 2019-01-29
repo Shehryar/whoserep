@@ -14,7 +14,20 @@ enum ChatConnectionStatus {
     case disconnected
 }
 
-class ChatConnectionStatusView: UIView {
+enum BannerStatus {
+    case success
+    case failure
+    case none
+}
+
+enum BannerStyle {
+    case connectionStatus
+    case banner
+}
+
+class BannerView: UIView {
+    
+    private var viewStyle: BannerStyle
     
     var message: String? {
         didSet {
@@ -23,9 +36,9 @@ class ChatConnectionStatusView: UIView {
         }
     }
     
-    var status: ChatConnectionStatus = .disconnected {
+    var connectionStatus: ChatConnectionStatus = .disconnected {
         didSet {
-            switch status {
+            switch connectionStatus {
             case .connected:
                 spinner.stopAnimating()
                 message =  ASAPP.strings.connectionBannerConnected
@@ -38,6 +51,12 @@ class ChatConnectionStatusView: UIView {
                 spinner.stopAnimating()
                 message = ASAPP.strings.connectionBannerDisconnected
             }
+        }
+    }
+    
+    var bannerStatus: BannerStatus = .none {
+        didSet {
+            spinner.stopAnimating()
         }
     }
     
@@ -58,17 +77,24 @@ class ChatConnectionStatusView: UIView {
     private let contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
     
     // MARK: Init
-
-    required init() {
+    
+    init(style: BannerStyle) {
+        viewStyle = style
         super.init(frame: .zero)
-        
+        configureView()
+    }
+    
+    private func configureView() {
         updateColors()
         updateDisplay()
         
         addSubview(label)
         addSubview(spinner)
+        if viewStyle == .banner {
+            spinner.isHidden = true
+        }
         
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ChatConnectionStatusView.didTap)))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BannerView.didTap)))
         
         configureAccessibility()
     }
@@ -80,18 +106,35 @@ class ChatConnectionStatusView: UIView {
     // MARK: Styling
     
     func updateColors() {
-        switch status {
-        case .connected:
-            backgroundColor = UIColor.ASAPP.snow
-            label.textColor = ASAPP.styles.colors.dark
+        if viewStyle == .connectionStatus {
+            switch connectionStatus {
+            case .connected:
+                backgroundColor = UIColor.ASAPP.snow
+                label.textColor = ASAPP.styles.colors.dark
+                
+            case .connecting:
+                backgroundColor = UIColor.ASAPP.snow
+                label.textColor = ASAPP.styles.colors.dark
+                
+            case .disconnected:
+                backgroundColor = ASAPP.styles.colors.warning
+                label.textColor = UIColor.white
+            }
+        } else {
+            switch bannerStatus {
+            case .success:
+                backgroundColor = ASAPP.styles.colors.success
+                label.textColor = UIColor.white
+                
+            case .failure:
+                backgroundColor = ASAPP.styles.colors.warning
+                label.textColor = UIColor.white
+                
+            default:
+                backgroundColor = ASAPP.styles.colors.warning
+                label.textColor = UIColor.white
+            }
             
-        case .connecting:
-            backgroundColor = UIColor.ASAPP.snow
-            label.textColor = ASAPP.styles.colors.dark
-            
-        case .disconnected:
-            backgroundColor = ASAPP.styles.colors.warning
-            label.textColor = UIColor.white
         }
         
         if let backgroundColor = backgroundColor {
@@ -171,7 +214,7 @@ class ChatConnectionStatusView: UIView {
         isAccessibilityElement = true
         if !isHidden {
             accessibilityLabel = message
-            accessibilityTraits = (status == .disconnected) ? .button : .none
+            accessibilityTraits = (connectionStatus == .disconnected) ? .button : .none
         } else {
             accessibilityLabel = nil
             accessibilityTraits = .none
@@ -181,8 +224,24 @@ class ChatConnectionStatusView: UIView {
     // MARK: Actions
     
     @objc func didTap() {
-        if status == .disconnected {
+        if connectionStatus == .disconnected {
             onTapToConnect?()
         }
+    }
+    
+    // MARK: Success/Failure
+    
+    func showSuccessMessage(_ successMessage: String) {
+        message = successMessage
+        bannerStatus = .success
+        updateColors()
+        updateDisplay()
+    }
+    
+    func showFailureMessage(_ failureMessage: String) {
+        message = failureMessage
+        bannerStatus = .failure
+        updateColors()
+        updateDisplay()
     }
 }

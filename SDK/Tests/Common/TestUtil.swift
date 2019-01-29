@@ -119,8 +119,8 @@ class TestUtil: NSObject {
         ASAPP.styles.colors.separatorPrimary = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 1)
         ASAPP.styles.colors.separatorSecondary = UIColor(red: 0.86, green: 0.87, blue: 0.88, alpha: 0.75)
         ASAPP.styles.colors.controlBackground = UIColor(red: 0, green: 0.06, blue: 0.1, alpha: 0.07)
-        ASAPP.styles.colors.positiveSelectedBackground = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
-        ASAPP.styles.colors.negativeSelectedBackground = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
+        ASAPP.styles.colors.success = UIColor(red: 0.11, green: 0.65, blue: 0.43, alpha: 1)
+        ASAPP.styles.colors.failure = UIColor(red: 0.82, green: 0.11, blue: 0.26, alpha: 1)
         ASAPP.styles.colors.textButtonPrimary = ASAPPButtonColors(textColor: UIColor(red: 0.125, green: 0.714, blue: 0.931, alpha: 1))
         ASAPP.styles.colors.buttonPrimary = ASAPPButtonColors(backgroundColor: UIColor(red: 0.204, green: 0.698, blue: 0.925, alpha: 1))
         ASAPP.styles.colors.buttonSecondary = ASAPPButtonColors(
