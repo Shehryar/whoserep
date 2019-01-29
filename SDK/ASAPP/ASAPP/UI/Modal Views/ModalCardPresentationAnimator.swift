@@ -107,7 +107,7 @@ extension ModalCardPresentationAnimator: UIViewControllerAnimatedTransitioning {
         if let transitionContext = transitionContext {
             if !isPresenting {
                 blurView.removeFromSuperview()
-                keyboardObserver.deregisterForNotification()
+                keyboardObserver.deregisterForNotifications()
             } else {
                 keyboardObserver.registerForNotifications()
             }

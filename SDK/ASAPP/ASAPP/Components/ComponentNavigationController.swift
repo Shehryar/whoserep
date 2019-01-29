@@ -52,7 +52,7 @@ class ComponentNavigationController: UINavigationController, UpdatableFrames {
     
     override func viewWillDisappear(_ animated: Bool) {
         if isBeingDismissed {
-            keyboardObserver?.deregisterForNotification()
+            keyboardObserver?.deregisterForNotifications()
         }
     }
     

@@ -318,7 +318,7 @@ class ChatViewController: ASAPPViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        keyboardObserver.deregisterForNotification()
+        keyboardObserver.deregisterForNotifications()
         
         if isMovingFromParent {
             chatInputView?.resignFirstResponder()
@@ -579,7 +579,7 @@ extension ChatViewController {
         
         let selected = chatInputView?.textView.selectedTextRange ?? .init()
         let wasFirstResponder = chatInputView?.isFirstResponder ?? false
-        keyboardObserver.deregisterForNotification()
+        keyboardObserver.deregisterForNotifications()
         chatInputView?.resignFirstResponder()
         chatInputView?.textView.autocorrectionType = store.state.isLiveChat ? .default : .no
         chatInputView?.textView.selectedTextRange = selected

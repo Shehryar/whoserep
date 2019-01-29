@@ -24,18 +24,16 @@ class KeyboardObserver: NSObject {
     weak var delegate: KeyboardObserverDelegate?
     
     deinit {
-        deregisterForNotification()
+        deregisterForNotifications()
     }
     
     // MARK: Public Methods
     
     func registerForNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(KeyboardObserver.keyboardWillAdjustFrame(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardObserver.keyboardWillAdjustFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(KeyboardObserver.keyboardWillAdjustFrame(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func deregisterForNotification() {
+    func deregisterForNotifications() {
         NotificationCenter.default.removeObserver(self)
     }
     
