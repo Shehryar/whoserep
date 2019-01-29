@@ -167,19 +167,21 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
             refreshView()
         }
         
-        titleLabel.textAlignment = .center
-        let icon = ComponentIcon.getImage(.navClose)
-        closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark), for: .normal)
-        closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark).withAlpha(0.5), for: .highlighted)
-        closeButton.addTarget(self, action: #selector(didTapNavigationCloseButton), for: .touchUpInside)
-        closeButton.accessibilityLabel = ASAPPLocalizedString("Close")
-        titleBar.addSubview(closeButton)
-        titleBar.addSubview(titleLabel)
-        let borderLayer = CALayer()
-        borderLayer.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15).cgColor
-        borderLayer.frame = CGRect(x: 0, y: titleBarHeight - 1, width: view.bounds.width, height: 1)
-        titleBar.layer.addSublayer(borderLayer)
-        view.addSubview(titleBar)
+        if isInset {
+            titleLabel.textAlignment = .center
+            let icon = ComponentIcon.getImage(.navClose)
+            closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark), for: .normal)
+            closeButton.setImage(icon?.tinted(ASAPP.styles.colors.dark).withAlpha(0.5), for: .highlighted)
+            closeButton.addTarget(self, action: #selector(didTapNavigationCloseButton), for: .touchUpInside)
+            closeButton.accessibilityLabel = ASAPPLocalizedString("Close")
+            titleBar.addSubview(closeButton)
+            titleBar.addSubview(titleLabel)
+            let borderLayer = CALayer()
+            borderLayer.backgroundColor = ASAPP.styles.colors.dark.withAlphaComponent(0.15).cgColor
+            borderLayer.frame = CGRect(x: 0, y: titleBarHeight - 1, width: view.bounds.width, height: 1)
+            titleBar.layer.addSublayer(borderLayer)
+            view.addSubview(titleBar)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -281,12 +283,6 @@ class ComponentViewController: ASAPPViewController, UpdatableFrames {
     }
     
     func updateTitleBar() {
-        if isInset {
-            titleBar.isHidden = false
-        } else {
-            titleBar.isHidden = true
-        }
-        
         titleLabel.setAttributedText(title, textType: .body2)
     }
 }
