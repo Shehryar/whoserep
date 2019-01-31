@@ -1757,8 +1757,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                     self.displayBanner("Image uploaded", success: true)
                 }
             })
-        }
-        if let image = info[.originalImage] as? UIImage {
+        } else if let image = info[.originalImage] as? UIImage {
             conversationManager.sendPictureMessage(image, completion: { error in
                 if let error = error {
                     self.displayBanner(error.localizedDescription, success: false)

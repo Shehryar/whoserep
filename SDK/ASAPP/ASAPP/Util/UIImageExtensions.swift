@@ -107,3 +107,36 @@ internal extension UIImage {
         return UIImage(cgImage: cgImage, scale: scale, orientation: imageOrientation)
     }
 }
+
+// MARK: - Resizing
+
+internal extension UIImage {
+    
+    private static let maxBytes = 3 * 1024 * 1024
+    
+    func resizeImage(scale: CGFloat) -> UIImage {
+        let newSize = size.applying(CGAffineTransform(scaleX: scale, y: scale))
+        let hasAlpha = false
+        UIGraphicsBeginImageContextWithOptions(newSize, !hasAlpha, 1.0)
+        self.draw(in: CGRect(origin: CGPoint.zero, size: size))
+        guard let scaledImage = UIGraphicsGetImageFromCurrentImageContext() else { return self }
+        UIGraphicsEndImageContext()
+        return scaledImage
+    }
+    
+    func compressImage() -> Data? {
+        guard let jpeg = jpegData(compressionQuality: 0.7) else { return nil }
+        return jpeg
+    }
+    
+    static func downsampleImage(image: UIImage) -> (Data, UIImage)? {
+        
+        var resizedImage = image.resizeImage(scale: 0.8)
+        guard var compressedImageData = resizedImage.compressImage() else { return nil }
+        
+        while compressedImageData.count > UIImage.maxBytes {
+            (compressedImageData, resizedImage) = downsampleImage(image: resizedImage)!
+        }
+        return (compressedImageData, resizedImage)
+    }
+}

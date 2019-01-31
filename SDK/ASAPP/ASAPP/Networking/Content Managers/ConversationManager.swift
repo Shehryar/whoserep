@@ -531,25 +531,24 @@ extension ConversationManager {
     func sendPictureMessage(_ image: UIImage, completion: ((Error?) -> Void)? = nil) {
         let path = "customer/SendPictureMessage"
         
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+        guard let (compressedImageData, compressedImage) = UIImage.downsampleImage(image: image) else {
             DebugLog.e("Unable to get JPEG data for image: \(image)")
             return
         }
-        let imageFileSize = imageData.count
+        
         let params: [String: Any] = [
             "MimeType": "image/jpeg",
-            "FileSize": imageFileSize,
-            "PicWidth": image.size.width,
-            "PicHeight": image.size.height
+            "FileSize": compressedImageData.count,
+            "PicWidth": compressedImage.size.width,
+            "PicHeight": compressedImage.size.height
         ]
         
-        httpClient.sendRequest(method: .POST, path: path, headers: nil, params: params, data: imageData) { (_: Data?, _, error) in
+        httpClient.sendRequest(method: .POST, path: path, headers: nil, params: params, data: compressedImageData) { (_, _, error) in
             if let error = error {
                 completion?(error)
             } else {
                 completion?(nil)
             }
-            
         }
     }
 }
